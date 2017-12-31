@@ -9,7 +9,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
+	/**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -26,4 +26,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+    * Get roles associated with this user.
+    *
+    * @param
+    * @return \App\Role
+    */
+    public function roles(){
+        return $this->belongsToMany('App\Role')->withTimestamps();
+    }
+
+
+	public function images()
+	{
+		return $this->morphMany('App\ProjectImages', 'imageable');
+	}
 }
