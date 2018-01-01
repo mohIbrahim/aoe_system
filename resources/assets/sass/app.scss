@@ -1,9 +1,13 @@
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+// Arabic font
+@import url('https://fonts.googleapis.com/css?family=Amiri');
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "style.scss";

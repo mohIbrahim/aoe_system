@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel='stylesheet' id='bootstrap-rtl-css' href='{{asset('css/bootstrap-rtl/bootstrap-rtl.min.css')}}' type='text/css' />
+    
     @yield('head')
 </head>
 <body>
@@ -20,7 +22,10 @@
 		<div class="col-md-6 col-md-offset-3">
 			@include('flash::message')
 		</div>
-        @yield('content')
+
+        <div class="container-fluid">
+            @yield('content')
+        </div>
     </div>
 
     <!-- Scripts -->

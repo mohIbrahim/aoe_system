@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
 
             <!-- Collapsed Hamburger -->
@@ -11,17 +11,17 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+            <a class="navbar-brand main_arabic_font" href="{{ url('/') }}">
+                الشركة العربية لمهمات المكاتب
             </a>
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <!-- Left Side Of Navbar -->
+            <!-- right Side Of Navbar -->
             @include('layouts.nav.nav-privileges')
 
-            <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
+            <!-- Left Side Of Navbar -->
+            <ul class="nav navbar-nav navbar-left main_arabic_font">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li><a href="{{ route('login') }}">Login</a></li>
@@ -38,12 +38,12 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ action('UserController@edit', ['id'=>Auth::user()->id]) }}"><i class="fa fa-btn fa-edit"></i>Edit profile</a></li>
+                            <li><a href="{{ action('UserController@edit', ['id'=>Auth::user()->id]) }}"><i class="fa fa-btn fa-edit"></i>تعديل الملف الشخصي</a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                    Logout
+                                    تسجيل خروج
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -23,3 +23,5 @@ Route::resource('roles', 'RoleController');
 Route::resource('permissions', 'PermissionController');
 Route::resource('users', 'UserController');
 Route::resource('role_user', 'RoleUserController');
+//Printing Machines
+    Route::resource('printing_machines', 'PrintingMachineController');
