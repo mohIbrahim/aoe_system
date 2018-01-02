@@ -60,14 +60,16 @@
   <label> هل هذة الآلة تم بيعها عن طريق الشركة العربية؟ </label><br>
 
   <label for="solid_by_aoe_yes"> نعم </label>
-  <input type="radio" class="" id="solid_by_aoe_yes" name="is_sold_by_aoe" value="1"><br>
+  <input type="radio" class="" id="solid_by_aoe_yes" name="is_sold_by_aoe" value="1"
+  {{isset($printingMachine->is_sold_by_aoe)? (($printingMachine->is_sold_by_aoe == 1)? "checked":""):(old("is_sold_by_aoe"))}} ><br>
   <label for="solid_by_aoe_no"> لا </label>
-  <input type="radio" class="" id="solid_by_aoe_no" name="is_sold_by_aoe" value="0">
+  <input type="radio" class="" id="solid_by_aoe_no" name="is_sold_by_aoe" value="0"
+  {{isset($printingMachine->is_sold_by_aoe)? (($printingMachine->is_sold_by_aoe == 0)? "checked":""):(old("is_sold_by_aoe"))}}>
 </div>
 
 <div class="form-group">
   <label for="comments"> التعليقات </label>
-  <textarea name="comments" class="form-control" placeholder=" إدخل تعليقاً. "></textarea>
+  <textarea name="comments" class="form-control" placeholder=" إدخل تعليقاً. ">{{$printingMachine->comments or old('comments')}}</textarea>
 </div>
 
 
