@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\PrintingMachine;
 use Illuminate\Http\Request;
 use App\AOE\Repositories\PrintingMachine\PrintingMachineInterface;
-use App\Http\Requests\PrinterMachineRequest;
+use App\Http\Requests\PrintingMachineRequest;
 
 class PrintingMachineController extends Controller
 {
@@ -42,9 +42,11 @@ class PrintingMachineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PrinterMachineRequest $request)
+    public function store(PrintingMachineRequest $request)
     {
-
+		$printingMachine = $this->printingMachine->create($request->all());
+		flash()->success('تم إضافة آلة جديدة بنجاح.')->important();
+		return redirect()->action('PrintingMachineController@show', ['id'=>$printingMachine->id]);
     }
 
     /**
@@ -53,9 +55,10 @@ class PrintingMachineController extends Controller
      * @param  \App\PrintingMachine  $printingMachine
      * @return \Illuminate\Http\Response
      */
-    public function show(PrintingMachine $printingMachine)
+    public function show($id)
     {
-        //
+    	$printingMachine = $this->printingMachine->getById($id);
+		return view('printing_machines.show', compact("printingMachine"));
     }
 
     /**

@@ -18,17 +18,17 @@ class EloquentPrintingMachine implements PrintingMachineInterface
 
     public function getById($id)
     {
-        return $this->prprintingMachine->findById($id);
+        return $this->printingMachine->findOrFail($id);
     }
 
     public function create(array $attributes)
     {
-        return $this->model->create($attributes);
+        return $this->printingMachine->create($attributes);
     }
 
     public function update($id, array $attributes)
     {
-        $printingMachine = $this->model->findOrFail($id);
+        $printingMachine = $this->printingMachine->findOrFail($id);
         $printingMachine->update($attributes);
         return $printingMachine;
     }

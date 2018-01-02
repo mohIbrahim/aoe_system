@@ -24,9 +24,9 @@ class CreatePrintingMachinesTable extends Migration
             $table->string('product_key')->nullable();
             $table->string('manufacturing_year')->nullable();
             $table->text('description')->nullable();
-            $table->float('price_without_tax', 10, 2)->nullable();
-            $table->float('price_with_tax', 10, 2)->nullable();
-            $table->boolean('is_sold_by_aoe')->nullable();
+            $table->float('price_without_tax', 10, 2)->nullable()->default(0);
+            $table->float('price_with_tax', 10, 2)->nullable()->default(0);
+            $table->boolean('is_sold_by_aoe')->nullable()->default(0);
             $table->text('comments')->nullable();
             $table->timestamps();
         });

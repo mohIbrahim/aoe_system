@@ -16,14 +16,14 @@ class PermissionController extends Controller
         $this->middleware('auth');
         $this->middleware('privileges');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $permissions = Permission::latest()->get();
         return view('permissions.index', compact('permissions'));
     }
@@ -91,7 +91,7 @@ class PermissionController extends Controller
         flash()->success('Permission has been updated successfully');
         return redirect(action('PermissionController@show',[$id]));
 
-       
+
 
     }
 

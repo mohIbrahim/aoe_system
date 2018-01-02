@@ -8,12 +8,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>AOE | @yield('title')</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel='stylesheet' id='bootstrap-rtl-css' href='{{asset('css/bootstrap-rtl/bootstrap-rtl.min.css')}}' type='text/css' />
-    
+
     @yield('head')
 </head>
 <body>
