@@ -25,3 +25,4 @@ Route::resource('users', 'UserController');
 Route::resource('role_user', 'RoleUserController');
 //Printing Machines
     Route::resource('printing_machines', 'PrintingMachineController');
+    Route::get('printing_machines_search/{keyword}', 'PrintingMachineController@search');

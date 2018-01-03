@@ -100,4 +100,10 @@ class PrintingMachineController extends Controller
 		flash()->success(' تم حذف الآلة بنجاح. ')->important();
 		return redirect()->action('PrintingMachineController@index');
     }
+
+
+    public function search($keyword)
+    {
+        return $this->printingMachine->search($keyword);
+    }
 }

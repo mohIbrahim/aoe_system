@@ -11,18 +11,19 @@
 		  <div class="panel panel-default">
 		    <div class="panel-heading ">
 
-				<form action="" method="POST" role="form">
-					     <legend> البحث عن الآلات. </legend>
-
-					     <div class="form-group">
-						    <label for="">label</label>
-						    <input type="text" class="form-control" id="" placeholder="Input field">
-					     </div>
 
 
+				<legend> البحث عن الآلات. </legend>
 
-					     <button type="submit" class="btn btn-primary">Submit</button>
-				</form>
+				<div class="form-group">
+					<label for=""> البحث بـ رقم الملف الآلة، كود الآلة، الموديل. </label>
+					<input type="text" class="form-control" id="printing_machyines_search" placeholder="Input field">
+				</div>
+
+
+
+				<button type="button" id="search_button" class="btn btn-primary">Submit</button>
+
 
 				<h3 class="text-center"> عرض الآلات الطباعة </h3>
 		    </div>
@@ -38,17 +39,20 @@
 			  				    <th> الموديل </th>
 			  			    </tr>
 			  		    </thead>
-			  		    <tbody>
-							@foreach ($printingMachines as $k => $printingMachine)
-								<tr>
-									<td>
-										{{$k+1}}
-									</td>
-									<td><a href="{{action('PrintingMachineController@show', ['id'=>$printingMachine->id])}}">{{$printingMachine->folder_number}}</a></td>
-									<td>{{$printingMachine->code}}</td>
-									<td>{{"$printingMachine->model_prefix-$printingMachine->model_suffix"}}</td>
-								</tr>
-							@endforeach
+			  		    <tbody id="my-table-body">
+							<div class="">
+								@foreach ($printingMachines as $k => $printingMachine)
+									<tr>
+										<td>
+											{{$k+1}}
+										</td>
+										<td><a href="{{action('PrintingMachineController@show', ['id'=>$printingMachine->id])}}">{{$printingMachine->folder_number}}</a></td>
+										<td>{{$printingMachine->code}}</td>
+										<td>{{"$printingMachine->model_prefix-$printingMachine->model_suffix"}}</td>
+									</tr>
+								@endforeach
+
+							</div>
 			  		    </tbody>
 			  	     </table>
 				 </div>
@@ -63,8 +67,24 @@
 @section('js_footer')
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$ajax({
-				
+			$('#search_button').on('click', function(){
+				var keyword = $('#printing_machyines_search').val();
+				var newResult = "";
+				$.ajax({
+					type: "GET",
+					url:"printing_machines_search/"+keyword,
+					dataType: "json",
+					success: function(results){
+
+						$("#my-table-body").children().remove();
+						$.each(results, function(index, machine) {
+							newResult += "<tr> <td></td>"+index+"<td></td><td></td><td></td> </tr>"
+				        });
+						$("#my-table-body").append(newResult);
+					}
+
+				});
+
 			});
 		});
 	</script>

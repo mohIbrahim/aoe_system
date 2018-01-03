@@ -29,6 +29,8 @@ class PrintingMachineRequest extends FormRequest
 			'model_prefix'=>'required',
 			'model_suffix'=>'required',
 			'manufacturing_year'=>'numeric|nullable',
+			'price_without_tax'=>'numeric|nullable',
+			'price_with_tax'=>'numeric|nullable',
         ];
     }
 
@@ -40,7 +42,8 @@ class PrintingMachineRequest extends FormRequest
 			'model_prefix.required'=>'برجاء إدخال الموديل الجزء الأول.',
 			'model_suffix.required'=>'برجاء إدخال الموديل الجزء الثاني.',
 			'manufacturing_year.numeric'=>'برجاء إدخال سنة الصنع أرقام فقط.',
-
+            'price_without_tax.numeric'=>' برجاء إدخال السعر بدون الضريبة أرقام فقط. ',
+            'price_with_tax.numeric'=>' برجاء إدخال السعر بالضريبة أرقام فقط. ',
 		];
 	}
 }
