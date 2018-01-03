@@ -16,6 +16,16 @@ class EloquentPrintingMachine implements PrintingMachineInterface
         return $this->printingMachine->all();
     }
 
+	public function latest()
+	{
+		return $this->printingMachine->latest();
+	}
+
+	public function oldest()
+	{
+		return $this->printingMachine->oldest();
+	}
+
     public function getById($id)
     {
         return $this->printingMachine->findOrFail($id);
@@ -35,7 +45,7 @@ class EloquentPrintingMachine implements PrintingMachineInterface
 
     public function delete($id)
     {
-        $this->printingMachine->findById($id)->delete($id);
+        $this->printingMachine->findOrFail($id)->delete($id);
         return true;
     }
 

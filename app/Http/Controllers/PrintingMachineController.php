@@ -23,7 +23,8 @@ class PrintingMachineController extends Controller
      */
     public function index()
     {
-        return $this->printingMachine->getAll();
+		$printingMachines = $this->printingMachine->latest()->paginate(25);
+		return view('printing_machines.index', compact('printingMachines'));
     }
 
     /**
@@ -67,9 +68,10 @@ class PrintingMachineController extends Controller
      * @param  \App\PrintingMachine  $printingMachine
      * @return \Illuminate\Http\Response
      */
-    public function edit(PrintingMachine $printingMachine)
+    public function edit($id)
     {
-        //
+    	$printingMachine = $this->printingMachine->getById($id);
+		return view('printing_machines.edit', compact('printingMachine'));
     }
 
     /**
@@ -79,9 +81,11 @@ class PrintingMachineController extends Controller
      * @param  \App\PrintingMachine  $printingMachine
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PrintingMachine $printingMachine)
+    public function update(PrintingMachineRequest $request, $id)
     {
-        //
+        $printingMachine = $this->printingMachine->update($id, $request->all());
+		flash()->success(' تم تعديل الآلة بنجاح. ')->important();
+		return redirect()->action('PrintingMachineController@show', ['id'=>$id]);
     }
 
     /**
@@ -90,8 +94,10 @@ class PrintingMachineController extends Controller
      * @param  \App\PrintingMachine  $printingMachine
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PrintingMachine $printingMachine)
+    public function destroy($id)
     {
-        //
+		$this->printingMachine->delete($id);
+		flash()->success(' تم حذف الآلة بنجاح. ')->important();
+		return redirect()->action('PrintingMachineController@index');
     }
 }
