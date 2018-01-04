@@ -15,6 +15,7 @@ class PermissionSeeder extends Seeder
         $this->permissions();
         $this->users();
         $this->roles();
+		$this->printingMachines();
     }
 
     /**
@@ -84,6 +85,31 @@ class PermissionSeeder extends Seeder
             ]);
         DB::table('permissions')->insert([
             "name"      =>"delete_roles",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+    }
+
+
+	/**
+     * Create permissions Roles
+     * @return void
+     */
+    private function roles()
+    {
+        DB::table('permissions')->insert([
+            "name"      =>"view_printing_machines",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"create_printing_machines",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"update_printing_machines",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"delete_printing_machines",
             "created_at"=>Carbon\Carbon::now(),
             ]);
     }

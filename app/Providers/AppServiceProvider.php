@@ -4,8 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
-use App\AOE\Repositories\PrintingMachine\PrintingMachineInterface;
-use App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +24,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(PrintingMachineInterface::class, EloquentPrintingMachine::class);
     }
 }

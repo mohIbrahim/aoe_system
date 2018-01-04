@@ -19,6 +19,7 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- right Side Of Navbar -->
             @include('layouts.nav.nav-privileges')
+			@include('layouts.nav.nav-printing-machines')
 
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav navbar-left main_arabic_font">

@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Auth::routes();
 
@@ -25,4 +25,4 @@ Route::resource('users', 'UserController');
 Route::resource('role_user', 'RoleUserController');
 //Printing Machines
     Route::resource('printing_machines', 'PrintingMachineController');
-    Route::get('printing_machines_search/{keyword}', 'PrintingMachineController@search');
+    Route::get('printing_machines_search/{keyword}', 'PrintingMachineController@search')->name('printing_machines_search');

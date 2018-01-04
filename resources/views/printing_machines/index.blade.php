@@ -17,12 +17,12 @@
 
 				<div class="form-group">
 					<label for=""> البحث بـ رقم الملف الآلة، كود الآلة، الموديل. </label>
-					<input type="text" class="form-control" id="printing_machyines_search" placeholder="Input field">
+					<input type="text" class="form-control" id="printing_machyines_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
 
 
-				<button type="button" id="search_button" class="btn btn-primary">Submit</button>
+				<button type="button" id="search_button" class="btn btn-primary"> بحث </button>
 
 
 				<h3 class="text-center"> عرض الآلات الطباعة </h3>
@@ -55,6 +55,9 @@
 							</div>
 			  		    </tbody>
 			  	     </table>
+					 <div class="text-center">
+						 {{$printingMachines->links()}}
+					 </div>
 				 </div>
 
 		    </div>
@@ -75,12 +78,13 @@
 					url:"printing_machines_search/"+keyword,
 					dataType: "json",
 					success: function(results){
-
+						$("#my-table-body").fadeOut();
 						$("#my-table-body").children().remove();
 						$.each(results, function(index, machine) {
-							newResult += "<tr> <td></td>"+index+"<td></td><td></td><td></td> </tr>"
+							newResult += "<tr> <td>"+(index+1)+"</td><td>"+machine.folder_number+"</td><td>"+machine.code+"</td><td>"+machine.model_prefix+"-"+machine.model_suffix+"</td> </tr>"
 				        });
 						$("#my-table-body").append(newResult);
+						$("#my-table-body").fadeIn();
 					}
 
 				});

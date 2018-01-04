@@ -14,6 +14,8 @@ class PrintingMachineController extends Controller
     public function __construct(PrintingMachineInterface $printingMachine)
     {
         $this->printingMachine = $printingMachine;
+		$this->middleware('auth');
+		$this->middleware('printing_machines');
     }
 
     /**
@@ -23,7 +25,7 @@ class PrintingMachineController extends Controller
      */
     public function index()
     {
-		$printingMachines = $this->printingMachine->latest()->paginate(25);
+		$printingMachines = $this->printingMachine->latest()->paginate(1);
 		return view('printing_machines.index', compact('printingMachines'));
     }
 

@@ -14,11 +14,17 @@
 					<div class="table-responsive">
 						     <table class="table table-hover main_arabic_font">
 							    <thead>
-								    <h2 class="text-center"> تفاصيل الآلة </h2>
+								    <h2 class="text-center"> البيانات الآساسية </h2>
 									<div class="text-center">
-										<a href="{{action('PrintingMachineController@edit', ['id'=>$printingMachine->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a> 
-										|
-										<a href="#" class=" btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span> حذف</a>
+										@if(in_array('update_printing_machines', $permissions))
+											<a href="{{action('PrintingMachineController@edit', ['id'=>$printingMachine->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>
+											|
+										@endif
+
+										@if(in_array('delete_printing_machines', $permissions))
+											<a href="#" class=" btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span> حذف</a>
+										@endif
+
 										<br/>
 									</br/>
 									</div>
