@@ -11,10 +11,15 @@ use App\AOE\Repositories\Customer\CustomerInterface;
 class CustomerController extends Controller
 {
     private $customer;
+
+
+
     public function __construct(CustomerInterface $customer)
     {
         $this->customer = $customer;
     }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +49,6 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
-        dd();
         $customer = $this->customer->create($request->all());
         flash()->success(' تم إضافة عميل جديد بنجاح. ')->important();
         return redirect()->action('CustomerController@show', ['id'=>$customer->id]);
@@ -56,9 +60,10 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
+    public function show($id)
     {
-        //
+        $customer = $this->customer->getById($id);
+        return view('customers.show', compact('customer'));
     }
 
     /**
@@ -67,9 +72,12 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit($id)
     {
-        //
+        $customer = $this->customer->getById($id);
+        $egyptCities = (new EgyptCities())->getCities();
+        return view('customers.edit', compact('customer', 'egyptCities'));
+
     }
 
     /**

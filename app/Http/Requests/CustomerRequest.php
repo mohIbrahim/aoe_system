@@ -23,19 +23,24 @@ class CustomerRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'code'=>'required',
-            'name'=>'required',
-            'type'=>'required'
-        ];
+        return  [
+                    'code'=>'required',
+                    'name'=>'required',
+                    'type'=>'required',
+                    'telecom.*'=>'required|numeric',
+                ];
     }
 
     public function messages()
     {
-        return [
-                    'code.required'=>' برجاء إدخال كود العميل. ',
-                    'name.required'=>' برجاء إدخال اسم العميل. ',
-                    'type.required'=>' برجاء أختيار نوع العميل. ',
-                ];
+        $validationMessages =   [
+                                    'code.required'=>' برجاء إدخال كود العميل. ',
+                                    'name.required'=>' برجاء إدخال اسم العميل. ',
+                                    'type.required'=>' برجاء أختيار نوع العميل. ',
+                                ];
+        for($i = 0 ; $i < count($this->telecom) ;$i++){
+            $validationMessages["telecom*$i.required"] = "برجاء إدخال رقم الهاتف للحقل رقم ".($i+1);
+        }
+        return  $validationMessages;
     }
 }

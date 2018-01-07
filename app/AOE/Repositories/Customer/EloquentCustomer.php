@@ -51,7 +51,7 @@ class EloquentCustomer implements CustomerInterface
 		if(!empty($phonesNumbers)){
 
 			foreach ($phonesNumbers as $number) {
-				if(!empty($number)){
+				if(isset($number)){
 					$telecom = Telecom::create(['telecomable_id'=>$customerId, 'telecomable_type'=>'App\Customer', 'number'=>$number, 'type'=>null]);
 				}
 			}
