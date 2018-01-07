@@ -28,6 +28,6 @@ class RepositoriesServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(PrintingMachineInterface::class, EloquentPrintingMachine::class);
-		$this->app->singleton(CustomerInterface::class, EloquentCustomer::class)
+		$this->app->singleton(CustomerInterface::class, EloquentCustomer::class);
     }
 }

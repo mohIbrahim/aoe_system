@@ -1,7 +1,7 @@
 <?php
-namespace App\AOE\Repositories;
-use App\AOE\Repositories\Customer;
-
+namespace App\AOE\Repositories\Customer;
+use App\Customer;
+use App\Telecom;
 class EloquentCustomer implements CustomerInterface
 {
 
@@ -29,6 +29,7 @@ class EloquentCustomer implements CustomerInterface
 
 	public function create(array $attributes){
 		$customer = $this->customer->create($attributes);
+		$this->addPhones($attributes['telecom'], $customer->id);
 		return $customer;
 	}
 
@@ -42,5 +43,21 @@ class EloquentCustomer implements CustomerInterface
 		$customer = $this->customer->findOrFail($id);
 		$customer->delete();
 		return true;
+	}
+
+
+	public function addPhones(array $phonesNumbers, $customerId)
+	{
+		if(!empty($phonesNumbers)){
+
+			foreach ($phonesNumbers as $number) {
+				if(!empty($number)){
+					$telecom = Telecom::create(['telecomable_id'=>$customerId, 'telecomable_type'=>'App\Customer', 'number'=>$number, 'type'=>null]);
+				}
+			}
+
+			return true;
+		}
+		return false;
 	}
 }

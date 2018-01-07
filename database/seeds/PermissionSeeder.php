@@ -94,7 +94,7 @@ class PermissionSeeder extends Seeder
      * Create permissions Roles
      * @return void
      */
-    private function roles()
+    private function printingMachines()
     {
         DB::table('permissions')->insert([
             "name"      =>"view_printing_machines",

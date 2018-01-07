@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use Illuminate\Http\Request;
+use App\AOE\EgyptCities\EgyptCities;
+use App\Http\Requests\CustomerRequest;
+use App\AOE\Repositories\Customer\CustomerInterface;
 
 class CustomerController extends Controller
 {
+    private $customer;
+    public function __construct(CustomerInterface $customer)
+    {
+        $this->customer = $customer;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -24,7 +32,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        $egyptCities = (new EgyptCities())->getCities();
+        return view('customers.create', compact('egyptCities'));
     }
 
     /**
@@ -33,9 +42,12 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        //
+        dd();
+        $customer = $this->customer->create($request->all());
+        flash()->success(' تم إضافة عميل جديد بنجاح. ')->important();
+        return redirect()->action('CustomerController@show', ['id'=>$customer->id]);
     }
 
     /**
@@ -81,5 +93,11 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         //
+    }
+
+
+    public function search($keyword)
+    {
+        # code...
     }
 }
