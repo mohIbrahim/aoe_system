@@ -17,19 +17,19 @@
     <select class="form-control" name="type">
         <?php $customerType = isset($customer->type)? $customer->type:'' ;?>
         <option value="">  أختر نوع العميل.  </option>
-        <option value="أفراد" {{($customerType == 'indeviduals')? 'selected' : ((old('type')=='indeviduals')?'selected':'')}}> أفراد </option>
-        <option value="شركات" {{($customerType == 'companies')? 'selected' : ((old('type')=='companies')?'selected':'')}}> شركات </option>
-        <option value="هيئات حكومي" {{($customerType == 'government_authorities')? 'selected' : ((old('type')=='government_authorities')?'selected':'')}}> هيئات حكومية </option>
-        <option value="مدارس" {{($customerType == 'schooles')? 'selected' : ((old('type')=='schooles')?'selected':'')}}> مدارس </option>
-        <option value="مستشفيات" {{($customerType == 'hospitals')? 'selected' : ((old('type')=='hospitals')?'selected':'')}}> مستشفيات </option>
-        <option value="بنوك" {{($customerType == 'banks')? 'selected' : ((old('type')=='banks')?'selected':'')}}> بنوك </option>
+        <option value="أفراد" {{($customerType == 'أفراد')? 'selected' : ((old('type')=='أفراد')?'selected':'')}}> أفراد </option>
+        <option value="شركات" {{($customerType == 'شركات')? 'selected' : ((old('type')=='شركات')?'selected':'')}}> شركات </option>
+        <option value="هيئات حكومية" {{($customerType == 'هيئات حكومية')? 'selected' : ((old('type')=='هيئات حكومية')?'selected':'')}}> هيئات حكومية </option>
+        <option value="مدارس" {{($customerType == 'مدارس')? 'selected' : ((old('type')=='مدارس')?'selected':'')}}> مدارس </option>
+        <option value="مستشفيات" {{($customerType == 'مستشفيات')? 'selected' : ((old('type')=='مستشفيات')?'selected':'')}}> مستشفيات </option>
+        <option value="بنوك" {{($customerType == 'بنوك')? 'selected' : ((old('type')=='بنوك')?'selected':'')}}> بنوك </option>
     </select>
 </div>
 
 <div class="input_fields_wrap_1">
     <div class="form-group">
         <label for="telecom"> التليفون </label>
-        <input type="text" class="form-control" id="telecom" name="telecom[]"  placeholder=" إدخل التليفون. " value="{{$customer->telecom or old('telecom')[0]}}">
+        <input type="text" class="form-control" id="telecom" name="telecom[]"  placeholder=" إدخل التليفون. " value="{{isset($customer)? $customer->telecoms->first()->number : old('telecom')[0]}}">
         <button class="add_field_button_1 btn btn-xs btn-success" role="button"> إضافة أرقام آخرى </button>
     </div>
     @if( null !== old('telecom'))
@@ -43,10 +43,12 @@
         @endforeach
     @elseif(isset($customer->telecoms))
         @foreach ($customer->telecoms as $k => $telecom)
-            <div class="form-group">
-                <input type="text" name="telecom[]" class="form-control" placeholder=" إدخل رقم آخر. " value="{{$telecom->number}}"/>
-                <a href="#" class="remove_field btn btn-xs btn-danger">حذف</a>
-            </div>
+			@if($k != 0)
+				<div class="form-group">
+				    <input type="text" name="telecom[]" class="form-control" placeholder=" إدخل رقم آخر. " value="{{$telecom->number}}"/>
+					<a href="#" class="remove_field btn btn-xs btn-danger">حذف</a>
+				</div>
+			@endif
         @endforeach
     @endif
 </div>

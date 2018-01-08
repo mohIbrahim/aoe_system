@@ -16,12 +16,12 @@
 							    <thead>
 								    <h2 class="text-center"> البيانات الآساسية </h2>
 									<div class="text-center">
-										@if(in_array('update_printing_machines', $permissions))
+										@if(in_array('update_customers', $permissions))
 											<a href="{{action('CustomerController@edit', ['id'=>$customer->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>
 											|
 										@endif
 
-										@if(in_array('delete_printing_machines', $permissions))
+										@if(in_array('delete_customers', $permissions))
 											<a href="#" class=" btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span> حذف</a>
 										@endif
 
@@ -144,4 +144,4 @@
 @include('partial.deleteConfirm',['name'=>$customer->name,
 								  'id'=> $customer->id,
 								  'message'=>' هل أنت متأكد؟ هل تريد حذف ',
-								  'route'=>'PrintingMachineController@destroy'])
+								  'route'=>'CustomerController@destroy'])

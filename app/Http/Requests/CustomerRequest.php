@@ -27,6 +27,7 @@ class CustomerRequest extends FormRequest
                     'code'=>'required',
                     'name'=>'required',
                     'type'=>'required',
+                    'email'=>'email|nullable',
                     'telecom.*'=>'required|numeric',
                 ];
     }
@@ -37,6 +38,7 @@ class CustomerRequest extends FormRequest
                                     'code.required'=>' برجاء إدخال كود العميل. ',
                                     'name.required'=>' برجاء إدخال اسم العميل. ',
                                     'type.required'=>' برجاء أختيار نوع العميل. ',
+                                    'email.email'=>' برجاء إدخال الإيمل بشكل صحيح. ',
                                 ];
         for($i = 0 ; $i < count($this->telecom) ;$i++){
             $validationMessages["telecom*$i.required"] = "برجاء إدخال رقم الهاتف للحقل رقم ".($i+1);

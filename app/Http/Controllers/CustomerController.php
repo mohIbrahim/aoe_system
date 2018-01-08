@@ -13,27 +13,31 @@ class CustomerController extends Controller
     private $customer;
 
 
-
+    /**
+     * Instantiating Customer Repository and throttle the request with auth and customer middlewares
+     * @param CustomerInterface $customer [description]
+     */
     public function __construct(CustomerInterface $customer)
     {
         $this->customer = $customer;
+        $this->middleware('auth');
+        $this->middleware('customers');
     }
 
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * [index description]
+     * @return [type] [description]
      */
     public function index()
     {
-
+        $customers = $this->customer->latest()->paginate(25);
+        return view('customers.index', compact('customers'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * [create description]
+     * @return [type] [description]
      */
     public function create()
     {
@@ -42,10 +46,9 @@ class CustomerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * [store description]
+     * @param  CustomerRequest $request [description]
+     * @return [type]                   [description]
      */
     public function store(CustomerRequest $request)
     {
@@ -55,10 +58,9 @@ class CustomerController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Customer  $customer
-     * @return \Illuminate\Http\Response
+     * [show description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
      */
     public function show($id)
     {
@@ -67,10 +69,9 @@ class CustomerController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Customer  $customer
-     * @return \Illuminate\Http\Response
+     * [edit description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
      */
     public function edit($id)
     {
@@ -81,31 +82,38 @@ class CustomerController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Customer  $customer
-     * @return \Illuminate\Http\Response
+     * [update description]
+     * @param  CustomerRequest $request [description]
+     * @param  [type]          $id      [description]
+     * @return [type]                   [description]
      */
-    public function update(Request $request, Customer $customer)
+    public function update(CustomerRequest $request, $id)
     {
-        //
+        $customer = $this->customer->update($id, $request->all());
+		flash()->success(' تم تعديل العميل بنجاح. ')->important();
+		return redirect()->action('CustomerController@show', ['id'=>$id]);
+
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Customer  $customer
-     * @return \Illuminate\Http\Response
+     * [destroy description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
      */
-    public function destroy(Customer $customer)
+    public function destroy($id)
     {
-        //
+        $customer = $this->customer->delete($id);
+        flash()->success(' تم حذف العميل بنجاح. ')->important();
+        return redirect()->action('CustomerController@index');
     }
 
-
+    /**
+     * [search description]
+     * @param  [type] $keyword [description]
+     * @return [type]          [description]
+     */
     public function search($keyword)
     {
-        # code...
+        return $this->customer->search($keyword);
     }
 }

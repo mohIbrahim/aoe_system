@@ -28,7 +28,7 @@ class CreateCustomersTable extends Migration
             $table->string('governorate')->nullable();
             $table->string('administration')->nullable();
             $table->string('department')->nullable();
-            $table->string('comments')->nullable();
+            $table->text('comments')->nullable();
             $table->timestamps();
         });
     }

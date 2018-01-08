@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-	 عرض الآلات الطباعة
+	 عرض العملاء
 @endsection
 
 @section('content')
@@ -13,11 +13,11 @@
 
 
 
-				<legend> البحث عن الآلات. </legend>
+				<legend> البحث عن العملاء. </legend>
 
 				<div class="form-group">
-					<label for=""> البحث بـ رقم الملف الآلة، كود الآلة، الموديل. </label>
-					<input type="text" class="form-control" id="printing_machyines_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
+					<label for=""> البحث بـ الاسم وكود العميل. </label>
+					<input type="text" class="form-control" id="customer_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
 
@@ -25,7 +25,7 @@
 				<button type="button" id="search_button" class="btn btn-primary"> بحث </button>
 
 
-				<h3 class="text-center"> عرض الآلات الطباعة </h3>
+				<h3 class="text-center"> عرض العملاء </h3>
 		    </div>
 		    <div class="panel-body">
 
@@ -34,21 +34,31 @@
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>
-			  				    <th> رقم الملف الآلة </th>
-			  				    <th> كود الآلة </th>
-			  				    <th> الموديل </th>
+                                <th> الاسم </th>
+			  				    <th> الكود </th>
+			  				    <th> النوع </th>
+			  				    <th> المحافظة </th>
+			  				    <th> المنطقة </th>
+			  				    <th> التليفون </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
 							<div class="">
-								@foreach ($printingMachines as $k => $printingMachine)
+								@foreach ($customers as $k => $customer)
 									<tr>
 										<td>
 											{{$k+1}}
 										</td>
-										<td><a href="{{action('PrintingMachineController@show', ['id'=>$printingMachine->id])}}">{{$printingMachine->folder_number}}</a></td>
-										<td>{{$printingMachine->code}}</td>
-										<td>{{"$printingMachine->model_prefix-$printingMachine->model_suffix"}}</td>
+										<td>
+                                            <a href="{{action('CustomerController@show', ['id'=>$customer->id])}}" target="_blank">
+                                                {{$customer->name}}
+                                            </a>
+                                        </td>
+										<td>{{$customer->code}}</td>
+										<td>{{$customer->type}}</td>
+										<td>{{$customer->governorate}}</td>
+										<td>{{$customer->area}}</td>
+										<td>{{$customer->telecoms()->first()->number}}</td>
 									</tr>
 								@endforeach
 
@@ -56,7 +66,7 @@
 			  		    </tbody>
 			  	     </table>
 					 <div class="text-center">
-						 {{$printingMachines->links()}}
+						 {{$customers->links()}}
 					 </div>
 				 </div>
 
@@ -71,17 +81,17 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#search_button').on('click', function(){
-				var keyword = $('#printing_machyines_search').val();
+				var keyword = $('#customer_search').val();
 				var newResult = "";
 				$.ajax({
 					type: "GET",
-					url:"printing_machines_search/"+keyword,
+					url:"customers_search/"+keyword,
 					dataType: "json",
 					success: function(results){
 						$("#my-table-body").fadeOut();
 						$("#my-table-body").children().remove();
-						$.each(results, function(index, machine) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td>"+machine.folder_number+"</td><td>"+machine.code+"</td><td>"+machine.model_prefix+"-"+machine.model_suffix+"</td> </tr>"
+						$.each(results, function(index, customer) {
+							newResult += "<tr> <td>"+(index+1)+"</td><td>"+customer.name+"</td><td>"+customer.code+"</td><td>"+customer.type+"</td><td>"+customer.governorate+"</td><td>"+customer.area+"</td><td>"+customer.telecoms[0].number+"</td></tr>"
 				        });
 						$("#my-table-body").append(newResult);
 						$("#my-table-body").fadeIn();

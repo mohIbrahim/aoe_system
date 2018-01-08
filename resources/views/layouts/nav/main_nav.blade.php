@@ -20,6 +20,7 @@
             <!-- right Side Of Navbar -->
             @include('layouts.nav.nav-privileges')
 			@include('layouts.nav.nav-printing-machines')
+            @include('layouts.nav.nav-customers')
 
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav navbar-left main_arabic_font">

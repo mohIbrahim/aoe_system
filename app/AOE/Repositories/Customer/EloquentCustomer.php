@@ -6,47 +6,56 @@ class EloquentCustomer implements CustomerInterface
 {
 
 	private $customer;
+
 	public function __construct(Customer $model)
 	{
 		$this->customer = $model;
 	}
 
-	public function getAll(){
+	public function getAll()
+	{
 		return $this->customer->all();
 	}
-	public function latest(){
+	public function latest()
+	{
 		return $this->customer->latest();
 	}
 
-	public function oldest(){
+	public function oldest()
+	{
 		return $this->customer->oldest();
 	}
 
-	public function getById($id){
+	public function getById($id)
+	{
 		$customer = $this->customer->findOrFail($id);
 		return $customer;
 	}
 
-	public function create(array $attributes){
+	public function create(array $attributes)
+	{
 		$customer = $this->customer->create($attributes);
 		$this->addPhones($attributes['telecom'], $customer->id);
 		return $customer;
 	}
 
-	public function update($id, array $attributes){
+	public function update($id, array $attributes)
+	{
 		$customer = $this->customer->findOrFail($id);
 		$customer->update($attributes);
+		$this->updatePhones($customer, $attributes['telecom']);
 		return $customer;
 	}
 
-	public function delete($id){
+	public function delete($id)
+	{
 		$customer = $this->customer->findOrFail($id);
 		$customer->delete();
 		return true;
 	}
 
 
-	public function addPhones(array $phonesNumbers, $customerId)
+	private function addPhones(array $phonesNumbers, $customerId)
 	{
 		if(!empty($phonesNumbers)){
 
@@ -60,4 +69,22 @@ class EloquentCustomer implements CustomerInterface
 		}
 		return false;
 	}
+
+
+	private function updatePhones(Customer $customer, array $numbers)
+	{
+		$telecoms = $customer->telecoms();
+		foreach ($telecoms->get() as $telecom) {
+			$telecom->delete();
+		}
+        $this->addPhones($numbers, $customer->id);
+	}
+
+    public function search($keyword)
+    {
+        $results = $this->customer->with('telecoms')->where('name', 'like', "%$keyword%")
+                                    ->orWhere('code', 'like', "%$keyword%")
+                                    ->get();
+        return $results;
+    }
 }
