@@ -16,6 +16,7 @@ class DepartmentController extends Controller
     {
         $this->department = $department;
     }
+    
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +24,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-
+        $departments = $this->department->latest();
+        return view('departments.index', compact('departments'));
     }
 
     /**
@@ -93,8 +95,10 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function destroy($id)
     {
-        
+        $isDeleted = $this->department->delete($id);
+        flash()->success('تم حذف القسم بنجاح.')->important();
+        return redirect()->action('DepartmentController@index');
     }
 }
