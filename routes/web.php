@@ -31,3 +31,5 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('customers_search/{keyword}', 'CustomerController@search')->name('customers_search');
 //Reading of Printing Machines
     Route::resource('readings_of_printing_machine', 'ReadingOfPrintingMachineController');
+//Departments
+    Route::resource('departments', 'DepartmentController');
