@@ -36,6 +36,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'role_user._form',
 				'printing_machines.show',
                 'customers.show',
+                'departments.show',
         ];
 
         view()->composer($v, function($view){

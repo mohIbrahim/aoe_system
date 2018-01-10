@@ -27,13 +27,13 @@ class EloquentDepartment implements DepartmentInterface
     }
 
 
-    public function latest($id)
+    public function latest()
     {
         $department = $this->department->latest();
         return $department;
     }
 
-    public function oldest($id)
+    public function oldest()
     {
         $department = $this->department->oldest();
         return $department;
@@ -51,7 +51,7 @@ class EloquentDepartment implements DepartmentInterface
     {
         $department = $this->department->findOrFail($id);
         $isUpdated = $department->update($attributes);
-        return $isUpdatd;
+        return $isUpdated;
     }
 
 

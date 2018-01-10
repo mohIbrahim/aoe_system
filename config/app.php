@@ -180,6 +180,7 @@ return [
 		Laracasts\Flash\FlashServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
 		App\providers\RepositoriesServiceProvider::class,
+        App\Providers\RBACServiceProvider::class,
 
     ],
 

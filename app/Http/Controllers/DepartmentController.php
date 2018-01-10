@@ -15,8 +15,9 @@ class DepartmentController extends Controller
     public function __construct(DepartmentInterface $department)
     {
         $this->department = $department;
+        $this->middleware('departments');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +25,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = $this->department->latest();
+        $departments = $this->department->latest()->paginate(25);
         return view('departments.index', compact('departments'));
     }
 
@@ -82,7 +83,7 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(DepartmentRequest $request, $id)
     {
         $department = $this->department->update($id, $request->all());
         flash()->success(' تم تعديل القسم بنجاح. ')->important();

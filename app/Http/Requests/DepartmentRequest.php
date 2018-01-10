@@ -24,12 +24,15 @@ class DepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required',
+            'name'=>'required|unique:departments,name,'.$this->department,
         ];
     }
 
     public function messages()
     {
-        return ['name.required'=>' برجاء إدخال اسم القسم. '];
+        return  [
+                    'name.required'=>' برجاء إدخال اسم القسم. ',
+                    'name.unique'=>' اسم القسم تم استخدامة من قبل، برجاء أختار اسم آخر. ',
+                ];
     }
 }
