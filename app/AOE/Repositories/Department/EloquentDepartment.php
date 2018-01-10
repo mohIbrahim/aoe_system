@@ -29,14 +29,14 @@ class EloquentDepartment implements DepartmentInterface
 
     public function latest()
     {
-        $department = $this->department->latest();
-        return $department;
+        $departments = $this->department->latest();
+        return $departments;
     }
 
     public function oldest()
     {
-        $department = $this->department->oldest();
-        return $department;
+        $departments = $this->department->oldest();
+        return $departments;
     }
 
 

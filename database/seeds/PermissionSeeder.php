@@ -18,6 +18,7 @@ class PermissionSeeder extends Seeder
 		$this->printingMachines();
         $this->customers();
         $this->departments();
+        $this->parts();
     }
 
     /**
@@ -152,6 +153,26 @@ class PermissionSeeder extends Seeder
             ]);
         DB::table('permissions')->insert([
             "name"      =>"delete_departments",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+    }
+
+    private function parts()
+    {
+        DB::table('permissions')->insert([
+            "name"      =>"view_parts",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"create_parts",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"update_parts",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"delete_parts",
             "created_at"=>Carbon\Carbon::now(),
             ]);
     }

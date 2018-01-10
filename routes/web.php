@@ -33,3 +33,5 @@ Route::resource('role_user', 'RoleUserController');
     Route::resource('readings_of_printing_machine', 'ReadingOfPrintingMachineController');
 //Departments
     Route::resource('departments', 'DepartmentController');
+//parts
+    Route::resource('parts', 'PartController');
