@@ -47,4 +47,14 @@ class EloquentPart implements PartInterface
         $isDeleted = $part->delete();
         return $isDeleted;
     }
+
+    public function search($keyword)
+    {
+        $results = $this->part->where('code', 'like', '%'.$keyword.'%')
+                        ->orWhere('name', 'like', '%'.$keyword.'%')
+                        ->orWhere('type', 'like', '%'.$keyword.'%')
+                        ->get();
+        return $results;
+
+    }
 }

@@ -3,16 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\AOE\RBAC\UserPermissionInterface;
 
 class Parts
 {
-    private $permissions ;
-
-    public function __construct(UserPermissionInterface $permissions)
-    {
-        $this->permissions = $permissions;
-    }
     /**
      * Handle an incoming request.
      *
@@ -24,15 +17,57 @@ class Parts
     {
         $response = redirect(route('welcome'));
 
-        $permissions = $this->userPermissions->getPermissions($request->user());
-
-        if(empty($permissions))
-            return $response;
-
-        $isAllowed = $this->userPermissions->isAllowed($request->route()->getName(), 'parts', $permissions);
-        if($isAllowed){
-            $response = $next($request);
+        $user = $request->user();
+        $permissions = [];
+        if(isset($user)){
+            if( $user->roles() !== null && $user->roles()->first() !== null && $user->roles()->first()->permissions() !== null ){
+                $permissions = $user->roles()->first()->permissions()->pluck('name')->toArray();
+            }
+            else
+                return $response;
         }
+
+        if($request->route()->getName() == 'parts.index'      && in_array('view_parts', $permissions)){
+            $response = $next($request);
+        }else
+
+        if($request->route()->getName() == 'parts.show'       && in_array('view_parts', $permissions)){
+
+            $response = $next($request);
+        }else
+
+        if($request->route()->getName() == 'parts.create'     && in_array('create_parts', $permissions)){
+
+            $response = $next($request);
+        }else
+
+        if($request->route()->getName() == 'parts.store'      && in_array('create_parts', $permissions)){
+
+            $response = $next($request);
+        }else
+
+        if($request->route()->getName() == 'parts.edit'       && in_array('update_parts', $permissions)){
+
+            $response = $next($request);
+        }else
+
+        if($request->route()->getName() == 'parts.update'     && in_array('update_parts', $permissions)){
+
+            $response = $next($request);
+        }else
+
+        if($request->route()->getName() == 'parts.destroy'    && in_array('delete_parts', $permissions)){
+
+            $response = $next($request);
+        }else
+
+		if($request->route()->getName() == 'parts_search'    && in_array('view_parts', $permissions)){
+
+            $response = $next($request);
+        }else{
+            flash()->warning('<h3><img src="'.asset("images/helper_images/logo-accessdenied.png").'" width="80">  Ask IT Manager for Permission!</h3>');
+        }
+
         return $response;
     }
 }

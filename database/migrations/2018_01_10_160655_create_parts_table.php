@@ -20,11 +20,11 @@ class CreatePartsTable extends Migration
             $table->string('type')->nullable();
             $table->string('model')->nullable();
             $table->string('product_number')->nullable();
-            $table->string('price_without_tax')->nullable();
-            $table->string('price_with_tax')->nullable();
-            $table->string('life')->nullable();
-            $table->string('qty')->nullable();
-            $table->string('comments')->nullable();            
+            $table->float('price_without_tax', 8, 2)->nullable()->default(0);
+            $table->float('price_with_tax', 8, 2)->nullable()->default(0);
+            $table->integer('life')->nullable()->default(0);
+            $table->integer('qty')->nullable()->default(0);
+            $table->text('comments')->nullable();
             $table->timestamps();
         });
     }

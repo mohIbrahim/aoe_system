@@ -37,6 +37,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 				'printing_machines.show',
                 'customers.show',
                 'departments.show',
+                'parts.show',
         ];
 
         view()->composer($v, function($view){

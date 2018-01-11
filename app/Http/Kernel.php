@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'printing_machines'             => \App\Http\Middleware\PrintingMachines::class,
         'customers'                     => \App\Http\Middleware\Customers::class,
         'departments'                   => \App\Http\Middleware\Departments::class,
+        'parts'                         => \App\Http\Middleware\Parts::class,
     ];
 }

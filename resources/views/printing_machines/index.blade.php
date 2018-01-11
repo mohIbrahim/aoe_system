@@ -81,7 +81,7 @@
 						$("#my-table-body").fadeOut();
 						$("#my-table-body").children().remove();
 						$.each(results, function(index, machine) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td>"+machine.folder_number+"</td><td>"+machine.code+"</td><td>"+machine.model_prefix+"-"+machine.model_suffix+"</td> </tr>"
+							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('printing_machines')}}/"+machine.id+"'>"+machine.folder_number+"</a></td><td>"+machine.code+"</td><td>"+machine.model_prefix+"-"+machine.model_suffix+"</td> </tr>"
 				        });
 						$("#my-table-body").append(newResult);
 						$("#my-table-body").fadeIn();

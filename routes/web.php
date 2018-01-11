@@ -35,3 +35,4 @@ Route::resource('role_user', 'RoleUserController');
     Route::resource('departments', 'DepartmentController');
 //parts
     Route::resource('parts', 'PartController');
+    Route::get('parts_search/{keyword}', 'PartController@search')->name('parts_search');

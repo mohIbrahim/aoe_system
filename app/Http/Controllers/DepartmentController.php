@@ -16,6 +16,7 @@ class DepartmentController extends Controller
     {
         $this->department = $department;
         $this->middleware('departments');
+        $this->middleware('auth');
     }
 
     /**

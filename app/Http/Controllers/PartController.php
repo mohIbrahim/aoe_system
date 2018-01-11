@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Part;
 use Illuminate\Http\Request;
 use App\AOE\Repositories\Part\PartInterface;
+use App\Http\Requests\PartRequest;
 
 class PartController extends Controller
 {
@@ -12,7 +13,9 @@ class PartController extends Controller
 
     public function __construct(PartInterface $part)
     {
-        # code...
+        $this->part = $part;
+        $this->middleware('auth');
+        $this->middleware('parts');
     }
     /**
      * Display a listing of the resource.
@@ -21,7 +24,8 @@ class PartController extends Controller
      */
     public function index()
     {
-        //
+        $parts = $this->part->latest()->paginate(25);
+        return view('parts.index', compact('parts'));
     }
 
     /**
@@ -31,7 +35,7 @@ class PartController extends Controller
      */
     public function create()
     {
-        //
+        return view('parts.create');
     }
 
     /**
@@ -40,9 +44,10 @@ class PartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PartRequest $request)
     {
-        //
+        $part = $this->part->create($request->all());
+        return redirect()->action('PartController@show', ['id'=>$part->id]);
     }
 
     /**
@@ -51,9 +56,10 @@ class PartController extends Controller
      * @param  \App\Part  $part
      * @return \Illuminate\Http\Response
      */
-    public function show(Part $part)
+    public function show($id)
     {
-        //
+        $part = $this->part->getById($id);
+        return view('parts.show', compact('part'));
     }
 
     /**
@@ -62,9 +68,10 @@ class PartController extends Controller
      * @param  \App\Part  $part
      * @return \Illuminate\Http\Response
      */
-    public function edit(Part $part)
+    public function edit($id)
     {
-        //
+        $part = $this->part->getById($id);
+        return view('parts.edit', compact('part'));
     }
 
     /**
@@ -74,9 +81,10 @@ class PartController extends Controller
      * @param  \App\Part  $part
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Part $part)
+    public function update(PartRequest $request, $id)
     {
-        //
+        $part = $this->part->update($id, $request->all());
+        return redirect()->action('PartController@show', ['id'=>$id]);
     }
 
     /**
@@ -85,8 +93,14 @@ class PartController extends Controller
      * @param  \App\Part  $part
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Part $part)
+    public function destroy($id)
     {
-        //
+        $isDeleted = $this->part->delete($id);
+        return redirect()->action('PartController@index');
+    }
+
+    public function search($keyword)
+    {
+        return $this->part->search($keyword);
     }
 }

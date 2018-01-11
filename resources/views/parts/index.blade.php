@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-	 عرض العملاء
+	 عرض القطع القابلة للتغير من أجزاء الماكينة
 @endsection
 
 @section('content')
@@ -13,11 +13,11 @@
 
 
 
-				<legend> البحث عن العملاء. </legend>
+				<legend> البحث عن القطع القابلة للتغير من أجزاء. </legend>
 
 				<div class="form-group">
-					<label for=""> البحث بـ الاسم وكود العميل. </label>
-					<input type="text" class="form-control" id="customer_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
+					<label for=""> البحث بـ الاسم وكود ونوع القطعة. </label>
+					<input type="text" class="form-control" id="parts_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
 
@@ -25,7 +25,7 @@
 				<button type="button" id="search_button" class="btn btn-primary"> بحث </button>
 
 
-				<h3 class="text-center"> عرض العملاء </h3>
+				<h3 class="text-center"> عرض القطع القابلة للتغير من أجزاء الماكينة </h3>
 		    </div>
 		    <div class="panel-body">
 
@@ -37,28 +37,24 @@
                                 <th> الاسم </th>
 			  				    <th> الكود </th>
 			  				    <th> النوع </th>
-			  				    <th> المحافظة </th>
-			  				    <th> المنطقة </th>
-			  				    <th> التليفون </th>
+			  				    <th> الكمية </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
 							<div class="">
-								@foreach ($customers as $k => $customer)
+								@foreach ($parts as $k => $part)
 									<tr>
 										<td>
 											{{$k+1}}
 										</td>
 										<td>
-                                            <a href="{{action('CustomerController@show', ['id'=>$customer->id])}}" target="_blank">
-                                                {{$customer->name}}
+                                            <a href="{{action('PartController@show', ['id'=>$part->id])}}" target="_blank">
+                                                {{$part->name}}
                                             </a>
                                         </td>
-										<td>{{$customer->code}}</td>
-										<td>{{$customer->type}}</td>
-										<td>{{$customer->governorate}}</td>
-										<td>{{$customer->area}}</td>
-										<td>{{$customer->telecoms()->first()->number}}</td>
+										<td>{{$part->code}}</td>
+										<td>{{$part->type}}</td>
+										<td>{{$part->qty}}</td>
 									</tr>
 								@endforeach
 
@@ -66,7 +62,7 @@
 			  		    </tbody>
 			  	     </table>
 					 <div class="text-center">
-						 {{$customers->links()}}
+						 {{$parts->links()}}
 					 </div>
 				 </div>
 
@@ -81,17 +77,17 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#search_button').on('click', function(){
-				var keyword = $('#customer_search').val();
+				var keyword = $('#parts_search').val();
 				var newResult = "";
 				$.ajax({
 					type: "GET",
-					url:"customers_search/"+keyword,
+					url:"parts_search/"+keyword,
 					dataType: "json",
 					success: function(results){
 						$("#my-table-body").fadeOut();
 						$("#my-table-body").children().remove();
-						$.each(results, function(index, customer) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('customers')}}/"+customer.id+"'>"+customer.name+"</a></td><td>"+customer.code+"</td><td>"+customer.type+"</td><td>"+customer.governorate+"</td><td>"+customer.area+"</td><td>"+customer.telecoms[0].number+"</td></tr>"
+						$.each(results, function(index, part) {
+							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('parts')}}/"+part.id+"'>"+part.name+"</a></td><td>"+part.code+"</td><td>"+part.type+"</td><td>"+part.qty+"</td></tr>"
 				        });
 						$("#my-table-body").append(newResult);
 						$("#my-table-body").fadeIn();
