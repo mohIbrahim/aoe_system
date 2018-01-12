@@ -19,6 +19,7 @@ class PermissionSeeder extends Seeder
         $this->customers();
         $this->departments();
         $this->parts();
+        $this->partSerialNumbers();
     }
 
     /**
@@ -173,6 +174,26 @@ class PermissionSeeder extends Seeder
             ]);
         DB::table('permissions')->insert([
             "name"      =>"delete_parts",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+    }
+
+    private function partSerialNumbers()
+    {
+        DB::table('permissions')->insert([
+            "name"      =>"view_part_serial_numbers",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"create_part_serial_numbers",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"update_part_serial_numbers",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"delete_part_serial_numbers",
             "created_at"=>Carbon\Carbon::now(),
             ]);
     }

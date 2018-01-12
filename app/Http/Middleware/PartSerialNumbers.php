@@ -3,7 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-class Departments
+
+class PartSerialNumbers
 {
 
     /**
@@ -28,36 +29,36 @@ class Departments
                 return $response;
         }
 
-        if($request->route()->getName() == 'departments.index'      && in_array('view_departments', $permissions)){
+        if($request->route()->getName() == 'part_serial_numbers.index'      && in_array('view_part_serial_numbers', $permissions)){
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'departments.show'       && in_array('view_departments', $permissions)){
-
-            $response = $next($request);
-        }else
-
-        if($request->route()->getName() == 'departments.create'     && in_array('create_departments', $permissions)){
+        if($request->route()->getName() == 'part_serial_numbers.show'       && in_array('view_part_serial_numbers', $permissions)){
 
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'departments.store'      && in_array('create_departments', $permissions)){
+        if($request->route()->getName() == 'part_serial_numbers.create'     && in_array('create_part_serial_numbers', $permissions)){
 
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'departments.edit'       && in_array('update_departments', $permissions)){
+        if($request->route()->getName() == 'part_serial_numbers.store'      && in_array('create_part_serial_numbers', $permissions)){
 
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'departments.update'     && in_array('update_departments', $permissions)){
+        if($request->route()->getName() == 'part_serial_numbers.edit'       && in_array('update_part_serial_numbers', $permissions)){
 
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'departments.destroy'    && in_array('delete_departments', $permissions)){
+        if($request->route()->getName() == 'part_serial_numbers.update'     && in_array('update_part_serial_numbers', $permissions)){
+
+            $response = $next($request);
+        }else
+
+        if($request->route()->getName() == 'part_serial_numbers.destroy'    && in_array('delete_part_serial_numbers', $permissions)){
 
             $response = $next($request);
         }

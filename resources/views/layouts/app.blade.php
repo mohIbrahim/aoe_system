@@ -13,9 +13,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('head')
     <link rel='stylesheet' id='bootstrap-rtl-css' href='{{asset('css/bootstrap-rtl/bootstrap-rtl.min.css')}}' type='text/css' />
 
-    @yield('head')
 </head>
 <body>
     <div id="app">

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\RoleRequest;
 
 use App\Http\Requests;
@@ -31,7 +30,7 @@ class RoleController extends Controller
     {
         $roles = Role::all();
         return view('roles.index' ,compact('roles'));
-   
+
     }
 
     /**
@@ -123,9 +122,9 @@ class RoleController extends Controller
 
 
 
-    
 
 
-    
+
+
 
 }

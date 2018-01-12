@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Part;
-use Illuminate\Http\Request;
 use App\AOE\Repositories\Part\PartInterface;
 use App\Http\Requests\PartRequest;
 
@@ -47,6 +46,7 @@ class PartController extends Controller
     public function store(PartRequest $request)
     {
         $part = $this->part->create($request->all());
+        flash()->success(' تم إضافة قطعة جديدة رئيسية بنجاح. ')->important();
         return redirect()->action('PartController@show', ['id'=>$part->id]);
     }
 
@@ -84,6 +84,7 @@ class PartController extends Controller
     public function update(PartRequest $request, $id)
     {
         $part = $this->part->update($id, $request->all());
+        flash()->success(' تم تعديل القطعة الرئيسية بنجاح. ')->important();
         return redirect()->action('PartController@show', ['id'=>$id]);
     }
 
@@ -96,6 +97,7 @@ class PartController extends Controller
     public function destroy($id)
     {
         $isDeleted = $this->part->delete($id);
+        flash()->success(' تم حذف القطعة الرئيسية بنجاح. ')->important();
         return redirect()->action('PartController@index');
     }
 

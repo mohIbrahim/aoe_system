@@ -13,6 +13,8 @@ use App\AOE\Repositories\Department\EloquentDepartment;
 use App\AOE\Repositories\Department\DepartmentInterface;
 use App\AOE\Repositories\Part\EloquentPart;
 use App\AOE\Repositories\Part\PartInterface;
+use App\AOE\Repositories\PartSerialNumber\EloquentPartSerialNumber;
+use App\AOE\Repositories\PartSerialNumber\PartSerialNumberInterface;
 
 class RepositoriesServiceProvider extends ServiceProvider
 {
@@ -38,5 +40,6 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->singleton(ReadingOfPrintingMachineInterface::class, EloquentReadingOfPrintingMachine::class);
         $this->app->singleton(DepartmentInterface::class, EloquentDepartment::class);
         $this->app->singleton(PartInterface::class, EloquentPart::class);
+        $this->app->singleton(PartSerialNumberInterface::class, EloquentPartSerialNumber::class);
     }
 }

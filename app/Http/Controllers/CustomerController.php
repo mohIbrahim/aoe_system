@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
-use Illuminate\Http\Request;
 use App\AOE\EgyptCities\EgyptCities;
 use App\Http\Requests\CustomerRequest;
 use App\AOE\Repositories\Customer\CustomerInterface;

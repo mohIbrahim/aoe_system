@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\PrintingMachine;
-use Illuminate\Http\Request;
 use App\AOE\Repositories\PrintingMachine\PrintingMachineInterface;
 use App\Http\Requests\PrintingMachineRequest;
 

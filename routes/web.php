@@ -36,3 +36,5 @@ Route::resource('role_user', 'RoleUserController');
 //parts
     Route::resource('parts', 'PartController');
     Route::get('parts_search/{keyword}', 'PartController@search')->name('parts_search');
+//Part Serial partSerialNumbers
+    Route::resource('part_serial_numbers', 'PartSerialNumberController');

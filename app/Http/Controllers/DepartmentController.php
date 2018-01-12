@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Department;
-use Illuminate\Http\Request;
 use App\AOE\Repositories\Department\DepartmentInterface;
 use App\Http\Requests\DepartmentRequest;
 
