@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class PartSerialNumber extends Model
 {
     protected $table = 'part_serial_numbers';
-    protected $fillable = ['serial_number', 'availability', 'status', 'date_of_entry', 'date_of_departure', 'comments'];
+    protected $fillable = ['part_id', 'serial_number', 'code', 'availability', 'status', 'date_of_entry', 'date_of_departure', 'comments'];
     protected $dates = ['date_of_entry', 'date_of_departure'];
 
 
@@ -41,6 +41,11 @@ class PartSerialNumber extends Model
     {
         if (!empty($date))
             return $this->asDateTime($date)->format('Y-m-d');
+    }
+
+    public function part()
+    {
+        return $this->belongsTo('App\Part');
     }
 
 

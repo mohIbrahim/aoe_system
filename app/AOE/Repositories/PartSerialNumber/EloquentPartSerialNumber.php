@@ -61,4 +61,12 @@ class EloquentPartSerialNumber implements PartSerialNumberInterface
         $isDeleted = $partSerialNumber->delete();
         return $isDeleted;
     }
+
+    public function search($keyword)
+    {
+        $results = $this->partSerialNumber->with('part')->where('serial_number', 'like', '%'.$keyword.'%')
+                                            ->get();
+        return $results;
+
+    }
 }

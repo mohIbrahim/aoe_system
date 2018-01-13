@@ -23,6 +23,7 @@
 
 
 				<button type="button" id="search_button" class="btn btn-primary"> بحث </button>
+				<a href=""  class="btn btn-success"> العودة </a>
 
 
 				<h3 class="text-center"> عرض القطع القابلة للتغير من أجزاء الماكينة </h3>
@@ -54,7 +55,7 @@
                                         </td>
 										<td>{{$part->code}}</td>
 										<td>{{$part->type}}</td>
-										<td>{{$part->qty}}</td>
+										<td>{{$part->serialNumbersCount()}}</td>
 									</tr>
 								@endforeach
 

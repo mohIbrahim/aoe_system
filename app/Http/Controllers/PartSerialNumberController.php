@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PartSerialNumberRequest;
 use App\PartSerialNumber;
 use App\AOE\Repositories\PartSerialNumber\PartSerialNumberInterface;
+use App\Part;
 
 
 class PartSerialNumberController extends Controller
@@ -36,7 +37,8 @@ class PartSerialNumberController extends Controller
      */
     public function create()
     {
-        return view('part_serial_numbers.create');
+        $parts = Part::all()->pluck('name', 'id');
+        return view('part_serial_numbers.create', compact('parts'));
     }
 
     /**
@@ -73,7 +75,8 @@ class PartSerialNumberController extends Controller
     public function edit($id)
     {
         $partSerialNumber = $this->partSerialNumber->getById($id);
-        return view('part_serial_numbers.edit', compact('partSerialNumber'));
+        $parts = Part::all()->pluck('name', 'id');
+        return view('part_serial_numbers.edit', compact('partSerialNumber', 'parts'));
     }
 
     /**
@@ -101,5 +104,10 @@ class PartSerialNumberController extends Controller
         $isDeleted = $this->partSerialNumber->delete($id);
         flash()->success(' تم حذف القطعة الفرعية بنجاح.')->important();
         return redirect()->action('PartSerialNumberController@index');
+    }
+
+    public function search($keyword)
+    {
+        return $this->partSerialNumber->search($keyword);
     }
 }

@@ -23,6 +23,7 @@
 
 
 				<button type="button" id="search_button" class="btn btn-primary"> بحث </button>
+				<a href=""  class="btn btn-success"> العودة </a>
 
 
 				<h3 class="text-center"> عرض الآلات الطباعة </h3>

@@ -75,7 +75,7 @@
 
                                     <tr>
 									    <th> الكمية </th>
-									    <td>{{$part->qty}}</td>
+									    <td>{{$part->serialNumbersCount()}}</td>
 								    </tr>
 
 								    <tr>

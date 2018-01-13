@@ -61,6 +61,11 @@ class PartSerialNumbers
         if($request->route()->getName() == 'part_serial_numbers.destroy'    && in_array('delete_part_serial_numbers', $permissions)){
 
             $response = $next($request);
+        }else
+
+        if($request->route()->getName() == 'part_serial_numbers_search'    && in_array('view_part_serial_numbers', $permissions)){
+
+            $response = $next($request);
         }
         else{
             flash()->warning('<h3><img src="'.asset("images/helper_images/logo-accessdenied.png").'" width="80">  Ask IT Manager for Permission!</h3>');

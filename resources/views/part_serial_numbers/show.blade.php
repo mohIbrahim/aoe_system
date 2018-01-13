@@ -31,13 +31,22 @@
 
 							    </thead>
 							    <tbody>
+									<tr>
+									    <th> القطعة الرئسية </th>
+									    <td><a href="{{action('PartController@show', ['id'=>$partSerialNumber->part->id])}}">{{$partSerialNumber->part->name.' | كود رقم: '.$partSerialNumber->part->code}}</a></td>
+								    </tr>
 								    <tr>
 									    <th> الرقم المسلسل </th>
 									    <td>{{$partSerialNumber->serial_number}}</td>
 								    </tr>
 
+									<tr>
+									    <th> الكود </th>
+									    <td>{{$partSerialNumber->code}}</td>
+								    </tr>
+
 								    <tr>
-									    <th> التوفر </th>
+									    <th> التوافر </th>
 									    <td>{{$partSerialNumber->availability}}</td>
 								    </tr>
 

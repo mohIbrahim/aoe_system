@@ -1,13 +1,33 @@
 @section('head')
     <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
 @endsection
+
+
+<div class="form-group">
+    <label for="part_id"> القطعة الرئيسة <span style="color:red">*</span></label>
+    <select class="form-control selectpicker" name="part_id" data-live-search="true">
+        <?php $partSerialNumberPartId = isset($partSerialNumber->part_id)? $partSerialNumber->part_id:'' ;?>
+        <option value=""> إختر القطعة الرئيسية التابعة لها.  </option>
+        @foreach ($parts as $partId=>$partName)
+            <option value="{{$partId}}" {{($partSerialNumberPartId == $partId)? 'selected' : ((old('part_id')==$partId)?'selected':'')}}> {{$partName}} </option>
+        @endforeach
+    </select>
+</div>
+
 <div class="form-group">
     <label for="serial_number"> الرقم المسلسل <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="serial_number" name="serial_number"  placeholder=" إدخل الرقم المسلسل. " value="{{$partSerialNumber->serial_number or old('serial_number')}}">
 </div>
 
 <div class="form-group">
-    <label for="availability"> التوفر </label>
+    <label for="code"> كود القطعة </label>
+    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود القطعة. " value="{{$partSerialNumber->code or old('code')}}">
+</div>
+
+<div class="form-group">
+    <label for="availability"> التوافر </label>
     <select class="form-control" name="availability">
         <?php $partSerialNumberAvailability = isset($partSerialNumber->availability)? $partSerialNumber->availability:'' ;?>
         <option value="">  إختر أذا كانت القطعة متوفرة أو غير متوفرة في المخزن.  </option>

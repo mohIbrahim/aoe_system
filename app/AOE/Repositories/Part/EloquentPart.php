@@ -55,6 +55,5 @@ class EloquentPart implements PartInterface
                         ->orWhere('type', 'like', '%'.$keyword.'%')
                         ->get();
         return $results;
-
     }
 }

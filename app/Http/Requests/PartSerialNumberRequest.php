@@ -24,15 +24,19 @@ class PartserialNumberRequest extends FormRequest
     public function rules()
     {
         return [
+            'part_id'=>'required',
             'serial_number'=>'required|unique:part_serial_numbers,serial_number,'.$this->part_serial_number,
+            'code'=>'unique:part_serial_numbers,code,'.$this->part_serial_number,
         ];
     }
 
     public function messages()
     {
         return  [
+                    'part_id.required'=>' برجاء إختيار القطعة الرئيسية لهذة القطعة الفرعية. ',
                     'serial_number.required'=>' برجاء إدخال الرقم المسلسل للقطعة. ',
                     'serial_number.unique'=>' الرقم المسلسل تم إدخالة من قبل برجاء تأكد من الرقم وقم بإدخالة بشكل صحيح. ',
+                    'code.unique'=>' الكود تم إدخالة من قبل برجاء تأكد وقم بإدخالة بشكل صحيح. ',
                 ];
     }
 }
