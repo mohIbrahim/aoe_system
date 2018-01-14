@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Contract;
-use Illuminate\Http\Request;
+use App\Http\Requests\ContractRequest;
+use App\AOE\Repositories\Contract\ContractInterface;
 
 class ContractController extends Controller
 {
+    private $contract;
+
+    public function __construct(ContractInterface $contract)
+    {
+        $this->contract = $contract;
+        $this->middleware('auth');
+        $this->middleware('contracts');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,8 @@ class ContractController extends Controller
      */
     public function index()
     {
-        //
+        $contracts = $this->contract->latest()->paginate(25);
+        return view('contracts.index', compact('contracts'));
     }
 
     /**
@@ -24,7 +33,7 @@ class ContractController extends Controller
      */
     public function create()
     {
-        //
+        return view('contracts.create');
     }
 
     /**
@@ -33,53 +42,66 @@ class ContractController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PartRequest $request)
     {
-        //
+        $contract = $this->contract->create($request->all());
+        flash()->success('تم إضافة العقد بنجاح. ')->important();
+        return redirect()->action('ContractController@show', ['id'=>$contract->id]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Contract  $contract
+     * @param  \App\Part  $contract
      * @return \Illuminate\Http\Response
      */
-    public function show(Contract $contract)
+    public function show($id)
     {
-        //
+        $contract = $this->contract->getById($id);
+        return view('contracts.show', compact('contract'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Contract  $contract
+     * @param  \App\Part  $contract
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contract $contract)
+    public function edit($id)
     {
-        //
+        $contract = $this->contract->getById($id);
+        return view('contracts.edit', compact('contract'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Contract  $contract
+     * @param  \App\Part  $contract
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contract $contract)
+    public function update(PartRequest $request, $id)
     {
-        //
+        $contract = $this->contract->update($id, $request->all());
+        flash()->success('تم تعديل العقد بنجاح. ')->important();
+        return redirect()->action('ContractController@show', ['id'=>$id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Contract  $contract
+     * @param  \App\Part  $contract
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contract $contract)
+    public function destroy($id)
     {
-        //
+        $isDeleted = $this->contract->delete($id);
+        flash()->success('تم حذف العقد بنجاح. ')->important();
+        return redirect()->action('ContractController@index');
+    }
+
+    public function search($keyword)
+    {
+        return $this->contract->search($keyword);
     }
 }

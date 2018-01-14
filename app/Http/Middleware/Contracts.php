@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class InstallationRecords
+class Contracts
 {
     /**
      * Handle an incoming request.
@@ -27,36 +27,41 @@ class InstallationRecords
                 return $response;
         }
 
-        if($request->route()->getName() == 'installation_records.index'      && in_array('view_installation_records', $permissions)){
+        if($request->route()->getName() == 'contracts.index'      && in_array('view_contracts', $permissions)){
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'installation_records.show'       && in_array('view_installation_records', $permissions)){
-
-            $response = $next($request);
-        }else
-
-        if($request->route()->getName() == 'installation_records.create'     && in_array('create_installation_records', $permissions)){
+        if($request->route()->getName() == 'contracts.show'       && in_array('view_contracts', $permissions)){
 
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'installation_records.store'      && in_array('create_installation_records', $permissions)){
+        if($request->route()->getName() == 'contracts.create'     && in_array('create_contracts', $permissions)){
 
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'installation_records.edit'       && in_array('update_installation_records', $permissions)){
+        if($request->route()->getName() == 'contracts.store'      && in_array('create_contracts', $permissions)){
 
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'installation_records.update'     && in_array('update_installation_records', $permissions)){
+        if($request->route()->getName() == 'contracts.edit'       && in_array('update_contracts', $permissions)){
 
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'installation_records.destroy'    && in_array('delete_installation_records', $permissions)){
+        if($request->route()->getName() == 'contracts.update'     && in_array('update_contracts', $permissions)){
+
+            $response = $next($request);
+        }else
+
+        if($request->route()->getName() == 'contracts.destroy'    && in_array('delete_contracts', $permissions)){
+
+            $response = $next($request);
+        }else
+
+		if($request->route()->getName() == 'contracts_search'    && in_array('view_contracts', $permissions)){
 
             $response = $next($request);
         }else{
@@ -64,6 +69,5 @@ class InstallationRecords
         }
 
         return $response;
-
     }
 }

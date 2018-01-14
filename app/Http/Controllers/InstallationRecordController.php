@@ -14,6 +14,8 @@ class InstallationRecordController extends Controller
     public function __construct(InstallationRecordInterface $installationRecord)
     {
         $this->installationRecord = $installationRecord;
+        $this->middleware('auth');
+        $this->middleware('installation_records');
     }
 
     /**
@@ -92,5 +94,5 @@ class InstallationRecordController extends Controller
         $isDeleted = $this->installationRecord->delete($id);
         flash()->success(' تم حذف محضر التركيب بنجاح. ')->important();
         return redirect()->action('InstallationRecordController@index');
-    }    
+    }
 }

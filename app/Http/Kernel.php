@@ -66,5 +66,7 @@ class Kernel extends HttpKernel
         'departments'                   => \App\Http\Middleware\Departments::class,
         'parts'                         => \App\Http\Middleware\Parts::class,
         'part_serial_numbers'           => \App\Http\Middleware\PartSerialNumbers::class,
+        'installation_records'          => \App\Http\Middleware\InstallationRecords::class,
+        'contracts'                     => \App\Http\Middleware\Contracts::class,
     ];
 }

@@ -41,3 +41,6 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('part_serial_numbers_search/{keyword}', 'PartSerialNumberController@search')->name('part_serial_numbers_search');
 //Installation Records
     Route::resource('installation_records', 'InstallationRecordController');
+//Part Serial partSerialNumbers
+    Route::resource('contracts', 'ContractController');
+    Route::get('contracts_search/{keyword}', 'ContractController@search')->name('contracts_search');

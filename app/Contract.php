@@ -42,10 +42,10 @@ class Contract extends Model
      */
     public function setEndAttribute($date)
     {
-        if (!empty('start')) {
-            $this->attributes['start'] = Carbon::parse($date);
+        if (!empty('end')) {
+            $this->attributes['end'] = Carbon::parse($date);
         } else {
-            $this->attributes['start']  = null;
+            $this->attributes['end']  = null;
         }
     }
 

@@ -13,8 +13,12 @@ class CreateContractsTable extends Migration
      */
     public function up()
     {
+        ['code', 'type', 'start', 'end', 'status', 'price', 'tax', 'total_price', 'payment_system', 'comments'];
         Schema::create('contracts', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('code');
+            $table->string('type');
+
             $table->timestamps();
         });
     }
