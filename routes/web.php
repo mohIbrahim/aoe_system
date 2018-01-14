@@ -39,3 +39,5 @@ Route::resource('role_user', 'RoleUserController');
 //Part Serial partSerialNumbers
     Route::resource('part_serial_numbers', 'PartSerialNumberController');
     Route::get('part_serial_numbers_search/{keyword}', 'PartSerialNumberController@search')->name('part_serial_numbers_search');
+//Installation Records
+    Route::resource('installation_records', 'InstallationRecordController');

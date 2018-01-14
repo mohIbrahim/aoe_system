@@ -28,18 +28,19 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     private function composeNavigationPrivilages()
     {
-        $v = [
-                'layouts.nav.main_nav',
-                'roles.show',
-                'users.show',
-                'permissions.show',
-                'role_user._form',
-				'printing_machines.show',
-                'customers.show',
-                'departments.show',
-                'parts.show',
-                'part_serial_numbers.show',
-        ];
+        $v =    [
+                    'layouts.nav.main_nav',
+                    'roles.show',
+                    'users.show',
+                    'permissions.show',
+                    'role_user._form',
+    				'printing_machines.show',
+                    'customers.show',
+                    'departments.show',
+                    'parts.show',
+                    'part_serial_numbers.show',
+                    'installation_records.show',
+                ];
 
         view()->composer($v, function($view){
 

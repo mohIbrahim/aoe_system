@@ -3,83 +3,94 @@
 namespace App\Http\Controllers;
 
 use App\InstallationRecord;
-use Illuminate\Http\Request;
+use App\Http\Requests\InstallationRecordRequest;
+use App\AOE\Repositories\InstallationRecord\InstallationRecordInterface;
+
 
 class InstallationRecordController extends Controller
 {
+    private $installationRecord;
+
+    public function __construct(InstallationRecordInterface $installationRecord)
+    {
+        $this->installationRecord = $installationRecord;
+    }
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * [index description]
+     * @return [type] [description]
      */
     public function index()
     {
-        //
+        $installationRecords = $this->installationRecord->latest()->paginate(25);
+        return view('installation_records.index', compact('installationRecords'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * [create description]
+     * @return [type] [description]
      */
     public function create()
     {
-        //
+        return view('installation_records.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * [store description]
+     * @param  InstallationRecordRequest $request [description]
+     * @return [type]                             [description]
      */
-    public function store(Request $request)
+    public function store(InstallationRecordRequest $request)
     {
-        //
+        $installationRecord = $this->installationRecord->create($request->all());
+        flash()->success(' تم إضافة محضر التركيب بنجاح. ')->important();
+        return redirect()->action('InstallationRecordController@show', ['id'=>$installationRecord->id]);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\InstallationRecord  $installationRecord
-     * @return \Illuminate\Http\Response
+     * [show description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
      */
-    public function show(InstallationRecord $installationRecord)
+    public function show($id)
     {
-        //
+        $installationRecord = $this->installationRecord->getById($id);
+        return view('installation_records.show', compact('installationRecord'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\InstallationRecord  $installationRecord
-     * @return \Illuminate\Http\Response
+     * [edit description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
      */
-    public function edit(InstallationRecord $installationRecord)
+    public function edit($id)
     {
-        //
+        $installationRecord = $this->installationRecord->getById($id);
+        return view('installation_records.edit', compact('installationRecord'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\InstallationRecord  $installationRecord
-     * @return \Illuminate\Http\Response
+     * [update description]
+     * @param  InstallationRecordRequest $request [description]
+     * @param  [type]                    $id      [description]
+     * @return [type]                             [description]
      */
-    public function update(Request $request, InstallationRecord $installationRecord)
+    public function update(InstallationRecordRequest $request, $id)
     {
-        //
+        $installationRecord = $this->installationRecord->update($id, $request->all());
+        flash()->success(' تم تعديل محضر التركيب بنجاح. ')->important();
+        return redirect()->action('InstallationRecordController@show', ['id'=>$id]);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\InstallationRecord  $installationRecord
-     * @return \Illuminate\Http\Response
+     * [destroy description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
      */
-    public function destroy(InstallationRecord $installationRecord)
+    public function destroy($id)
     {
-        //
-    }
+        $isDeleted = $this->installationRecord->delete($id);
+        flash()->success(' تم حذف محضر التركيب بنجاح. ')->important();
+        return redirect()->action('InstallationRecordController@index');
+    }    
 }

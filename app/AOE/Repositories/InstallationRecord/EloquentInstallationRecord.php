@@ -88,7 +88,7 @@ class EloquentInstallationRecord implements InstallationRecordInterface
      */
     public function delete($id)
     {
-        $installationRecord = $this->instinstallationRecord->findOrFail($id);
+        $installationRecord = $this->installationRecord->findOrFail($id);
         $isDeleted = $installationRecord->delete();
         return $isDeleted;
     }

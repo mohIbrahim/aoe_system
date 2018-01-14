@@ -27,6 +27,8 @@ class PartserialNumberRequest extends FormRequest
             'part_id'=>'required',
             'serial_number'=>'required|unique:part_serial_numbers,serial_number,'.$this->part_serial_number,
             'code'=>'unique:part_serial_numbers,code,'.$this->part_serial_number,
+            'date_of_entry'=>'date',
+            'date_of_departure'=>'date',
         ];
     }
 
@@ -37,6 +39,8 @@ class PartserialNumberRequest extends FormRequest
                     'serial_number.required'=>' برجاء إدخال الرقم المسلسل للقطعة. ',
                     'serial_number.unique'=>' الرقم المسلسل تم إدخالة من قبل برجاء تأكد من الرقم وقم بإدخالة بشكل صحيح. ',
                     'code.unique'=>' الكود تم إدخالة من قبل برجاء تأكد وقم بإدخالة بشكل صحيح. ',
+                    'date_of_entry.date'=>'برجاء إدخال تاريخ الدخول بشكل صحيح.',
+                    'date_of_departure.date'=>'برجاء إدخال تاريخ الخروج بشكل صحيح.',
                 ];
     }
 }

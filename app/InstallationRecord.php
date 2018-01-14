@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Cabon;
+use Carbon\Carbon;
 
 class InstallationRecord extends Model
 {
@@ -26,13 +26,14 @@ class InstallationRecord extends Model
                     'network_scanner_model',
                     'network_scanner_serial_number',
                     'network_scanner_product_key',
+                    'comments',
                 ];
     protected $dates = ['installation_date'];
 
     public function setInstallationDateAttribute($date)
     {
         if (!empty($date)) {
-            $this->attribtes['installation_date'] = Carbon::parse($date);
+            $this->attributes['installation_date'] = Carbon::parse($date);
         } else {
             $this->attributes['installation_date'] = null;
         }
