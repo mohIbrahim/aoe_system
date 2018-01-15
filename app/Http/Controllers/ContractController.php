@@ -42,7 +42,7 @@ class ContractController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PartRequest $request)
+    public function store(ContractRequest $request)
     {
         $contract = $this->contract->create($request->all());
         flash()->success('تم إضافة العقد بنجاح. ')->important();
@@ -80,7 +80,7 @@ class ContractController extends Controller
      * @param  \App\Part  $contract
      * @return \Illuminate\Http\Response
      */
-    public function update(PartRequest $request, $id)
+    public function update(ContractRequest $request, $id)
     {
         $contract = $this->contract->update($id, $request->all());
         flash()->success('تم تعديل العقد بنجاح. ')->important();

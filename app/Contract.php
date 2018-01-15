@@ -33,7 +33,7 @@ class Contract extends Model
     public function getStartAttribute($date)
     {
         if (!empty($date))
-            return $this->asDateTeime($date)->format('Y-m-d');
+            return $this->asDateTime($date)->format('Y-m-d');
     }
 
     /**
@@ -57,7 +57,7 @@ class Contract extends Model
     public function getEndAttribute($date)
     {
         if (!empty($date))
-            return $this->asDateTeime($date)->format('Y-m-d');
+            return $this->asDateTime($date)->format('Y-m-d');
     }
 
 

@@ -18,7 +18,7 @@
 			  			    <tr>
 								<th> الكود </th>
                                 <th> اسم المتدرب </th>
-			  				    <th> تاريخ التريب </th>
+			  				    <th> تاريخ التركيب </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">

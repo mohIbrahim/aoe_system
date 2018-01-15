@@ -1,19 +1,19 @@
 @extends('layouts.app')
 @section('title')
-	 إضافة محضر تركيب جديد
+	 إضافة عقد جديد
 @endsection
 @section('content')
           <div class="col-lg-12">
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="panel panel-primary main_arabic_font">
                     <div class="panel-heading text-center">
-                        <h2 class="panel-title"> إضافة محضر تركيب جديد </h2>
+                        <h2 class="panel-title"> إضافة عقد جديد </h2>
                     </div>
                     <div class="panel-body">
                         @include('errors.list')
-                        <form class="" action="{{ action('InstallationRecordController@store') }}" method="POST">
+                        <form class="" action="{{ action('ContractController@store') }}" method="POST">
                             {{ csrf_field() }}
-                            @include('installation_records._form')
+                            @include('contracts._form')
                         </form>
                     </div>
                 </div>

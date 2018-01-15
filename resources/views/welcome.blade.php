@@ -79,8 +79,11 @@
 
             <div class="content">
                 @include('flash::message')
+                <h3>
+                    نظام تخطيط موارد
+                </h3>
                 <div class="title m-b-md">
-                    AOE System
+                    الشركة العربية لمهمات المكاتب
                 </div>
 
 

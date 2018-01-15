@@ -2,90 +2,122 @@
     <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
 @endsection
 <div class="form-group">
-    <label for="trainee_name"> اسم المتدرب <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="trainee_name" name="trainee_name"  placeholder=" إدخل كود القطعة. " value="{{$installationRecord->trainee_name or old('trainee_name')}}">
+    <label for="code"> كود العقد <span style="color:red">*</span></label>
+    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود العقد. " value="{{$contract->code or old('code')}}">
 </div>
 
 <div class="form-group">
-    <label for="installation_date"> تاريخ التركيب <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="datepicker" name="installation_date"  placeholder=" إدخل تاريخ التركيب. " value="{{$installationRecord->installation_date or old('installation_date')}}">
+    <label for="type">
+         نوع العقد
+        <span style="color:red">*</span>
+     </label>
+    <select class="form-control" name="type">
+        <?php $contracType = isset($contract->type)? $contract->type:'';?>
+        <option value="">
+              أختر نوع العقد.
+          </option>
+        <option value="ضمان" {{($contracType == 'ضمان')? 'selected' : ((old('type')=='ضمان')?'selected':'')}}>
+             ضمان
+        </option>
+        <option value="صيانة فقط" {{($contracType == 'صيانة فقط')? 'selected' : ((old('type')=='صيانة فقط')?'selected':'')}}>
+             صيانة فقط
+        </option>
+        <option value="صيانة شاملة قطع الغيار" {{($contracType == 'صيانة شاملة قطع الغيار')? 'selected' : ((old('type')=='صيانة شاملة قطع الغيار')?'selected':'')}}>
+             صيانة شاملة قطع الغيار
+        </option>
+        <option value="صيانة شاملة قطع الغيار ومستلزمات التشغيل" {{($contracType == 'صيانة شاملة قطع الغيار ومستلزمات التشغيل')? 'selected' : ((old('type')=='صيانة شاملة قطع الغيار ومستلزمات التشغيل')?'selected':'')}}>
+             صيانة شاملة قطع الغيار ومستلزمات التشغيل
+        </option>
+        <option value="إيجار" {{($contracType == 'إيجار')? 'selected' : ((old('type')=='إيجار')?'selected':'')}}>
+             إيجار
+        </option>
+    </select>
 </div>
 
-<div class="jumbotron">
-    <legend>فيدر</legend>
-    <div class="form-group">
-        <label for="feeder_model"> Feeder Model </label>
-        <input type="text" class="form-control" id="feeder_model" name="feeder_model"  placeholder="Enter feeder modle. " value="{{$installationRecord->feeder_model or old('feeder_model')}}">
-    </div>
-    <div class="form-group">
-        <label for="feeder_serial_number"> Feeder Serial Number </label>
-        <input type="text" class="form-control" id="feeder_serial_number" name="feeder_serial_number"  placeholder=" Enter feeder serial number. " value="{{$installationRecord->feeder_serial_number or old('feeder_serial_number')}}">
-    </div>
-    <div class="form-group">
-        <label for="feeder_product_key"> Feeder Product Key </label>
-        <input type="text" class="form-control" id="feeder_product_key" name="feeder_product_key"  placeholder="Enter feeder product key. " value="{{$installationRecord->feeder_product_key or old('feeder_product_key')}}">
-    </div>
+<div class="form-group">
+    <label for="start"> تاريخ بداية العقد <span style="color:red">*</span></label>
+    <input type="text" class="form-control" id="datepicker" name="start"  placeholder=" إدخل تاريخ بداية العقد. " value="{{$contract->start or old('start')}}">
+</div>
 
-    <legend> فينشر </legend>
-    <div class="form-group">
-        <label for="finisher_model"> Finisher Model </label>
-        <input type="text" class="form-control" id="finisher_model" name="finisher_model"  placeholder=" Enter finisher modle " value="{{$installationRecord->finisher_model or old('finisher_model')}}">
-    </div>
-    <div class="form-group">
-        <label for="finisher_serial_number"> Finisher Serial Number </label>
-        <input type="text" class="form-control" id="finisher_serial_number" name="finisher_serial_number"  placeholder="Enter finisher serial number " value="{{$installationRecord->finisher_serial_number or old('finisher_serial_number')}}">
-    </div>
-    <div class="form-group">
-        <label for="finisher_product_key"> Finisher Product Key </label>
-        <input type="text" class="form-control" id="finisher_product_key" name="finisher_product_key"  placeholder="Enter finisher product key " value="{{$installationRecord->finisher_product_key or old('finisher_product_key')}}">
-    </div>
+<div class="form-group">
+    <label for="end"> تاريخ نهاية العقد <span style="color:red">*</span></label>
+    <input type="text" class="form-control" id="datepicker2" name="end"  placeholder=" إدخل تاريخ نهاية العقد. " value="{{$contract->end or old('end')}}">
+</div>
 
-    <legend> هارد ديسك </legend>
-    <div class="form-group">
-        <label for="hard_disk_model"> Hard Disk Model </label>
-        <input type="text" class="form-control" id="hard_disk_model" name="hard_disk_model"  placeholder=" Enter hard disk modle " value="{{$installationRecord->hard_disk_model or old('hard_disk_model')}}">
-    </div>
-    <div class="form-group">
-        <label for="hard_disk_serial_number"> Hard Disk Serial Number </label>
-        <input type="text" class="form-control" id="hard_disk_serial_number" name="hard_disk_serial_number"  placeholder="Enter hard disk serial number " value="{{$installationRecord->hard_disk_serial_number or old('hard_disk_serial_number')}}">
-    </div>
-    <div class="form-group">
-        <label for="hard_disk_product_key"> Hard Disk Product Key </label>
-        <input type="text" class="form-control" id="hard_disk_product_key" name="hard_disk_product_key"  placeholder="Enter hard disk product key " value="{{$installationRecord->hard_disk_product_key or old('hard_disk_product_key')}}">
-    </div>
+<div class="form-group">
+    <label for="status">
+         حالة التعاقد
+        <span style="color:red">*</span>
+     </label>
+    <select class="form-control" name="status">
+        <?php $contractStatus = isset($contract->status)? $contract->status:'';?>
+        <option value="">
+              أختر حالة التعاقد.
+          </option>
+        <option value="ساري" {{($contractStatus == 'ساري')? 'selected' : ((old('status')=='ساري')?'selected':'')}}>
+             ساري
+        </option>
+        <option value="منتهي" {{($contractStatus == 'منتهي')? 'selected' : ((old('status')=='منتهي')?'selected':'')}}>
+             منتهي
+        </option>
+        <option value="لاغي" {{($contractStatus == 'لاغي')? 'selected' : ((old('status')=='لاغي')?'selected':'')}}>
+             لاغي
+        </option>
+    </select>
+</div>
 
-    <legend> بابير درو </legend>
-    <div class="form-group">
-        <label for="paper_drawer_model"> Paper Drawer Model </label>
-        <input type="text" class="form-control" id="paper_drawer_model" name="paper_drawer_model"  placeholder=" Enter paper drawer modle " value="{{$installationRecord->paper_drawer_model or old('paper_drawer_model')}}">
-    </div>
-    <div class="form-group">
-        <label for="paper_drawer_serial_number"> Paper Drawer Serial Number </label>
-        <input type="text" class="form-control" id="paper_drawer_serial_number" name="paper_drawer_serial_number"  placeholder="Enter paper drawer serial number " value="{{$installationRecord->paper_drawer_serial_number or old('paper_drawer_serial_number')}}">
-    </div>
-    <div class="form-group">
-        <label for="paper_drawer_product_key"> Paper Drawer Product Key </label>
-        <input type="text" class="form-control" id="paper_drawer_product_key" name="paper_drawer_product_key"  placeholder="Enter paper drawer product key " value="{{$installationRecord->paper_drawer_product_key or old('paper_drawer_product_key')}}">
-    </div>
+<div class="form-group">
+    <label for="price"> السعر عند التعاقد "بدون الضريبة" <span style="color:red">*</span></label>
+    <input type="text" class="form-control" id="price" name="price"  placeholder=" إدخل السعر عند التعاقد. " value="{{$contract->price or old('price')}}">
+</div>
 
-    <legend> نيتورك سكانير </legend>
-    <div class="form-group">
-        <label for="network_scanner_model"> Network Scanner Model </label>
-        <input type="text" class="form-control" id="network_scanner_model" name="network_scanner_model"  placeholder=" Enter network scanner modle " value="{{$installationRecord->network_scanner_model or old('network_scanner_model')}}">
-    </div>
-    <div class="form-group">
-        <label for="network_scanner_serial_number"> Network Scanner Serial Number </label>
-        <input type="text" class="form-control" id="network_scanner_serial_number" name="network_scanner_serial_number"  placeholder="Enter network scanner serial number " value="{{$installationRecord->network_scanner_serial_number or old('network_scanner_serial_number')}}">
-    </div>
-    <div class="form-group">
-        <label for="network_scanner_product_key"> Network Scanner Product Key </label>
-        <input type="text" class="form-control" id="network_scanner_product_key" name="network_scanner_product_key"  placeholder="Enter network scanner product key " value="{{$installationRecord->network_scanner_product_key or old('network_scanner_product_key')}}">
-    </div>
+<div class="form-group">
+    <label for="tax"> قيمة الضريبة "النسبة المئوية" <span style="color:red">*</span></label>
+    <P>
+        <small>
+            إدخل رقم صحيح بدون العلامة المئوية.
+        </small>
+    </P>
+    <input type="text" class="form-control" id="tax" name="tax"  placeholder=" إدخل قيمة الضريبة. " value="{{$contract->tax or old('tax')}}">
+</div>
+
+<div class="form-group">
+    <label for="total_price"> السعر الكلي للتعاقد شامل الضريبة <span style="color:red">*</span></label>
+    <input type="text" class="form-control" id="total_price" name="total_price"  placeholder=" إدخل السعر الكلي شامل الضريبة. " value="{{$contract->total_price or old('total_price')}}">
+</div>
+
+<div class="form-group">
+    <label for="payment_system">
+         نظام السداد
+        <span style="color:red">*</span>
+     </label>
+    <select class="form-control" name="payment_system">
+        <?php $contractStatus = isset($contract->payment_system)? $contract->payment_system:'';?>
+        <option value="">
+              أختر نظام السداد.
+          </option>
+        <option value="مقدم" {{($contractStatus == 'مقدم')? 'selected' : ((old('payment_system')=='مقدم')?'selected':'')}}>
+             مقدم
+        </option>
+
+        <option value="ربع سنوي" {{($contractStatus == 'ربع سنوي')? 'selected' : ((old('payment_system')=='ربع سنوي')?'selected':'')}}>
+             ربع سنوي
+        </option>
+
+        <option value="نصف سنوي" {{($contractStatus == 'نصف سنوي')? 'selected' : ((old('payment_system')=='نصف سنوي')?'selected':'')}}>
+             نصف سنوي
+        </option>
+
+        <option value="نهاية المدة" {{($contractStatus == 'نهاية المدة')? 'selected' : ((old('payment_system')=='نهاية المدة')?'selected':'')}}>
+             نهاية المدة
+        </option>
+
+    </select>
 </div>
 
 <div class="form-group">
     <label for="comments"> التعليقات </label>
-    <textarea name="comments" class="form-control" placeholder=" إدخل تعليقاً. ">{{$installationRecord->comments or old('comments')}}</textarea>
+    <textarea name="comments" class="form-control" placeholder=" إدخل تعليقاً. ">{{$contract->comments or old('comments')}}</textarea>
 </div>
 
 <button type="submit" class="btn btn-primary btn-lg center-block" >
