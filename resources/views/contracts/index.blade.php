@@ -91,8 +91,8 @@
 					success: function(results){
 						$("#my-table-body").fadeOut();
 						$("#my-table-body").children().remove();
-						$.each(results, function(index, customer) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('customers')}}/"+customer.id+"'>"+customer.name+"</a></td><td>"+customer.code+"</td><td>"+customer.type+"</td><td>"+customer.governorate+"</td><td>"+customer.area+"</td><td>"+customer.telecoms[0].number+"</td></tr>"
+						$.each(results, function(index, contract) {
+							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('contracts')}}/"+contract.id+"'>"+contract.code+"</a></td><td>"+contract.type+"</td><td>"+contract.start+"</td><td>"+contract.end+"</td><td>"+contract.status+"</td><td>"+contract.payment_system+"</td></tr>"
 				        });
 						$("#my-table-body").append(newResult);
 						$("#my-table-body").fadeIn();

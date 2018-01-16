@@ -1,7 +1,3 @@
-@section('head')
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
-@endsection
 <div class="form-group">
     <label for="code"> كود العميل <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود العميل. " value="{{$customer->code or old('code')}}">
@@ -124,3 +120,12 @@
 <button type="submit" class="btn btn-primary btn-lg center-block" >
     حفظ
 </button>
+@section('head')
+    {{-- bootstrap-select --}}
+    <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
+@endsection
+@section('js_footer')
+    {{-- bootstrap-select --}}
+    <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
+    <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
+@endsection

@@ -1,10 +1,3 @@
-@section('head')
-    <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
-@endsection
-
-
 <div class="form-group">
     <label for="part_id"> القطعة الرئيسة <span style="color:red">*</span></label>
     <select class="form-control selectpicker" name="part_id" data-live-search="true">
@@ -64,6 +57,17 @@
 <button type="submit" class="btn btn-primary btn-lg center-block" >
     حفظ
 </button>
+@section('head')
+{{-- bootstrapSelect --}}
+    <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
+{{-- bootstrapSelect --}}
+{{-- datePicker --}}
+    <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
+{{-- datePicker --}}
+@endsection
 @section('js_footer')
+{{-- datePicker --}}
     <script src="{{asset('js/datepicker/jquery-ui.min.js')}}" charset="utf-8"></script>
+    <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
+{{-- datePicker --}}
 @endsection

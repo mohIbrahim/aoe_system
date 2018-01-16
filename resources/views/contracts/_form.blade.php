@@ -1,6 +1,3 @@
-@section('head')
-    <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
-@endsection
 <div class="form-group">
     <label for="code"> كود العقد <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود العقد. " value="{{$contract->code or old('code')}}">
@@ -123,7 +120,14 @@
 <button type="submit" class="btn btn-primary btn-lg center-block" >
     حفظ
 </button>
-
+@section('head')
+{{-- datePicker --}}
+    <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
+{{-- datePicker --}}
+@endsection
 @section('js_footer')
+{{-- datePicker --}}
     <script src="{{asset('js/datepicker/jquery-ui.min.js')}}" charset="utf-8"></script>
+    <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
+{{-- datePicker --}}
 @endsection
