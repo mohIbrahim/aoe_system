@@ -19,6 +19,8 @@ use App\AOE\Repositories\InstallationRecord\EloquentInstallationRecord;
 use App\AOE\Repositories\InstallationRecord\InstallationRecordInterface;
 use App\AOE\Repositories\Contract\EloquentContract;
 use App\AOE\Repositories\Contract\ContractInterface;
+use App\AOE\Repositories\Invoice\EloquentInvoice;
+use App\AOE\Repositories\Invoice\InvoiceInterface;
 
 class RepositoriesServiceProvider extends ServiceProvider
 {
@@ -47,5 +49,6 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->singleton(PartSerialNumberInterface::class, EloquentPartSerialNumber::class);
         $this->app->singleton(InstallationRecordInterface::class, EloquentInstallationRecord::class);
         $this->app->singleton(ContractInterface::class, EloquentContract::class);
+        $this->app->singleton(InvoiceInterface::class, EloquentInvoice::class);
     }
 }

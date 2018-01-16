@@ -41,6 +41,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                     'part_serial_numbers.show',
                     'installation_records.show',
                     'contracts.show',
+                    'invoices.show',
                 ];
 
         view()->composer($v, function($view){

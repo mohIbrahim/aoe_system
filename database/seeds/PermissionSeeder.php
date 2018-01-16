@@ -22,6 +22,7 @@ class PermissionSeeder extends Seeder
         $this->partSerialNumbers();
         $this->installationRecords();
         $this->contracts();
+        $this->invoices();
     }
 
     /**
@@ -235,6 +236,26 @@ class PermissionSeeder extends Seeder
             ]);
         DB::table('permissions')->insert([
             "name"      =>"delete_contracts",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+    }
+
+    private function invoices()
+    {
+        DB::table('permissions')->insert([
+            "name"      =>"view_invoices",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"create_invoices",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"update_invoices",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"delete_invoices",
             "created_at"=>Carbon\Carbon::now(),
             ]);
     }
