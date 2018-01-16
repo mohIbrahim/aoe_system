@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class Invoice extends Model
 {
     protected $table = 'invoices';
-    protected $fillable() = ['number', 'order_number', 'delivery_permission_number', 'finance_approval', 'department', 'release_date', 'descriptions', 'comments'];
+    protected $fillable = ['number', 'order_number', 'delivery_permission_number', 'finance_approval', 'department', 'release_date', 'descriptions', 'comments'];
     protected $dates = ['release_date'];
 
     public function setReleaseDateAttribute($date)

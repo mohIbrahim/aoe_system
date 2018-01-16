@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Invoice;
-use Illuminate\Http\Request;
+use App\Http\Requests\InvoiceRequest;
+use App\AOE\Repositories\Inovice\InvoiceInterface;
 
 class InvoiceController extends Controller
 {
+
+    private $invoice;
+
+    public function __construct(InvoiceInterface $invodice)
+    {
+        $this->invoice = $invoice;
+        $this->middleware('auth');
+        $this->middleware('invoices');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,72 +23,84 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        //
+        $invoices = $this->invoice->latest()->paginate(25);
+        return view('invoices.index', compact('invoices'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * [create description]
+     * @return [type] [description]
      */
     public function create()
     {
-        //
+        return view('invoices.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * [store description]
+     * @param  InvoiceRequest $request [description]
+     * @return [type]                  [description]
      */
-    public function store(Request $request)
+    public function store(InvoiceRequest $request)
     {
-        //
+        $invoice = $this->invoice->create($request->all());
+        flash()->success(' تم إضافة الفاتورة بنجاح. ')->important();
+        return redirect()->action('ContractController@show', ['id'=>$invoice->id]);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
+     * [show description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
      */
-    public function show(Invoice $invoice)
+    public function show($id)
     {
-        //
+        $invoice = $this->invoice->getById($id);
+        return view('invoices.show', compact('invoice'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
+     * [edit description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
      */
-    public function edit(Invoice $invoice)
+    public function edit($id)
     {
-        //
+        $invoice = $this->invoice->getById($id);
+        return view('invoices.edit', compact('invoice'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
+     * [update description]
+     * @param  InvoiceRequest $request [description]
+     * @param  [type]         $id      [description]
+     * @return [type]                  [description]
      */
-    public function update(Request $request, Invoice $invoice)
+    public function update(InvoiceRequest $request, $id)
     {
-        //
+        $invoice = $this->invoice->update($id, $request->all());
+        flash()->success(' تم تعديل الفاتورة بنجاح. ')->important();
+        return redirect()->action('ContractController@show', ['id'=>$id]);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
+     * [destroy description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
      */
-    public function destroy(Invoice $invoice)
+    public function destroy($id)
     {
-        //
+        $isDeleted = $this->invoice->delete($id);
+        flash()->success(' تم حذف الفاتورة بنجاح. ')->important();
+        return redirect()->action('ContractController@index');
+    }
+    /**
+     * [search description]
+     * @param  [type] $keyword [description]
+     * @return [type]          [description]
+     */
+    public function search($keyword)
+    {
+        return $this->invoice->search($keyword);
     }
 }
