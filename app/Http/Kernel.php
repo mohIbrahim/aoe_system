@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'installation_records'          => \App\Http\Middleware\InstallationRecords::class,
         'contracts'                     => \App\Http\Middleware\Contracts::class,
         'invoices'                     => \App\Http\Middleware\Invoices::class,
+        'visits'                        => \App\Http\Middleware\Visits::class,
     ];
 }

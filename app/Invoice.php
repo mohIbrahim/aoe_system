@@ -20,7 +20,8 @@ class Invoice extends Model
         }
     }
 
-    public function getReleaseDateAttribute($date) {
+    public function getReleaseDateAttribute($date)
+    {
         if (!empty($date))
             return $this->asDateTime($date)->format('Y-m-d');
     }

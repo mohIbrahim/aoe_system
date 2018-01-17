@@ -47,3 +47,6 @@ Route::resource('role_user', 'RoleUserController');
 //invoices
     Route::resource('invoices', 'InvoiceController');
     Route::get('invoices_search/{keyword}', 'InvoiceController@search')->name('invoices_search');
+//Visits
+    Route::resource('visits', 'VisitController');
+    Route::get('visits_search', 'VisitController@search')->name('visits_search');

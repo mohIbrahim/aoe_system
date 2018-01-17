@@ -21,6 +21,8 @@ use App\AOE\Repositories\Contract\EloquentContract;
 use App\AOE\Repositories\Contract\ContractInterface;
 use App\AOE\Repositories\Invoice\EloquentInvoice;
 use App\AOE\Repositories\Invoice\InvoiceInterface;
+use App\AOE\Repositories\Visit\EloquentVisit;
+use App\AOE\Repositories\Visit\VisitInterface;
 
 class RepositoriesServiceProvider extends ServiceProvider
 {
@@ -50,5 +52,6 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->singleton(InstallationRecordInterface::class, EloquentInstallationRecord::class);
         $this->app->singleton(ContractInterface::class, EloquentContract::class);
         $this->app->singleton(InvoiceInterface::class, EloquentInvoice::class);
+        $this->app->singleton(VisitInterface::class, EloquentVisit::class);
     }
 }
