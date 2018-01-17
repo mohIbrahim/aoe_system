@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-	 عرض العقود
+	 عرض الفواتير
 @endsection
 
 @section('content')
@@ -13,11 +13,11 @@
 
 
 
-				<legend> البحث عن العقود </legend>
+				<legend> البحث عن الفواتير </legend>
 
 				<div class="form-group">
-					<label for=""> البحث بـ كود، حالة، نوع العقد. </label>
-					<input type="text" class="form-control" id="contract_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
+					<label for=""> البحث ب رقم وإطلاع قسم الحسابات على الفاتورة. </label>
+					<input type="text" class="form-control" id="invoice_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
 
@@ -26,7 +26,7 @@
 				<a href=""  class="btn btn-success"> العودة </a>
 
 
-				<h3 class="text-center"> عرض العقود </h3>
+				<h3 class="text-center"> عرض الفواتير </h3>
 		    </div>
 		    <div class="panel-body">
 
@@ -35,31 +35,29 @@
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>
-                                <th> كود العقد </th>
-			  				    <th> نوع العقد </th>
-			  				    <th> تاريخ بداية العقد </th>
-			  				    <th> تاريخ نهاية العقد </th>
-			  				    <th> حالة التعاقد </th>
-			  				    <th> نظام السداد </th>
+                                <th> رقم الفاتورة </th>
+			  				    <th> أمر توريد رقم</th>
+			  				    <th> إذن تسليم رقم العقد </th>
+			  				    <th> إطلاع قسم الحسابات </th>
+			  				    <th> تاريخ الإصدار </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
 							<div class="">
-								@foreach ($contracts as $k => $contract)
+								@foreach ($invoices as $k => $invoice)
 									<tr>
 										<td>
 											{{$k+1}}
 										</td>
 										<td>
-                                            <a href="{{action('ContractController@show', ['id'=>$contract->id])}}" target="_blank">
-                                                {{$contract->code}}
+                                            <a href="{{action('InvoiceController@show', ['id'=>$invoice->id])}}" target="_blank">
+                                                {{$invoice->number}}
                                             </a>
                                         </td>
-										<td>{{$contract->type}}</td>
-										<td>{{$contract->start}}</td>
-										<td>{{$contract->end}}</td>
-										<td>{{$contract->status}}</td>
-										<td>{{$contract->payment_system}}</td>
+										<td>{{$invoice->order_number}}</td>
+										<td>{{$invoice->delivery_permission_number}}</td>
+										<td>{{$invoice->finance_check_out}}</td>
+										<td>{{$invoice->release_date}}</td>
 									</tr>
 								@endforeach
 
@@ -67,7 +65,7 @@
 			  		    </tbody>
 			  	     </table>
 					 <div class="text-center">
-						 {{$contracts->links()}}
+						 {{$invoices->links()}}
 					 </div>
 				 </div>
 
@@ -82,24 +80,25 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#search_button').on('click', function(){
-				var keyword = $('#contract_search').val();
+				var keyword = $('#invoice_search').val();
 				var newResult = "";
-				$.ajax({
-					type: "GET",
-					url:"contracts_search/"+keyword,
-					dataType: "json",
-					success: function(results){
-						$("#my-table-body").fadeOut();
-						$("#my-table-body").children().remove();
-						$.each(results, function(index, contract) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('contracts')}}/"+contract.id+"'>"+contract.code+"</a></td><td>"+contract.type+"</td><td>"+contract.start+"</td><td>"+contract.end+"</td><td>"+contract.status+"</td><td>"+contract.payment_system+"</td></tr>"
-				        });
-						$("#my-table-body").append(newResult);
-						$("#my-table-body").fadeIn();
-					}
+                if(keyword) {
+                    $.ajax({
+                        type: "GET",
+                        url:"invoices_search/"+keyword,
+                        dataType: "json",
+                        success: function(results){
+                            $("#my-table-body").fadeOut();
+                            $("#my-table-body").children().remove();
+                            $.each(results, function(index, invoice) {
+                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('invoices')}}/"+invoice.id+"'>"+invoice.number+"</a></td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.release_date+"</td></tr>"
+                            });
+                            $("#my-table-body").append(newResult);
+                            $("#my-table-body").fadeIn();
+                        }
 
-				});
-
+                    });
+                }
 			});
 		});
 	</script>

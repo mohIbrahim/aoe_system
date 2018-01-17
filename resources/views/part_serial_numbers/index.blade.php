@@ -102,21 +102,23 @@
 			$('#search_button').on('click', function(){
 				var keyword = $('#part_serial_numbers_search').val();
 				var newResult = "";
-				$.ajax({
-					type: "GET",
-					url:"part_serial_numbers_search/"+keyword,
-					dataType: "json",
-					success: function(results){
+                if (keyword) {
+                    $.ajax({
+                        type: "GET",
+                        url:"part_serial_numbers_search/"+keyword,
+                        dataType: "json",
+                        success: function(results){
 
-						$("#my-table-body").fadeOut();
-						$("#my-table-body").children().remove();
-						$.each(results, function(index, part) {
-							newResult += "<tr><td>"+(index+1)+"</td><td>"+part.part.name+"</td><td><a href='{{url('part_serial_numbers')}}/"+part.id+"'>"+part.serial_number+"</a></td><td>"+part.code+"</td><td>"+part.availability+"</td><td>"+part.status+"</td><td>"+part.date_of_entry+"</td><td>"+part.date_of_departure+"</td><td></tr>"
-				        });
-						$("#my-table-body").append(newResult);
-						$("#my-table-body").fadeIn();
-					}
-				});
+                            $("#my-table-body").fadeOut();
+                            $("#my-table-body").children().remove();
+                            $.each(results, function(index, part) {
+                                newResult += "<tr><td>"+(index+1)+"</td><td>"+part.part.name+"</td><td><a href='{{url('part_serial_numbers')}}/"+part.id+"'>"+part.serial_number+"</a></td><td>"+part.code+"</td><td>"+part.availability+"</td><td>"+part.status+"</td><td>"+part.date_of_entry+"</td><td>"+part.date_of_departure+"</td><td></tr>"
+                            });
+                            $("#my-table-body").append(newResult);
+                            $("#my-table-body").fadeIn();
+                        }
+                    });
+                }
 			});
 		});
 	</script>

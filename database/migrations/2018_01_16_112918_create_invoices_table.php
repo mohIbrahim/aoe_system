@@ -18,8 +18,7 @@ class CreateInvoicesTable extends Migration
             $table->integer('number');
             $table->integer('order_number')->nullable();
             $table->integer('delivery_permission_number')->nullable();
-            $table->string('finance_approval')->nullable();
-            $table->string('department')->nullable();
+            $table->string('finance_check_out')->nullable()->default('لم يتم الاطلاع');
             $table->dateTime('release_date')->nullable();
             $table->text('descriptions')->nullable();
             $table->text('comments')->nullable();

@@ -80,21 +80,23 @@
 			$('#search_button').on('click', function(){
 				var keyword = $('#parts_search').val();
 				var newResult = "";
-				$.ajax({
-					type: "GET",
-					url:"parts_search/"+keyword,
-					dataType: "json",
-					success: function(results){
-						$("#my-table-body").fadeOut();
-						$("#my-table-body").children().remove();
-						$.each(results, function(index, part) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('parts')}}/"+part.id+"'>"+part.name+"</a></td><td>"+part.code+"</td><td>"+part.type+"</td><td>"+part.qty+"</td></tr>"
-				        });
-						$("#my-table-body").append(newResult);
-						$("#my-table-body").fadeIn();
-					}
+                if (keyword) {
+                    $.ajax({
+                        type: "GET",
+                        url:"parts_search/"+keyword,
+                        dataType: "json",
+                        success: function(results){
+                            $("#my-table-body").fadeOut();
+                            $("#my-table-body").children().remove();
+                            $.each(results, function(index, part) {
+                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('parts')}}/"+part.id+"'>"+part.name+"</a></td><td>"+part.code+"</td><td>"+part.type+"</td><td>"+part.qty+"</td></tr>"
+                            });
+                            $("#my-table-body").append(newResult);
+                            $("#my-table-body").fadeIn();
+                        }
 
-				});
+                    });
+                }
 
 			});
 		});

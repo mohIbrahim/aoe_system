@@ -4,11 +4,11 @@ namespace App\AOE\Repositories\Invoice;
 
 use App\Invoice;
 
-class EloquentInvoice implements InvoicetInterface
+class EloquentInvoice implements InvoiceInterface
 {
     private $invoice;
 
-    public function __construct(Contract $invoice)
+    public function __construct(Invoice $invoice)
     {
         $this->invoice = $invoice;
     }
@@ -53,7 +53,7 @@ class EloquentInvoice implements InvoicetInterface
     public function search($keyword)
     {
         $results = $this->invoice->where('number', 'like', '%'.$keyword.'%')
-                        ->orWhere('department', 'like', '%'.$keyword.'%')
+                        ->orWhere('finance_check_out', 'like', '%'.$keyword.'%')
                         ->get();
         return $results;
     }

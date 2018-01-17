@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InvoiceRequest;
-use App\AOE\Repositories\Inovice\InvoiceInterface;
+use App\AOE\Repositories\Invoice\InvoiceInterface;
 
 class InvoiceController extends Controller
 {
 
     private $invoice;
 
-    public function __construct(InvoiceInterface $invodice)
+    public function __construct(InvoiceInterface $invoice)
     {
         $this->invoice = $invoice;
         $this->middleware('auth');
@@ -45,7 +45,7 @@ class InvoiceController extends Controller
     {
         $invoice = $this->invoice->create($request->all());
         flash()->success(' تم إضافة الفاتورة بنجاح. ')->important();
-        return redirect()->action('ContractController@show', ['id'=>$invoice->id]);
+        return redirect()->action('InvoiceController@show', ['id'=>$invoice->id]);
     }
 
     /**
@@ -80,7 +80,7 @@ class InvoiceController extends Controller
     {
         $invoice = $this->invoice->update($id, $request->all());
         flash()->success(' تم تعديل الفاتورة بنجاح. ')->important();
-        return redirect()->action('ContractController@show', ['id'=>$id]);
+        return redirect()->action('InvoiceController@show', ['id'=>$id]);
     }
 
     /**
@@ -92,7 +92,7 @@ class InvoiceController extends Controller
     {
         $isDeleted = $this->invoice->delete($id);
         flash()->success(' تم حذف الفاتورة بنجاح. ')->important();
-        return redirect()->action('ContractController@index');
+        return redirect()->action('InvoiceController@index');
     }
     /**
      * [search description]

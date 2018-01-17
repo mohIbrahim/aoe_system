@@ -1,120 +1,51 @@
 <div class="form-group">
-    <label for="code"> كود العقد <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود العقد. " value="{{$contract->code or old('code')}}">
+    <label for="number"> رقم الفاتورة <span style="color:red">*</span></label>
+    <input type="text" class="form-control" id="number" name="number"  placeholder=" إدخل رقم الفاتورة. " value="{{$invoice->number or old('number')}}">
 </div>
 
 <div class="form-group">
-    <label for="type">
-         نوع العقد
-        <span style="color:red">*</span>
+    <label for="order_number"> أمر توريد رقم </label>
+    <input type="text" class="form-control" id="order_number" name="order_number"  placeholder=" إدخل رقم أمر التوريد. " value="{{$invoice->order_number or old('order_number')}}">
+</div>
+
+<div class="form-group">
+    <label for="delivery_permission_number"> إذن تسليم رقم </label>
+    <input type="text" class="form-control" id="delivery_permission_number" name="delivery_permission_number"  placeholder=" إدخل رقم إذن التسليم. " value="{{$invoice->delivery_permission_number or old('delivery_permission_number')}}">
+</div>
+
+<div class="form-group">
+    <label for="finance_check_out">
+         إطلاع قسم الحسابات
      </label>
-    <select class="form-control" name="type">
-        <?php $contracType = isset($contract->type)? $contract->type:'';?>
+    <select class="form-control" name="finance_check_out">
+        <?php $invoiceFinanceCheckOut = isset($invoice->finance_check_out)? $invoice->finance_check_out:'';?>
         <option value="">
-              أختر نوع العقد.
+              أختر بالاطلاع أو عدم الاطلاع على هذة الفاتورة.
           </option>
-        <option value="ضمان" {{($contracType == 'ضمان')? 'selected' : ((old('type')=='ضمان')?'selected':'')}}>
-             ضمان
+        <option value="تم الاطلاع" {{($invoiceFinanceCheckOut == 'تم الاطلاع')? 'selected' : ((old('finance_check_out')=='تم الاطلاع')?'selected':'')}}>
+             تم الاطلاع
         </option>
-        <option value="صيانة فقط" {{($contracType == 'صيانة فقط')? 'selected' : ((old('type')=='صيانة فقط')?'selected':'')}}>
-             صيانة فقط
+
+        <option value="لم يتم الاطلاع" {{($invoiceFinanceCheckOut == 'لم يتم الاطلاع')? 'selected' : ((old('finance_check_out')=='لم يتم الاطلاع')?'selected':'')}}>
+             لم يتم الاطلاع
         </option>
-        <option value="صيانة شاملة قطع الغيار" {{($contracType == 'صيانة شاملة قطع الغيار')? 'selected' : ((old('type')=='صيانة شاملة قطع الغيار')?'selected':'')}}>
-             صيانة شاملة قطع الغيار
-        </option>
-        <option value="صيانة شاملة قطع الغيار ومستلزمات التشغيل" {{($contracType == 'صيانة شاملة قطع الغيار ومستلزمات التشغيل')? 'selected' : ((old('type')=='صيانة شاملة قطع الغيار ومستلزمات التشغيل')?'selected':'')}}>
-             صيانة شاملة قطع الغيار ومستلزمات التشغيل
-        </option>
-        <option value="إيجار" {{($contracType == 'إيجار')? 'selected' : ((old('type')=='إيجار')?'selected':'')}}>
-             إيجار
-        </option>
+
     </select>
 </div>
 
 <div class="form-group">
-    <label for="start"> تاريخ بداية العقد <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="datepicker" name="start"  placeholder=" إدخل تاريخ بداية العقد. " value="{{$contract->start or old('start')}}">
+    <label for="release_date"> تاريخ الإصدار <span style="color:red">*</span></label>
+    <input type="text" class="form-control datepicker" id="datepicker" name="release_date"  placeholder=" أختر تاريخ الإصدار. " value="{{$invoice->release_date or old('release_date')}}">
 </div>
 
 <div class="form-group">
-    <label for="end"> تاريخ نهاية العقد <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="datepicker2" name="end"  placeholder=" إدخل تاريخ نهاية العقد. " value="{{$contract->end or old('end')}}">
-</div>
-
-<div class="form-group">
-    <label for="status">
-         حالة التعاقد
-        <span style="color:red">*</span>
-     </label>
-    <select class="form-control" name="status">
-        <?php $contractStatus = isset($contract->status)? $contract->status:'';?>
-        <option value="">
-              أختر حالة التعاقد.
-          </option>
-        <option value="ساري" {{($contractStatus == 'ساري')? 'selected' : ((old('status')=='ساري')?'selected':'')}}>
-             ساري
-        </option>
-        <option value="منتهي" {{($contractStatus == 'منتهي')? 'selected' : ((old('status')=='منتهي')?'selected':'')}}>
-             منتهي
-        </option>
-        <option value="لاغي" {{($contractStatus == 'لاغي')? 'selected' : ((old('status')=='لاغي')?'selected':'')}}>
-             لاغي
-        </option>
-    </select>
-</div>
-
-<div class="form-group">
-    <label for="price"> السعر عند التعاقد "بدون الضريبة" <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="price" name="price"  placeholder=" إدخل السعر عند التعاقد. " value="{{$contract->price or old('price')}}">
-</div>
-
-<div class="form-group">
-    <label for="tax"> قيمة الضريبة "النسبة المئوية" <span style="color:red">*</span></label>
-    <P>
-        <small>
-            إدخل رقم صحيح بدون العلامة المئوية.
-        </small>
-    </P>
-    <input type="text" class="form-control" id="tax" name="tax"  placeholder=" إدخل قيمة الضريبة. " value="{{$contract->tax or old('tax')}}">
-</div>
-
-<div class="form-group">
-    <label for="total_price"> السعر الكلي للتعاقد شامل الضريبة <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="total_price" name="total_price"  placeholder=" إدخل السعر الكلي شامل الضريبة. " value="{{$contract->total_price or old('total_price')}}">
-</div>
-
-<div class="form-group">
-    <label for="payment_system">
-         نظام السداد
-        <span style="color:red">*</span>
-     </label>
-    <select class="form-control" name="payment_system">
-        <?php $contractStatus = isset($contract->payment_system)? $contract->payment_system:'';?>
-        <option value="">
-              أختر نظام السداد.
-          </option>
-        <option value="مقدم" {{($contractStatus == 'مقدم')? 'selected' : ((old('payment_system')=='مقدم')?'selected':'')}}>
-             مقدم
-        </option>
-
-        <option value="ربع سنوي" {{($contractStatus == 'ربع سنوي')? 'selected' : ((old('payment_system')=='ربع سنوي')?'selected':'')}}>
-             ربع سنوي
-        </option>
-
-        <option value="نصف سنوي" {{($contractStatus == 'نصف سنوي')? 'selected' : ((old('payment_system')=='نصف سنوي')?'selected':'')}}>
-             نصف سنوي
-        </option>
-
-        <option value="نهاية المدة" {{($contractStatus == 'نهاية المدة')? 'selected' : ((old('payment_system')=='نهاية المدة')?'selected':'')}}>
-             نهاية المدة
-        </option>
-
-    </select>
+    <label for="descriptions"> الوصف </label>
+    <textarea name="descriptions" class="form-control" placeholder=" إدخل أي تفاصيل إن وجدت. ">{{$invoice->descriptions or old('descriptions')}}</textarea>
 </div>
 
 <div class="form-group">
     <label for="comments"> التعليقات </label>
-    <textarea name="comments" class="form-control" placeholder=" إدخل تعليقاً. ">{{$contract->comments or old('comments')}}</textarea>
+    <textarea name="comments" class="form-control" placeholder=" إدخل تعليقاً. ">{{$invoice->comments or old('comments')}}</textarea>
 </div>
 
 <button type="submit" class="btn btn-primary btn-lg center-block" >

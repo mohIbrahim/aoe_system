@@ -13,7 +13,7 @@ class InvoiceRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,30 @@ class InvoiceRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            //
+            'number'=>'required|max:7|numeric',
+            'order_number'=>'numeric|max:7|nullable',
+            'delivery_permission_number'=>'numeric|max:7|nullable',
+            'release_date'=>'required|date',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'number.required'=>' برجاء إدخال رقم الفاتورة. ',
+            'number.max'=>' برجاء إدخال رقم الفاتورة لا يزيد عن 7 خانات. ',
+            'number.numeric'=>' برجاء إدخال رقم الفاتور أرقم فقط. ',
+
+            'order_number.numeric'=>' برجاء إدخال أمر توريد أرقم فقط. ',
+            'order_number.max'=>' برجاء إدخال أمر توريد لا يزيد عن 7 خانات. ',
+
+            'delivery_permission_number.numeric'=>' برجاء إدخال إذن تسليم أرقم فقط. ',
+            'delivery_permission_number.max'=>' برجاء إدخال إذن تسليم لا يزيد عن 7 خانات. ',
+
+            'release_date.required'=>' برجاء إدخال تاريخ الإصدار. ',
+            'release_date.date'=>' برجاء إدخال تاريخ الإصدار بشكل صحيح. '
         ];
     }
 }

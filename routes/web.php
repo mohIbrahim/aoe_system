@@ -44,3 +44,6 @@ Route::resource('role_user', 'RoleUserController');
 //Part Serial partSerialNumbers
     Route::resource('contracts', 'ContractController');
     Route::get('contracts_search/{keyword}', 'ContractController@search')->name('contracts_search');
+//invoices
+    Route::resource('invoices', 'InvoiceController');
+    Route::get('invoices_search/{keyword}', 'InvoiceController@search')->name('invoices_search');
