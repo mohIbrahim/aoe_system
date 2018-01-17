@@ -1,7 +1,19 @@
 <div class="form-group">
+    <label for="visit_date"> تاريخ الزيارة <span style="color:red">*</span></label>
+    <input type="text" class="form-control datepicker" id="datepicker" name="visit_date"  placeholder=" أختر تاريخ الإصدار. " value="{{$invoice->visit_date or old('visit_date')}}">
+</div>
+
+<div class="form-group">
     <label for="number"> رقم الفاتورة <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="number" name="number"  placeholder=" إدخل رقم الفاتورة. " value="{{$invoice->number or old('number')}}">
 </div>
+
+
+
+
+
+
+
 
 <div class="form-group">
     <label for="order_number"> أمر توريد رقم </label>
@@ -33,10 +45,7 @@
     </select>
 </div>
 
-<div class="form-group">
-    <label for="release_date"> تاريخ الإصدار <span style="color:red">*</span></label>
-    <input type="text" class="form-control datepicker" id="datepicker" name="release_date"  placeholder=" أختر تاريخ الإصدار. " value="{{$invoice->release_date or old('release_date')}}">
-</div>
+
 
 <div class="form-group">
     <label for="descriptions"> الوصف </label>

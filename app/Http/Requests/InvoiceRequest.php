@@ -25,9 +25,9 @@ class InvoiceRequest extends FormRequest
     {
 
         return [
-            'number'=>'required|max:7|numeric',
-            'order_number'=>'numeric|max:7|nullable',
-            'delivery_permission_number'=>'numeric|max:7|nullable',
+            'number'=>'required|max:16777215|numeric',
+            'order_number'=>'numeric|max:16777215|nullable',
+            'delivery_permission_number'=>'numeric|max:16777215|nullable',
             'release_date'=>'required|date',
         ];
     }
