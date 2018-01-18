@@ -49,4 +49,4 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('invoices_search/{keyword}', 'InvoiceController@search')->name('invoices_search');
 //Visits
     Route::resource('visits', 'VisitController');
-    Route::get('visits_search', 'VisitController@search')->name('visits_search');
+    Route::get('visits_search/{keyword}', 'VisitController@search')->name('visits_search');

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Visit extends Model
 {
     protected $table = 'visits';
@@ -14,7 +15,7 @@ class Visit extends Model
     public function setVisitDateAttribute($date)
     {
         if (!empty($date)) {
-            $this->attributes['visit_date'] = Carbon::parse($date);
+            $this->attributes['visit_date'] = $this->asDateTime($date)->parse($date);
         } else {
             $this->attributes['visit_date'] = null;
         }

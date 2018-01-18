@@ -1,19 +1,19 @@
 @extends('layouts.app')
 @section('title')
-	 إضافة فاتورة جديدة
+	 إضافة زيارة جديدة
 @endsection
 @section('content')
           <div class="col-lg-12">
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="panel panel-primary main_arabic_font">
                     <div class="panel-heading text-center">
-                        <h2 class="panel-title"> إضافة فاتورة جديدة </h2>
+                        <h2 class="panel-title"> إضافة زيارة جديدة  </h2>
                     </div>
                     <div class="panel-body">
                         @include('errors.list')
-                        <form class="" action="{{ action('InvoiceController@store') }}" method="POST">
+                        <form class="" action="{{ action('VisitController@store') }}" method="POST">
                             {{ csrf_field() }}
-                            @include('invoices._form')
+                            @include('visits._form')
                         </form>
                     </div>
                 </div>

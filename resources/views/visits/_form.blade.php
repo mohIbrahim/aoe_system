@@ -1,60 +1,21 @@
 <div class="form-group">
     <label for="visit_date"> تاريخ الزيارة <span style="color:red">*</span></label>
-    <input type="text" class="form-control datepicker" id="datepicker" name="visit_date"  placeholder=" أختر تاريخ الإصدار. " value="{{$invoice->visit_date or old('visit_date')}}">
+    <input type="text" class="form-control datepicker" id="datepicker" name="visit_date"  placeholder=" أختر تاريخ الإصدار. " value="{{$visit->visit_date or old('visit_date')}}">
 </div>
 
 <div class="form-group">
-    <label for="number"> رقم الفاتورة <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="number" name="number"  placeholder=" إدخل رقم الفاتورة. " value="{{$invoice->number or old('number')}}">
-</div>
-
-
-
-
-
-
-
-
-<div class="form-group">
-    <label for="order_number"> أمر توريد رقم </label>
-    <input type="text" class="form-control" id="order_number" name="order_number"  placeholder=" إدخل رقم أمر التوريد. " value="{{$invoice->order_number or old('order_number')}}">
+    <label for="representative_customer_name"> اسم الشخص المسؤول عن الآلة </label>
+    <input type="text" class="form-control" id="representative_customer_name" name="representative_customer_name"  placeholder=" إدخل اسم الشخص المسؤول عن الآلة . " value="{{$visit->representative_customer_name or old('representative_customer_name')}}">
 </div>
 
 <div class="form-group">
-    <label for="delivery_permission_number"> إذن تسليم رقم </label>
-    <input type="text" class="form-control" id="delivery_permission_number" name="delivery_permission_number"  placeholder=" إدخل رقم إذن التسليم. " value="{{$invoice->delivery_permission_number or old('delivery_permission_number')}}">
-</div>
-
-<div class="form-group">
-    <label for="finance_check_out">
-         إطلاع قسم الحسابات
-     </label>
-    <select class="form-control" name="finance_check_out">
-        <?php $invoiceFinanceCheckOut = isset($invoice->finance_check_out)? $invoice->finance_check_out:'';?>
-        <option value="">
-              أختر بالاطلاع أو عدم الاطلاع على هذة الفاتورة.
-          </option>
-        <option value="تم الاطلاع" {{($invoiceFinanceCheckOut == 'تم الاطلاع')? 'selected' : ((old('finance_check_out')=='تم الاطلاع')?'selected':'')}}>
-             تم الاطلاع
-        </option>
-
-        <option value="لم يتم الاطلاع" {{($invoiceFinanceCheckOut == 'لم يتم الاطلاع')? 'selected' : ((old('finance_check_out')=='لم يتم الاطلاع')?'selected':'')}}>
-             لم يتم الاطلاع
-        </option>
-
-    </select>
-</div>
-
-
-
-<div class="form-group">
-    <label for="descriptions"> الوصف </label>
-    <textarea name="descriptions" class="form-control" placeholder=" إدخل أي تفاصيل إن وجدت. ">{{$invoice->descriptions or old('descriptions')}}</textarea>
+    <label for="readings_of_printing_machine"> قراءة العداد </label>
+    <input type="text" class="form-control" id="readings_of_printing_machine" name="readings_of_printing_machine"  placeholder=" إدخل قراءة العداد. " value="{{$visit->readings_of_printing_machine or old('readings_of_printing_machine')}}">
 </div>
 
 <div class="form-group">
     <label for="comments"> التعليقات </label>
-    <textarea name="comments" class="form-control" placeholder=" إدخل تعليقاً. ">{{$invoice->comments or old('comments')}}</textarea>
+    <textarea name="comments" class="form-control" placeholder=" إدخل تعليقاً. ">{{ $visit->comments or old('comments') }}</textarea>
 </div>
 
 <button type="submit" class="btn btn-primary btn-lg center-block" >

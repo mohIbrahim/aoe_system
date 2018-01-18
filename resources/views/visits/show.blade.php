@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-	 الفاتورة: {{$invoice->number}}
+	 الزيارة: {{$visit->number}}
 @endsection
 
 @section('content')
@@ -8,7 +8,7 @@
 		<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title"> الفاتورة: {{$invoice->number}}</h3>
+					<h3 class="panel-title"> الزيارة: {{$visit->number}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
@@ -16,12 +16,12 @@
 							    <thead>
 								    <h2 class="text-center"> البيانات الآساسية </h2>
 									<div class="text-center">
-										@if(in_array('update_invoices', $permissions))
-											<a href="{{action('InvoiceController@edit', ['id'=>$invoice->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>
+										@if(in_array('update_visits', $permissions))
+											<a href="{{action('VisitController@edit', ['id'=>$visit->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>
 											|
 										@endif
 
-										@if(in_array('delete_invoices', $permissions))
+										@if(in_array('delete_visits', $permissions))
 											<a href="#" class=" btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span> حذف</a>
 										@endif
 
@@ -32,50 +32,35 @@
 							    </thead>
 							    <tbody>
 								    <tr>
-									    <th> رقم الفاتورة </th>
-									    <td>{{$invoice->number}}</td>
+									    <th> تاريخ الزيارة </th>
+									    <td>{{$visit->visit_date}}</td>
 								    </tr>
 
 								    <tr>
-									    <th> أمر توريد رقم </th>
-									    <td>{{$invoice->order_number}}</td>
+									    <th> اسم الشخص المسؤول عن الآلة </th>
+									    <td>{{$visit->representative_customer_name}}</td>
 								    </tr>
 
 								    <tr>
-									    <th> إذن تسليم رقم </th>
-									    <td>{{$invoice->delivery_permission_number}}</td>
-								    </tr>
-
-								    <tr>
-									    <th> إطلاع قسم الحسابات </th>
+									    <th> قراءة العداد </th>
 										<td>
-											{{$invoice->finance_check_out}}
+											{{$visit->readings_of_printing_machine}}
 										</td>
 								    </tr>
 
                                     <tr>
-									    <th>  تاريخ الإصدار </th>
-									    <td>{{$invoice->release_date}}</td>
-								    </tr>
-
-                                    <tr>
-									    <th> الوصف </th>
-									    <td>{{$invoice->descriptions}}</td>
-								    </tr>
-
-                                    <tr>
 									    <th> التعليقات </th>
-									    <td>{{$invoice->comments}}</td>
+									    <td>{{$visit->comments}}</td>
 								    </tr>
 
 								    <tr>
 									    <th> تاريخ الإنشاء </th>
-									    <td style="direction:ltr; text-align:center">{{$invoice->created_at}}</td>
+									    <td style="direction:ltr; text-align:center">{{$visit->created_at}}</td>
 								    </tr>
 
 								    <tr>
 									    <th> تاريخ التعديل </th>
-									    <td style="direction:ltr; text-align:center">{{$invoice->created_at}}</td>
+									    <td style="direction:ltr; text-align:center">{{$visit->created_at}}</td>
 								    </tr>
 
 							    </tbody>
@@ -87,7 +72,7 @@
 	</div>
 @endsection
 
-@include('partial.deleteConfirm',['name'=>$invoice->number,
-								  'id'=> $invoice->id,
+@include('partial.deleteConfirm',['name'=>$visit->id,
+								  'id'=> $visit->id,
 								  'message'=>' هل أنت متأكد؟ هل تريد حذف ',
-								  'route'=>'InvoiceController@destroy'])
+								  'route'=>'VisitController@destroy'])
