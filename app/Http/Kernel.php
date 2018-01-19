@@ -72,5 +72,6 @@ class Kernel extends HttpKernel
         'visits'                            => \App\Http\Middleware\Visits::class,
         'follow_up_cards'                   => \App\Http\Middleware\FollowUpCards::class,
         'follow_up_card_special_reports'    => \App\Http\Middleware\FollowUpCardSpecialReports::class,
+        'references'                        => \App\Http\Middleware\References::class,
     ];
 }

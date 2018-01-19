@@ -14,9 +14,9 @@ class Users
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {   
-        
-        $response = redirect(action('HomeController@index'));   
+    {
+
+        $response = redirect(action('HomeController@index'));
 
 
         $user = $request->user();
@@ -28,13 +28,13 @@ class Users
             else
                 return $response;
         }
-       
+
         if($request->route()->getName() == 'users.index'      && in_array('view_users', $permissions)){
             $response = $next($request);
-        }else        
-       
+        }else
+
         if($request->route()->getName() == 'users.show'       && in_array('view_users', $permissions)){
-           
+
             $response = $next($request);
         }else
 
@@ -49,12 +49,12 @@ class Users
         }else
 
         if($request->route()->getName() == 'users.edit'       && in_array('update_users', $permissions)){
-            
+
             $response = $next($request);
         }else
 
         if($request->route()->getName() == 'users.update'     && in_array('update_users', $permissions)){
-            
+
             $response = $next($request);
         }else
 
@@ -62,7 +62,7 @@ class Users
 
             $response = $next($request);
         }else{
-            flash()->warning('<h3><img src="'.asset("images/helper_images/logo-accessdenied.png").'" width="80">  Ask IT Manager for Permission!</h3>');
+            abort(403);
         }
 
 

@@ -14,10 +14,10 @@ class Privileges
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {   
-        
+    {
+
         $response = redirect(action('HomeController@index'));
-        
+
 
         $user = $request->user();
         $permissions = [];
@@ -29,13 +29,13 @@ class Privileges
             else
                 return $response;
         }
-       
+
         if($request->route()->getName() == 'permissions.index'      && in_array('view_permissions', $permissions)){
             $response = $next($request);
-        }else        
-       
+        }else
+
         if($request->route()->getName() == 'permissions.show'       && in_array('view_permissions', $permissions)){
-           
+
             $response = $next($request);
         }else
 
@@ -50,12 +50,12 @@ class Privileges
         }else
 
         if($request->route()->getName() == 'permissions.edit'       && in_array('update_permissions', $permissions)){
-            
+
             $response = $next($request);
         }else
 
         if($request->route()->getName() == 'permissions.update'     && in_array('update_permissions', $permissions)){
-            
+
             $response = $next($request);
         }else
 
@@ -63,7 +63,7 @@ class Privileges
 
             $response = $next($request);
         }else{
-            flash()->warning('<h3><img src="'.asset("images/helper_images/logo-accessdenied.png").'" width="80">  Ask IT Manager for Permission!</h3>');
+            abort(403);
         }
 
 

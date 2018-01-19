@@ -62,7 +62,7 @@ class Departments
             $response = $next($request);
         }
         else{
-            flash()->warning('<h3><img src="'.asset("images/helper_images/logo-accessdenied.png").'" width="80">  Ask IT Manager for Permission!</h3>');
+            abort(403);
         }
 
 

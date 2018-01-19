@@ -14,9 +14,9 @@ class RoleUser
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {   
-        
-        $response = redirect(action('HomeController@index'));   
+    {
+
+        $response = redirect(action('HomeController@index'));
 
 
         $user = $request->user();
@@ -28,18 +28,18 @@ class RoleUser
             else
                 return $response;
         }
-       
-        
+
+
         if($request->route()->getName() == 'role_user.edit'       && in_array('update_users', $permissions)){
-            
+
             $response = $next($request);
         }else
 
         if($request->route()->getName() == 'role_user.update'     && in_array('update_users', $permissions)){
-            
+
             $response = $next($request);
         }else{
-            flash()->warning('<h3><img src="'.asset("images/helper_images/logo-accessdenied.png").'" width="80">  Ask IT Manager for Permission!</h3>');
+            abort(403);
         }
 
 

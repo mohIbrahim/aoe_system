@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class Roles
+class References
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,7 @@ class Roles
      */
     public function handle($request, Closure $next)
     {
-
-        $response = redirect(action('HomeController@index'));
-
+        $response = redirect(route('welcome'));
 
         $user = $request->user();
         $permissions = [];
@@ -29,42 +27,46 @@ class Roles
                 return $response;
         }
 
-        if($request->route()->getName() == 'roles.index'      && in_array('view_roles', $permissions)){
+        if($request->route()->getName() == 'references.index'      && in_array('view_references', $permissions)){
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'roles.show'       && in_array('view_roles', $permissions)){
-
-            $response = $next($request);
-        }else
-
-        if($request->route()->getName() == 'roles.create'     && in_array('create_roles', $permissions)){
+        if($request->route()->getName() == 'references.show'       && in_array('view_references', $permissions)){
 
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'roles.store'      && in_array('create_roles', $permissions)){
+        if($request->route()->getName() == 'references.create'     && in_array('create_references', $permissions)){
 
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'roles.edit'       && in_array('update_roles', $permissions)){
+        if($request->route()->getName() == 'references.store'      && in_array('create_references', $permissions)){
 
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'roles.update'     && in_array('update_roles', $permissions)){
+        if($request->route()->getName() == 'references.edit'       && in_array('update_references', $permissions)){
 
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'roles.destroy'    && in_array('delete_roles', $permissions)){
+        if($request->route()->getName() == 'references.update'     && in_array('update_references', $permissions)){
+
+            $response = $next($request);
+        }else
+
+        if($request->route()->getName() == 'references.destroy'    && in_array('delete_references', $permissions)){
+
+            $response = $next($request);
+        }else
+
+		if($request->route()->getName() == 'references_search'    && in_array('view_references', $permissions)){
 
             $response = $next($request);
         }else{
             abort(403);
         }
-
 
         return $response;
     }
