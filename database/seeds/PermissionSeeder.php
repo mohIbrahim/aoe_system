@@ -24,6 +24,7 @@ class PermissionSeeder extends Seeder
         $this->contracts();
         $this->invoices();
         $this->visits();
+        $this->followUpCards();
     }
 
     /**
@@ -277,6 +278,25 @@ class PermissionSeeder extends Seeder
             ]);
         DB::table('permissions')->insert([
             "name"      =>"delete_visits",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+    }
+    private function followUpCards()
+    {
+        DB::table('permissions')->insert([
+            "name"      =>"view_follow_up_cards",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"create_follow_up_cards",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"update_follow_up_cards",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"delete_follow_up_cards",
             "created_at"=>Carbon\Carbon::now(),
             ]);
     }

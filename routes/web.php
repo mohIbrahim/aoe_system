@@ -50,3 +50,6 @@ Route::resource('role_user', 'RoleUserController');
 //Visits
     Route::resource('visits', 'VisitController');
     Route::get('visits_search/{keyword}', 'VisitController@search')->name('visits_search');
+//Follow Up Cards
+    Route::resource('follow_up_cards', 'FollowUpCardController');
+    Route::get('follow_up_cards_search/{keyword}', 'FollowUpCardController@search')->name('follow_up_cards_search');
