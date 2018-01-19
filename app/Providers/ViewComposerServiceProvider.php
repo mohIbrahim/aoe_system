@@ -44,6 +44,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                     'invoices.show',
                     'visits.show',
                     'follow_up_cards.show',
+                    'follow_up_card_special_reports.show',
                 ];
 
         view()->composer($v, function($view){

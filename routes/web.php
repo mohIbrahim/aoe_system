@@ -53,3 +53,6 @@ Route::resource('role_user', 'RoleUserController');
 //Follow Up Cards
     Route::resource('follow_up_cards', 'FollowUpCardController');
     Route::get('follow_up_cards_search/{keyword}', 'FollowUpCardController@search')->name('follow_up_cards_search');
+//Follow Up Cards
+    Route::resource('follow_up_card_special_reports', 'FollowUpCardSpecialReportController');
+    Route::get('follow_up_card_special_reports_search/{keyword}', 'FollowUpCardSpecialReportController@search')->name('follow_up_card_special_reports_search');

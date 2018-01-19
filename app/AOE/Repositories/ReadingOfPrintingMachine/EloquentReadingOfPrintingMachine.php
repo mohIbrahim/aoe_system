@@ -1,6 +1,7 @@
 <?php
 
 namespace App\AOE\Repositories\ReadingOfPrintingMachine;
+
 use App\ReadingOfPrintingMachine;
 
 class EloquentReadingOfPrintingMachine implements ReadingOfPrintingMachineInterface

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\AOE\Repositories\InstallationRecord;
+
 use App\InstallationRecord;
 
 class EloquentInstallationRecord implements InstallationRecordInterface

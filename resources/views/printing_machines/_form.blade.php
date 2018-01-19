@@ -1,5 +1,5 @@
 <div class="form-group">
-  <label for="folder_number"> رقم الملف الآلة <span style="color:red">*</span></label>
+  <label for="folder_number"> رقم ملف الآلة <span style="color:red">*</span></label>
   <input type="text" class="form-control" id="folder_number" name="folder_number"  placeholder=" إدخل رقم ملف الآلة. " value="{{$printingMachine->folder_number or old('folder_number')}}">
 </div>
 

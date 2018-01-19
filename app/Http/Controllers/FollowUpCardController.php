@@ -14,7 +14,7 @@ class FollowUpCardController extends Controller
     {
         $this->followUpCard = $followUpCard;
         $this->middleware('auth');
-        $this->middleware('followUpCards');
+        $this->middleware('follow_up_cards');
     }
 
     public function index()

@@ -1,5 +1,6 @@
 <?php
 namespace App\AOE\Repositories\Part;
+
 use App\Part;
 
 class EloquentPart implements PartInterface

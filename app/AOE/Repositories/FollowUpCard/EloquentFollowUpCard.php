@@ -3,7 +3,6 @@
 namespace App\AOE\Repositories\FollowUpCard;
 
 use App\FollowUpCard;
-use App\ReadingOfPrintingMachine;
 
 class EloquentFollowUpCard implements FollowUpCardInterface
 {
@@ -56,10 +55,5 @@ class EloquentFollowUpCard implements FollowUpCardInterface
         $results = $this->followUpCard->where('code', 'like', '%'.$keyword.'%')
                         ->get();
         return $results;
-    }
-
-    public function addingOneReadToReadingOfPrintingMachine(array $attributes)
-    {
-        ReadingOfPrintingMachine::create($attributes);
     }
 }

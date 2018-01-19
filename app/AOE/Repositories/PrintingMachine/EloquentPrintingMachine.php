@@ -1,5 +1,6 @@
 <?php
 namespace App\AOE\Repositories\PrintingMachine;
+
 use App\PrintingMachine;
 
 class EloquentPrintingMachine implements PrintingMachineInterface
