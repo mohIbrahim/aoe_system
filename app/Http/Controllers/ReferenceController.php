@@ -13,8 +13,8 @@ class ReferenceController extends Controller
     public function __construct(ReferenceInterface $reference)
     {
         $this->reference = $reference;
-        $this->middleware('auth');
-        $this->middleware('references');
+        // $this->middleware('auth');
+        // $this->middleware('references');
     }
 
     public function index()
