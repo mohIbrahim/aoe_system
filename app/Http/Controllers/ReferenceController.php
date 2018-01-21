@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AOE\Repositories\Reference\ReferenceInterface;
-use App\Http\Requests\ReferenceReqeust;
+use App\Http\Requests\ReferenceRequest;
 
 
 class ReferenceController extends Controller
@@ -13,8 +13,8 @@ class ReferenceController extends Controller
     public function __construct(ReferenceInterface $reference)
     {
         $this->reference = $reference;
-        // $this->middleware('auth');
-        // $this->middleware('references');
+        $this->middleware('auth');
+        $this->middleware('references');
     }
 
     public function index()
@@ -30,7 +30,7 @@ class ReferenceController extends Controller
     }
 
 
-    public function store(ReferenceReqeust $request)
+    public function store(ReferenceRequest $request)
     {
         $reference = $this->reference->create($request->all());
         flash()->success(' تم إضافة الإشارة بنجاح. ')->important();
@@ -52,7 +52,7 @@ class ReferenceController extends Controller
     }
 
 
-    public function update(ReferenceReqeust $request, $id)
+    public function update(ReferenceRequest $request, $id)
     {
         $reference = $this->reference->update($id, $request->all());
         flash()->success(' تم تعديل الإشارة بنجاح. ')->important();

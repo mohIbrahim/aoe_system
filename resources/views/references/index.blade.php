@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-	 عرض بطاقات المتابعة
+	 عرض الإشارات
 @endsection
 
 @section('content')
@@ -12,11 +12,11 @@
 		    <div class="panel-heading ">
 
 
-				<legend> البحث عن بطاقة متابعة </legend>
+				<legend> البحث عن الإشارات </legend>
 
 				<div class="form-group">
-					<label for=""> البحث ب كود البطاقة. </label>
-					<input type="text" class="form-control" id="follow_up_cards_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
+					<label for=""> البحث بـ كود, النوع, تاريخ الإشارة. </label>
+					<input type="text" class="form-control" id="references_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
 
@@ -25,7 +25,7 @@
 				<a href=""  class="btn btn-success"> العودة </a>
 
 
-				<h3 class="text-center"> عرض بطاقات المتابعة </h3>
+				<h3 class="text-center">  عرض الإشارات </h3>
 		    </div>
 		    <div class="panel-body">
 
@@ -34,20 +34,28 @@
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>
-                                <th> كود البطاقة </th>
+                                <th> كود الإشارة </th>
+                                <th> نوع الإشارة </th>
+                                <th> تاريخ الإستلام </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
 							<div class="">
-								@foreach ($followUpCards as $k => $followUpCard)
+								@foreach ($references as $k => $reference)
 									<tr>
 										<td>
 											{{$k+1}}
 										</td>
 										<td>
-                                            <a href="{{action('FollowUpCardController@show', ['id'=>$followUpCard->id])}}" target="_blank">
-                                                {{$followUpCard->code}}
+                                            <a href="{{action('ReferenceController@show', ['id'=>$reference->id])}}" target="_blank">
+                                                {{$reference->code}}
                                             </a>
+                                        </td>
+                                        <td>
+                                            {{$reference->type}}
+                                        </td>
+                                        <td>
+                                            {{$reference->received_date}}
                                         </td>
 									</tr>
 								@endforeach
@@ -56,7 +64,7 @@
 			  		    </tbody>
 			  	     </table>
 					 <div class="text-center">
-						 {{$followUpCards->links()}}
+						 {{$references->links()}}
 					 </div>
 				 </div>
 
@@ -71,18 +79,18 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#search_button').on('click', function(){
-				var keyword = $('#follow_up_cards_search').val();
+				var keyword = $('#references_search').val();
 				var newResult = "";
                 if(keyword) {
                     $.ajax({
                         type: "GET",
-                        url:"follow_up_cards_search/"+keyword,
+                        url:"references_search/"+keyword,
                         dataType: "json",
                         success: function(results){
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
-                            $.each(results, function(index, follow_up_cards) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('follow_up_cards')}}/"+follow_up_cards.id+"'>"+follow_up_cards.code+"</a></td></tr>"
+                            $.each(results, function(index, reference) {
+                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('references')}}/"+reference.id+"'>"+reference.code+"</a></td><td>"+reference.type+"</td><td>"+reference.received_date+"</td></tr>"
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();

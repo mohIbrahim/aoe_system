@@ -52,11 +52,10 @@ class EloquentReference implements ReferenceInterface
 
     public function search($keyword)
     {
-        $results = $this->reference->where('the_date', 'like', '%'.$keyword.'%')
-                                                    ->orWhere('readings_of_printing_machine', 'like', '%'.$keyword.'%')
-                                                    ->orWhere('indexation_number', 'like', '%'.$keyword.'%')
-                                                    ->orWhere('invoice_number', 'like', '%'.$keyword.'%')
-                                                    ->get();
+        $results = $this->reference->where('code', 'like', '%'.$keyword.'%')
+                                ->orWhere('type', 'like', '%'.$keyword.'%')
+                                ->orWhere('received_date', 'like', '%'.$keyword.'%')
+                                ->get();
         return $results;
     }
 
