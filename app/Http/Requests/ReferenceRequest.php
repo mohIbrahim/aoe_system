@@ -24,7 +24,7 @@ class ReferenceRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'=>'required',
+            'code'=>'required|unique:references,code,'.$this->reference,
             'type'=>'required',
             'received_date'=>'required|date',
         ];
@@ -34,6 +34,7 @@ class ReferenceRequest extends FormRequest
     {
         return [
             'code.required'=>' برجاء إدخال كود الإشارة. ',
+            'code.unique'=>' كود الإشارة تم إدخاله من قبل برجاء إدخال كود آخر. ',
             'type.required'=>' برجاء إدخال نوع الإشارة. ',
             'received_date.required'=>' برجاء إدخال تاريخ الإشارة. ',
             'received_date.date'=>' برجاء إدخال تاريخ الإشارة بشكل صحيح. ',

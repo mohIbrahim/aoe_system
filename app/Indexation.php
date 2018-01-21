@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FollowUpCardSpecialReport extends Model
+class Indexation extends Model
 {
-    protected $table = 'follow_up_card_special_reports';
-    protected $fillable = ['the_date', 'readings_of_printing_machine', 'indexation_number', 'invoice_number', 'the_payment', 'report', 'auditor_name', 'comments'];
+    protected $table = 'indexations';
+    protected $fillable = ['code', 'the_date', 'customer_approval', 'technical_manager_approval', 'warehouse_approval', 'comments'];
+
     protected $dates = ['the_date'];
 
     public function setTheDateAttribute($date)
@@ -21,7 +22,9 @@ class FollowUpCardSpecialReport extends Model
 
     public function getTheDateAttribute($date)
     {
-        if (!empty($date))
+        if (!empty($date)) {
             return $this->asDateTime($date)->format('Y-m-d');
+        }
     }
+
 }

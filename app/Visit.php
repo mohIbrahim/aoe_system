@@ -15,7 +15,7 @@ class Visit extends Model
     public function setVisitDateAttribute($date)
     {
         if (!empty($date)) {
-            $this->attributes['visit_date'] = $this->asDateTime($date)->parse($date);
+            $this->attributes['visit_date'] = $this->asDateTime($date);
         } else {
             $this->attributes['visit_date'] = null;
         }

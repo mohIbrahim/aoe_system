@@ -29,6 +29,8 @@ use App\AOE\Repositories\FollowUpCardSpecialReport\EloquentFollowUpCardSpecialRe
 use App\AOE\Repositories\FollowUpCardSpecialReport\FollowUpCardSpecialReportInterface;
 use App\AOE\Repositories\Reference\EloquentReference;
 use App\AOE\Repositories\Reference\ReferenceInterface;
+use App\AOE\Repositories\Indexation\EloquentIndexation;
+use App\AOE\Repositories\Indexation\IndexationInterface;
 
 class RepositoriesServiceProvider extends ServiceProvider
 {
@@ -62,5 +64,6 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->singleton(FollowUpCardInterface::class, EloquentFollowUpCard::class);
         $this->app->singleton(FollowUpCardSpecialReportInterface::class, EloquentFollowUpCardSpecialReport::class);
         $this->app->singleton(ReferenceInterface::class, EloquentReference::class);
+        $this->app->singleton(IndexationInterface::class, EloquentIndexation::class);
     }
 }

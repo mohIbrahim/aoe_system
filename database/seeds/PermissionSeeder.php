@@ -27,6 +27,7 @@ class PermissionSeeder extends Seeder
         $this->followUpCards();
         $this->followUpCardSpecialReports();
         $this->references();
+        $this->indexations();
     }
 
     /**
@@ -324,19 +325,38 @@ class PermissionSeeder extends Seeder
     private function references()
     {
         DB::table('permissions')->insert([
-            "name"      =>"view_follow_up_card_special_reports",
+            "name"      =>"view_references",
             "created_at"=>Carbon\Carbon::now(),
             ]);
         DB::table('permissions')->insert([
-            "name"      =>"create_follow_up_card_special_reports",
+            "name"      =>"create_references",
             "created_at"=>Carbon\Carbon::now(),
             ]);
         DB::table('permissions')->insert([
-            "name"      =>"update_follow_up_card_special_reports",
+            "name"      =>"update_references",
             "created_at"=>Carbon\Carbon::now(),
             ]);
         DB::table('permissions')->insert([
-            "name"      =>"delete_follow_up_card_special_reports",
+            "name"      =>"delete_references",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+    }
+    private function indexations()
+    {
+        DB::table('permissions')->insert([
+            "name"      =>"view_indexations",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"create_indexations",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"update_indexations",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"delete_indexations",
             "created_at"=>Carbon\Carbon::now(),
             ]);
     }

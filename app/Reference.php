@@ -13,7 +13,7 @@ class Reference extends Model
     public function setReceivedDateAttribute($date)
     {
         if (!empty($date)) {
-            $this->attributes['received_date'] = $this->asDateTime($date)->parse($date);
+            $this->attributes['received_date'] = $this->asDateTime($date);
         } else {
             $this->attributes['received_date'] = null;
         }
