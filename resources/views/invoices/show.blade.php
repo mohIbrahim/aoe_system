@@ -36,6 +36,11 @@
 									    <td>{{$invoice->number}}</td>
 								    </tr>
 
+                                    <tr>
+									    <th> جهة الإصدار </th>
+									    <td>{{$invoice->issuer}}</td>
+								    </tr>
+
 								    <tr>
 									    <th> أمر توريد رقم </th>
 									    <td>{{$invoice->order_number}}</td>

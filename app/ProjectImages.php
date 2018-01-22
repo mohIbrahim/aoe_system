@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProjectImages extends Model
 {
     protected $table = 'project_images';
-    protected $fillable = ['imageable_id', 'imageable_type', 'name', 'comments'];
+    protected $fillable = ['imageable_id', 'imageable_type', 'name', 'type', 'comments'];
 
 
     /**

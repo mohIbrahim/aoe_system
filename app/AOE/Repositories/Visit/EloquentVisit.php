@@ -57,6 +57,7 @@ class EloquentVisit implements VisitInterface
     public function search($keyword)
     {
         $results = $this->visit->where('visit_date', 'like', '%'.$keyword.'%')
+                        ->orWhere('type', 'like', '%'.$keyword.'%')
                         ->get();
         return $results;
     }

@@ -10,6 +10,7 @@ class PrintingMachine extends Model
     protected $fillable = [
             'code',
             'folder_number',
+            'status',
             'the_manufacture_company',
             'model_prefix',
             'model_suffix',

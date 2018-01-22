@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-	 الزيارة: {{$visit->number}}
+	 الزيارة: {{$visit->visit_date }}
 @endsection
 
 @section('content')
@@ -8,7 +8,7 @@
 		<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title"> الزيارة: {{$visit->number}}</h3>
+					<h3 class="panel-title"> الزيارة: {{$visit->visit_date }}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
@@ -36,10 +36,16 @@
 									    <td>{{$visit->visit_date}}</td>
 								    </tr>
 
+                                    <tr>
+                                        <th> نوع الزيارة </th>
+                                        <td>{{$visit->type}}</td>
+                                    </tr>
+
 								    <tr>
 									    <th> اسم الشخص المسؤول عن الآلة </th>
 									    <td>{{$visit->representative_customer_name}}</td>
 								    </tr>
+
 
 								    <tr>
 									    <th> قراءة العداد </th>

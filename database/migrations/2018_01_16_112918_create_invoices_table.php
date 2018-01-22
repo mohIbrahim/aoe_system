@@ -16,6 +16,7 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('number');
+            $table->string('issuer')->nullable();
             $table->integer('order_number')->nullable();
             $table->integer('delivery_permission_number')->nullable();
             $table->string('finance_check_out')->nullable()->default('لم يتم الاطلاع');

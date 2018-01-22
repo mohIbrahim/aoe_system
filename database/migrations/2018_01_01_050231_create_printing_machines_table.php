@@ -17,6 +17,7 @@ class CreatePrintingMachinesTable extends Migration
             $table->increments('id');
             $table->string('code')->nullable();
             $table->string('folder_number')->nullable();
+            $table->string('status')->nullable();
             $table->string('the_manufacture_company')->nullable();
             $table->string('model_prefix')->nullable();
             $table->string('model_suffix')->nullable();

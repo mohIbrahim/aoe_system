@@ -61,6 +61,11 @@
 									    <td>{{$printingMachine->serial_number}}</td>
 								    </tr>
 
+                                    <tr>
+									    <th> حالة الآلة </th>
+									    <td>{{$printingMachine->status}}</td>
+								    </tr>
+
 								    <tr>
 									    <th> Product Key </th>
 									    <td>{{$printingMachine->product_key}}</td>

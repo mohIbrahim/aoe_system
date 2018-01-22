@@ -18,6 +18,7 @@ class CreateProjectImagesTable extends Migration
             $table->integer('imageable_id');
             $table->string('imageable_type');
             $table->string('name');
+            $table->string('type');
             $table->text('comments')->nullable();
             $table->timestamps();
         });

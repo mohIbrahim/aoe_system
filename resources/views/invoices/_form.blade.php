@@ -4,6 +4,22 @@
 </div>
 
 <div class="form-group">
+    <label for="issuer">
+        جهة الإصدار
+        <span style="color:red">*</span>
+     </label>
+    <select class="form-control" name="issuer">
+        <?php $invoiceIssuer = isset($invoice->issuer)? $invoice->issuer:'';?>
+        <option value="">
+              أختر جهة الإصدار.
+          </option>
+        <option value="الأقسام الفنية" {{($invoiceIssuer == 'الأقسام الفنية')? 'selected' : ((old('issuer')=='الأقسام الفنية')?'selected':'')}}>
+             الأقسام الفنية
+        </option>
+    </select>
+</div>
+
+<div class="form-group">
     <label for="order_number"> أمر توريد رقم </label>
     <input type="text" class="form-control" id="order_number" name="order_number"  placeholder=" إدخل رقم أمر التوريد. " value="{{$invoice->order_number or old('order_number')}}">
 </div>

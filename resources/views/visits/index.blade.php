@@ -16,7 +16,7 @@
 				<legend> البحث عن الزيارات </legend>
 
 				<div class="form-group">
-					<label for=""> البحث بـ تاريخ الزيارة. </label>
+					<label for=""> البحث بـ تاريخ ونوع الزيارة. </label>
                     <p>
                         <small> البحث بالتاريخ يتم كتابة السنة ثم الشهر ثم اليوم </small>
                     </p>
@@ -43,6 +43,7 @@
 			  			    <tr>
 								<th>#</th>
                                 <th> تاريخ الزيارة </th>
+                                <th> نوع الزيارة </th>
 			  				    <th> اسم الشخص المسؤول عن الآلة  </th>
 			  				    <th> قراءة العداد </th>
 			  			    </tr>
@@ -59,6 +60,7 @@
                                                 {{$visit->visit_date}}
                                             </a>
                                         </td>
+										<td>{{$visit->type}}</td>
 										<td>{{$visit->representative_customer_name}}</td>
 										<td>{{$visit->readings_of_printing_machine}}</td>
 									</tr>
@@ -94,7 +96,7 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, visit) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.visit_date+"</a></td><td>"+visit.representative_customer_name+"</td><td>"+visit.readings_of_printing_machine+"</td></tr>"
+                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.visit_date+"</a></td><td>"+visit.type+"</td><td>"+visit.representative_customer_name+"</td><td>"+visit.readings_of_printing_machine+"</td></tr>"
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();

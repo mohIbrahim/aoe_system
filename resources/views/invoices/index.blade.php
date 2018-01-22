@@ -36,6 +36,7 @@
 			  			    <tr>
 								<th>#</th>
                                 <th> رقم الفاتورة </th>
+                                <th> جهة الإصدار </th>
 			  				    <th> أمر توريد رقم</th>
 			  				    <th> إذن تسليم رقم العقد </th>
 			  				    <th> إطلاع قسم الحسابات </th>
@@ -54,6 +55,7 @@
                                                 {{$invoice->number}}
                                             </a>
                                         </td>
+                                        <td>{{$invoice->issuer}}</td>
 										<td>{{$invoice->order_number}}</td>
 										<td>{{$invoice->delivery_permission_number}}</td>
 										<td>{{$invoice->finance_check_out}}</td>
@@ -91,7 +93,7 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, invoice) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('invoices')}}/"+invoice.id+"'>"+invoice.number+"</a></td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.release_date+"</td></tr>"
+                                newResult += "<tr><td>"+(index+1)+"</td><td><a href='{{url('invoices')}}/"+invoice.id+"'>"+invoice.number+"</a></td><td>"+invoice.issuer+"</td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.release_date+"</td></tr>"
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();

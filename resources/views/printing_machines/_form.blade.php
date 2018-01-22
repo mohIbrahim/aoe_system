@@ -36,8 +36,13 @@
 </div>
 
 <div class="form-group">
+  <label for="status"> حالة الآلة </label>
+  <input type="text" class="form-control" id="status" name="status"  placeholder=" إدخل حالة الآلة. " value="{{$printingMachine->status or old('status')}}">
+</div>
+
+<div class="form-group">
   <label for="manufacturing_year"> سنة التصنيع </label>
-  <input type="text" class="form-control" id="manufacturing_year" name="manufacturing_year"  placeholder=" إدخل سنة التصنيع. " value="{{$printingMachine->manufacturing_year or old('manufacturing_year')}}">
+  <input type="text" class="form-control" id="datepicker6" name="manufacturing_year"  placeholder=" إدخل سنة التصنيع. " value="{{$printingMachine->manufacturing_year or old('manufacturing_year')}}">
 </div>
 
 <div class="form-group">
@@ -76,3 +81,15 @@
   <button type="submit" class="btn btn-primary btn-lg center-block" >
       حفظ
   </button>
+
+  @section('head')
+  {{-- datePicker --}}
+      <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
+  {{-- datePicker --}}
+  @endsection
+  @section('js_footer')
+  {{-- datePicker --}}
+      <script src="{{asset('js/datepicker/jquery-ui.min.js')}}" charset="utf-8"></script>
+      <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
+  {{-- datePicker --}}
+  @endsection

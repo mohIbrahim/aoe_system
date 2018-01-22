@@ -15,6 +15,7 @@ class CreateVisitsTable extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('type')->nullable();
             $table->dateTime('visit_date');
             $table->string('representative_customer_name')->nullable();
             $table->bigInteger('readings_of_printing_machine')->nullable();

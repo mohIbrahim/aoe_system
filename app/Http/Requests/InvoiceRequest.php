@@ -26,6 +26,7 @@ class InvoiceRequest extends FormRequest
 
         return [
             'number'=>'required|max:16777215|numeric',
+            'issuer'=>'required',
             'order_number'=>'numeric|max:16777215|nullable',
             'delivery_permission_number'=>'numeric|max:16777215|nullable',
             'release_date'=>'required|date',
@@ -39,6 +40,8 @@ class InvoiceRequest extends FormRequest
             'number.max'=>' برجاء إدخال رقم الفاتورة لا يزيد عن 7 خانات. ',
             'number.numeric'=>' برجاء إدخال رقم الفاتور أرقم فقط. ',
 
+            'issuer.required'=>' برجاء إختيار جهة الإصدار. ',
+            
             'order_number.numeric'=>' برجاء إدخال أمر توريد أرقم فقط. ',
             'order_number.max'=>' برجاء إدخال أمر توريد لا يزيد عن 7 خانات. ',
 

@@ -1,3 +1,26 @@
+<div class="jumbotron">
+
+    <div class="form-group">
+            <label for="type">
+                نوع الزيارة
+            </label>
+        <select class="form-control" name="type">
+            <?php $visitType = isset($visit->type)? $visit->type:'';?>
+            <option value="">
+                أختر نوع الزيارة
+            </option>
+            <option value="إشارة" {{($visitType == 'إشارة')? 'selected' : ((old('type')=='إشارة')?'selected':'')}}>
+                إشارة
+            </option>
+
+            <option value="كارت المتابعة" {{($visitType == 'كارت المتابعة')? 'selected' : ((old('type')=='كارت المتابعة')?'selected':'')}}>
+                كارت المتابعة
+            </option>
+        </select>
+    </div>
+</div>
+
+
 <div class="form-group">
     <label for="visit_date"> تاريخ الزيارة <span style="color:red">*</span></label>
     <input type="text" class="form-control datepicker" id="datepicker" name="visit_date"  placeholder=" أختر تاريخ الإصدار. " value="{{$visit->visit_date or old('visit_date')}}">
