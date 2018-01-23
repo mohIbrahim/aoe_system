@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     protected $table = 'employees';
-    protected $fillable = ['code', 'job_title', 'date_of_hiring', 'salary', 'comments'];
+    protected $fillable = ['code', 'job_title', 'date_of_hiring', 'salary', 'comments', 'user_id'];
     protected $dates = ['date_of_hiring'];
 
     public function setDateOfHiringAttribute($date)
@@ -24,5 +24,10 @@ class Employee extends Model
         if (!empty($date)) {
             return $this->asDateTime($date)->format('Y-m-d');
         }
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }

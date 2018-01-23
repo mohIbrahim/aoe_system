@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AOE\Repositories\Employee\EmployeeInterface;
 use App\Http\Requests\EmployeeRequest;
 use App\AOE\JobTitle\JobTitle;
+use App\User;
 
 
 class EmployeeController extends Controller
@@ -29,7 +30,8 @@ class EmployeeController extends Controller
     {
         $jobTitle = new JobTitle();
         $jobsTitles = $jobTitle->getJobTitle();
-        return view('employees.create', compact('jobsTitles'));
+        $usersNames = User::all()->pluck('name', 'id');
+        return view('employees.create', compact('jobsTitles', 'usersNames'));
     }
 
 
@@ -53,7 +55,9 @@ class EmployeeController extends Controller
         $employee = $this->employee->getById($id);
         $jobTitle = new JobTitle();
         $jobsTitles = $jobTitle->getJobTitle();
-        return view('employees.edit', compact('employee', 'jobsTitles'));
+        $usersNames = User::all()->pluck('name', 'id');
+
+        return view('employees.edit', compact('employee', 'jobsTitles', 'usersNames'));
     }
 
 

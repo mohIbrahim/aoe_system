@@ -32,6 +32,7 @@
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>
+                                <th> اسم الموظف </th>
                                 <th> كود الموظف </th>
                                 <th> المسمى الوظيفي </th>
                                 <th>  تاريخ التعيين  </th>
@@ -44,10 +45,15 @@
 										<td>
 											{{$k+1}}
 										</td>
-										<td>
-                                            <a href="{{action('IndexationController@show', ['id'=>$employee->id])}}" target="_blank">
-                                                {{$employee->code}}
+
+                                        <td>
+                                            <a href="{{action('EmployeeController@show', ['id'=>$employee->id])}}" target="_blank">
+                                                {{$employee->user->name}}
                                             </a>
+                                        </td>
+
+										<td>
+                                            {{$employee->code}}
                                         </td>
                                         <td>
                                             {{$employee->job_title}}
@@ -88,7 +94,7 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, employee) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('employees')}}/"+employee.id+"'>"+employee.code+"</a></td><td>"+employee.job_title+"</td><td>"+employee.date_of_hiring+"</td></tr>"
+                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('employees')}}/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td>"+employee.date_of_hiring+"</td></tr>"
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();

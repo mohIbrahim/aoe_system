@@ -42,4 +42,8 @@ class User extends Authenticatable
 	{
 		return $this->morphMany('App\ProjectImages', 'imageable');
 	}
+
+    public function employee() {
+        return $this->hasOne('App\Employee');
+    }
 }

@@ -52,8 +52,11 @@ class EloquentEmployee implements EmployeeInterface
 
     public function search($keyword)
     {
-        $results = $this->employee->where('code', 'like', '%'.$keyword.'%')
+        $results = $this->employee->with('user')->where('code', 'like', '%'.$keyword.'%')
                                 ->orWhere('job_title', 'like', '%'.$keyword.'%')
+                                ->orWhereHas('user', function($query) use($keyword){
+                                    $query->where('name', 'like', '%'.$keyword.'%');
+                                })
                                 ->get();
         return $results;
     }

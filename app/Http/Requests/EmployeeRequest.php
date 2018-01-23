@@ -24,6 +24,7 @@ class EmployeeRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id'=>'required',
             'job_title'=>'required',
             'date_of_hiring'=>'date|nullable',
             'salary'=>'numeric|nullable',
@@ -33,7 +34,8 @@ class EmployeeRequest extends FormRequest
     public function messages()
     {
         return [
-            'job_title.required'=>' برجاء إختيار المسمى الوظيفي. ',
+            'user_id.required'=>' برجاء اختيار اسم الموظف. ',
+            'job_title.required'=>' برجاء اختيار المسمى الوظيفي. ',
             'date_of_hiring.date'=>' برجاء إدخال تاريخ التعيين بشكل صحيح. ',
             'salary.numeric'=>' برجاء إدخال الراتب بشكل صحيح. ',
         ];

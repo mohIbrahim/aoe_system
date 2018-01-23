@@ -32,22 +32,30 @@
 							    </thead>
 							    <tbody>
 								    <tr>
+									    <th> اسم الموظف </th>
+									    <td>{{$employee->user->name}}</td>
+								    </tr>
+
+                                    <tr>
 									    <th> كود الموظف </th>
 									    <td>{{$employee->code}}</td>
 								    </tr>
+
 								    <tr>
 									    <th> المسمى الوظيفي </th>
 									    <td>{{$employee->job_title}}</td>
 								    </tr>
+
                                     <tr>
                                         <th> تاريخ التعيين  </th>
                                         <td>{{$employee->date_of_hiring}}</td>
                                     </tr>
+
 								    <tr>
 									    <th> الراتب </th>
 									    <td>{{$employee->salary}}</td>
 								    </tr>
-								    
+
                                     <tr>
 									    <th> التعليقات </th>
 									    <td>{{$employee->comments}}</td>
@@ -56,6 +64,7 @@
 									    <th> تاريخ الإنشاء </th>
 									    <td style="direction:ltr; text-align:center">{{$employee->created_at}}</td>
 								    </tr>
+
 								    <tr>
 									    <th> تاريخ التعديل </th>
 									    <td style="direction:ltr; text-align:center">{{$employee->created_at}}</td>

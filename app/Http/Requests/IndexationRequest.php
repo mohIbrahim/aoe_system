@@ -35,7 +35,7 @@ class IndexationRequest extends FormRequest
         return [
             'code.required'=>' برجاء إدخال كود المقايسة. ',
             'code.unique'=>' كود المقايسة تم إدخاله من قبل برجاء إدخال كود آخر. ',
-            'the_date.required'=>' برجاء إختيار تاريخ المقايسة. ',
+            'the_date.required'=>' برجاء اختيار تاريخ المقايسة. ',
             'the_date.date'=>' برجاء إدخال التاريخ بشكل صحيح. ',
         ];
     }

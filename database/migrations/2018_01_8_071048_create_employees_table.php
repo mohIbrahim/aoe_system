@@ -18,9 +18,12 @@ class CreateEmployeesTable extends Migration
             $table->string('code')->nullable();
             $table->string('job_title')->nullable();
             $table->dateTime('date_of_hiring')->nullable();
-            $table->flaot('salary', 10,2)->nullable();
+            $table->float('salary', 10,2)->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
+
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

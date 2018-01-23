@@ -35,7 +35,7 @@ class PartserialNumberRequest extends FormRequest
     public function messages()
     {
         return  [
-                    'part_id.required'=>' برجاء إختيار القطعة الرئيسية لهذة القطعة الفرعية. ',
+                    'part_id.required'=>' برجاء اختيار القطعة الرئيسية لهذة القطعة الفرعية. ',
                     'serial_number.required'=>' برجاء إدخال الرقم المسلسل للقطعة. ',
                     'serial_number.unique'=>' الرقم المسلسل تم إدخالة من قبل برجاء تأكد من الرقم وقم بإدخالة بشكل صحيح. ',
                     'code.unique'=>' الكود تم إدخالة من قبل برجاء تأكد وقم بإدخالة بشكل صحيح. ',

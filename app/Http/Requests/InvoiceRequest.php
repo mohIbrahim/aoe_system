@@ -40,7 +40,7 @@ class InvoiceRequest extends FormRequest
             'number.max'=>' برجاء إدخال رقم الفاتورة لا يزيد عن 7 خانات. ',
             'number.numeric'=>' برجاء إدخال رقم الفاتور أرقم فقط. ',
 
-            'issuer.required'=>' برجاء إختيار جهة الإصدار. ',
+            'issuer.required'=>' برجاء اختيار جهة الإصدار. ',
             
             'order_number.numeric'=>' برجاء إدخال أمر توريد أرقم فقط. ',
             'order_number.max'=>' برجاء إدخال أمر توريد لا يزيد عن 7 خانات. ',

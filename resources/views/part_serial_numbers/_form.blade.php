@@ -2,7 +2,7 @@
     <label for="part_id"> القطعة الرئيسة <span style="color:red">*</span></label>
     <select class="form-control selectpicker" name="part_id" data-live-search="true">
         <?php $partSerialNumberPartId = isset($partSerialNumber->part_id)? $partSerialNumber->part_id:'' ;?>
-        <option value=""> إختر القطعة الرئيسية التابعة لها.  </option>
+        <option value=""> اختر القطعة الرئيسية التابعة لها.  </option>
         @foreach ($parts as $partId=>$partName)
             <option value="{{$partId}}" {{($partSerialNumberPartId == $partId)? 'selected' : ((old('part_id')==$partId)?'selected':'')}}> {{$partName}} </option>
         @endforeach
@@ -23,7 +23,7 @@
     <label for="availability"> التوافر </label>
     <select class="form-control" name="availability">
         <?php $partSerialNumberAvailability = isset($partSerialNumber->availability)? $partSerialNumber->availability:'' ;?>
-        <option value="">  إختر أذا كانت القطعة متوفرة أو غير متوفرة في المخزن.  </option>
+        <option value="">  اختر أذا كانت القطعة متوفرة أو غير متوفرة في المخزن.  </option>
         <option value="متوفرة" {{($partSerialNumberAvailability == 'متوفرة')? 'selected' : ((old('type')=='متوفرة')?'selected':'')}}> متوفرة </option>
         <option value="غير متوفرة" {{($partSerialNumberAvailability == 'غير متوفرة')? 'selected' : ((old('type')=='غير متوفرة')?'selected':'')}}> غير متوفرة </option>
     </select>
@@ -33,7 +33,7 @@
     <label for="status"> الحالة </label>
     <select class="form-control" name="status">
         <?php $partSerialNumberStatus = isset($partSerialNumber->status)? $partSerialNumber->status:'' ;?>
-        <option value="">  إختر حالة القطعة.  </option>
+        <option value="">  اختر حالة القطعة.  </option>
         <option value="جديدة" {{($partSerialNumberStatus == 'جديدة')? 'selected' : ((old('type')=='جديدة')?'selected':'')}}> جديدة </option>
         <option value="مستعملة" {{($partSerialNumberStatus == 'مستعملة')? 'selected' : ((old('type')=='مستعملة')?'selected':'')}}> مستعملة </option>
     </select>
