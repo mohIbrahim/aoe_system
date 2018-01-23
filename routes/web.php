@@ -62,3 +62,6 @@ Route::resource('role_user', 'RoleUserController');
 //Indexations
     Route::resource('indexations', 'IndexationController');
     Route::get('indexations_search/{keyword}', 'IndexationController@search')->name('indexations_search');
+//Indexations
+    Route::resource('employees', 'EmployeeController');
+    Route::get('employees_search/{keyword}', 'EmployeeController@search')->name('employees_search');

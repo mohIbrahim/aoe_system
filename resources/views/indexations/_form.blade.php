@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="code"> كود المقايسة <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود الإشارة. " value="{{$indexation->code or old('code')}}">
+    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود المقايسة. " value="{{$indexation->code or old('code')}}">
 </div>
 
 <div class="form-group">

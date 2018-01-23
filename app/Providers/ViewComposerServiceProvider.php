@@ -47,6 +47,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                     'follow_up_card_special_reports.show',
                     'references.show',
                     'indexations.show',
+                    'employees.show',
                 ];
 
         view()->composer($v, function($view){

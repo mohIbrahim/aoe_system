@@ -28,6 +28,7 @@ class PermissionSeeder extends Seeder
         $this->followUpCardSpecialReports();
         $this->references();
         $this->indexations();
+        $this->employees();
     }
 
     /**
@@ -357,6 +358,26 @@ class PermissionSeeder extends Seeder
             ]);
         DB::table('permissions')->insert([
             "name"      =>"delete_indexations",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+    }
+
+    private function employees()
+    {
+        DB::table('permissions')->insert([
+            "name"      =>"view_employees",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"create_employees",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"update_employees",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            "name"      =>"delete_employees",
             "created_at"=>Carbon\Carbon::now(),
             ]);
     }
