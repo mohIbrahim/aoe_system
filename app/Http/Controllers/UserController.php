@@ -98,7 +98,7 @@ class UserController extends Controller
         //create
         if ( $request->hasFile('personal_image') && $user->images->isEmpty() )
         {
-            $result = $projectImages-> receiveAndCreat($request, 'personal_image','App\User', $user->id, 'comment');
+            $result = $projectImages-> receiveAndCreat($request, 'personal_image','App\User', $user->id, 'image', 'comment');
         }
         //Delete the image only
         if ($request->input('delete_image') && !$request->hasFile('personal_image'))
@@ -114,7 +114,7 @@ class UserController extends Controller
             $pojectImageId = $request->input('project_image_id');
             $projectImages->deleteOneProjectImage($pojectImageId);
             //create
-            $result = $projectImages-> receiveAndCreat($request, 'personal_image','App\User', $user->id, 'comment');
+            $result = $projectImages-> receiveAndCreat($request, 'personal_image','App\User', $user->id, 'image', 'comment');
         }
 
         //Hashing new password

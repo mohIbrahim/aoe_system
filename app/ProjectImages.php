@@ -21,7 +21,7 @@ class ProjectImages extends Model
         return $this->morphTo();
     }
 
-    public function receiveAndCreat($request, $fieldName, $modelClassName, $modelId, $comments)
+    public function receiveAndCreat($request, $fieldName, $modelClassName, $modelId, $imageType, $comments)
     {
         if($request->hasFile($fieldName))
 		{
@@ -29,7 +29,7 @@ class ProjectImages extends Model
 			$imageFile = ((!is_array($imageFile)) ?  [$imageFile] : $imageFile);
 			foreach ($imageFile as $projectImage) {
 				$imageNewName = $this->renameAndStoreProjectImageFile($projectImage);
-				$this->createProjectImageRecord($modelClassName, $modelId, $imageNewName, $comments);
+				$this->createProjectImageRecord($modelClassName, $modelId, $imageNewName, $imageType, $comments);
 			}
 			return true;
         }
@@ -64,11 +64,12 @@ class ProjectImages extends Model
 		return true;
 	}
 
-	private function createProjectImageRecord($modelClassName, $modelId, $imageNewName, $comment = '')
+	private function createProjectImageRecord($modelClassName, $modelId, $imageNewName,$imageType, $comment = '')
 	{
 		return $this->create(['imageable_id'=>$modelId,
 		 						'imageable_type'=>$modelClassName,
 								'name'=>$imageNewName,
+								'type'=>$imageType,
 								'comments'=>$comment]);
 	}
 
