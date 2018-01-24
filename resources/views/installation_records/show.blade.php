@@ -119,7 +119,7 @@
 								    </tr>
 
 								    <tr>
-									    <th> التعليقات </th>
+									    <th> الملاحظات </th>
 									    <td>{{$installationRecord->comments}}</td>
 								    </tr>
 

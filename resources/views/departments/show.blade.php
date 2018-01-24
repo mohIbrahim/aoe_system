@@ -36,8 +36,17 @@
 									    <td>{{$department->name}}</td>
 								    </tr>
 
+                                    <tr>
+									    <th> مدير القسم </th>
+									    <td>
+                                            <a href="{{action('EmployeeController@show', ['id'=>$managerId])}}" target="_blank">
+                                                {{$managerName}}
+                                            </a>
+                                        </td>
+								    </tr>
+
 								    <tr>
-									    <th> التعليقات </th>
+									    <th> الملاحظات </th>
 									    <td>{{$department->comments}}</td>
 								    </tr>
 

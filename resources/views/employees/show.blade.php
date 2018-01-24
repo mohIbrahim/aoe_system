@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-	 {{$employee->code}} :الموظف
+	   الموظف: {{$employee->user->name}}
 @endsection
 
 @section('content')
@@ -8,7 +8,7 @@
 		<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title"> الموظف: {{$employee->code}}</h3>
+					<h3 class="panel-title"> الموظف: {{$employee->user->name}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
@@ -57,7 +57,12 @@
 								    </tr>
 
                                     <tr>
-									    <th> التعليقات </th>
+									    <th> البريد الإلكتروني </th>
+									    <td>{{$employee->user->email}}</td>
+								    </tr>
+
+                                    <tr>
+									    <th> الملاحظات </th>
 									    <td>{{$employee->comments}}</td>
 								    </tr>
 								    <tr>
@@ -78,7 +83,7 @@
 	</div>
 @endsection
 
-@include('partial.deleteConfirm',['name'=>$employee->code,
+@include('partial.deleteConfirm',['name'=>$employee->user->name,
 								  'id'=> $employee->id,
 								  'message'=>' هل أنت متأكد؟ هل تريد حذف ',
 								  'route'=>'EmployeeController@destroy'])

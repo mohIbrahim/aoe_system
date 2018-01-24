@@ -79,7 +79,7 @@
 								    </tr>
 
 								    <tr>
-									    <th> التعليقات </th>
+									    <th> الملاحظات </th>
 									    <td>{{$part->comments}}</td>
 								    </tr>
 

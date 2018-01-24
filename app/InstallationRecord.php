@@ -45,4 +45,9 @@ class InstallationRecord extends Model
             return $this->asDateTime($date)->format('Y-m-d');
         }
     }
+
+    public function responsiblePerson()
+    {
+        return $this->belongsTo('App\Employee');
+    }
 }

@@ -4,8 +4,8 @@
 </div>
 
 <div class="form-group">
-    <label for="comments"> التعليقات </label>
-    <textarea name="comments" class="form-control" placeholder=" إدخل تعليقاً. ">{{$followUpCard->comments or old('comments')}}</textarea>
+    <label for="comments"> الملاحظات </label>
+    <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$followUpCard->comments or old('comments')}}</textarea>
 </div>
 
 <button type="submit" class="btn btn-primary btn-lg center-block" >

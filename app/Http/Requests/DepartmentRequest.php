@@ -25,6 +25,7 @@ class DepartmentRequest extends FormRequest
     {
         return [
             'name'=>'required|unique:departments,name,'.$this->department,
+            'manager_id'=>'required',
         ];
     }
 
@@ -33,6 +34,7 @@ class DepartmentRequest extends FormRequest
         return  [
                     'name.required'=>' برجاء إدخال اسم القسم. ',
                     'name.unique'=>' اسم القسم تم استخدامة من قبل، برجاء أختار اسم آخر. ',
+                    'manager_id.required'=>' برجاء إختيار مدير القسم. ',
                 ];
     }
 }

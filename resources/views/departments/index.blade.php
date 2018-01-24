@@ -20,6 +20,7 @@
 			  			    <tr>
 								<th>#</th>
                                 <th> اسم القسم </th>
+                                <th> مدير القسم </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -32,6 +33,12 @@
 										<td>
                                             <a href="{{action('DepartmentController@show', ['id'=>$department->id])}}" target="_blank">
                                                 {{$department->name}}
+                                            </a>
+                                        </td>
+
+                                        <td>
+                                            <a href="{{action('EmployeeController@show', ['id'=>$eloquentDepartment->managerId($department)])}}" target="_blank">
+                                                {{$eloquentDepartment->managerName($department)}}
                                             </a>
                                         </td>
 									</tr>

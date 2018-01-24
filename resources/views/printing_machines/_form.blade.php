@@ -73,8 +73,8 @@
 </div>
 
 <div class="form-group">
-  <label for="comments"> التعليقات </label>
-  <textarea name="comments" class="form-control" placeholder=" إدخل تعليقاً. ">{{$printingMachine->comments or old('comments')}}</textarea>
+  <label for="comments"> الملاحظات </label>
+  <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$printingMachine->comments or old('comments')}}</textarea>
 </div>
 
 

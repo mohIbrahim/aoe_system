@@ -69,7 +69,7 @@
 								    </tr>
 
                                     <tr>
-									    <th> التعليقات </th>
+									    <th> الملاحظات </th>
 									    <td>{{$followUpCardSpecialReport->comments}}</td>
 								    </tr>
 

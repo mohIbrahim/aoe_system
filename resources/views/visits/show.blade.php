@@ -55,7 +55,7 @@
 								    </tr>
 
                                     <tr>
-									    <th> التعليقات </th>
+									    <th> الملاحظات </th>
 									    <td>{{$visit->comments}}</td>
 								    </tr>
 

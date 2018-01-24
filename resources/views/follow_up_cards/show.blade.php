@@ -37,7 +37,7 @@
 								    </tr>
 
                                     <tr>
-									    <th> التعليقات </th>
+									    <th> الملاحظات </th>
 									    <td>{{$followUpCard->comments}}</td>
 								    </tr>
 

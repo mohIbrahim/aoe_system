@@ -117,7 +117,7 @@
 								    </tr>
 
 								    <tr>
-									    <th> التعليقات </th>
+									    <th> الملاحظات </th>
 									    <td>{{$customer->comments}}</td>
 								    </tr>
 

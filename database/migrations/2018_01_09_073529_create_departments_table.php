@@ -18,6 +18,9 @@ class CreateDepartmentsTable extends Migration
             $table->string('name')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
+
+            $table->integer('manager_id')->unsigned()->nullable();
+            $table->foreign('manager_id')->references('id')->on('employees')->onDelete('set null');
         });
     }
 

@@ -98,7 +98,7 @@
 								    </tr>
 
 								    <tr>
-									    <th> التعليقات </th>
+									    <th> الملاحظات </th>
 									    <td>{{$printingMachine->comments}}</td>
 								    </tr>
 

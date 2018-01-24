@@ -52,7 +52,7 @@
 									    <td>{{$indexation->warehouse_approval}}</td>
 								    </tr>
                                     <tr>
-									    <th> التعليقات </th>
+									    <th> الملاحظات </th>
 									    <td>{{$indexation->comments}}</td>
 								    </tr>
 								    <tr>

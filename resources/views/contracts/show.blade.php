@@ -79,7 +79,7 @@
 								    </tr>
 
 									<tr>
-									    <th> التعليقات </th>
+									    <th> الملاحظات </th>
 									    <td>{{$contract->comments}}</td>
 								    </tr>
 

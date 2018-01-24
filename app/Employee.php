@@ -30,4 +30,9 @@ class Employee extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function theDepartmentThatHeManageIt()
+    {
+        return $this->hasOne('App\Department', 'manager_id');
+    }
 }
