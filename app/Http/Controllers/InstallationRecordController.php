@@ -6,7 +6,6 @@ use App\InstallationRecord;
 use App\Http\Requests\InstallationRecordRequest;
 use App\AOE\Repositories\InstallationRecord\InstallationRecordInterface;
 
-
 class InstallationRecordController extends Controller
 {
     private $installationRecord;
@@ -34,7 +33,8 @@ class InstallationRecordController extends Controller
      */
     public function create()
     {
-        return view('installation_records.create');
+        $contractsOfGuarantee = $this->installationRecord->contractOfGuarantee();
+        return view('installation_records.create', compact('contractsOfGuarantee'));
     }
 
     /**
@@ -68,7 +68,8 @@ class InstallationRecordController extends Controller
     public function edit($id)
     {
         $installationRecord = $this->installationRecord->getById($id);
-        return view('installation_records.edit', compact('installationRecord'));
+        $contractsOfGuarantee = $this->installationRecord->contractOfGuarantee();
+        return view('installation_records.edit', compact('installationRecord', 'contractsOfGuarantee'));
     }
 
     /**

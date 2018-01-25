@@ -31,6 +31,19 @@
 
 							    </thead>
 							    <tbody>
+									<?php
+										$installatinrecordId = isset($installationRecord->contractOfGuarantee)?$installationRecord->contractOfGuarantee->id:'';
+										$installatinrecordCode = isset($installationRecord->contractOfGuarantee)?$installationRecord->contractOfGuarantee->code:'';
+									?>
+									<tr>
+									    <th> رقم عقد الضمان </th>
+									    <td>
+											<a href="{{action('ContractController@show', ['id'=>$installatinrecordId])}}">
+												{{$installatinrecordCode}}
+											</a>
+										</td>
+								    </tr>
+
 								    <tr>
 									    <th> اسم المتدرب </th>
 									    <td>{{$installationRecord->trainee_name}}</td>

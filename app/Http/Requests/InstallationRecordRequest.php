@@ -26,12 +26,15 @@ class InstallationRecordRequest extends FormRequest
         return [
             'trainee_name'=>'required',
             'installation_date'=>'required|date',
+            'contract_of_guarantee_id'=>'required|unique:installation_records,contract_of_guarantee_id,'.$this->installation_record,
         ];
     }
 
     public function messages()
     {
         return [
+            'contract_of_guarantee_id.required'=>' برجاء اختيار عقد الضمان. ',
+            'contract_of_guarantee_id.unique'=>' عقد الضمان تم اختياره من قبل برجاء اختيار عقد آخر. ',
             'trainee_name.required'=>'برجاء إدخال اسم المتدرب.',
             'installation_date.required'=>'برجاء إدخال تاريخ التركيب.',
             'installation_date.date'=>'برجاء إدخال تاريخ التركيب بشكل صحيح.',

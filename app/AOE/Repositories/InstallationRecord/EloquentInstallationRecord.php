@@ -3,6 +3,7 @@
 namespace App\AOE\Repositories\InstallationRecord;
 
 use App\InstallationRecord;
+use App\Contract;
 
 class EloquentInstallationRecord implements InstallationRecordInterface
 {
@@ -92,6 +93,12 @@ class EloquentInstallationRecord implements InstallationRecordInterface
         $installationRecord = $this->installationRecord->findOrFail($id);
         $isDeleted = $installationRecord->delete();
         return $isDeleted;
+    }
+
+
+    public function contractOfGuarantee()
+    {
+        return $contractsOfGuarantee = Contract::where('type','ضمان')->pluck('code', 'id');
     }
 
 }

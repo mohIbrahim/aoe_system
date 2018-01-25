@@ -61,4 +61,10 @@ class Contract extends Model
     }
 
 
+    public function InstallationRecord()
+    {
+        $this->hasOne('App\InstallationRecord');
+    }
+
+
 }

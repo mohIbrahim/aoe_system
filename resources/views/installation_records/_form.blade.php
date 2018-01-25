@@ -1,4 +1,16 @@
 <div class="form-group">
+    <label for="contract_of_guarantee_id"> عقد الضمان <span style="color:red">*</span></label>
+    <select class="form-control selectpicker" name="contract_of_guarantee_id" data-live-search="true">
+        <?php $selectedContractOfGuarantee = isset($installationRecord->contract_of_guarantee_id)? $installationRecord->contract_of_guarantee_id: '' ?>
+        <option value=""> أختر عقد الضمان. </option>
+        @foreach($contractsOfGuarantee as $contractId=>$contractCode)
+            <option value="{{$contractId}}" {{($selectedContractOfGuarantee == $contractId)? ('selected'):((old('contract_of_guarantee_id')==$contractId)?'selected':'')}} >{{$contractCode}}</option>
+        @endforeach
+    </select>
+</div>
+
+
+<div class="form-group">
     <label for="trainee_name"> اسم المتدرب <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="trainee_name" name="trainee_name"  placeholder=" إدخل كود القطعة. " value="{{$installationRecord->trainee_name or old('trainee_name')}}">
 </div>
@@ -92,10 +104,17 @@
 {{-- datePicker --}}
     <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
 {{-- datePicker --}}
+{{-- bootstrap-select --}}
+    <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
+{{-- bootstrap-select --}}
 @endsection
 @section('js_footer')
 {{-- datePicker --}}
     <script src="{{asset('js/datepicker/jquery-ui.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
 {{-- datePicker --}}
+{{-- bootstrap-select --}}
+    <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
+    <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
+{{-- bootstrap-select --}}
 @endsection

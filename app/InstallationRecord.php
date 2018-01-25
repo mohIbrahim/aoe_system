@@ -27,6 +27,7 @@ class InstallationRecord extends Model
                     'network_scanner_serial_number',
                     'network_scanner_product_key',
                     'comments',
+                    'contract_of_guarantee_id',
                 ];
     protected $dates = ['installation_date'];
 
@@ -46,8 +47,8 @@ class InstallationRecord extends Model
         }
     }
 
-    public function responsiblePerson()
+    public function contractOfGuarantee()
     {
-        return $this->belongsTo('App\Employee');
+        return $this->belongsTo('App\Contract');
     }
 }

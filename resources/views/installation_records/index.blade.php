@@ -17,6 +17,7 @@
 			  		    <thead>
 			  			    <tr>
 								<th> الكود </th>
+								<th> رقم عقد الضمان </th>
                                 <th> اسم المتدرب </th>
 			  				    <th> تاريخ التركيب </th>
 			  			    </tr>
@@ -24,12 +25,20 @@
 			  		    <tbody id="my-table-body">
 							<div class="">
 								@foreach ($installationRecords as $k => $installationRecord)
+									<?php
+										$installatinrecordCode = isset($installationRecord->contractOfGuarantee)?$installationRecord->contractOfGuarantee->code:'';
+									?>
 									<tr>
 										<td>
                                             <a href="{{action('InstallationRecordController@show', ['id'=>$installationRecord->id])}}" target="_blank">
                                                 {{$installationRecord->id}}
                                             </a>
                                         </td>
+
+										<td>
+											{{$installatinrecordCode}}
+										</td>
+
 										<td>
 											{{$installationRecord->trainee_name}}
 										</td>
