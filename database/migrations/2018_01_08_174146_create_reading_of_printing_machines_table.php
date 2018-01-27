@@ -19,6 +19,9 @@ class CreateReadingOfPrintingMachinesTable extends Migration
             $table->datetime('reading_date')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
+
+            $table->integer('visit_id')->unsigned()->nullable();
+            $table->foreign('visit_id')->references('id')->on('visits')->onDelete('cascade');
         });
     }
 

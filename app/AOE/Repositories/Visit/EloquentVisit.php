@@ -36,9 +36,8 @@ class EloquentVisit implements VisitInterface
     public function create(array $attributes)
     {
         $visit = $this->visit->create($attributes);
-
         if($visit->readings_of_printing_machine)
-            $this->addingOneReadToReadingOfPrintingMachine(['value'=>$visit->readings_of_printing_machine, 'reading_date'=>$visit->visit_date]);
+            $this->visit->visit()->careate(['value'=>$visit->readings_of_printing_machine, 'reading_date'=>$visit->visit_date]);
         return $visit;
     }
     public function update($id, array $attributes)
@@ -60,10 +59,5 @@ class EloquentVisit implements VisitInterface
                         ->orWhere('type', 'like', '%'.$keyword.'%')
                         ->get();
         return $results;
-    }
-
-    public function addingOneReadToReadingOfPrintingMachine(array $attributes)
-    {
-        ReadingOfPrintingMachine::create($attributes);
     }
 }
