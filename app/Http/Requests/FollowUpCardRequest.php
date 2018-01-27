@@ -25,14 +25,17 @@ class FollowUpCardRequest extends FormRequest
     {
         return [
             'code'=>'required|unique:follow_up_cards,code,'.$this->follow_up_card,
+            'contract_id'=>'required|unique:follow_up_cards,contract_id,'.$this->follow_up_card,
         ];
     }
 
     public function messages()
     {
         return [
-                'code.required'=>' برجاء إدخال كود البطاقة. ',
-                'code.unique'=>' برجاء إختار كود آخر للبطاقة هذا الكود تم إدخاله من قبل. ',
+            'contract_id.required'=>' برجاء اختيار العقد. ',
+            'contract_id.unique'=>' هذا العقد تم اختياره من قبل برجاء اختيار عقد آخر. ',
+            'code.required'=>' برجاء إدخال كود البطاقة. ',
+            'code.unique'=>' برجاء إختار كود آخر للبطاقة هذا الكود تم إدخاله من قبل. ',
         ];
     }
 }

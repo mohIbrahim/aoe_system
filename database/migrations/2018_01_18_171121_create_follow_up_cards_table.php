@@ -18,6 +18,9 @@ class CreateFollowUpCardsTable extends Migration
             $table->string('code')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
+
+            $table->integer('contract_id')->unsigned()->nullable();
+            $table->foreign('contract_id')->references('id')->on('contracts')->onDelete('cascade');
         });
     }
 

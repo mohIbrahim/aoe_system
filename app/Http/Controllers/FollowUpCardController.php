@@ -26,7 +26,8 @@ class FollowUpCardController extends Controller
 
     public function create()
     {
-        return view('follow_up_cards.create');
+        $contracts = $this->followUpCard->contracts();
+        return view('follow_up_cards.create', compact('contracts'));
     }
 
 
@@ -48,7 +49,8 @@ class FollowUpCardController extends Controller
     public function edit($id)
     {
         $followUpCard = $this->followUpCard->getById($id);
-        return view('follow_up_cards.edit', compact('followUpCard'));
+        $contracts = $this->followUpCard->contracts();
+        return view('follow_up_cards.edit', compact('followUpCard', 'contracts'));
     }
 
 

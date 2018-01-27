@@ -66,5 +66,10 @@ class Contract extends Model
         $this->hasOne('App\InstallationRecord');
     }
 
+    public function followUpCard()
+    {
+        return $this->hasOne('App\FollowUpCard');
+    }
+
 
 }

@@ -26,7 +26,7 @@
 							<div class="">
 								@foreach ($installationRecords as $k => $installationRecord)
 									<?php
-										$installatinrecordCode = isset($installationRecord->contractOfGuarantee)?$installationRecord->contractOfGuarantee->code:'';
+										$contractOfGuaranteeCode = isset($installationRecord->contractOfGuarantee)?$installationRecord->contractOfGuarantee->code:'';
 									?>
 									<tr>
 										<td>
@@ -36,7 +36,7 @@
                                         </td>
 
 										<td>
-											{{$installatinrecordCode}}
+											{{$contractOfGuaranteeCode}}
 										</td>
 
 										<td>

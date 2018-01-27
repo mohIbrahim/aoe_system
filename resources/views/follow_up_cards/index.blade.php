@@ -15,7 +15,7 @@
 				<legend> البحث عن بطاقة متابعة </legend>
 
 				<div class="form-group">
-					<label for=""> البحث ب كود البطاقة. </label>
+					<label for=""> البحث ب كود البطاقة وكود العقد. </label>
 					<input type="text" class="form-control" id="follow_up_cards_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
@@ -35,6 +35,7 @@
 			  			    <tr>
 								<th>#</th>
                                 <th> كود البطاقة </th>
+                                <th> كود العقد </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -47,6 +48,12 @@
 										<td>
                                             <a href="{{action('FollowUpCardController@show', ['id'=>$followUpCard->id])}}" target="_blank">
                                                 {{$followUpCard->code}}
+                                            </a>
+                                        </td>
+
+										<td>
+                                            <a href="{{action('ContractController@show', ['id'=>(isset($followUpCard->contract)?$followUpCard->contract->id:'')])}}" target="_blank">
+                                                {{(isset($followUpCard->contract)?$followUpCard->contract->code:'')}}
                                             </a>
                                         </td>
 									</tr>
@@ -82,7 +89,12 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, follow_up_cards) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('follow_up_cards')}}/"+follow_up_cards.id+"'>"+follow_up_cards.code+"</a></td></tr>"
+								if(follow_up_cards.contract){
+									newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('follow_up_cards')}}/"+follow_up_cards.id+"'>"+follow_up_cards.code+"</a></td><td><a href='{{url('contracts')}}/"+follow_up_cards.contract.id+"'>"+follow_up_cards.contract.code+"</a></td></tr>"
+								}else{
+									newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('follow_up_cards')}}/"+follow_up_cards.id+"'>"+follow_up_cards.code+"</a></td></tr>"
+								}
+
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();
