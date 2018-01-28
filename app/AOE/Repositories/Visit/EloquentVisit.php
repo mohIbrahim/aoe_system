@@ -36,14 +36,21 @@ class EloquentVisit implements VisitInterface
     public function create(array $attributes)
     {
         $visit = $this->visit->create($attributes);
-        if($visit->readings_of_printing_machine)
-            $this->visit->visit()->careate(['value'=>$visit->readings_of_printing_machine, 'reading_date'=>$visit->visit_date]);
+        if($visit->readings_of_printing_machine) {
+            $visit->readingOfPrintingMachine()->create(['value'=>$visit->readings_of_printing_machine, 'reading_date'=>$visit->visit_date]);
+        }
         return $visit;
     }
     public function update($id, array $attributes)
     {
         $visit = $this->visit->findOrFail($id);
         $visit->update($attributes);
+
+        $read               = $visit->readingOfPrintingMachine;
+        $read->value        = $visit->readings_of_printing_machine;
+        $read->reading_date = isset($read->value)?$visit->visit_date:null;
+
+        $visit->readingOfPrintingMachine()->update($read->toArray());
         return $visit;
     }
     public function delete($id)

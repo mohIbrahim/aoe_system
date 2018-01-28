@@ -26,4 +26,9 @@ class Visit extends Model
         if (!empty($date))
             return $this->asDateTime($date)->format('Y-m-d');
     }
+
+    public function readingOfPrintingMachine()
+    {
+        return $this->hasOne('App\ReadingOfPrintingMachine');
+    }
 }
