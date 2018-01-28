@@ -43,6 +43,10 @@
 									    <th> تاريخ الإستلام </th>
 									    <td>{{$reference->received_date}}</td>
 								    </tr>
+                                    <tr>
+									    <th> اسم المهندس المعيين لهذة الاشارة </th>
+									    <td>{{isset($reference->assignedEmployee)?(isset($reference->assignedEmployee->user)?$reference->assignedEmployee->user->name:''):''}}</td>
+								    </tr>
 								    <tr>
 									    <th> نوع العطل </th>
 									    <td>{{$reference->malfunctions_type}}</td>

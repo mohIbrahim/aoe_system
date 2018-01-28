@@ -22,3 +22,13 @@
 <button type="submit" class="btn btn-primary btn-lg center-block" >
     حفظ
 </button>
+
+@section('head')
+    {{-- bootstrap-select --}}
+    <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
+@endsection
+@section('js_footer')
+    {{-- bootstrap-select --}}
+    <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
+    <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
+@endsection

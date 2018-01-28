@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AOE\Repositories\Reference\ReferenceInterface;
 use App\Http\Requests\ReferenceRequest;
+use App\Employee;
 
 
 class ReferenceController extends Controller
@@ -26,7 +27,8 @@ class ReferenceController extends Controller
 
     public function create()
     {
-        return view('references.create');
+        $employeesNames = Employee::all()->pluck('user.name', 'id');
+        return view('references.create', compact('employeesNames'));
     }
 
 
@@ -48,7 +50,8 @@ class ReferenceController extends Controller
     public function edit($id)
     {
         $reference = $this->reference->getById($id);
-        return view('references.edit', compact('reference'));
+        $employeesNames = Employee::all()->pluck('user.name', 'id');
+        return view('references.edit', compact('reference', 'employeesNames'));
     }
 
 

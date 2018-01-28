@@ -22,6 +22,17 @@
 </div>
 
 <div class="form-group">
+    <label for="employee_id"> اسم المهندس المعيين لهذة الاشارة </label>
+    <select class="form-control selectpicker" name="employee_id" data-live-search="true">
+        <?php $selectedEmployee = isset($reference->employee_id)? $reference->employee_id: '' ?>
+        <option value=""> أختر اسم المهندس المعيين على هذة الاشارة. </option>
+        @foreach($employeesNames as $employeeId=>$employeeName)
+            <option value="{{$employeeId}}" {{($selectedEmployee == $employeeId)? ('selected'):((old('employee_id')==$employeeId)?'selected':'')}} >{{$employeeName}}</option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
     <label for="malfunctions_type"> نوع العطل </label>
     <textarea name="malfunctions_type" class="form-control" placeholder=" إدخل نوع العطل. ">{{$reference->malfunctions_type or old('malfunctions_type')}}</textarea>
 </div>
@@ -48,10 +59,17 @@
 {{-- datePicker --}}
     <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
 {{-- datePicker --}}
+{{-- bootstrap-select --}}
+    <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
+{{-- bootstrap-select --}}
 @endsection
 @section('js_footer')
 {{-- datePicker --}}
     <script src="{{asset('js/datepicker/jquery-ui.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
 {{-- datePicker --}}
+{{-- bootstrap-select --}}
+    <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
+    <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
+{{-- bootstrap-select --}}
 @endsection

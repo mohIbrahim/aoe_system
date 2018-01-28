@@ -36,6 +36,7 @@
 								<th>#</th>
                                 <th> كود الإشارة </th>
                                 <th> نوع الإشارة </th>
+                                <th> اسم المهندس المعيين لهذة الاشار </th>
                                 <th> تاريخ الإستلام </th>
 			  			    </tr>
 			  		    </thead>
@@ -53,6 +54,9 @@
                                         </td>
                                         <td>
                                             {{$reference->type}}
+                                        </td>
+                                        <td>
+                                            {{isset($reference->assignedEmployee)?(isset($reference->assignedEmployee->user)?$reference->assignedEmployee->user->name:''):''}}
                                         </td>
                                         <td>
                                             {{$reference->received_date}}

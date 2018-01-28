@@ -35,4 +35,9 @@ class Employee extends Model
     {
         return $this->hasOne('App\Department', 'manager_id');
     }
+
+    public function assignedReference()
+    {
+        return $this->hasOne('App\Reference');
+    }
 }

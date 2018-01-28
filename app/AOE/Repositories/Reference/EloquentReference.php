@@ -53,9 +53,14 @@ class EloquentReference implements ReferenceInterface
     public function search($keyword)
     {
         $results = $this->reference->where('code', 'like', '%'.$keyword.'%')
-                                ->orWhere('type', 'like', '%'.$keyword.'%')
-                                ->orWhere('received_date', 'like', '%'.$keyword.'%')
-                                ->get();
+                                    ->orWhere('type', 'like', '%'.$keyword.'%')
+                                    ->orWhere('received_date', 'like', '%'.$keyword.'%')
+                                    ->orWhereHas('assignedEmployee', function($queryOne) use($keyword){
+                                        $queryOne->whereHas('user', function($queryTwo) use($keyword){
+                                            $queryTwo->where('name', 'like', '%'.$keyword.'%');
+                                        });
+                                    })
+                                    ->get();
         return $results;
     }
 

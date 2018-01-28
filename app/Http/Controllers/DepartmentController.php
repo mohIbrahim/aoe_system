@@ -38,7 +38,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        $employees = Employee::with('user')->get()->pluck('user.name','id');
+        $employees = Employee::all()->pluck('user.name','id');
         return view('departments.create', compact('employees'));
     }
 
@@ -78,7 +78,7 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $department = $this->department->getById($id);
-        $employees = Employee::with('user')->get()->pluck('user.name','id');
+        $employees = Employee::all()->pluck('user.name','id');
         return view('departments.edit', compact('department', 'employees'));
     }
 

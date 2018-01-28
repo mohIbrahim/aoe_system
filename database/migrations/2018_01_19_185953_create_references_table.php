@@ -24,6 +24,9 @@ class CreateReferencesTable extends Migration
             $table->string('readings_of_printing_machine')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
+
+            $table->integer('employee_id')->unsigned()->nullable();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('set null');
         });
     }
 
