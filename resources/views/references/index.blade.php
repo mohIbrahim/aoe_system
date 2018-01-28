@@ -15,7 +15,7 @@
 				<legend> البحث عن الإشارات </legend>
 
 				<div class="form-group">
-					<label for=""> البحث بـ كود, النوع, تاريخ الإشارة. </label>
+					<label for=""> البحث بـ كود, النوع , تاريخ, الإشارة أو اسم المهندس المعيين لهذة الاشارة. </label>
 					<input type="text" class="form-control" id="references_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
@@ -94,7 +94,11 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, reference) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('references')}}/"+reference.id+"'>"+reference.code+"</a></td><td>"+reference.type+"</td><td>"+reference.received_date+"</td></tr>"
+								if(reference.assigned_employee.user.name){
+									newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('references')}}/"+reference.id+"'>"+reference.code+"</a></td><td>"+reference.type+"</td><td>"+reference.assigned_employee.user.name+"</td><td>"+reference.received_date+"</td></tr>"
+								}else{
+									newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('references')}}/"+reference.id+"'>"+reference.code+"</a></td><td>"+reference.type+"</td><td>"+reference.received_date+"</td></tr>"
+								}
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();

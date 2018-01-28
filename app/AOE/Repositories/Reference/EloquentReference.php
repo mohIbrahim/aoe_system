@@ -52,7 +52,7 @@ class EloquentReference implements ReferenceInterface
 
     public function search($keyword)
     {
-        $results = $this->reference->where('code', 'like', '%'.$keyword.'%')
+        $results = $this->reference->with('assignedEmployee.user')->where('code', 'like', '%'.$keyword.'%')
                                     ->orWhere('type', 'like', '%'.$keyword.'%')
                                     ->orWhere('received_date', 'like', '%'.$keyword.'%')
                                     ->orWhereHas('assignedEmployee', function($queryOne) use($keyword){
