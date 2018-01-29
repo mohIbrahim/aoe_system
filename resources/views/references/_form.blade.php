@@ -4,6 +4,11 @@
 </div>
 
 <div class="form-group">
+    <label for="notebook_number"> كود الدفــتر </label>
+    <input type="text" class="form-control" id="notebook_number" name="notebook_number"  placeholder=" إدخل كود دفتر  الإشارة. " value="{{$reference->notebook_number or old('notebook_number')}}">
+</div>
+
+<div class="form-group">
     <label for="type"> نوع الإشارة <span style="color:red">*</span></label>
     <select class="form-control" name="type">
         <?php $referenceType = isset($reference->type)? $reference->type:'' ;?>

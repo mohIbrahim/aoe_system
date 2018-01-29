@@ -35,6 +35,10 @@
 									    <th> كود الإشارة </th>
 									    <td>{{$reference->code}}</td>
 								    </tr>
+                                    <tr>
+									    <th> كود الدفــتر </th>
+									    <td>{{$reference->notebook_number}}</td>
+								    </tr>
 								    <tr>
 									    <th> نوع الإشارة </th>
 									    <td>{{$reference->type}}</td>
@@ -59,22 +63,18 @@
 									    <th> قراءة العداد </th>
 									    <td>{{$reference->readings_of_printing_machine}}</td>
 								    </tr>
-
                                     <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$reference->comments}}</td>
 								    </tr>
-
 								    <tr>
 									    <th> تاريخ الإنشاء </th>
 									    <td style="direction:ltr; text-align:center">{{$reference->created_at}}</td>
 								    </tr>
-
 								    <tr>
 									    <th> تاريخ التعديل </th>
 									    <td style="direction:ltr; text-align:center">{{$reference->created_at}}</td>
 								    </tr>
-
 							    </tbody>
 						     </table>
 					</div>
