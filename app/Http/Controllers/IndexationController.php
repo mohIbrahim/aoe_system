@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AOE\Repositories\Indexation\IndexationInterface;
 use App\Http\Requests\IndexationRequest;
 use App\Reference;
+use App\Visit;
 
 
 class IndexationController extends Controller
@@ -28,9 +29,9 @@ class IndexationController extends Controller
     public function create()
     {
         $referencesIds = Reference::all()->pluck('code', 'id');
-        return view('indexations.create', compact('referencesIds'));
+        $visitsIds = Visit::all()->pluck('id', 'id');
+        return view('indexations.create', compact('referencesIds', 'visitsIds'));
     }
-
 
     public function store(IndexationRequest $request)
     {
@@ -51,7 +52,8 @@ class IndexationController extends Controller
     {
         $indexation = $this->indexation->getById($id);
         $referencesIds = Reference::all()->pluck('code', 'id');
-        return view('indexations.edit', compact('indexation', 'referencesIds'));
+        $visitsIds = Visit::all()->pluck('id', 'id');
+        return view('indexations.edit', compact('indexation', 'referencesIds', 'visitsIds'));
     }
 
 

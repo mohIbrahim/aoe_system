@@ -55,6 +55,15 @@
 								    </tr>
 
                                     <tr>
+									    <th> رقم المقايسة </th>
+										<td>
+                                            <a href="{{action('IndexationController@show', ['id'=>(isset($visit->indexation)?$visit->indexation->id:'')])}}">
+                                                {{isset($visit->indexation)?$visit->indexation->id:''}}
+                                            </a>
+										</td>
+								    </tr>
+
+                                    <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$visit->comments}}</td>
 								    </tr>

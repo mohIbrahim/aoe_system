@@ -42,12 +42,23 @@
 </div>
 
 <div class="form-group">
-    <label for="reference_id"> كود الإشارة <span style="color:red">*</span></label>
+    <label for="reference_id"> كود الإشارة </label>
     <select class="form-control selectpicker" name="reference_id" data-live-search="true">
         <?php $selectedReferenceId = isset($indexation->reference_id)? $indexation->reference_id:'' ;?>
         <option value=""> اختر كود الإشارة التي قمت بسببها بإجراء هذة المقايسة.  </option>
         @foreach ($referencesIds as $id => $referenceCode)
             <option value="{{$id}}" {{($selectedReferenceId == $id)? 'selected' : ((old('reference_id')==$id)?'selected':'')}}> {{$referenceCode}} </option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="visit_id"> رقم الزيارة <span style="color:red">*</span></label>
+    <select class="form-control selectpicker" name="visit_id" data-live-search="true">
+        <?php $selectedVist = isset($indexation->visit_id)? $indexation->visit_id:'' ;?>
+        <option value=""> اختر رقم الزيارة.  </option>
+        @foreach ($visitsIds as $id => $visitIdentifier)
+            <option value="{{$id}}" {{($selectedVist == $id)? 'selected' : ((old('visit_id')==$id)?'selected':'')}}> {{$visitIdentifier}} </option>
         @endforeach
     </select>
 </div>

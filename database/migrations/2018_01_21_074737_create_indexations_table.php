@@ -25,6 +25,9 @@ class CreateIndexationsTable extends Migration
 
             $table->integer('reference_id')->unsigned()->nullable();
             $table->foreign('reference_id')->references('id')->on('references')->onDelete('set null');
+
+            $table->integer('visit_id')->unsigned()->nullable();
+            $table->foreign('visit_id')->references('id')->on('visits')->onDelete('set null');
         });
     }
 

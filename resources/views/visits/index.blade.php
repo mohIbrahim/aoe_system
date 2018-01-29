@@ -16,7 +16,7 @@
 				<legend> البحث عن الزيارات </legend>
 
 				<div class="form-group">
-					<label for=""> البحث بـ تاريخ ونوع الزيارة. </label>
+					<label for="visit_search"> البحث بـ رقم وتاريخ ونوع الزيارة. </label>
                     <p>
                         <small> البحث بالتاريخ يتم كتابة السنة ثم الشهر ثم اليوم </small>
                     </p>
@@ -42,6 +42,7 @@
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>
+                                <th> رقم الزيارة </th>
                                 <th> تاريخ الزيارة </th>
                                 <th> نوع الزيارة </th>
 			  				    <th> اسم الشخص المسؤول عن الآلة  </th>
@@ -57,8 +58,11 @@
 										</td>
 										<td>
                                             <a href="{{action('VisitController@show', ['id'=>$visit->id])}}" target="_blank">
-                                                {{$visit->visit_date}}
+                                                {{$visit->id}}
                                             </a>
+                                        </td>
+                                        <td>
+                                            {{$visit->visit_date}}
                                         </td>
 										<td>{{$visit->type}}</td>
 										<td>{{$visit->representative_customer_name}}</td>
@@ -96,7 +100,7 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, visit) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.visit_date+"</a></td><td>"+visit.type+"</td><td>"+visit.representative_customer_name+"</td><td>"+visit.readings_of_printing_machine+"</td></tr>"
+                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.id+"</a></td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.visit_date+"</a></td><td>"+visit.type+"</td><td>"+visit.representative_customer_name+"</td><td>"+visit.readings_of_printing_machine+"</td></tr>"
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();

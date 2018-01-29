@@ -45,12 +45,16 @@ class EloquentVisit implements VisitInterface
     {
         $visit = $this->visit->findOrFail($id);
         $visit->update($attributes);
-
         $read               = $visit->readingOfPrintingMachine;
-        $read->value        = $visit->readings_of_printing_machine;
-        $read->reading_date = isset($read->value)?$visit->visit_date:null;
+        if($read) {
+            $read->value = $visit->readings_of_printing_machine;
+            $read->reading_date = isset($read->value)?$visit->visit_date:null;
+            $visit->readingOfPrintingMachine()->update($read->toArray());
 
-        $visit->readingOfPrintingMachine()->update($read->toArray());
+        }else {
+            $visit->readingOfPrintingMachine()->create(['value'=>$visit->readings_of_printing_machine, 'reading_date'=>$visit->visit_date]);
+        }
+
         return $visit;
     }
     public function delete($id)
@@ -63,6 +67,7 @@ class EloquentVisit implements VisitInterface
     public function search($keyword)
     {
         $results = $this->visit->where('visit_date', 'like', '%'.$keyword.'%')
+                        ->orWhere('id', 'like', '%'.$keyword.'%')
                         ->orWhere('type', 'like', '%'.$keyword.'%')
                         ->get();
         return $results;

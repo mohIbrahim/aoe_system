@@ -31,4 +31,9 @@ class Visit extends Model
     {
         return $this->hasOne('App\ReadingOfPrintingMachine');
     }
+
+    public function indexation()
+    {
+        return $this->hasOne('App\Indexation');
+    }
 }

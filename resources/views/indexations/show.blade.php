@@ -60,6 +60,14 @@
                                             </td>
 								    </tr>
                                     <tr>
+									    <th> رقم الزيـارة </th>
+                                            <td>
+                                                <a href="{{action('VisitController@show', ['id'=>(isset($indexation->visit)?$indexation->visit->id:'')])}}" target="_blank">
+                                                    {{isset($indexation->visit)?$indexation->visit->id:''}}
+                                                </a>
+                                            </td>
+								    </tr>
+                                    <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$indexation->comments}}</td>
 								    </tr>

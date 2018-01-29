@@ -16,6 +16,12 @@
 
 				<div class="form-group">
 					<label for=""> البحث بـ كود, التاريخ, موافقة العميل, موافقة مدير الأقسام الفنية, موافقة المخازن للمقايسة أو كود الإشارة. </label>
+                    <p>
+                        <small> البحث بالتاريخ يتم كتابة السنة ثم الشهر ثم اليوم </small>
+                    </p>
+                    <p>
+                        <small> وإذا كان الشهر أو اليوم أقل من عشرة يوضع صفر قبل الرقم مثل هذا التنسيق 01, 02, 03 ... 09 </small>
+                    </p>
 					<input type="text" class="form-control" id="indexations_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
@@ -102,7 +108,12 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, indexation) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('indexations')}}/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td><td><a href='{{url('references')}}/"+indexation.reference.id+"'>"+indexation.reference.code+"</a></td></tr>"
+                                if(indexation.reference) {
+
+newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('indexations')}}/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td><td><a href='{{url('references')}}/"+indexation.reference.id+"'>"+indexation.reference.code+"</a></td></tr>";
+}else {
+    newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('indexations')}}/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td><td><a href='{{url('references')}}/'></a></td></tr>";
+}
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();
