@@ -29,4 +29,9 @@ class Reference extends Model
     {
         return $this->belongsTo('App\Employee', 'employee_id');
     }
+
+    public function indexation()
+    {
+        return $this->hasOne('App\Indexation', 'reference_id');
+    }
 }

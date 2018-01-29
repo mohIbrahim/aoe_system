@@ -2,7 +2,7 @@
     <label for="contract_of_guarantee_id"> عقد الضمان <span style="color:red">*</span></label>
     <select class="form-control selectpicker" name="contract_of_guarantee_id" data-live-search="true">
         <?php $selectedContractOfGuarantee = isset($installationRecord->contract_of_guarantee_id)? $installationRecord->contract_of_guarantee_id: '' ?>
-        <option value=""> أختر عقد الضمان. </option>
+        <option value=""> اختر عقد الضمان. </option>
         @foreach($contractsOfGuarantee as $contractId=>$contractCode)
             <option value="{{$contractId}}" {{($selectedContractOfGuarantee == $contractId)? ('selected'):((old('contract_of_guarantee_id')==$contractId)?'selected':'')}} >{{$contractCode}}</option>
         @endforeach

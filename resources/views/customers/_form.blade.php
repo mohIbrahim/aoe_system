@@ -12,7 +12,7 @@
     <label for="type"> نوع العميل <span style="color:red">*</span></label>
     <select class="form-control" name="type">
         <?php $customerType = isset($customer->type)? $customer->type:'' ;?>
-        <option value="">  أختر نوع العميل.  </option>
+        <option value="">  اختر نوع العميل.  </option>
         <option value="أفراد" {{($customerType == 'أفراد')? 'selected' : ((old('type')=='أفراد')?'selected':'')}}> أفراد </option>
         <option value="شركات" {{($customerType == 'شركات')? 'selected' : ((old('type')=='شركات')?'selected':'')}}> شركات </option>
         <option value="هيئات حكومية" {{($customerType == 'هيئات حكومية')? 'selected' : ((old('type')=='هيئات حكومية')?'selected':'')}}> هيئات حكومية </option>
@@ -89,7 +89,7 @@
     <label for="city"> المدينة </label>
     <select class="form-control selectpicker" name="city" data-live-search="true">
         <?php $selectedCity = isset($customer->city)? $customer->city: '' ?>
-        <option value=""> أختر المدينة. </option>
+        <option value=""> اختر المدينة. </option>
         @foreach($egyptCities as $egyptCity)
             <option value="{{$egyptCity}}" {{($selectedCity == $egyptCity)? ('selected'):((old('city')==$egyptCity)?'selected':'')}} >{{$egyptCity}}</option>
         @endforeach
@@ -100,7 +100,7 @@
     <label for="governorate"> المحافظة </label>
     <select class="form-control selectpicker" name="governorate" data-live-search="true">
         <?php $selectedGovernorate = isset($customer->governorate)? $customer->governorate: '' ?>
-        <option value=""> أختر المحافظة. </option>
+        <option value=""> اختر المحافظة. </option>
         @foreach($egyptCities as $egyptCity)
             <option value="{{$egyptCity}}" {{($selectedGovernorate == $egyptCity)? ('selected'):((old('governorate')==$egyptCity)?'selected':'')}} >{{$egyptCity}}</option>
         @endforeach

@@ -32,7 +32,7 @@
             }
 
             .title {
-                font-size: 72px;
+                font-size: 50px;
                 margin-bottom: 40px;
             }
         </style>
@@ -40,7 +40,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title"> .عفواً الموقع في حالة الصيانة سنعود بعد قليل</div>
+                <h1> الشركة العربية لمهمات المكاتب </h1>
+                <div class="title"> !عفواً الموقع في حالة الصيانة سنعود بعد في أقرب وقت </div>
             </div>
         </div>
     </body>

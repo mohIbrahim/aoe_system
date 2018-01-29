@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="the_date"> التاريخ <span style="color:red">*</span></label>
-    <input type="text" class="form-control datepicker" id="datepicker" name="the_date"  placeholder=" أختر التاريخ. " value="{{$followUpCardSpecialReport->the_date or old('the_date')}}">
+    <input type="text" class="form-control datepicker" id="datepicker" name="the_date"  placeholder=" اختر التاريخ. " value="{{$followUpCardSpecialReport->the_date or old('the_date')}}">
 </div>
 
 <div class="form-group">

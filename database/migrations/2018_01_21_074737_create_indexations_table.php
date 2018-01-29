@@ -22,6 +22,9 @@ class CreateIndexationsTable extends Migration
             $table->string('warehouse_approval')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
+
+            $table->integer('reference_id')->unsigned()->nullable();
+            $table->foreign('reference_id')->references('id')->on('references')->onDelete('set null');
         });
     }
 

@@ -2,7 +2,7 @@
     <label for="contract_id"> رقم العقد <span style="color:red">*</span></label>
     <select class="form-control selectpicker" name="contract_id" data-live-search="true">
         <?php $selectedContract = isset($followUpCard->contract_id)? $followUpCard->contract_id: '' ?>
-        <option value=""> أختر رقم العقد. </option>
+        <option value=""> اختر رقم العقد. </option>
         @foreach($contracts as $contractId=>$contractCode)
             <option value="{{$contractId}}" {{($selectedContract == $contractId)? ('selected'):((old('contract_id')==$contractId)?'selected':'')}} >{{$contractCode}}</option>
         @endforeach

@@ -52,6 +52,14 @@
 									    <td>{{$indexation->warehouse_approval}}</td>
 								    </tr>
                                     <tr>
+									    <th> كود الإشارة </th>
+                                            <td>
+                                                <a href="{{action('ReferenceController@show', ['id'=>(isset($indexation->reference)?$indexation->reference->id:'')])}}" target="_blank">
+                                                    {{isset($indexation->reference)?$indexation->reference->code:''}}
+                                                </a>
+                                            </td>
+								    </tr>
+                                    <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$indexation->comments}}</td>
 								    </tr>

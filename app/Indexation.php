@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Indexation extends Model
 {
     protected $table = 'indexations';
-    protected $fillable = ['code', 'the_date', 'customer_approval', 'technical_manager_approval', 'warehouse_approval', 'comments'];
+    protected $fillable = ['code', 'the_date', 'customer_approval', 'technical_manager_approval', 'warehouse_approval', 'comments', 'reference_id'];
 
     protected $dates = ['the_date'];
 
@@ -25,6 +25,11 @@ class Indexation extends Model
         if (!empty($date)) {
             return $this->asDateTime($date)->format('Y-m-d');
         }
+    }
+
+    public function reference()
+    {
+        return $this->belongsTo('App\Reference', 'reference_id');
     }
 
 }

@@ -26,6 +26,7 @@ class IndexationRequest extends FormRequest
         return [
             'code'=>'required|unique:indexations,code,'.$this->indexation,
             'the_date'=>'required|date',
+            'reference_id'=>'required|unique:indexations,reference_id,'.$this->indexation,
         ];
     }
 
@@ -37,6 +38,8 @@ class IndexationRequest extends FormRequest
             'code.unique'=>' كود المقايسة تم إدخاله من قبل برجاء إدخال كود آخر. ',
             'the_date.required'=>' برجاء اختيار تاريخ المقايسة. ',
             'the_date.date'=>' برجاء إدخال التاريخ بشكل صحيح. ',
+            'reference_id.required'=>' برجاء اختيار كود الإشارة. ',
+            'reference_id.unique'=>'  كود الإشارة تم اختياره من قبل برجاء اختيار كود آخر. ',
         ];
     }
 }

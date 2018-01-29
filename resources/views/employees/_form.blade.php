@@ -2,7 +2,7 @@
     <label for="user_id"> اسم الموظف <span style="color:red">*</span></label>
     <select class="form-control selectpicker" name="user_id" data-live-search="true">
         <?php $selectedEmployee = isset($employee->user_id)? $employee->user_id: '' ?>
-        <option value=""> أختر اسم الموظف. </option>
+        <option value=""> اختر اسم الموظف. </option>
         @foreach($usersNames as $userId=>$userName)
             <option value="{{$userId}}" {{($selectedEmployee == $userId)? ('selected'):((old('user_id')==$userId)?'selected':'')}} >{{$userName}}</option>
         @endforeach
@@ -18,7 +18,7 @@
     <label for="job_title"> المسمى الوظيفي <span style="color:red">*</span></label>
     <select class="form-control selectpicker" name="job_title" data-live-search="true">
         <?php $selectedJobTitle = isset($employee->job_title)? $employee->job_title: '' ?>
-        <option value=""> أختر المسمى الوظيفي. </option>
+        <option value=""> اختر المسمى الوظيفي. </option>
         @foreach($jobsTitles as $jobTitle)
             <option value="{{$jobTitle}}" {{($selectedJobTitle == $jobTitle)? ('selected'):((old('job_title')==$jobTitle)?'selected':'')}} >{{$jobTitle}}</option>
         @endforeach
@@ -27,7 +27,7 @@
 
 <div class="form-group">
     <label for="date_of_hiring"> تاريخ التعيين  </label>
-    <input type="text" class="form-control datepicker" id="datepicker" name="date_of_hiring"  placeholder=" أختر تاريخ التعيين. " value="{{$employee->date_of_hiring or old('date_of_hiring')}}">
+    <input type="text" class="form-control datepicker" id="datepicker" name="date_of_hiring"  placeholder=" اختر تاريخ التعيين. " value="{{$employee->date_of_hiring or old('date_of_hiring')}}">
 </div>
 
 <div class="form-group">

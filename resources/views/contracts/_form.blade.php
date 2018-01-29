@@ -11,7 +11,7 @@
     <select class="form-control" name="type">
         <?php $contracType = isset($contract->type)? $contract->type:'';?>
         <option value="">
-              أختر نوع العقد.
+              اختر نوع العقد.
           </option>
         <option value="ضمان" {{($contracType == 'ضمان')? 'selected' : ((old('type')=='ضمان')?'selected':'')}}>
              ضمان
@@ -49,7 +49,7 @@
     <select class="form-control" name="status">
         <?php $contractStatus = isset($contract->status)? $contract->status:'';?>
         <option value="">
-              أختر حالة التعاقد.
+              اختر حالة التعاقد.
           </option>
         <option value="ساري" {{($contractStatus == 'ساري')? 'selected' : ((old('status')=='ساري')?'selected':'')}}>
              ساري
@@ -91,7 +91,7 @@
     <select class="form-control" name="payment_system">
         <?php $contractStatus = isset($contract->payment_system)? $contract->payment_system:'';?>
         <option value="">
-              أختر نظام السداد.
+              اختر نظام السداد.
           </option>
         <option value="مقدم" {{($contractStatus == 'مقدم')? 'selected' : ((old('payment_system')=='مقدم')?'selected':'')}}>
              مقدم

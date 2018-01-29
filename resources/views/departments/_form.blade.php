@@ -7,7 +7,7 @@
     <label for="manager_id"> اسم مدير القسم <span style="color:red">*</span></label>
     <select class="form-control selectpicker" name="manager_id" data-live-search="true">
         <?php $selectedManager = isset($department->manager_id)? $department->manager_id: '' ?>
-        <option value=""> أختر اسم مدير القسم. </option>
+        <option value=""> اختر اسم مدير القسم. </option>
         @foreach($employees as $userId=>$userName)
             <option value="{{$userId}}" {{($selectedManager == $userId)? ('selected'):((old('manager_id')==$userId)?'selected':'')}} >{{$userName}}</option>
         @endforeach

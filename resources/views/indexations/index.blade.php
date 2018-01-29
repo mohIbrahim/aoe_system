@@ -15,7 +15,7 @@
 				<legend> البحث عن المقايسات </legend>
 
 				<div class="form-group">
-					<label for=""> البحث بـ كود, التاريخ, موافقة العميل, موافقة مدير الأقسام الفنية, موافقة المخازن للمقايسة. </label>
+					<label for=""> البحث بـ كود, التاريخ, موافقة العميل, موافقة مدير الأقسام الفنية, موافقة المخازن للمقايسة أو كود الإشارة. </label>
 					<input type="text" class="form-control" id="indexations_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
@@ -37,6 +37,7 @@
                                 <th> موافقة العميل </th>
                                 <th> موافقة مدير الأقسام الفنية </th>
                                 <th> موافقة المخازن </th>
+                                <th> كود الإشارة </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -62,6 +63,11 @@
                                         </td>
                                         <td>
                                             {{$indexation->warehouse_approval}}
+                                        </td>
+                                        <td>
+                                            <a href="{{action('ReferenceController@show', ['id'=>(isset($indexation->reference)?$indexation->reference->id:'')])}}" target="_blank">
+                                                {{isset($indexation->reference)?$indexation->reference->code:''}}
+                                            </a>
                                         </td>
 									</tr>
 								@endforeach
@@ -96,7 +102,7 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, indexation) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('indexations')}}/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td></tr>"
+                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('indexations')}}/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td><td><a href='{{url('references')}}/"+indexation.reference.id+"'>"+indexation.reference.code+"</a></td></tr>"
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();

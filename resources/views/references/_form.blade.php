@@ -12,7 +12,7 @@
     <label for="type"> نوع الإشارة <span style="color:red">*</span></label>
     <select class="form-control" name="type">
         <?php $referenceType = isset($reference->type)? $reference->type:'' ;?>
-        <option value="">  أختر نوع الإشارة.  </option>
+        <option value="">  اختر نوع الإشارة.  </option>
         <option value="تركيب" {{($referenceType == 'تركيب')? 'selected' : ((old('type')=='تركيب')?'selected':'')}}> تركيب </option>
         <option value="ضمان" {{($referenceType == 'ضمان')? 'selected' : ((old('type')=='ضمان')?'selected':'')}}> ضمان </option>
         <option value="صيانة" {{($referenceType == 'صيانة')? 'selected' : ((old('type')=='صيانة')?'selected':'')}}> صيانة </option>
@@ -23,14 +23,14 @@
 
 <div class="form-group">
     <label for="received_date"> تاريخ الإستلام  <span style="color:red">*</span></label>
-    <input type="text" class="form-control datepicker" id="datepicker" name="received_date"  placeholder=" أختر تاريخ الإستلام. " value="{{$reference->received_date or old('received_date')}}">
+    <input type="text" class="form-control datepicker" id="datepicker" name="received_date"  placeholder=" اختر تاريخ الإستلام. " value="{{$reference->received_date or old('received_date')}}">
 </div>
 
 <div class="form-group">
     <label for="employee_id"> اسم المهندس المعيين لهذة الاشارة </label>
     <select class="form-control selectpicker" name="employee_id" data-live-search="true">
         <?php $selectedEmployee = isset($reference->employee_id)? $reference->employee_id: '' ?>
-        <option value=""> أختر اسم المهندس المعيين على هذة الاشارة. </option>
+        <option value=""> اختر اسم المهندس المعيين على هذة الاشارة. </option>
         @foreach($employeesNames as $employeeId=>$employeeName)
             <option value="{{$employeeId}}" {{($selectedEmployee == $employeeId)? ('selected'):((old('employee_id')==$employeeId)?'selected':'')}} >{{$employeeName}}</option>
         @endforeach

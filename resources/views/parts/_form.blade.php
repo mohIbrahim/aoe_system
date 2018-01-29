@@ -12,7 +12,7 @@
     <label for="type"> نوع القطعة <span style="color:red">*</span></label>
     <select class="form-control" name="type">
         <?php $partType = isset($part->type)? $part->type:'' ;?>
-        <option value="">  أختر نوع القطعة  </option>
+        <option value="">  اختر نوع القطعة  </option>
         <option value="قطعة غيار" {{($partType == 'قطعة غيار')? 'selected' : ((old('type')=='قطعة غيار')?'selected':'')}}> قطعة غيار </option>
         <option value="مستهلكات" {{($partType == 'مستهلكات')? 'selected' : ((old('type')=='مستهلكات')?'selected':'')}}> مستهلكات </option>
         <option value="ملحقات" {{($partType == 'ملحقات')? 'selected' : ((old('type')=='ملحقات')?'selected':'')}}> ملحقات </option>

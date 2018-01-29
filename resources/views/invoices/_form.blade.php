@@ -11,7 +11,7 @@
     <select class="form-control" name="issuer">
         <?php $invoiceIssuer = isset($invoice->issuer)? $invoice->issuer:'';?>
         <option value="">
-              أختر جهة الإصدار.
+              اختر جهة الإصدار.
           </option>
         <option value="الأقسام الفنية" {{($invoiceIssuer == 'الأقسام الفنية')? 'selected' : ((old('issuer')=='الأقسام الفنية')?'selected':'')}}>
              الأقسام الفنية
@@ -36,7 +36,7 @@
     <select class="form-control" name="finance_check_out">
         <?php $invoiceFinanceCheckOut = isset($invoice->finance_check_out)? $invoice->finance_check_out:'';?>
         <option value="">
-              أختر بالاطلاع أو عدم الاطلاع على هذة الفاتورة.
+              اختر بالاطلاع أو عدم الاطلاع على هذة الفاتورة.
           </option>
         <option value="تم الاطلاع" {{($invoiceFinanceCheckOut == 'تم الاطلاع')? 'selected' : ((old('finance_check_out')=='تم الاطلاع')?'selected':'')}}>
              تم الاطلاع
@@ -51,7 +51,7 @@
 
 <div class="form-group">
     <label for="release_date"> تاريخ الإصدار <span style="color:red">*</span></label>
-    <input type="text" class="form-control datepicker" id="datepicker" name="release_date"  placeholder=" أختر تاريخ الإصدار. " value="{{$invoice->release_date or old('release_date')}}">
+    <input type="text" class="form-control datepicker" id="datepicker" name="release_date"  placeholder=" اختر تاريخ الإصدار. " value="{{$invoice->release_date or old('release_date')}}">
 </div>
 
 <div class="form-group">
