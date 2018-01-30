@@ -20,11 +20,23 @@ class Customer extends Model
                             'governorate',
                             'administration',
                             'department',
-                            'comments' ];
+                            'comments',
+                            'main_branch_id',
+                         ];
 
     public function telecoms()
     {
         return $this->morphMany('App\Telecom', 'telecomable');
+    }
+
+    public function mainBranch()
+    {
+        return $this->belongsTo('App\Customer', 'main_branch_id', 'id');
+    }
+
+    public function branches()
+    {
+        return $this->hasMany('App\Customer', 'main_branch_id', 'id');
     }
 
 }

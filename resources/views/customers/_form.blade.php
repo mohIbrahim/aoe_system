@@ -4,6 +4,17 @@
 </div>
 
 <div class="form-group">
+    <label for="main_branch_id"> اسم الفرع الرئيسي </label>
+    <select class="form-control selectpicker" name="main_branch_id" data-live-search="true">
+        <?php $selectedMainBranchId = isset($customer->main_branch_id)? $customer->main_branch_id:'' ;?>
+        <option value=""> اختر اسم الفرع الرئيسي لهذا الفرع.  </option>
+        @foreach ($customersIdsNames as $customerId => $customerName)
+            <option value="{{$customerId}}" {{($selectedMainBranchId == $customerId)? 'selected' : ((old('main_branch_id')==$customerId)?'selected':'')}}> {{$customerName}} </option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
     <label for="name"> اسم العميل <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="name" name="name"  placeholder=" إدخل اسم العميل. " value="{{$customer->name or old('name')}}">
 </div>

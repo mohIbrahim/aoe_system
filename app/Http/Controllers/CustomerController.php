@@ -41,7 +41,8 @@ class CustomerController extends Controller
     public function create()
     {
         $egyptCities = (new EgyptCities())->getCities();
-        return view('customers.create', compact('egyptCities'));
+        $customersIdsNames = Customer::all()->pluck('name', 'id');
+        return view('customers.create', compact('egyptCities', 'customersIdsNames'));
     }
 
     /**
