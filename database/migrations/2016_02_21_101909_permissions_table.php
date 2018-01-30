@@ -16,6 +16,7 @@ class PermissionsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
+            $table->string('title');
             $table->nullableTimestamps();
         });
     }
