@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class Invoice extends Model
 {
     protected $table = 'invoices';
-    protected $fillable = ['number', 'issuer', 'order_number', 'delivery_permission_number', 'finance_check_out', 'release_date', 'descriptions', 'comments'];
+    protected $fillable = ['number', 'issuer', 'order_number', 'delivery_permission_number', 'finance_check_out', 'release_date', 'descriptions', 'comments', 'indexation_id'];
     protected $dates = ['release_date'];
 
     public function setReleaseDateAttribute($date)
@@ -24,5 +24,10 @@ class Invoice extends Model
     {
         if (!empty($date))
             return $this->asDateTime($date)->format('Y-m-d');
+    }
+
+    public function indexation()
+    {
+        return $this->belongsTo('App\Indexation', 'indexation_id');
     }
 }

@@ -60,6 +60,17 @@
 </div>
 
 <div class="form-group">
+    <label for="indexation_id"> كود المقايسة </label>
+    <select class="form-control selectpicker" name="indexation_id" data-live-search="true">
+        <?php $selectedIndexations = isset($invoice->indexation_id)? $invoice->indexation_id:'' ;?>
+        <option value=""> اختر كود المقايسة التي قمت بسببها بإجراء هذة الفاتورة.  </option>
+        @foreach ($indexationsCodes as $indexationId => $indexationCode)
+            <option value="{{$indexationId}}" {{($selectedIndexations == $indexationId)? 'selected' : ((old('indexation_id')==$indexationId)?'selected':'')}}> {{$indexationCode}} </option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$invoice->comments or old('comments')}}</textarea>
 </div>
@@ -71,10 +82,17 @@
 {{-- datePicker --}}
     <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
 {{-- datePicker --}}
+{{-- bootstrap-select --}}
+    <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
+{{-- bootstrap-select --}}
 @endsection
 @section('js_footer')
 {{-- datePicker --}}
     <script src="{{asset('js/datepicker/jquery-ui.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
 {{-- datePicker --}}
+{{-- bootstrap-select --}}
+    <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
+    <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
+{{-- bootstrap-select --}}
 @endsection

@@ -68,6 +68,14 @@
                                             </td>
 								    </tr>
                                     <tr>
+									    <th> رقم الفاتورة </th>
+                                            <td>
+                                                <a href="{{action('VisitController@show', ['id'=>(isset($indexation->invoice)?$indexation->invoice->id:'')])}}" target="_blank">
+                                                    {{isset($indexation->invoice)?$indexation->invoice->number:''}}
+                                                </a>
+                                            </td>
+								    </tr>
+                                    <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$indexation->comments}}</td>
 								    </tr>

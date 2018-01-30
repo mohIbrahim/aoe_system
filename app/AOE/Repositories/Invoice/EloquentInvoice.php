@@ -54,6 +54,7 @@ class EloquentInvoice implements InvoiceInterface
     {
         $results = $this->invoice->where('number', 'like', '%'.$keyword.'%')
                         ->orWhere('finance_check_out', 'like', '%'.$keyword.'%')
+                        ->orWhere('release_date', 'like', '%'.$keyword.'%')
                         ->get();
         return $results;
     }

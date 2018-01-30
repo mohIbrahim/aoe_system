@@ -23,13 +23,13 @@ class InvoiceRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
-            'number'=>'required|max:16777215|numeric',
+            'number'=>'required|max:16777215|numeric|unique:invoices,number,'.$this->invoice,
             'issuer'=>'required',
             'order_number'=>'numeric|max:16777215|nullable',
             'delivery_permission_number'=>'numeric|max:16777215|nullable',
             'release_date'=>'required|date',
+            'indexation_id'=>'nullable|unique:invoices,indexation_id,'.$this->invoice,
         ];
     }
 
@@ -39,9 +39,10 @@ class InvoiceRequest extends FormRequest
             'number.required'=>' برجاء إدخال رقم الفاتورة. ',
             'number.max'=>' برجاء إدخال رقم الفاتورة لا يزيد عن 7 خانات. ',
             'number.numeric'=>' برجاء إدخال رقم الفاتور أرقم فقط. ',
+            'number.uniuqe'=>' رقم الفاتورة تم إدخاله من قبل برجاء اختيار رقم آخر. ',
 
             'issuer.required'=>' برجاء اختيار جهة الإصدار. ',
-            
+
             'order_number.numeric'=>' برجاء إدخال أمر توريد أرقم فقط. ',
             'order_number.max'=>' برجاء إدخال أمر توريد لا يزيد عن 7 خانات. ',
 
@@ -49,7 +50,9 @@ class InvoiceRequest extends FormRequest
             'delivery_permission_number.max'=>' برجاء إدخال إذن تسليم لا يزيد عن 7 خانات. ',
 
             'release_date.required'=>' برجاء إدخال تاريخ الإصدار. ',
-            'release_date.date'=>' برجاء إدخال تاريخ الإصدار بشكل صحيح. '
+            'release_date.date'=>' برجاء إدخال تاريخ الإصدار بشكل صحيح. ',
+
+            'indexation_id.unique'=>' عفواً هذة المقايسة تم إخراج فاتورة لها من قبل برجاء اختيار كود مقايسة آخر. ',
         ];
     }
 }

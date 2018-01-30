@@ -37,4 +37,9 @@ class Indexation extends Model
         return $this->belongsTo('App\Visit', 'visit_id');
     }
 
+    public function invoice()
+    {
+        return $this->hasOne('App\Invoice', 'indexation_id');
+    }
+
 }

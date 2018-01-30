@@ -15,7 +15,7 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('number');
+            $table->integer('number')->nullable();
             $table->string('issuer')->nullable();
             $table->integer('order_number')->nullable();
             $table->integer('delivery_permission_number')->nullable();
@@ -24,6 +24,9 @@ class CreateInvoicesTable extends Migration
             $table->text('descriptions')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
+
+            $table->integer('indexation_id')->unsigned()->nullable();
+            $table->foreign('indexation_id')->references('id')->on('indexations')->onDelete('set null');
         });
     }
 

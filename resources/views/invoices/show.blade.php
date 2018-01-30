@@ -69,6 +69,15 @@
 								    </tr>
 
                                     <tr>
+									    <th> رقم المقايسة </th>
+									    <td>
+                                            <a href="{{action('IndexationController@show', ['id'=>(isset($invoice->indexation)?$invoice->indexation->id:'')])}}" target="_blank">
+                                                {{isset($invoice->indexation)?$invoice->indexation->code:''}}
+                                            </a>
+                                        </td>
+								    </tr>
+
+                                    <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$invoice->comments}}</td>
 								    </tr>
