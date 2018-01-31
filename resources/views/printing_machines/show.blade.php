@@ -32,6 +32,21 @@
 							    </thead>
 							    <tbody>
 								    <tr>
+									    <th> اسم العميل </th>
+									    <td>
+                                            <a href="{{action('CustomerController@show', ['id'=>(isset($printingMachine->customer)?$printingMachine->customer->id:'')])}}">
+                                                {{isset($printingMachine->customer)?$printingMachine->customer->name:''}}
+                                            </a>
+                                        </td>
+								    </tr>
+								    <tr>
+									    <th> كود العميل </th>
+									    <td>
+                                            {{isset($printingMachine->customer)?$printingMachine->customer->code:''}}
+                                        </td>
+								    </tr>
+
+                                    <tr>
 									    <th> رقم الملف الآلة </th>
 									    <td>{{$printingMachine->folder_number}}</td>
 								    </tr>

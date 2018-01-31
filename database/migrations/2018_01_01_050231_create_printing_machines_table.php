@@ -30,6 +30,9 @@ class CreatePrintingMachinesTable extends Migration
             $table->boolean('is_sold_by_aoe')->nullable()->default(0);
             $table->text('comments')->nullable();
             $table->timestamps();
+
+            $table->integer('customer_id')->unsigned()->nullable();
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });
     }
 

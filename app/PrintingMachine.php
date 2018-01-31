@@ -22,6 +22,12 @@ class PrintingMachine extends Model
             'price_without_tax',
             'price_with_tax',
             'is_sold_by_aoe',
-            'comments'
+            'comments',
+            'customer_id',
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo('App\Customer', 'customer_id', 'id');
+    }
 }

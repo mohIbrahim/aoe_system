@@ -39,4 +39,9 @@ class Customer extends Model
         return $this->hasMany('App\Customer', 'main_branch_id', 'id');
     }
 
+    public function printingMachines()
+    {
+        return $this->hasMany('App\PrintingMachine', 'customer_id', 'id');
+    }
+
 }
