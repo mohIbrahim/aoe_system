@@ -77,7 +77,8 @@ class CustomerController extends Controller
     {
         $customer = $this->customer->getById($id);
         $egyptCities = (new EgyptCities())->getCities();
-        return view('customers.edit', compact('customer', 'egyptCities'));
+        $customersIdsNames = Customer::all()->pluck('name', 'id');
+        return view('customers.edit', compact('customer', 'egyptCities', 'customersIdsNames'));
 
     }
 

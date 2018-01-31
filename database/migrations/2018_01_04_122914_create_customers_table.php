@@ -30,6 +30,9 @@ class CreateCustomersTable extends Migration
             $table->string('department')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
+
+            $table->integer('main_branch_id')->unsigned()->nullable();
+            $table->foreign('main_branch_id')->references('id')->on('customers')->onDelete('cascade');
         });
     }
 

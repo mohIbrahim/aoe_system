@@ -5,6 +5,9 @@
 
 <div class="form-group">
     <label for="main_branch_id"> اسم الفرع الرئيسي </label>
+    <p style="color:red; font-size:.9em">
+        في حالة إدخال هذا العميل على انه فرع، نقوم باختيار الفرع الرئيسي التابع له.
+    </p>
     <select class="form-control selectpicker" name="main_branch_id" data-live-search="true">
         <?php $selectedMainBranchId = isset($customer->main_branch_id)? $customer->main_branch_id:'' ;?>
         <option value=""> اختر اسم الفرع الرئيسي لهذا الفرع.  </option>
