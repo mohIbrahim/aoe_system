@@ -30,4 +30,14 @@ class PrintingMachine extends Model
     {
         return $this->belongsTo('App\Customer', 'customer_id', 'id');
     }
+
+    public function readings()
+    {
+        return $this->hasMany('App\ReadingOfPrintingMachine', 'printing_machine_id', 'id');
+    }
+
+    public function visits()
+    {
+        return $this->hasMany('App\Visits', 'printing_machine_id', 'id');
+    }
 }

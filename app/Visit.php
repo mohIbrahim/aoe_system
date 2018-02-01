@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Visit extends Model
 {
     protected $table = 'visits';
-    protected $fillable = ['type', 'visit_date', 'representative_customer_name', 'readings_of_printing_machine', 'comments'];
+    protected $fillable = ['type', 'visit_date', 'representative_customer_name', 'readings_of_printing_machine', 'comments', 'printing_machine_id'];
     protected $dates = ['visit_date'];
 
 
@@ -35,5 +35,10 @@ class Visit extends Model
     public function indexation()
     {
         return $this->hasOne('App\Indexation');
+    }
+
+    public function printingMachine()
+    {
+        return $this->belongsTo('App\PrintingMachine', 'printing_machine_id', 'id');
     }
 }

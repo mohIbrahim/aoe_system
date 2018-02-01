@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\VisitRequest;
 use App\AOE\Repositories\Visit\VisitInterface;
+use App\PrintingMachine;
 
 class VisitController extends Controller
 {
@@ -33,7 +34,8 @@ class VisitController extends Controller
      */
     public function create()
     {
-        return view('visits.create');
+        $printingMachineIdsCodes = PrintingMachine::all()->pluck('code', 'id');
+        return view('visits.create', compact('printingMachineIdsCodes'));
     }
 
     /**
@@ -67,7 +69,8 @@ class VisitController extends Controller
     public function edit($id)
     {
         $visit = $this->visit->getById($id);
-        return view('visits.edit', compact('visit'));
+        $printingMachineIdsCodes = PrintingMachine::all()->pluck('code', 'id');
+        return view('visits.edit', compact('visit', 'printingMachineIdsCodes'));
     }
 
     /**

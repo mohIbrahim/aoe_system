@@ -22,6 +22,9 @@ class CreateReadingOfPrintingMachinesTable extends Migration
 
             $table->integer('visit_id')->unsigned()->nullable();
             $table->foreign('visit_id')->references('id')->on('visits')->onDelete('cascade');
+
+            $table->integer('printing_machine_id')->unsigned();
+            $table->foreign('printing_machine_id')->references('id')->on('printing_machines')->onDelete('cascade');
         });
     }
 

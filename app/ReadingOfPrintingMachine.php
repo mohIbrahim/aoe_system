@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ReadingOfPrintingMachine extends Model
 {
     protected $table = 'reading_of_printing_machines';
-    protected $fillable = ['value', 'reading_date', 'comments', 'visit_id'];
+    protected $fillable = ['value', 'reading_date', 'comments', 'visit_id', 'printing_machine_id'];
     protected $dates = ['reading_date'];
 
     public function setReadingDateAttribute($date)
@@ -20,8 +20,19 @@ class ReadingOfPrintingMachine extends Model
         }
     }
 
+    public function getReadingDateAttribute($date)
+    {
+        if (!empty($date))
+            return $this->asDateTime($date)->format('Y-m-d');
+    }
+
     public function theVisit()
     {
         return $this->belongsTo('App\Visit');
+    }
+
+    public function printingMachine()
+    {
+        return $this->belongsTo('App\PrintingMachine', 'printing_machine_id', 'id');
     }
 }

@@ -21,6 +21,9 @@ class CreateVisitsTable extends Migration
             $table->bigInteger('readings_of_printing_machine')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
+
+            $table->integer('printing_machine_id')->unsigned();
+            $table->foreign('printing_machine_id')->references('id')->on('printing_machines')->onDelete('cascade');
         });
     }
 

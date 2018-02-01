@@ -24,8 +24,10 @@ class VisitRequest extends FormRequest
     public function rules()
     {
         return [
+            'type'=>'required',
+            'printing_machine_id'=>'required',
             'visit_date'=>'required|date',
-            'readings_of_printing_machine'=>'numeric|nullable',
+            'readings_of_printing_machine'=>'required|numeric',
         ];
     }
 
@@ -36,9 +38,12 @@ class VisitRequest extends FormRequest
     public function messages()
     {
         return [
+            'type.required'=>' برجاء اختيار نوع الزيارة. ',
+            'printing_machine_id.required'=>' برجاء اختيار كود الآلة التصوير. ',
             'visit_date.required'=>' برجاء إدخال تاريخ الزيارة. ',
             'visit_date.date'=>' برجاء إدخال تاريخ الزيارة بشكل صحيح. ',
-            'readings_of_printing_machine.numeric'=>' برجاء إدخال قراءة العداد أرقام فقظ '
+            'readings_of_printing_machine.required'=>' برجاء إدخال قراءة العداد   ',
+            'readings_of_printing_machine.numeric'=>' برجاء إدخال قراءة العداد أرقام فقظ ',
         ];
     }
 

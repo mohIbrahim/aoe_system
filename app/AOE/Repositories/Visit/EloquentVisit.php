@@ -37,7 +37,7 @@ class EloquentVisit implements VisitInterface
     {
         $visit = $this->visit->create($attributes);
         if($visit->readings_of_printing_machine) {
-            $visit->readingOfPrintingMachine()->create(['value'=>$visit->readings_of_printing_machine, 'reading_date'=>$visit->visit_date]);
+            $visit->readingOfPrintingMachine()->create(['value'=>$visit->readings_of_printing_machine, 'reading_date'=>$visit->visit_date, 'printing_machine_id'=>$visit->printing_machine_id]);
         }
         return $visit;
     }
@@ -49,10 +49,11 @@ class EloquentVisit implements VisitInterface
         if($read) {
             $read->value = $visit->readings_of_printing_machine;
             $read->reading_date = isset($read->value)?$visit->visit_date:null;
+            $read->printing_machine_id = $visit->printing_machine_id;
             $visit->readingOfPrintingMachine()->update($read->toArray());
 
         }else {
-            $visit->readingOfPrintingMachine()->create(['value'=>$visit->readings_of_printing_machine, 'reading_date'=>$visit->visit_date]);
+            $visit->readingOfPrintingMachine()->create(['value'=>$visit->readings_of_printing_machine, 'reading_date'=>$visit->visit_date, 'printing_machine_id'=>$visit->printing_machine_id]);
         }
 
         return $visit;
@@ -66,7 +67,7 @@ class EloquentVisit implements VisitInterface
 
     public function search($keyword)
     {
-        $results = $this->visit->where('visit_date', 'like', '%'.$keyword.'%')
+        $results = $this->visit->with('printingMachine')->where('visit_date', 'like', '%'.$keyword.'%')
                         ->orWhere('id', 'like', '%'.$keyword.'%')
                         ->orWhere('type', 'like', '%'.$keyword.'%')
                         ->get();

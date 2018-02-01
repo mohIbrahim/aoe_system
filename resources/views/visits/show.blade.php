@@ -31,6 +31,15 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <th> كود الآلة التصوير </th>
+                                <td>
+                                    <a href="{{action('PrintingMachineController@show', ['id'=>(isset($visit->printingMachine)?$visit->printingMachine->id:'')])}}">
+                                        {{isset($visit->printingMachine)?$visit->printingMachine->code:''}}
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <th> تاريخ الزيارة </th>
                                 <td>{{$visit->visit_date}}</td>
                             </tr>

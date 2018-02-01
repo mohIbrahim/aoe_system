@@ -45,7 +45,7 @@
                                 <th> رقم الزيارة </th>
                                 <th> تاريخ الزيارة </th>
                                 <th> نوع الزيارة </th>
-			  				    <th> اسم الشخص المسؤول عن الآلة  </th>
+                                <th> كود آلة التصوير </th>
 			  				    <th> قراءة العداد </th>
 			  			    </tr>
 			  		    </thead>
@@ -65,7 +65,11 @@
                                             {{$visit->visit_date}}
                                         </td>
 										<td>{{$visit->type}}</td>
-										<td>{{$visit->representative_customer_name}}</td>
+                                        <td>
+                                            <a href="{{action('PrintingMachineController@show', ['id'=>(isset($visit->printingMachine)?$visit->printingMachine->id:'')])}}">
+                                                {{isset($visit->printingMachine)?$visit->printingMachine->code:''}}
+                                            </a>
+                                        </td>
 										<td>{{$visit->readings_of_printing_machine}}</td>
 									</tr>
 								@endforeach
@@ -100,7 +104,11 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, visit) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.id+"</a></td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.visit_date+"</a></td><td>"+visit.type+"</td><td>"+visit.representative_customer_name+"</td><td>"+visit.readings_of_printing_machine+"</td></tr>"
+                                if (visit.printing_machine) {
+                                    newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.id+"</a></td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.visit_date+"</a></td><td>"+visit.type+"</td><td><a href='{{url('printing_machines')}}/"+visit.printing_machine.id+"'>"+visit.printing_machine.code+"</a></td><td>"+visit.readings_of_printing_machine+"</td></tr>";
+                                } else {
+                                    newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.id+"</a></td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.visit_date+"</a></td><td>"+visit.type+"</td><td></td><td>"+visit.readings_of_printing_machine+"</td></tr>";
+                                }
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();
