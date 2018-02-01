@@ -16,7 +16,7 @@
 				<legend> البحث عن الآلات. </legend>
 
 				<div class="form-group">
-					<label for=""> البحث بـ رقم الملف الآلة، كود الآلة، الموديل. </label>
+					<label for="printing_machyines_search"> البحث بـ رقم الملف الآلة، كود الآلة، الموديل أو اسم العميل. </label>
 					<input type="text" class="form-control" id="printing_machyines_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
@@ -38,6 +38,7 @@
 			  				    <th> رقم الملف الآلة </th>
 			  				    <th> كود الآلة </th>
 			  				    <th> الموديل </th>
+			  				    <th> اسم العميل </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -50,6 +51,7 @@
 										<td><a href="{{action('PrintingMachineController@show', ['id'=>$printingMachine->id])}}">{{$printingMachine->folder_number}}</a></td>
 										<td>{{$printingMachine->code}}</td>
 										<td>{{"$printingMachine->model_prefix-$printingMachine->model_suffix"}}</td>
+										<td>{{isset($printingMachine->customer)?$printingMachine->customer->name:''}}</td>
 									</tr>
 								@endforeach
 
@@ -82,7 +84,11 @@
 						$("#my-table-body").fadeOut();
 						$("#my-table-body").children().remove();
 						$.each(results, function(index, machine) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('printing_machines')}}/"+machine.id+"'>"+machine.folder_number+"</a></td><td>"+machine.code+"</td><td>"+machine.model_prefix+"-"+machine.model_suffix+"</td> </tr>"
+                            if(machine.customer) {
+                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('printing_machines')}}/"+machine.id+"'>"+machine.folder_number+"</a></td><td>"+machine.code+"</td><td>"+machine.model_prefix+"-"+machine.model_suffix+"</td><td>"+machine.customer.name+"</td> </tr>";
+                            } else {
+                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('printing_machines')}}/"+machine.id+"'>"+machine.folder_number+"</a></td><td>"+machine.code+"</td><td>"+machine.model_prefix+"-"+machine.model_suffix+"</td><td></td> </tr>";
+                            }
 				        });
 						$("#my-table-body").append(newResult);
 						$("#my-table-body").fadeIn();

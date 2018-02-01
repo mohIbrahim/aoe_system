@@ -26,6 +26,11 @@
                                     </a>
                                 </li>
                             @endif
+                            <li role="presentation">
+                                <a href="#machines" aria-controls="machines" role="tab" data-toggle="tab">
+                                    الآلات
+                                </a>
+                            </li>
                         </ul>
 
                         <!-- Tab panes -->
@@ -165,64 +170,91 @@
 
                                     </tbody>
                                 </table>
+                                </div>
                             </div>
 
-                        </div>
-
-                        <div role="tabpanel" class="tab-pane" id="branches">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th> الاسم </th>
-                                        <th> المحافظة </th>
-                                        <th> المدينة </th>
-                                        <th> المنطقة </th>
-                                        <th> الحي </th>
-                                        <th> ارقام التليفون </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($customer->branches as $key1 => $branch)
+                            <div role="tabpanel" class="tab-pane" id="branches">
+                                <table class="table table-hover">
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <a href="{{action('CustomerController@show', ['id'=>$branch->id])}}">
-                                                    {{$branch->name}}
-                                                </a>
-                                            </td>
-                                            <td>
-                                                {{$branch->governorate}}
-                                            </td>
-                                            <td>
-                                                {{$branch->city}}
-                                            </td>
-                                            <td>
-                                                {{$branch->area}}
-                                            </td>
-                                            <td>
-                                                {{$branch->district}}
-                                            </td>
-                                            <td>
-                                                @foreach ($branch->telecoms as $key2 => $phone)
-                                                    {{$phone->number}}<br>
-                                                @endforeach
-                                            </td>
-
+                                            <th> الاسم </th>
+                                            <th> المحافظة </th>
+                                            <th> المدينة </th>
+                                            <th> المنطقة </th>
+                                            <th> الحي </th>
+                                            <th> ارقام التليفون </th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($customer->branches as $key1 => $branch)
+                                            <tr>
+                                                <td>
+                                                    <a href="{{action('CustomerController@show', ['id'=>$branch->id])}}">
+                                                        {{$branch->name}}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    {{$branch->governorate}}
+                                                </td>
+                                                <td>
+                                                    {{$branch->city}}
+                                                </td>
+                                                <td>
+                                                    {{$branch->area}}
+                                                </td>
+                                                <td>
+                                                    {{$branch->district}}
+                                                </td>
+                                                <td>
+                                                    @foreach ($branch->telecoms as $key2 => $phone)
+                                                        {{$phone->number}}<br>
+                                                    @endforeach
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="machines">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th> كود الآلة </th>
+                                            <th> اسم الشركة المصنعّة </th>
+                                            <th> رقم ملف الآلة </th>
+                                            <th> الموديل  </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($customer->printingMachines as $key1 => $machine)
+                                            <tr>
+                                                <td>
+                                                    <a href="{{action('PrintingMachineController@show', ['id'=>$machine->id])}}">
+                                                        {{$machine->code}}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    {{$machine->the_manufacture_company}}
+                                                </td>
+                                                <td>
+                                                    {{$machine->folder_number}}
+                                                </td>
+                                                <td>
+                                                    {{$machine->model_prefix.'-'.$machine->model_suffix}}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-
                 </div>
-
-
-
-
             </div>
         </div>
     </div>
-</div>
 @endsection
 
 @include('partial.deleteConfirm',['name'=>$customer->name,

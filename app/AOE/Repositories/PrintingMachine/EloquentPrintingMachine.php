@@ -52,10 +52,13 @@ class EloquentPrintingMachine implements PrintingMachineInterface
 
     public function search($keyword)
     {
-        $results = $this->printingMachine->where('folder_number', 'like', "%$keyword%")
+        $results = $this->printingMachine->with('customer')->where('folder_number', 'like', "%$keyword%")
                             ->orWhere('code', 'like', "%$keyword%")
                             ->orWhere('model_prefix', 'like', "%$keyword%")
                             ->orWhere('model_suffix', 'like', "%$keyword%")
+                            ->orWhereHas('customer', function($query) use($keyword){
+                                $query->where('name', 'like', '%'.$keyword.'%');
+                            })
                             ->get();
         return $results;
     }
