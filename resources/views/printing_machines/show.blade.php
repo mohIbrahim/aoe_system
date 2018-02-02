@@ -26,7 +26,7 @@
                             </li>
 
                             <li role="presentation">
-                                <a href="#readings-of-printing-machine" aria-controls="readings-of-printing-machine" role="tab" data-toggle="tab">
+                                <a href="#visits" aria-controls="visits" role="tab" data-toggle="tab">
                                      الزيارات
                                 </a>
                             </li>
@@ -174,35 +174,34 @@
                                     </table>
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="readings-of-printing-machine">
+                            <div role="tabpanel" class="tab-pane" id="visits">
                                 <div class="table-responsive">
                                     <table class="table table-hover">
                                         <thead>
                                             <h2 class="text-center"> قراءات العداد </h2>
                                             <tr>
-                                                <th> القراءة </th>
-                                                <th> تاريخ أخذ القراءة </th>
-                                                <th> رقم الزيارة </th>
+                                                <th> تاريخ الزيارة </th>
+                                                <th> نوع الزيارة </th>
+                                                <th> قراءة العداد </th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
-                                            @foreach ($printingMachine->readings as $key => $reading)
+                                            @foreach ($printingMachine->visits as $key1 => $visit)
                                                 <tr>
-                                                    <td>{{$reading->value}}</td>
-                                                    <td>{{$reading->reading_date}}</td>
                                                     <td>
-                                                        <a href="{{action('VisitController@show', ['id'=>$reading->visit_id])}}">
-                                                            {{$reading->visit_id}}
+                                                        <a href="{{action('VisitController@show', ['id'=>$visit->id])}}">
+                                                            {{$visit->visit_date}}
                                                         </a>
                                                     </td>
+                                                    <td>{{$visit->type}}</td>
+                                                    <td>{{$visit->readings_of_printing_machine}}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-
                         </div>
 
                 </div>

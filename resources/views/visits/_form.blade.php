@@ -24,7 +24,7 @@
     <label for="printing_machine_id"> كود الآلة التصوير <span style="color:red">*</span></label>
     <select class="form-control selectpicker" name="printing_machine_id" data-live-search="true">
         <?php $selectedPrintingMachineId = isset($visit->printing_machine_id)? $visit->printing_machine_id:'' ;?>
-        <option value=""> اختر كود العميل.  </option>
+        <option value=""> اختر كود الآلة التصوير.  </option>
         @foreach ($printingMachineIdsCodes as $id => $code)
             <option value="{{$id}}" {{($selectedPrintingMachineId == $id)? 'selected' : ((old('printing_machine_id')==$id)?'selected':'')}}> {{$code}} </option>
         @endforeach
@@ -37,7 +37,7 @@
 </div>
 
 <div class="form-group">
-    <label for="readings_of_printing_machine"> قراءة العداد </label>
+    <label for="readings_of_printing_machine"> قراءة العداد <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="readings_of_printing_machine" name="readings_of_printing_machine"  placeholder=" إدخل قراءة العداد. " value="{{$visit->readings_of_printing_machine or old('readings_of_printing_machine')}}">
 </div>
 

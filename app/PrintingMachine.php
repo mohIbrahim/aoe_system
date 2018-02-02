@@ -38,6 +38,6 @@ class PrintingMachine extends Model
 
     public function visits()
     {
-        return $this->hasMany('App\Visits', 'printing_machine_id', 'id');
+        return $this->hasMany('App\Visit', 'printing_machine_id', 'id');
     }
 }
