@@ -51,6 +51,16 @@
                                         <td>{{$employee->date_of_hiring}}</td>
                                     </tr>
 
+									<tr>
+                                        <th> اسم القسم التابع له  </th>
+                                        <td>{{isset($employee->department)?$employee->department->name:' لا يوجد '}}</td>
+                                    </tr>
+
+									<tr>
+                                        <th> اسم القسم الذي يديره  </th>
+                                        <td>{{isset($employee->theDepartmentThatHeManageIt)?$employee->theDepartmentThatHeManageIt->name:'لا يوجد'}}</td>
+                                    </tr>
+
 								    <tr>
 									    <th> الراتب </th>
 									    <td>{{$employee->salary}}</td>

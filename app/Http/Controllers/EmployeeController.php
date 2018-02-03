@@ -6,6 +6,7 @@ use App\AOE\Repositories\Employee\EmployeeInterface;
 use App\Http\Requests\EmployeeRequest;
 use App\AOE\JobTitle\JobTitle;
 use App\User;
+use App\Department;
 
 
 class EmployeeController extends Controller
@@ -31,7 +32,9 @@ class EmployeeController extends Controller
         $jobTitle = new JobTitle();
         $jobsTitles = $jobTitle->getJobTitle();
         $usersNames = User::all()->pluck('name', 'id');
-        return view('employees.create', compact('jobsTitles', 'usersNames'));
+        $managedDepartmentsIdsNames = Department::all()->pluck('name', 'id');
+        $departmentsIdsNames = Department::all()->pluck('name', 'id');
+        return view('employees.create', compact('jobsTitles', 'usersNames', 'managedDepartmentsIdsNames', 'departmentsIdsNames'));
     }
 
 
@@ -56,8 +59,10 @@ class EmployeeController extends Controller
         $jobTitle = new JobTitle();
         $jobsTitles = $jobTitle->getJobTitle();
         $usersNames = User::all()->pluck('name', 'id');
+        $managedDepartmentsIdsNames = Department::all()->pluck('name', 'id');
+        $departmentsIdsNames = Department::all()->pluck('name', 'id');
 
-        return view('employees.edit', compact('employee', 'jobsTitles', 'usersNames'));
+        return view('employees.edit', compact('employee', 'jobsTitles', 'usersNames', 'managedDepartmentsIdsNames', 'departmentsIdsNames'));
     }
 
 

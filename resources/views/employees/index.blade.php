@@ -35,6 +35,8 @@
                                 <th> اسم الموظف </th>
                                 <th> كود الموظف </th>
                                 <th> المسمى الوظيفي </th>
+                                <th> القسم  </th>
+                                <th> القسم الذي يرأسه </th>
                                 <th>  تاريخ التعيين  </th>
 			  			    </tr>
 			  		    </thead>
@@ -45,18 +47,22 @@
 										<td>
 											{{$k+1}}
 										</td>
-
                                         <td>
                                             <a href="{{action('EmployeeController@show', ['id'=>$employee->id])}}" target="_blank">
-                                                {{$employee->user->name}}
+                                                {{$employee->user->name or ''}}
                                             </a>
                                         </td>
-
 										<td>
                                             {{$employee->code}}
                                         </td>
                                         <td>
                                             {{$employee->job_title}}
+                                        </td>
+                                        <td>
+                                            {{isset($employee->department)?$employee->department->name:'لا يوجد'}}
+                                        </td>
+                                        <td>
+                                            {{isset($employee->theDepartmentThatHeManageIt)?$employee->theDepartmentThatHeManageIt->name:'لا يوجد'}}
                                         </td>
                                         <td>
                                             {{$employee->date_of_hiring}}
@@ -94,7 +100,15 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, employee) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('employees')}}/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td>"+employee.date_of_hiring+"</td></tr>"
+								if (employee.department && employee.the_department_that_he_manage_it) {
+									newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('employees')}}/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td>"+employee.department.name+"</td><td>"+employee.the_department_that_he_manage_it.name+"</td><td>"+employee.date_of_hiring+"</td></tr>";
+								} else if (employee.department) {
+									newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('employees')}}/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td>"+employee.department.name+"</td><td> لا يوجد </td><td>"+employee.date_of_hiring+"</td></tr>";
+								} else if (employee.the_department_that_he_manage_it) {
+									newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('employees')}}/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td> لا يوجد </td><td>"+employee.the_department_that_he_manage_it.name+"</td><td>"+employee.date_of_hiring+"</td></tr>";
+								} else {
+									newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('employees')}}/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td> لا يوجد </td><td> لا يوجد </td><td>"+employee.date_of_hiring+"</td></tr>";
+								}
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();

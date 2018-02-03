@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     protected $table = 'employees';
-    protected $fillable = ['code', 'job_title', 'date_of_hiring', 'salary', 'comments', 'user_id'];
+    protected $fillable = ['code', 'job_title', 'date_of_hiring', 'salary', 'comments', 'user_id', 'managed_department_id', 'department_id'];
     protected $dates = ['date_of_hiring'];
 
     public function setDateOfHiringAttribute($date)
@@ -33,11 +33,16 @@ class Employee extends Model
 
     public function theDepartmentThatHeManageIt()
     {
-        return $this->hasOne('App\Department', 'manager_id');
+        return $this->belongsTo('App\Department', 'managed_department_id', 'id');
     }
 
     public function assignedReference()
     {
         return $this->hasOne('App\Reference');
+    }
+
+    public function department()
+    {
+        return $this->belongsTo('App\Department', 'department_id', 'id');
     }
 }

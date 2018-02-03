@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('title')
-	 	 تعديل الموظف:  {{$employee->code}}
+	 	 تعديل الموظف:  {{$employee->user->name or ''}}
 @endsection
 @section('content')
           <div class="col-lg-12">
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="panel panel-primary main_arabic_font">
                     <div class="panel-heading text-center">
-                        <h2 class="panel-title">  تعديل الموظف:  {{$employee->code}} </h2>
+                        <h2 class="panel-title">  تعديل الموظف:  {{$employee->user->name or ''}} </h2>
                     </div>
                     <div class="panel-body">
                         @include('errors.list')

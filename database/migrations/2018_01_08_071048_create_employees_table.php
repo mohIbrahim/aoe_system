@@ -24,6 +24,12 @@ class CreateEmployeesTable extends Migration
 
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+
+            $table->integer('managed_department_id')->unsigned()->nullable();
+            $table->foreign('managed_department_id')->references('id')->on('departments')->onDelete('set null');
+
+            $table->integer('department_id')->unsigned()->nullable();
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null');
         });
     }
 

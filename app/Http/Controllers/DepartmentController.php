@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Department;
 use App\AOE\Repositories\Department\DepartmentInterface;
 use App\Http\Requests\DepartmentRequest;
-use App\Employee;
 
 class DepartmentController extends Controller
 {
@@ -27,8 +26,7 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = $this->department->latest()->paginate(25);
-        $eloquentDepartment = $this->department;
-        return view('departments.index', compact('departments', 'eloquentDepartment'));
+        return view('departments.index', compact('departments'));
     }
 
     /**
@@ -38,8 +36,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        $employees = Employee::all()->pluck('user.name','id');
-        return view('departments.create', compact('employees'));
+        return view('departments.create');
     }
 
     /**
@@ -64,9 +61,7 @@ class DepartmentController extends Controller
     public function show($id)
     {
         $department = $this->department->getById($id);
-        $managerId = $this->department->managerId($department);
-        $managerName = $this->department->managerName($department);
-        return view('departments.show', compact('department', 'managerId', 'managerName'));
+        return view('departments.show', compact('department'));
     }
 
     /**
@@ -78,8 +73,7 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $department = $this->department->getById($id);
-        $employees = Employee::all()->pluck('user.name','id');
-        return view('departments.edit', compact('department', 'employees'));
+        return view('departments.edit', compact('department'));
     }
 
     /**

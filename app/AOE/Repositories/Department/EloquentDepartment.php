@@ -61,26 +61,4 @@ class EloquentDepartment implements DepartmentInterface
         $isDeleted = $department->delete();
         return $isDeleted;
     }
-
-    public function managerId(Department $department)
-    {
-        if ($department) {
-            if ($department->manager) {
-                return $department->manager->id;
-            }
-        }
-        return '';
-    }
-
-    public function managerName(Department $department)
-    {
-        if($department) {
-            if ($department->manager) {
-                if ($department->manager->user) {
-                    return $department->manager->user->name;
-                }
-            }
-        }
-        return '';
-    }
 }
