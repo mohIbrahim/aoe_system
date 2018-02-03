@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\InstallationRecord;
 use App\Http\Requests\InstallationRecordRequest;
 use App\AOE\Repositories\InstallationRecord\InstallationRecordInterface;
+use App\Employee;
 
 class InstallationRecordController extends Controller
 {
@@ -34,7 +35,8 @@ class InstallationRecordController extends Controller
     public function create()
     {
         $contractsOfGuarantee = $this->installationRecord->contractOfGuarantee();
-        return view('installation_records.create', compact('contractsOfGuarantee'));
+        $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
+        return view('installation_records.create', compact('contractsOfGuarantee', 'employeesIdsNames'));
     }
 
     /**
@@ -69,7 +71,8 @@ class InstallationRecordController extends Controller
     {
         $installationRecord = $this->installationRecord->getById($id);
         $contractsOfGuarantee = $this->installationRecord->contractOfGuarantee();
-        return view('installation_records.edit', compact('installationRecord', 'contractsOfGuarantee'));
+        $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
+        return view('installation_records.edit', compact('installationRecord', 'contractsOfGuarantee', 'employeesIdsNames'));
     }
 
     /**

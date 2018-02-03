@@ -9,6 +9,16 @@
     </select>
 </div>
 
+<div class="form-group">
+    <label for="employee_id"> اسم الموظف المسؤول </label> <p> <smale>"المهندس الذي قام بالتركيب"</smale></p>
+    <select class="form-control selectpicker" name="employee_id" data-live-search="true">
+        <?php $selectedEmployeeId = isset($installationRecord->employee_id)? $installationRecord->employee_id: '' ?>
+        <option value=""> اختر اسم الموظف المسؤول. </option>
+        @foreach($employeesIdsNames as $employeeId=>$employeeName)
+            <option value="{{$employeeId}}" {{($selectedEmployeeId == $employeeId)? ('selected'):((old('employee_id')==$employeeId)?'selected':'')}} >{{$employeeName}}</option>
+        @endforeach
+    </select>
+</div>
 
 <div class="form-group">
     <label for="trainee_name"> اسم المتدرب <span style="color:red">*</span></label>

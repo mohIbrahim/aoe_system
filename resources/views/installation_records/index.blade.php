@@ -16,8 +16,9 @@
 			  	    <table class="table table-hover">
 			  		    <thead>
 			  			    <tr>
-								<th> الكود </th>
+								<th> # </th>
 								<th> رقم عقد الضمان </th>
+								<th>  اسم الموظف المسؤول </th>
                                 <th> اسم المتدرب </th>
 			  				    <th> تاريخ التركيب </th>
 			  			    </tr>
@@ -25,9 +26,6 @@
 			  		    <tbody id="my-table-body">
 							<div class="">
 								@foreach ($installationRecords as $k => $installationRecord)
-									<?php
-										$contractOfGuaranteeCode = isset($installationRecord->contractOfGuarantee)?$installationRecord->contractOfGuarantee->code:'';
-									?>
 									<tr>
 										<td>
                                             <a href="{{action('InstallationRecordController@show', ['id'=>$installationRecord->id])}}" target="_blank">
@@ -36,7 +34,11 @@
                                         </td>
 
 										<td>
-											{{$contractOfGuaranteeCode}}
+											{{isset($installationRecord->contractOfGuarantee)?$installationRecord->contractOfGuarantee->code:''}}
+										</td>
+
+										<td>
+											{{(isset($installationRecord->responsibleEmployee)?(isset($installationRecord->responsibleEmployee->user)?$installationRecord->responsibleEmployee->user->name:''):'')}}
 										</td>
 
 										<td>

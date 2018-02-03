@@ -45,4 +45,9 @@ class Employee extends Model
     {
         return $this->belongsTo('App\Department', 'department_id', 'id');
     }
+
+    public function installationRecords()
+    {
+        return $this->hasMany('App\InstallationRecord', 'employee_id', 'id');
+    }
 }

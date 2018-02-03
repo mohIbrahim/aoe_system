@@ -44,6 +44,15 @@
 										</td>
 								    </tr>
 
+									<tr>
+									    <th> اسم الموظف المسؤول </th>
+									    <td>
+											<a href="{{action('EmployeeController@show', ['id'=>(isset($installationRecord->responsibleEmployee)?$installationRecord->responsibleEmployee->id:'')])}}">
+												{{isset($installationRecord->responsibleEmployee)?(isset($installationRecord->responsibleEmployee->user)?$installationRecord->responsibleEmployee->user->name:''):''}}
+											</a>
+										</td>
+								    </tr>
+
 								    <tr>
 									    <th> اسم المتدرب </th>
 									    <td>{{$installationRecord->trainee_name}}</td>
