@@ -11,7 +11,7 @@
                     </div>
                     <div class="panel-body">
                         @include('errors.list')
-                        <form class="" action="{{ action('InstallationRecordController@update', ['id'=>$installationRecord->id]) }}" method="POST">
+                        <form class="" action="{{ action('InstallationRecordController@update', ['id'=>$installationRecord->id]) }}" method="POST" enctype="multipart/form-data">
 							<input type="hidden" name="_method" value="PATCH">
                             {{ csrf_field() }}
                             @include('installation_records._form')

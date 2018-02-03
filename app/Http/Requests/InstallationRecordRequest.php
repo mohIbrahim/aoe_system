@@ -27,6 +27,7 @@ class InstallationRecordRequest extends FormRequest
             'contract_of_guarantee_id'=>'required|unique:installation_records,contract_of_guarantee_id,'.$this->installation_record,
             'trainee_name'=>'required',
             'installation_date'=>'required|date',
+            'installation_record_as_pdf'=>'mimes:pdf',
         ];
     }
 
@@ -38,6 +39,7 @@ class InstallationRecordRequest extends FormRequest
             'contract_of_guarantee_id.required'=>' برجاء اختيار عقد الضمان. ',
             'contract_of_guarantee_id.unique'=>' عقد الضمان تم اختياره من قبل برجاء اختيار عقد آخر. ',
             'trainee_name.required'=>'برجاء إدخال اسم المتدرب.',
+            'installation_record_as_pdf.mimes'=>' برجاء اختيار صورة لمحضر التركيب بأمتداد PDF.',
         ];
     }
 }

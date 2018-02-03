@@ -6,6 +6,7 @@ use App\InstallationRecord;
 use App\Http\Requests\InstallationRecordRequest;
 use App\AOE\Repositories\InstallationRecord\InstallationRecordInterface;
 use App\Employee;
+use App\ProjectImages;
 
 class InstallationRecordController extends Controller
 {
@@ -47,6 +48,7 @@ class InstallationRecordController extends Controller
     public function store(InstallationRecordRequest $request)
     {
         $installationRecord = $this->installationRecord->create($request->all());
+        $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'installation_record_as_pdf', 'App\InstallationRecord', $installationRecord->id, 'pdf', 'no_cover');
         flash()->success(' تم إضافة محضر التركيب بنجاح. ')->important();
         return redirect()->action('InstallationRecordController@show', ['id'=>$installationRecord->id]);
     }
@@ -84,6 +86,15 @@ class InstallationRecordController extends Controller
     public function update(InstallationRecordRequest $request, $id)
     {
         $installationRecord = $this->installationRecord->update($id, $request->all());
+
+        if($request->hasFile('installation_record_as_pdf')){
+            $projectImage = new ProjectImages();
+            if(isset($installationRecord->installationRecordPDF) && $installationRecord->installationRecordPDF->isNotEmpty()) {
+                $projectImage->deleteOneProjectImage($installationRecord->installationRecordPDF->first()->id);
+            }
+            $isUploaded = $projectImage->receiveAndCreat($request, 'installation_record_as_pdf', 'App\InstallationRecord', $installationRecord->id, 'pdf', 'no_cover');
+        }
+        
         flash()->success(' تم تعديل محضر التركيب بنجاح. ')->important();
         return redirect()->action('InstallationRecordController@show', ['id'=>$id]);
     }
@@ -98,5 +109,11 @@ class InstallationRecordController extends Controller
         $isDeleted = $this->installationRecord->delete($id);
         flash()->success(' تم حذف محضر التركيب بنجاح. ')->important();
         return redirect()->action('InstallationRecordController@index');
+    }
+
+    public function removeInstallationRecordFile($projectImageId)
+    {
+        $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
+        return back()->withInput();
     }
 }

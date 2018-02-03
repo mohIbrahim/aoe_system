@@ -103,6 +103,21 @@
 </div>
 
 <div class="form-group">
+    <label for="installation_record_as_pdf"> صورة لمحضر التركيب بأمتداد PDF </label>
+    <input type="file" class="form-control" id="installation_record_as_pdf" name="installation_record_as_pdf">
+        @if (isset($installationRecord->installationRecordPDF) && $installationRecord->installationRecordPDF->isNotEmpty())
+            <div class="breadcrumb">
+                <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small> حذف ملف المحضر </small>
+                <a role="button" href="{{action('InstallationRecordController@removeInstallationRecordFile', ['id'=>$installationRecord->installationRecordPDF->first()->id])}}" class="btn btn-danger btn-xs">
+                    Delete
+                </a>
+
+            </div>
+        @endif
+</div>
+
+
+<div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$installationRecord->comments or old('comments')}}</textarea>
 </div>

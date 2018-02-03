@@ -66,7 +66,7 @@ class EloquentInstallationRecord implements InstallationRecordInterface
      */
     public function create(array $attributes)
     {
-        $installationRecord = $this->installationRecord->create($attributes);
+        $installationRecord = $this->installationRecord->create($attributes);        
         return $installationRecord;
     }
 

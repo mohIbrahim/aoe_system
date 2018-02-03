@@ -57,4 +57,11 @@ class InstallationRecord extends Model
     {
         return $this->belongsTo('App\Employee', 'employee_id','id');
     }
+
+    public function installationRecordPDF()
+    {
+        return $this->morphMany('App\ProjectImages', 'imageable');
+    }
+
+
 }

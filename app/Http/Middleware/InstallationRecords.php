@@ -59,6 +59,10 @@ class InstallationRecords
         if($request->route()->getName() == 'installation_records.destroy'    && in_array('delete_installation_records', $permissions)){
 
             $response = $next($request);
+        }else
+            if($request->route()->getName() == 'remove_the_installation_record_file'    && in_array('update_installation_records', $permissions)){
+
+            $response = $next($request);
         }else{
             abort(403);
         }

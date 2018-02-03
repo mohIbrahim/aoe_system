@@ -41,6 +41,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('part_serial_numbers_search/{keyword}', 'PartSerialNumberController@search')->name('part_serial_numbers_search');
 //Installation Records
     Route::resource('installation_records', 'InstallationRecordController');
+    Route::get('remove_the_installation_record_file/{project_image_id}', 'InstallationRecordController@removeInstallationRecordFile')->name('remove_the_installation_record_file');
 //Part Serial partSerialNumbers
     Route::resource('contracts', 'ContractController');
     Route::get('contracts_search/{keyword}', 'ContractController@search')->name('contracts_search');

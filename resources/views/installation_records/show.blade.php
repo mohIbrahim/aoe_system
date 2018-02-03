@@ -6,13 +6,13 @@
 @section('content')
 	<div class="row">
 		<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-			<div class="panel panel-primary">
+			<div class="panel panel-primary main_arabic_font">
 				<div class="panel-heading">
 					<h3 class="panel-title"> محضر التركيب: {{$installationRecord->id}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
-						     <table class="table table-hover main_arabic_font">
+						     <table class="table table-hover">
 							    <thead>
 								    <h2 class="text-center"> البيانات الآساسية </h2>
 									<div class="text-center">
@@ -141,6 +141,15 @@
 								    </tr>
 
 								    <tr>
+									    <th> صورة محضر التركيب </th>
+									    <td>
+											@foreach ($installationRecord->installationRecordPDF as $key => $projectImage)
+												<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank"> صورة محضر التركيب	 </a>
+											@endforeach
+										</td>
+								    </tr>
+
+									<tr>
 									    <th> الملاحظات </th>
 									    <td>{{$installationRecord->comments}}</td>
 								    </tr>
