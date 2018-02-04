@@ -26,6 +26,9 @@ class CreateContractsTable extends Migration
             $table->string('payment_system')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
+
+            $table->integer('printing_machine_id')->unsigned()->nullable();
+            $table->foreign('printing_machine_id')->references('id')->on('printing_machines')->onDelete('set null');
         });
     }
 

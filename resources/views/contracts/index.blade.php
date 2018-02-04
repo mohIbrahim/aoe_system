@@ -16,7 +16,7 @@
 				<legend> البحث عن العقود </legend>
 
 				<div class="form-group">
-					<label for=""> البحث بـ كود، حالة، نوع العقد. </label>
+					<label for=""> البحث بـ كود، حالة، نوع العقد أو اسم العميل. </label>
 					<input type="text" class="form-control" id="contract_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
@@ -41,6 +41,7 @@
 			  				    <th> تاريخ نهاية العقد </th>
 			  				    <th> حالة التعاقد </th>
 			  				    <th> نظام السداد </th>
+			  				    <th> اسم العميل </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -60,6 +61,7 @@
 										<td>{{$contract->end}}</td>
 										<td>{{$contract->status}}</td>
 										<td>{{$contract->payment_system}}</td>
+										<td>{{isset($contract->printingMachine->customer->name)?$contract->printingMachine->customer->name:''}}</td>
 									</tr>
 								@endforeach
 
@@ -94,7 +96,11 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, contract) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('contracts')}}/"+contract.id+"'>"+contract.code+"</a></td><td>"+contract.type+"</td><td>"+contract.start+"</td><td>"+contract.end+"</td><td>"+contract.status+"</td><td>"+contract.payment_system+"</td></tr>"
+                                if (contract.printing_machine) {
+                                    newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('contracts')}}/"+contract.id+"'>"+contract.code+"</a></td><td>"+contract.type+"</td><td>"+contract.start+"</td><td>"+contract.end+"</td><td>"+contract.status+"</td><td>"+contract.payment_system+"</td><td>"+contract.printing_machine.customer.name+"</td></tr>";
+                                } else {
+                                    newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('contracts')}}/"+contract.id+"'>"+contract.code+"</a></td><td>"+contract.type+"</td><td>"+contract.start+"</td><td>"+contract.end+"</td><td>"+contract.status+"</td><td>"+contract.payment_system+"</td><td></td></tr>";
+                                }
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();

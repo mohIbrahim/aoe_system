@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContractRequest;
 use App\AOE\Repositories\Contract\ContractInterface;
+use App\PrintingMachine;
 
 class ContractController extends Controller
 {
@@ -33,7 +34,8 @@ class ContractController extends Controller
      */
     public function create()
     {
-        return view('contracts.create');
+        $printingMachineIdsNames = PrintingMachine::all()->pluck('code', 'id');
+        return view('contracts.create', compact('printingMachineIdsNames'));
     }
 
     /**
@@ -70,7 +72,8 @@ class ContractController extends Controller
     public function edit($id)
     {
         $contract = $this->contract->getById($id);
-        return view('contracts.edit', compact('contract'));
+        $printingMachineIdsNames = PrintingMachine::all()->pluck('code', 'id');
+        return view('contracts.edit', compact('contract', 'printingMachineIdsNames'));
     }
 
     /**

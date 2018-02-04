@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class Contract extends Model
 {
     protected $table = 'contracts';
-    protected $fillable = ['code', 'type', 'start', 'end', 'status', 'price', 'tax', 'total_price', 'payment_system', 'comments'];
+    protected $fillable = ['code', 'type', 'start', 'end', 'status', 'price', 'tax', 'total_price', 'payment_system', 'comments', 'printing_machine_id'];
 
     protected $dates = ['start', 'end'];
 
@@ -69,6 +69,11 @@ class Contract extends Model
     public function followUpCard()
     {
         return $this->hasOne('App\FollowUpCard');
+    }
+
+    public function printingMachine()
+    {
+        return $this->belongsTo('App\PrintingMachine', 'printing_machine_id', 'id');
     }
 
 

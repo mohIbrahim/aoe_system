@@ -31,6 +31,12 @@
                                 </a>
                             </li>
 
+                            <li role="presentation">
+                                <a href="#contracts" aria-controls="contracts" role="tab" data-toggle="tab">
+                                     العقود
+                                </a>
+                            </li>
+
                         </ul>
 
                         <!-- Tab panes -->
@@ -196,6 +202,40 @@
                                                     </td>
                                                     <td>{{$visit->type}}</td>
                                                     <td>{{$visit->readings_of_printing_machine}}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="contracts">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <h2 class="text-center"> العقود </h2>
+                                            <tr>
+                                                <th> # </th>
+                                                <th> كود العقد </th>
+                                                <th> نوع العقد </th>
+                                                <th> بداية التعاقد </th>
+                                                <th> نهاية التعاقد </th>
+                                                <th> حالة التعاقد </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach ($printingMachine->contracts as $key2 => $contract)
+                                                <tr>
+                                                    <td>{{$key2+1}}</td>
+                                                    <td>
+                                                        <a href="{{action('ContractController@show', ['id'=>$contract->id])}}">
+                                                            {{$contract->code}}
+                                                        </a>
+                                                    </td>
+                                                    <td>{{$contract->type}}</td>
+                                                    <td>{{$contract->start}}</td>
+                                                    <td>{{$contract->end}}</td>
+                                                    <td>{{$contract->status}}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

@@ -4,6 +4,17 @@
 </div>
 
 <div class="form-group">
+    <label for="printing_machine_id"> كود الآلة التصوير </label>
+    <select class="form-control selectpicker" name="printing_machine_id" data-live-search="true">
+        <?php $selectedPrintingMachineId = isset($contract->printing_machine_id)? $contract->printing_machine_id: '' ?>
+        <option value=""> اختر كود الآلة التصوير. </option>
+        @foreach($printingMachineIdsNames as $printingMachineId=>$printingMachineName)
+            <option value="{{$printingMachineId}}" {{($selectedPrintingMachineId == $printingMachineId)? ('selected'):((old('printing_machine_id')==$printingMachineId)?'selected':'')}} >{{$printingMachineName}}</option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
     <label for="type">
          نوع العقد
         <span style="color:red">*</span>
@@ -124,10 +135,17 @@
 {{-- datePicker --}}
     <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
 {{-- datePicker --}}
+{{-- bootstrap-select --}}
+    <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
+{{-- bootstrap-select --}}
 @endsection
 @section('js_footer')
 {{-- datePicker --}}
     <script src="{{asset('js/datepicker/jquery-ui.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
 {{-- datePicker --}}
+{{-- bootstrap-select --}}
+    <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
+    <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
+{{-- bootstrap-select --}}
 @endsection
