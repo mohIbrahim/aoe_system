@@ -58,7 +58,7 @@ class InstallationRecord extends Model
         return $this->belongsTo('App\Employee', 'employee_id','id');
     }
 
-    public function installationRecordPDF()
+    public function softCopies()
     {
         return $this->morphMany('App\ProjectImages', 'imageable');
     }

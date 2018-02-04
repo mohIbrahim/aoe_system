@@ -143,7 +143,7 @@
 								    <tr>
 									    <th> صورة محضر التركيب </th>
 									    <td>
-											@foreach ($installationRecord->installationRecordPDF as $key => $projectImage)
+											@foreach ($installationRecord->softCopies as $key => $projectImage)
 												<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank"> صورة محضر التركيب	 </a>
 											@endforeach
 										</td>

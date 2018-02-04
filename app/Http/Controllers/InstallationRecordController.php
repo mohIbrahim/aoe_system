@@ -48,7 +48,9 @@ class InstallationRecordController extends Controller
     public function store(InstallationRecordRequest $request)
     {
         $installationRecord = $this->installationRecord->create($request->all());
+
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'installation_record_as_pdf', 'App\InstallationRecord', $installationRecord->id, 'pdf', 'no_cover');
+
         flash()->success(' تم إضافة محضر التركيب بنجاح. ')->important();
         return redirect()->action('InstallationRecordController@show', ['id'=>$installationRecord->id]);
     }
@@ -87,14 +89,14 @@ class InstallationRecordController extends Controller
     {
         $installationRecord = $this->installationRecord->update($id, $request->all());
 
-        if($request->hasFile('installation_record_as_pdf')){
+        if ($request->hasFile('installation_record_as_pdf')) {
             $projectImage = new ProjectImages();
-            if(isset($installationRecord->installationRecordPDF) && $installationRecord->installationRecordPDF->isNotEmpty()) {
-                $projectImage->deleteOneProjectImage($installationRecord->installationRecordPDF->first()->id);
+            if (isset($installationRecord->softCopies) && $installationRecord->softCopies->isNotEmpty()) {
+                $projectImage->deleteOneProjectImage($installationRecord->softCopies->first()->id);
             }
             $isUploaded = $projectImage->receiveAndCreat($request, 'installation_record_as_pdf', 'App\InstallationRecord', $installationRecord->id, 'pdf', 'no_cover');
         }
-        
+
         flash()->success(' تم تعديل محضر التركيب بنجاح. ')->important();
         return redirect()->action('InstallationRecordController@show', ['id'=>$id]);
     }
@@ -106,6 +108,11 @@ class InstallationRecordController extends Controller
      */
     public function destroy($id)
     {
+        $installationRecord = $this->installationRecord->getById($id);
+        if (isset($installationRecord->softCopies) && $installationRecord->softCopies->isNotEmpty()) {
+            $projectImage = new ProjectImages();
+            $projectImage->deleteOneProjectImage($installationRecord->softCopies->first()->id);
+        }
         $isDeleted = $this->installationRecord->delete($id);
         flash()->success(' تم حذف محضر التركيب بنجاح. ')->important();
         return redirect()->action('InstallationRecordController@index');

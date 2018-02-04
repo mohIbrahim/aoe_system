@@ -42,7 +42,7 @@ class CreateInstallationRecordsTable extends Migration
             $table->timestamps();
 
             $table->integer('contract_of_guarantee_id')->unsigned()->nullable();
-            $table->foreign('contract_of_guarantee_id')->references('id')->on('contracts')->onDelete('cascade');
+            $table->foreign('contract_of_guarantee_id')->references('id')->on('contracts')->onDelete('set null');
 
             $table->integer('employee_id')->unsigned()->nullable();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('set null');
