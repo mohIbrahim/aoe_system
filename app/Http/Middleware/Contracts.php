@@ -61,6 +61,11 @@ class Contracts
             $response = $next($request);
         }else
 
+        if($request->route()->getName() == 'remove_the_contract_file'    && in_array('update_contracts', $permissions)){
+
+            $response = $next($request);
+        }else
+
 		if($request->route()->getName() == 'contracts_search'    && in_array('view_contracts', $permissions)){
 
             $response = $next($request);

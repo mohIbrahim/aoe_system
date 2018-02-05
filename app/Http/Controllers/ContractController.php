@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ContractRequest;
 use App\AOE\Repositories\Contract\ContractInterface;
 use App\PrintingMachine;
+use App\ProjectImages;
 
 class ContractController extends Controller
 {
@@ -47,6 +48,9 @@ class ContractController extends Controller
     public function store(ContractRequest $request)
     {
         $contract = $this->contract->create($request->all());
+
+        $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'contract_as_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
+
         flash()->success('تم إضافة العقد بنجاح. ')->important();
         return redirect()->action('ContractController@show', ['id'=>$contract->id]);
     }
@@ -86,6 +90,15 @@ class ContractController extends Controller
     public function update(ContractRequest $request, $id)
     {
         $contract = $this->contract->update($id, $request->all());
+
+        if ($request->hasFile('contract_as_pdf')) {
+            $projectImage = new ProjectImages();
+            if (isset($contract->softCopies) && $contract->softCopies->isNotEmpty()) {
+                $projectImage->deleteOneProjectImage($contract->softCopies->first()->id);
+            }
+            $isUploaded = $projectImage->receiveAndCreat($request, 'contract_as_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
+        }
+
         flash()->success('تم تعديل العقد بنجاح. ')->important();
         return redirect()->action('ContractController@show', ['id'=>$id]);
     }
@@ -98,6 +111,11 @@ class ContractController extends Controller
      */
     public function destroy($id)
     {
+        $contract = $this->contract->getById($id);
+        if (isset($contract->softCopies) && $contract->softCopies->isNotEmpty()) {
+            $projectImage = new ProjectImages();
+            $projectImage->deleteOneProjectImage($contract->softCopies->first()->id);
+        }
         $isDeleted = $this->contract->delete($id);
         flash()->success('تم حذف العقد بنجاح. ')->important();
         return redirect()->action('ContractController@index');
@@ -106,5 +124,11 @@ class ContractController extends Controller
     public function search($keyword)
     {
         return $this->contract->search($keyword);
+    }
+
+    public function removeContractFile($projectImageId)
+    {
+        $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
+        return back()->withInput();
     }
 }

@@ -80,6 +80,15 @@
 									    <td>{{$contract->payment_system}}</td>
 								    </tr>
 
+                                    <tr>
+									    <th> صورة العقد </th>
+									    <td>
+											@foreach ($contract->softCopies as $key => $projectImage)
+												<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank"> صورة العقد </a>
+											@endforeach
+										</td>
+								    </tr>
+
 									<tr>
 									    <th> الملاحظات </th>
 									    <td>{{$contract->comments}}</td>

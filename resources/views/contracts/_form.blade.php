@@ -124,6 +124,20 @@
 </div>
 
 <div class="form-group">
+    <label for="contract_as_pdf"> صورة العقد بأمتداد PDF </label>
+    <input type="file" class="form-control" id="contract_as_pdf" name="contract_as_pdf">
+        @if (isset($contract->softCopies) && $contract->softCopies->isNotEmpty())
+            <div class="breadcrumb">
+                <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small> حذف ملف العقد </small>
+                <a role="button" href="{{action('ContractController@removeContractFile', ['id'=>$contract->softCopies->first()->id])}}" class="btn btn-danger btn-xs">
+                    Delete
+                </a>
+
+            </div>
+        @endif
+</div>
+
+<div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$contract->comments or old('comments')}}</textarea>
 </div>

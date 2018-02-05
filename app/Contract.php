@@ -76,5 +76,10 @@ class Contract extends Model
         return $this->belongsTo('App\PrintingMachine', 'printing_machine_id', 'id');
     }
 
+    public function softCopies()
+    {
+        return $this->morphMany('App\ProjectImages', 'imageable');
+    }
+
 
 }
