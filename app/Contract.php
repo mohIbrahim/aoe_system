@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class Contract extends Model
 {
     protected $table = 'contracts';
-    protected $fillable = ['code', 'type', 'start', 'end', 'status', 'price', 'tax', 'total_price', 'payment_system', 'comments', 'printing_machine_id'];
+    protected $fillable = ['code', 'type', 'start', 'end', 'status', 'price', 'tax', 'total_price', 'payment_system', 'comments', 'printing_machine_id', 'employee_id_who_edits_the_contract'];
 
     protected $dates = ['start', 'end'];
 
@@ -79,6 +79,11 @@ class Contract extends Model
     public function softCopies()
     {
         return $this->morphMany('App\ProjectImages', 'imageable');
+    }
+
+    public function employeeWhoEditedThisContract()
+    {
+        return $this->belongsTo('App\Employee', 'employee_id_who_edits_the_contract', 'id');
     }
 
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-	 العقد: {{$contract->name}}
+	 العقد: {{$contract->code}}
 @endsection
 
 @section('content')
@@ -78,6 +78,11 @@
                                     <tr>
 									    <th> نظام السداد </th>
 									    <td>{{$contract->payment_system}}</td>
+								    </tr>
+
+                                    <tr>
+									    <th> اسم الموظف الذي حرر العقد </th>
+									    <td>{{$contract->employeeWhoEditedThisContract->user->name or ''}}</td>
 								    </tr>
 
                                     <tr>

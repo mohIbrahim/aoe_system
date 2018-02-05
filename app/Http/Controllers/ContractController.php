@@ -6,6 +6,7 @@ use App\Http\Requests\ContractRequest;
 use App\AOE\Repositories\Contract\ContractInterface;
 use App\PrintingMachine;
 use App\ProjectImages;
+use App\Employee;
 
 class ContractController extends Controller
 {
@@ -36,7 +37,8 @@ class ContractController extends Controller
     public function create()
     {
         $printingMachineIdsNames = PrintingMachine::all()->pluck('code', 'id');
-        return view('contracts.create', compact('printingMachineIdsNames'));
+        $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
+        return view('contracts.create', compact('printingMachineIdsNames', 'employeesIdsNames'));
     }
 
     /**
@@ -77,7 +79,8 @@ class ContractController extends Controller
     {
         $contract = $this->contract->getById($id);
         $printingMachineIdsNames = PrintingMachine::all()->pluck('code', 'id');
-        return view('contracts.edit', compact('contract', 'printingMachineIdsNames'));
+        $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
+        return view('contracts.edit', compact('contract', 'printingMachineIdsNames', 'employeesIdsNames'));
     }
 
     /**

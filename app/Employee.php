@@ -50,4 +50,9 @@ class Employee extends Model
     {
         return $this->hasMany('App\InstallationRecord', 'employee_id', 'id');
     }
+
+    public function contracts()
+    {
+        return $this->hasMany('App\Contract', 'employee_id_who_edits_the_contract', 'id');
+    }
 }

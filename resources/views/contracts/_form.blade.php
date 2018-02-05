@@ -124,6 +124,17 @@
 </div>
 
 <div class="form-group">
+    <label for="employee_id_who_edits_the_contract"> اسم الموظف الذي قام بتحرير العقد </label>
+    <select class="form-control selectpicker" name="employee_id_who_edits_the_contract" data-live-search="true">
+        <?php $selectedEmployeeId = isset($contract->employee_id_who_edits_the_contract)? $contract->employee_id_who_edits_the_contract: '' ?>
+        <option value=""> اختر اسم الموظف الذي قام بتحرير العقد. </option>
+        @foreach($employeesIdsNames as $employeeId=>$employeeName)
+            <option value="{{$employeeId}}" {{($selectedEmployeeId == $employeeId)? ('selected'):((old('employee_id_who_edits_the_contract')==$employeeId)?'selected':'')}} >{{$employeeName}}</option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
     <label for="contract_as_pdf"> صورة العقد بأمتداد PDF </label>
     <input type="file" class="form-control" id="contract_as_pdf" name="contract_as_pdf">
         @if (isset($contract->softCopies) && $contract->softCopies->isNotEmpty())
@@ -132,7 +143,6 @@
                 <a role="button" href="{{action('ContractController@removeContractFile', ['id'=>$contract->softCopies->first()->id])}}" class="btn btn-danger btn-xs">
                     Delete
                 </a>
-
             </div>
         @endif
 </div>
