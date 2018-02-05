@@ -39,6 +39,15 @@
 											<td>{{$followUpCard->code}}</td>
 										</tr>
 
+                                        <tr>
+    									    <th> صورة بطاقة المتابعة </th>
+    									    <td>
+    											@foreach ($followUpCard->softCopies as $key => $projectImage)
+    												<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank"> صورة بطاقة المتابعة </a>
+    											@endforeach
+    										</td>
+    								    </tr>
+
 										<tr>
 											<th> الملاحظات </th>
 											<td>{{$followUpCard->comments}}</td>
@@ -95,7 +104,7 @@
 													{{(isset($followUpCard->contract)?$followUpCard->contract->payment_system:'')}}
 												</td>
 												<td>
-													{{(isset($followUpCard->contract)?$followUpCard->contract->total_price.' جنية ':' 0 جنية ')}} 
+													{{(isset($followUpCard->contract)?$followUpCard->contract->total_price.' جنية ':' 0 جنية ')}}
 												</td>
 											</tr>
 										</tbody>

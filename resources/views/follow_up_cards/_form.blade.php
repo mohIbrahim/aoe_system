@@ -15,6 +15,19 @@
 </div>
 
 <div class="form-group">
+    <label for="follow_up_card_as_pdf"> صورة بطاقة المتابعة بأمتداد PDF </label>
+    <input type="file" class="form-control" id="follow_up_card_as_pdf" name="follow_up_card_as_pdf">
+        @if (isset($followUpCard->softCopies) && $followUpCard->softCopies->isNotEmpty())
+            <div class="breadcrumb">
+                <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small> حذف ملف بطاقة المتابعة </small>
+                <a role="button" href="{{action('FollowUpCardController@removeFollowUpCardFile', ['id'=>$followUpCard->softCopies->first()->id])}}" class="btn btn-danger btn-xs">
+                    Delete
+                </a>
+            </div>
+        @endif
+</div>
+
+<div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$followUpCard->comments or old('comments')}}</textarea>
 </div>

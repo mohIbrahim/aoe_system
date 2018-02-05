@@ -92,8 +92,6 @@ class ProjectImages extends Model
 		}
 	}
 
-
-
 	private function deleteTheImageFileLocally($imageName)
 	{
 		$path = 'images/project_images/'.$imageName;
@@ -103,7 +101,4 @@ class ProjectImages extends Model
         }
 		return false;
 	}
-
-
-
 }

@@ -11,7 +11,7 @@
                     </div>
                     <div class="panel-body">
                         @include('errors.list')
-                        <form class="" action="{{ action('FollowUpCardController@store') }}" method="POST">
+                        <form class="" action="{{ action('FollowUpCardController@store') }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             @include('follow_up_cards._form')
                         </form>

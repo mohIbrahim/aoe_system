@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AOE\Repositories\FollowUpCard\FollowUpCardInterface;
 use App\Http\Requests\FollowUpCardRequest;
+use App\ProjectImages;
 
 
 class FollowUpCardController extends Controller
@@ -34,6 +35,9 @@ class FollowUpCardController extends Controller
     public function store(FollowUpCardRequest $request)
     {
         $followUpCard = $this->followUpCard->create($request->all());
+
+        $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'follow_up_card_as_pdf', 'App\FollowUpCard', $followUpCard->id, 'pdf', 'no_cover');
+
         flash()->success(' تم إضافة بطاقة المتابعة بنجاح. ')->important();
         return redirect()->action('FollowUpCardController@show', ['id'=>$followUpCard->id]);
     }
@@ -57,6 +61,15 @@ class FollowUpCardController extends Controller
     public function update(FollowUpCardRequest $request, $id)
     {
         $followUpCard = $this->followUpCard->update($id, $request->all());
+
+        if ($request->hasFile('follow_up_card_as_pdf')) {
+            $projectImage = new ProjectImages();
+            if (isset($followUpCard->softCopies) && $followUpCard->softCopies->isNotEmpty()) {
+                $projectImage->deleteOneProjectImage($followUpCard->softCopies->first()->id);
+            }
+            $isUploaded = $projectImage->receiveAndCreat($request, 'follow_up_card_as_pdf', 'App\FollowUpCard', $followUpCard->id, 'pdf', 'no_cover');
+        }
+
         flash()->success(' تم تعديل بطاقة المتابعة بنجاح. ')->important();
         return redirect()->action('FollowUpCardController@show', ['id'=>$id]);
     }
@@ -64,6 +77,11 @@ class FollowUpCardController extends Controller
 
     public function destroy($id)
     {
+        $followUpCard = $this->followUpCard->getById($id);
+        if (isset($followUpCard->softCopies) && $followUpCard->softCopies->isNotEmpty()) {
+            $projectImage = new ProjectImages();
+            $projectImage->deleteOneProjectImage($followUpCard->softCopies->first()->id);
+        }
         $isDeleted = $this->followUpCard->delete($id);
         flash()->success(' تم حذف بطاقة المتابعة بنجاح. ')->important();
         return redirect()->action('FollowUpCardController@index');
@@ -72,5 +90,11 @@ class FollowUpCardController extends Controller
     public function search($keyword)
     {
         return $this->followUpCard->search($keyword);
+    }
+
+    public function removeFollowUpCardFile($projectImageId)
+    {
+        $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
+        return back()->withInput();
     }
 }

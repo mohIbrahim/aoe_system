@@ -13,4 +13,9 @@ class FollowUpCard extends Model
     {
         return $this->belongsTo('App\Contract');
     }
+
+    public function softCopies()
+    {
+        return $this->morphMany('App\ProjectImages', 'imageable');
+    }
 }
