@@ -6,13 +6,13 @@
 @section('content')
 	<div class="row">
 		<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-			<div class="panel panel-primary">
+			<div class="panel panel-primary main_arabic_font">
 				<div class="panel-heading">
 					<h3 class="panel-title"> الفاتورة: {{$invoice->number}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
-						     <table class="table table-hover main_arabic_font">
+						     <table class="table table-hover ">
 							    <thead>
 								    <h2 class="text-center"> البيانات الآساسية </h2>
 									<div class="text-center">
@@ -34,6 +34,31 @@
 								    <tr>
 									    <th> رقم الفاتورة </th>
 									    <td>{{$invoice->number}}</td>
+								    </tr>
+
+                                    <tr>
+									    <th> نوع الفاتورة </th>
+									    <td>
+                                            {{$invoice->type}}
+                                        </td>
+								    </tr>
+
+                                    <tr>
+									    <th> كود العقد </th>
+									    <td>
+                                            <a href="{{action('ContractController@show', ['id'=>(isset($invoice->contract->code)?$invoice->contract->id:'')])}}">
+                                               {{$invoice->contract->code or ''}}
+                                            </a>
+                                        </td>
+								    </tr>
+
+                                    <tr>
+									    <th> كود المقايسة </th>
+									    <td>
+                                            <a href="{{action('IndexationController@show', ['id'=>(isset($invoice->indexation->code)?$invoice->indexation->id:'')])}}">
+                                               {{$invoice->indexation->code or ''}}
+                                            </a>
+                                        </td>
 								    </tr>
 
                                     <tr>

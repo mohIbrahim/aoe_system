@@ -16,6 +16,7 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('number')->nullable();
+            $table->string('type')->nullable();
             $table->string('issuer')->nullable();
             $table->integer('order_number')->nullable();
             $table->integer('delivery_permission_number')->nullable();
@@ -27,6 +28,9 @@ class CreateInvoicesTable extends Migration
 
             $table->integer('indexation_id')->unsigned()->nullable();
             $table->foreign('indexation_id')->references('id')->on('indexations')->onDelete('set null');
+
+            $table->integer('contract_id')->unsigned()->nullable();
+            $table->foreign('contract_id')->references('id')->on('contracts')->onDelete('set null');
         });
     }
 

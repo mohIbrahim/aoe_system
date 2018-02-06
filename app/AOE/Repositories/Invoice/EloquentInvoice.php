@@ -53,6 +53,7 @@ class EloquentInvoice implements InvoiceInterface
     public function search($keyword)
     {
         $results = $this->invoice->where('number', 'like', '%'.$keyword.'%')
+                        ->orWhere('type', 'like', '%'.$keyword.'%')
                         ->orWhere('finance_check_out', 'like', '%'.$keyword.'%')
                         ->orWhere('release_date', 'like', '%'.$keyword.'%')
                         ->get();

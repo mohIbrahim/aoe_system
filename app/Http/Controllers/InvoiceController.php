@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InvoiceRequest;
 use App\AOE\Repositories\Invoice\InvoiceInterface;
 use App\Indexation;
+use App\Contract;
 
 class InvoiceController extends Controller
 {
@@ -35,7 +36,8 @@ class InvoiceController extends Controller
     public function create()
     {
         $indexationsCodes = Indexation::all()->pluck('code', 'id');
-        return view('invoices.create', compact('indexationsCodes'));
+        $contractsIdsCodes = Contract::all()->pluck('code', 'id');
+        return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes'));
     }
 
     /**
@@ -70,7 +72,8 @@ class InvoiceController extends Controller
     {
         $invoice = $this->invoice->getById($id);
         $indexationsCodes = Indexation::all()->pluck('code', 'id');
-        return view('invoices.edit', compact('invoice', 'indexationsCodes'));
+        $contractsIdsCodes = Contract::all()->pluck('code', 'id');
+        return view('invoices.edit', compact('invoice', 'indexationsCodes', 'contractsIdsCodes'));
     }
 
     /**

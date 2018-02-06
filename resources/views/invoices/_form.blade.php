@@ -3,6 +3,52 @@
     <input type="text" class="form-control" id="number" name="number"  placeholder=" إدخل رقم الفاتورة. " value="{{$invoice->number or old('number')}}">
 </div>
 
+<div class="breadcrumb  panel panel-primary">
+    <div class="form-group">
+        <label for="type">
+            نوع الفاتورة
+            <span style="color:red">*</span>
+        </label>
+        <select class="form-control" name="type" id="type">
+            <?php $selectedType = isset($invoice->type)? $invoice->type:'';?>
+            <option value="">
+                اختر نوع الفاتورة.
+            </option>
+            <option value="تعاقد" {{($selectedType == 'تعاقد')? 'selected="selected"' : ((old('type')=='تعاقد')?'selected':'')}}>
+                تعاقد
+            </option>
+            <option value="مقايسة" {{($selectedType == 'مقايسة')? 'selected="selected"' : ((old('type')=='مقايسة')?'selected':'')}}>
+                مقايسة
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group" id="group-contract" style="display:none;">
+        <label for="contract_id"> كود العقد <span style="color:red">*</span></label>
+        <select class="form-control selectpicker" name="contract_id" data-live-search="true" id="contract-id">
+            <?php $selectedContractId = isset($invoice->contract_id)? $invoice->contract_id:'' ;?>
+            <option value=" "> اختر كود العقد الذي قمت بسببه بإجراء هذة الفاتورة.  </option>
+            @foreach ($contractsIdsCodes as $contractId => $contractCode)
+                <option value="{{$contractId}}" {!!($selectedContractId == $contractId)? 'selected="selected"' : ((old('contract_id')==$contractId)?'selected="selected"':'')!!}> {{$contractCode}} </option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="form-group" id="group-indexation" style="display:none">
+        <label for="indexation_id"> كود المقايسة <span style="color:red">*</span></label>
+        <select class="form-control selectpicker" name="indexation_id" data-live-search="true" id="indexation-id">
+            <?php $selectedIndexations = isset($invoice->indexation_id)? $invoice->indexation_id:'' ;?>
+            <option value=""> اختر كود المقايسة التي قمت بسببها بإجراء هذة الفاتورة.  </option>
+            @foreach ($indexationsCodes as $indexationId => $indexationCode)
+                <option value="{{$indexationId}}" {!!($selectedIndexations == $indexationId)? 'selected="selected"' : ((old('indexation_id')==$indexationId)?'selected="selected"':'')!!}> {{$indexationCode}} </option>
+            @endforeach
+        </select>
+    </div>
+
+
+
+</div>
+
 <div class="form-group">
     <label for="issuer">
         جهة الإصدار
@@ -60,17 +106,6 @@
 </div>
 
 <div class="form-group">
-    <label for="indexation_id"> كود المقايسة </label>
-    <select class="form-control selectpicker" name="indexation_id" data-live-search="true">
-        <?php $selectedIndexations = isset($invoice->indexation_id)? $invoice->indexation_id:'' ;?>
-        <option value=""> اختر كود المقايسة التي قمت بسببها بإجراء هذة الفاتورة.  </option>
-        @foreach ($indexationsCodes as $indexationId => $indexationCode)
-            <option value="{{$indexationId}}" {{($selectedIndexations == $indexationId)? 'selected' : ((old('indexation_id')==$indexationId)?'selected':'')}}> {{$indexationCode}} </option>
-        @endforeach
-    </select>
-</div>
-
-<div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$invoice->comments or old('comments')}}</textarea>
 </div>
@@ -95,4 +130,29 @@
     <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
 {{-- bootstrap-select --}}
+<script type="text/javascript">
+$(function(){
+    if ($('#type').val() == 'تعاقد') {
+        $('#group-contract').css('display', 'block');
+    }
+    if ($('#type').val() == 'مقايسة') {
+        $('#group-indexation').css('display', 'block');
+    }
+    $('#type').on('change', function(){
+        if (this.value == 'تعاقد') {
+            $('#group-contract').css('display', 'block');
+            $("#indexation-id option:selected").removeAttr("selected");
+        } else {
+            $('#group-contract').css('display', 'none');
+        }
+
+        if (this.value == 'مقايسة') {
+            $('#group-indexation').css('display', 'block');
+            $("#contract-id option:selected").removeAttr("selected");
+        } else {
+            $('#group-indexation').css('display', 'none');
+        }
+    });
+});
+</script>
 @endsection
