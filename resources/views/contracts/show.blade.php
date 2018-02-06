@@ -174,6 +174,42 @@
                                         </td>
 								    </tr>
 
+									<tr>
+									    <td colspan="2">
+                                            <h2> بيانات الفواتير </h2>
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th> كود الفاتورة </th>
+                                                            <th> نوع الفاتورة </th>
+                                                            <th> تاريخ الفاتورة </th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+														@foreach ($contract->invoices as $key3 => $invoice)
+															<tr>
+																<td>
+																	<a href="{{action('InvoiceController@show', ['id'=>$invoice->id])}}">
+																		{{$invoice->number}}
+																	</a>
+																</td>
+																<td>
+																	{{$invoice->type}}
+																</td>
+																<td>
+																	{{$invoice->release_date}}
+																</td>
+															</tr>
+														@endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </td>
+								    </tr>
+
 							    </tbody>
 						     </table>
 					</div>

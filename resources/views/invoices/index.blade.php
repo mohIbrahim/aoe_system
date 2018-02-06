@@ -16,7 +16,7 @@
 				<legend> البحث عن الفواتير </legend>
 
 				<div class="form-group">
-					<label for=""> البحث ب رقم وإطلاع قسم الحسابات على الفاتورة. </label>
+					<label for=""> البحث ب رقم، إطلاع قسم الحسابات، تاريخ الفاتورة. </label>
 					<input type="text" class="form-control" id="invoice_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 

@@ -38,7 +38,7 @@
 
 <div class="input_fields_wrap_1">
     <div class="form-group">
-        <label for="telecom"> التليفون </label>
+        <label for="telecom"> التليفون <span style="color:red">*</span></label>
         <input type="text" class="form-control" id="telecom" name="telecom[]"  placeholder=" إدخل التليفون. " value="{{isset($customer)? $customer->telecoms->first()->number : old('telecom')[0]}}">
         <button class="add_field_button_1 btn btn-xs btn-success" role="button"> إضافة أرقام آخرى </button>
     </div>

@@ -86,5 +86,10 @@ class Contract extends Model
         return $this->belongsTo('App\Employee', 'employee_id_who_edits_the_contract', 'id');
     }
 
+    public function invoices()
+    {
+        return $this->hasMany('App\Invoice', 'contract_id', 'id');
+    }
+
 
 }
