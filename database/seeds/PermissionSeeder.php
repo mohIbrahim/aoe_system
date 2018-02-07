@@ -29,6 +29,7 @@ class PermissionSeeder extends Seeder
         $this->references();
         $this->indexations();
         $this->employees();
+        $this->finance();
     }
 
     /**
@@ -446,6 +447,15 @@ class PermissionSeeder extends Seeder
         DB::table('permissions')->insert([
             "title"      =>"employees",
             "name"      =>"delete_employees",
+            "created_at"=>Carbon\Carbon::now(),
+            ]);
+    }
+
+    public function finance()
+    {
+        DB::table('permissions')->insert([
+            "title"      =>"finance",
+            "name"      =>"finance",
             "created_at"=>Carbon\Carbon::now(),
             ]);
     }

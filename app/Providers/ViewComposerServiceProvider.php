@@ -42,6 +42,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                     'installation_records.show',
                     'contracts.show',
                     'invoices.show',
+                    'invoices._form',
                     'visits.show',
                     'follow_up_cards.show',
                     'follow_up_card_special_reports.show',

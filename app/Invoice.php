@@ -26,6 +26,14 @@ class Invoice extends Model
             return $this->asDateTime($date)->format('Y-m-d');
     }
 
+    public function setFinanceCheckOutAttribute($data)
+    {
+        if(!isset($data))
+        $this->attributes['finance_check_out'] = 'لم يتم الاطلاع';
+        else
+        $this->attributes['finance_check_out'] = $data;
+    }
+
     public function indexation()
     {
         return $this->belongsTo('App\Indexation', 'indexation_id');

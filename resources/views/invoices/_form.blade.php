@@ -71,24 +71,25 @@
     <label for="delivery_permission_number"> إذن تسليم رقم </label>
     <input type="text" class="form-control" id="delivery_permission_number" name="delivery_permission_number"  placeholder=" إدخل رقم إذن التسليم. " value="{{$invoice->delivery_permission_number or old('delivery_permission_number')}}">
 </div>
-
-<div class="form-group">
-    <label for="finance_check_out">
-         إطلاع قسم الحسابات
-     </label>
-    <select class="form-control" name="finance_check_out">
-        <?php $invoiceFinanceCheckOut = isset($invoice->finance_check_out)? $invoice->finance_check_out:'';?>
-        <option value="">
-              اختر بالاطلاع أو عدم الاطلاع على هذة الفاتورة.
-          </option>
-        <option value="تم الاطلاع" {{($invoiceFinanceCheckOut == 'تم الاطلاع')? 'selected' : ((old('finance_check_out')=='تم الاطلاع')?'selected':'')}}>
-             تم الاطلاع
-        </option>
-        <option value="لم يتم الاطلاع" {{($invoiceFinanceCheckOut == 'لم يتم الاطلاع')? 'selected' : ((old('finance_check_out')=='لم يتم الاطلاع')?'selected':'')}}>
-             لم يتم الاطلاع
-        </option>
-    </select>
-</div>
+@if (in_array('finance', $permissions))
+    <div class="form-group">
+        <label for="finance_check_out">
+            إطلاع قسم الحسابات
+        </label>
+        <select class="form-control" name="finance_check_out">
+            <?php $invoiceFinanceCheckOut = isset($invoice->finance_check_out)? $invoice->finance_check_out:'';?>
+            <option value="">
+                اختر بالاطلاع أو عدم الاطلاع على هذة الفاتورة.
+            </option>
+            <option value="تم الاطلاع" {{($invoiceFinanceCheckOut == 'تم الاطلاع')? 'selected' : ((old('finance_check_out')=='تم الاطلاع')?'selected':'')}}>
+                تم الاطلاع
+            </option>
+            <option value="لم يتم الاطلاع" {{($invoiceFinanceCheckOut == 'لم يتم الاطلاع')? 'selected' : ((old('finance_check_out')=='لم يتم الاطلاع')?'selected':'')}}>
+                لم يتم الاطلاع
+            </option>
+        </select>
+    </div>
+@endif
 
 <div class="form-group">
     <label for="release_date"> تاريخ الإصدار <span style="color:red">*</span></label>
