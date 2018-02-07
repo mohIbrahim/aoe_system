@@ -18,4 +18,9 @@ class FollowUpCard extends Model
     {
         return $this->morphMany('App\ProjectImages', 'imageable');
     }
+
+    public function visits()
+    {
+        return $this->hasMany('App\Visit', 'follow_up_card_id', 'id');
+    }
 }

@@ -4,7 +4,7 @@
                 نوع الزيارة
                 <span style="color:red">*</span>
             </label>
-        <select class="form-control" name="type">
+        <select class="form-control" name="type" id="type">
             <?php $visitType = isset($visit->type)? $visit->type:'';?>
             <option value="">
                 اختر نوع الزيارة
@@ -13,11 +13,25 @@
                 إشارة
             </option>
 
-            <option value="كارت المتابعة" {{($visitType == 'كارت المتابعة')? 'selected' : ((old('type')=='كارت المتابعة')?'selected':'')}}>
-                كارت المتابعة
+            <option value="بطاقة المتابعة" {{($visitType == 'بطاقة المتابعة')? 'selected' : ((old('type')=='بطاقة المتابعة')?'selected':'')}}>
+                بطاقة المتابعة
             </option>
         </select>
     </div>
+
+    <div class="form-group" id="group-follow-up-card" style="display:none;">
+        <label for="follow_up_card_id"> كود بطاقة المتابعة <span style="color:red">*</span></label>
+        <select class="form-control selectpicker" name="follow_up_card_id" data-live-search="true" id="follow-up-card-id">
+            <?php $selectedFollowUpCardId = isset($visit->follow_up_card_id)? $visit->follow_up_card_id:'' ;?>
+            <option value=" "> اختر كود بطاقة المتابعة.  </option>
+            @foreach ($followUpCardsIdsCodes as $followUpCardId => $followUpCardCode)
+                <option value="{{$followUpCardId}}" {!!($selectedFollowUpCardId == $followUpCardId)? 'selected="selected"' : ((old('follow_up_card_id')==$followUpCardId)?'selected="selected"':'')!!}> {{$followUpCardCode}} </option>
+            @endforeach
+        </select>
+    </div>
+
+
+
 </div>
 
 <div class="form-group">
@@ -71,4 +85,30 @@
     <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
 {{-- bootstrap-select --}}
+
+<script type="text/javascript">
+$(function(){
+    if ($('#type').val() == 'بطاقة متابعة') {
+        $('#group-follow-up-card').css('display', 'block');
+    }
+    if ($('#type').val() == 'مقايسة') {
+        $('#group-indexation').css('display', 'block');
+    }
+    $('#type').on('change', function(){
+        if (this.value == 'بطاقة متابعة') {
+            $('#group-follow-up-card').css('display', 'block');
+            $("#indexation-id option:selected").removeAttr("selected");
+        } else {
+            $('#group-follow-up-card').css('display', 'none');
+        }
+
+        if (this.value == 'مقايسة') {
+            $('#group-indexation').css('display', 'block');
+            $("#contract-id option:selected").removeAttr("selected");
+        } else {
+            $('#group-indexation').css('display', 'none');
+        }
+    });
+});
+</script>
 @endsection

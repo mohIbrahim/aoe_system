@@ -24,6 +24,9 @@ class CreateVisitsTable extends Migration
 
             $table->integer('printing_machine_id')->unsigned();
             $table->foreign('printing_machine_id')->references('id')->on('printing_machines')->onDelete('cascade');
+
+            $table->integer('follow_up_card_id')->unsigned()->nullable();
+            $table->foreign('follow_up_card_id')->references('id')->on('follow_up_cards')->onDelete('set null');
         });
     }
 
