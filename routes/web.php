@@ -49,6 +49,7 @@ Route::resource('role_user', 'RoleUserController');
 //invoices
     Route::resource('invoices', 'InvoiceController');
     Route::get('invoices_search/{keyword}', 'InvoiceController@search')->name('invoices_search');
+    Route::get('remove_the_invoice_file/{project_image_id}', 'InvoiceController@removeInvoiceFile')->name('remove_the_invoice_file');
 //Visits
     Route::resource('visits', 'VisitController');
     Route::get('visits_search/{keyword}', 'VisitController@search')->name('visits_search');
@@ -65,6 +66,6 @@ Route::resource('role_user', 'RoleUserController');
 //Indexations
     Route::resource('indexations', 'IndexationController');
     Route::get('indexations_search/{keyword}', 'IndexationController@search')->name('indexations_search');
-//Indexations
+//Employees
     Route::resource('employees', 'EmployeeController');
     Route::get('employees_search/{keyword}', 'EmployeeController@search')->name('employees_search');

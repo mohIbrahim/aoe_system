@@ -11,7 +11,7 @@
                     </div>
                     <div class="panel-body">
                         @include('errors.list')
-                        <form class="" action="{{ action('InvoiceController@update', ['id'=>$invoice->id]) }}" method="POST">
+                        <form class="" action="{{ action('InvoiceController@update', ['id'=>$invoice->id]) }}" method="POST" enctype="multipart/form-data">
 							<input type="hidden" name="_method" value="PATCH">
                             {{ csrf_field() }}
                             @include('invoices._form')

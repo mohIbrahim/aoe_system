@@ -14,7 +14,7 @@
 					<div class="table-responsive">
 						     <table class="table table-hover main_arabic_font">
 							    <thead>
-								    <h2 class="text-center"> البيانات الآساسية </h2>
+								    <h2 class="text-center"> البيانات الآساسية للموظف </h2>
 									<div class="text-center">
 										@if(in_array('update_employees', $permissions))
 											<a href="{{action('EmployeeController@edit', ['id'=>$employee->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>

@@ -34,7 +34,7 @@
 								<div class="table-responsive">
 									<table class="table table-hover">
 										<thead>
-											<h2 class="text-center"> البيانات الآساسية </h2>
+											<h2 class="text-center"> البيانات الآساسية للقسم </h2>
 											<div class="text-center">
 												@if(in_array('update_departments', $permissions))
 													<a href="{{action('DepartmentController@edit', ['id'=>$department->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>

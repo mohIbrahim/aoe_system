@@ -35,4 +35,9 @@ class Invoice extends Model
     {
         return $this->belongsTo('App\Contract', 'contract_id', 'id');
     }
+
+    public function softCopies()
+    {
+        return $this->morphMany('App\ProjectImages', 'imageable');
+    }
 }

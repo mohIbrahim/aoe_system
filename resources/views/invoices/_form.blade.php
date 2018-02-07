@@ -44,9 +44,6 @@
             @endforeach
         </select>
     </div>
-
-
-
 </div>
 
 <div class="form-group">
@@ -87,11 +84,9 @@
         <option value="تم الاطلاع" {{($invoiceFinanceCheckOut == 'تم الاطلاع')? 'selected' : ((old('finance_check_out')=='تم الاطلاع')?'selected':'')}}>
              تم الاطلاع
         </option>
-
         <option value="لم يتم الاطلاع" {{($invoiceFinanceCheckOut == 'لم يتم الاطلاع')? 'selected' : ((old('finance_check_out')=='لم يتم الاطلاع')?'selected':'')}}>
              لم يتم الاطلاع
         </option>
-
     </select>
 </div>
 
@@ -103,6 +98,19 @@
 <div class="form-group">
     <label for="descriptions"> الوصف </label>
     <textarea name="descriptions" class="form-control" placeholder=" إدخل أي تفاصيل إن وجدت. ">{{$invoice->descriptions or old('descriptions')}}</textarea>
+</div>
+
+<div class="form-group">
+    <label for="invoice_as_pdf"> صورة الفاتورة بأمتداد PDF </label>
+    <input type="file" class="form-control" id="invoice_as_pdf" name="invoice_as_pdf">
+    @if (isset($invoice->softCopies) && $invoice->softCopies->isNotEmpty())
+        <div class="breadcrumb">
+            <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small> حذف ملف الفاتورة </small>
+            <a role="button" href="{{action('ContractController@removeContractFile', ['id'=>$invoice->softCopies->first()->id])}}" class="btn btn-danger btn-xs">
+                Delete
+            </a>
+        </div>
+    @endif
 </div>
 
 <div class="form-group">

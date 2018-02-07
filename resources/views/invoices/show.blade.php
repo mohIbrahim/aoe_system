@@ -14,7 +14,7 @@
 					<div class="table-responsive">
 						     <table class="table table-hover ">
 							    <thead>
-								    <h2 class="text-center"> البيانات الآساسية </h2>
+								    <h2 class="text-center"> البيانات الآساسية للفاتورة </h2>
 									<div class="text-center">
 										@if(in_array('update_invoices', $permissions))
 											<a href="{{action('InvoiceController@edit', ['id'=>$invoice->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>
@@ -93,6 +93,14 @@
 									    <td>{{$invoice->descriptions}}</td>
 								    </tr>
 
+                                    <tr>
+									    <th> صورة الفاتورة </th>
+									    <td>
+											@foreach ($invoice->softCopies as $key => $projectImage)
+												<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank"> صورة الفاتورة </a>
+											@endforeach
+										</td>
+								    </tr>
                                     <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$invoice->comments}}</td>

@@ -13,7 +13,7 @@
                     <div class="table-responsive">
                         <table class="table table-hover main_arabic_font">
                             <thead>
-                                <h2 class="text-center"> البيانات الآساسية </h2>
+                                <h2 class="text-center"> البيانات الآساسية للزيارة </h2>
                                 <div class="text-center">
                                     @if(in_array('update_visits', $permissions))
                                         <a href="{{action('VisitController@edit', ['id'=>$visit->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>

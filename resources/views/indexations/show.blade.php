@@ -14,7 +14,7 @@
 					<div class="table-responsive">
 						     <table class="table table-hover">
 							    <thead>
-								    <h2 class="text-center"> البيانات الآساسية </h2>
+								    <h2 class="text-center"> البيانات الآساسية للمقايسة </h2>
 									<div class="text-center">
 										@if(in_array('update_indexations', $permissions))
 											<a href="{{action('IndexationController@edit', ['id'=>$indexation->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>

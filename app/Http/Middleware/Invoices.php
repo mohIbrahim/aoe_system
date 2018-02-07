@@ -32,42 +32,38 @@ class Invoices
         }else
 
         if($request->route()->getName() == 'invoices.show'       && in_array('view_invoices', $permissions)){
-
             $response = $next($request);
         }else
 
         if($request->route()->getName() == 'invoices.create'     && in_array('create_invoices', $permissions)){
-
             $response = $next($request);
         }else
 
         if($request->route()->getName() == 'invoices.store'      && in_array('create_invoices', $permissions)){
-
             $response = $next($request);
         }else
 
         if($request->route()->getName() == 'invoices.edit'       && in_array('update_invoices', $permissions)){
-
             $response = $next($request);
         }else
 
         if($request->route()->getName() == 'invoices.update'     && in_array('update_invoices', $permissions)){
-
             $response = $next($request);
         }else
 
         if($request->route()->getName() == 'invoices.destroy'    && in_array('delete_invoices', $permissions)){
+            $response = $next($request);
+        }else
 
+        if($request->route()->getName() == 'remove_the_invoice_file'    && in_array('update_invoices', $permissions)){
             $response = $next($request);
         }else
 
 		if($request->route()->getName() == 'invoices_search'    && in_array('view_invoices', $permissions)){
-
             $response = $next($request);
         }else{
             abort(403);
         }
-
         return $response;
     }
 }

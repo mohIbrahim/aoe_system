@@ -45,7 +45,7 @@
                                 <div class="table-responsive">
                                     <table class="table table-hover">
                                         <thead>
-                                            <h2 class="text-center"> البيانات الآساسية </h2>
+                                            <h2 class="text-center"> البيانات الآساسية لآلة التصوير </h2>
                                             <div class="text-center">
                                                 @if(in_array('update_printing_machines', $permissions))
                                                     <a href="{{action('PrintingMachineController@edit', ['id'=>$printingMachine->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>

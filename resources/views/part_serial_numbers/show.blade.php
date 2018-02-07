@@ -14,7 +14,7 @@
 					<div class="table-responsive">
 						     <table class="table table-hover main_arabic_font">
 							    <thead>
-								    <h2 class="text-center"> البيانات الآساسية </h2>
+								    <h2 class="text-center"> البيانات الآساسية للقطعة الفرعية </h2>
 									<div class="text-center">
 										@if(in_array('update_part_serial_numbers', $permissions))
 											<a href="{{action('PartSerialNumberController@edit', ['id'=>$partSerialNumber->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>

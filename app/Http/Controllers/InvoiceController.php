@@ -6,6 +6,7 @@ use App\Http\Requests\InvoiceRequest;
 use App\AOE\Repositories\Invoice\InvoiceInterface;
 use App\Indexation;
 use App\Contract;
+use App\ProjectImages;
 
 class InvoiceController extends Controller
 {
@@ -48,6 +49,9 @@ class InvoiceController extends Controller
     public function store(InvoiceRequest $request)
     {
         $invoice = $this->invoice->create($request->all());
+
+        $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'invoice_as_pdf', 'App\Invoice', $invoice->id, 'pdf', 'no_cover');
+
         flash()->success(' تم إضافة الفاتورة بنجاح. ')->important();
         return redirect()->action('InvoiceController@show', ['id'=>$invoice->id]);
     }
@@ -85,6 +89,15 @@ class InvoiceController extends Controller
     public function update(InvoiceRequest $request, $id)
     {
         $invoice = $this->invoice->update($id, $request->all());
+
+        if ($request->hasFile('invoice_as_pdf')) {
+            $projectImage = new ProjectImages();
+            if (isset($invoice->softCopies) && $invoice->softCopies->isNotEmpty()) {
+                $projectImage->deleteOneProjectImage($invoice->softCopies->first()->id);
+            }
+            $isUploaded = $projectImage->receiveAndCreat($request, 'invoice_as_pdf', 'App\Invoice', $invoice->id, 'pdf', 'no_cover');
+        }
+
         flash()->success(' تم تعديل الفاتورة بنجاح. ')->important();
         return redirect()->action('InvoiceController@show', ['id'=>$id]);
     }
@@ -96,6 +109,11 @@ class InvoiceController extends Controller
      */
     public function destroy($id)
     {
+        $invoice = $this->invoice->getById($id);
+        if (isset($invoice->softCopies) && $invoice->softCopies->isNotEmpty()) {
+            $projectImage = new ProjectImages();
+            $projectImage->deleteOneProjectImage($invoice->softCopies->first()->id);
+        }
         $isDeleted = $this->invoice->delete($id);
         flash()->success(' تم حذف الفاتورة بنجاح. ')->important();
         return redirect()->action('InvoiceController@index');
@@ -108,5 +126,11 @@ class InvoiceController extends Controller
     public function search($keyword)
     {
         return $this->invoice->search($keyword);
+    }
+
+    public function removeInvoiceFile($projectImageId)
+    {
+        $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
+        return back()->withInput();
     }
 }
