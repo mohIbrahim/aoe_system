@@ -31,6 +31,11 @@
                                     الآلات
                                 </a>
                             </li>
+                            <li role="presentation">
+                                <a href="#contracts" aria-controls="contracts" role="tab" data-toggle="tab">
+                                    الفواتير
+                                </a>
+                            </li>
                         </ul>
 
                         <!-- Tab panes -->
@@ -146,7 +151,6 @@
                                             </td>
                                         </tr>
 
-
                                         <tr>
                                             <th> اسم الشخص المسؤول عن الآلة </th>
                                             <td>{{$customer->responsible_person_name}}</td>
@@ -166,7 +170,6 @@
                                             <th> تاريخ التعديل </th>
                                             <td style="direction:ltr; text-align:center">{{$customer->created_at}}</td>
                                         </tr>
-
 
                                     </tbody>
                                 </table>
@@ -219,6 +222,7 @@
 
                             <div role="tabpanel" class="tab-pane" id="machines">
                                 <table class="table table-hover">
+                                    <h2 class="text-center"> الآلات </h2>
                                     <thead>
                                         <tr>
                                             <th> كود الآلة </th>
@@ -228,7 +232,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($customer->printingMachines as $key1 => $machine)
+                                        @foreach ($customer->printingMachines as $key3 => $machine)
                                             <tr>
                                                 <td>
                                                     <a href="{{action('PrintingMachineController@show', ['id'=>$machine->id])}}">
@@ -249,6 +253,39 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <div role="tabpanel" class="tab-pane" id="contracts">
+                                <h2> بيانات الفواتير </h2>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th> كود الفاتورة </th>
+                                                <th> نوع الفاتورة </th>
+                                                <th> تاريخ الفاتورة </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($customer->invoices as $key4 => $invoice)
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{action('InvoiceController@show', ['id'=>$invoice->id])}}">
+                                                            {{$invoice->number}}
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        {{$invoice->type}}
+                                                    </td>
+                                                    <td>
+                                                        {{$invoice->release_date}}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

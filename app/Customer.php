@@ -44,4 +44,9 @@ class Customer extends Model
         return $this->hasMany('App\PrintingMachine', 'customer_id', 'id');
     }
 
+    public function invoices()
+    {
+        return $this->hasMany('App\Invoice', 'customer_id', 'id');
+    }
+
 }

@@ -3,6 +3,17 @@
     <input type="text" class="form-control" id="number" name="number"  placeholder=" إدخل رقم الفاتورة. " value="{{$invoice->number or old('number')}}">
 </div>
 
+<div class="form-group">
+    <label for="customer_id"> كود العميل <span style="color:red">*</span></label>
+    <select class="form-control selectpicker" name="customer_id" data-live-search="true" id="customer_id">
+        <?php $selectedCustomerId = isset($invoice->customer_id)? $invoice->customer_id:'' ;?>
+        <option value=" "> اختر كود العميل الذي قمت بإجراء هذة الفاتورة له.  </option>
+        @foreach ($customersIdsCodes as $customerId => $customerName)
+            <option value="{{$customerId}}" {!!($selectedCustomerId == $customerId)? 'selected="selected"' : ((old('customer_id')==$customerId)?'selected="selected"':'')!!}> {{$customerName}} </option>
+        @endforeach
+    </select>
+</div>
+
 <div class="breadcrumb  panel panel-primary">
     <div class="form-group">
         <label for="type">

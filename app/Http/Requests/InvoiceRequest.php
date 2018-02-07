@@ -26,6 +26,7 @@ class InvoiceRequest extends FormRequest
 
         $result = [
             'number'=>'required|max:16777215|numeric|unique:invoices,number,'.$this->invoice,
+            'customer_id'=>'required',
             'type'=>'required',
             'issuer'=>'required',
             'order_number'=>'numeric|max:16777215|nullable',
@@ -35,7 +36,7 @@ class InvoiceRequest extends FormRequest
         ];
 
         if ($this->type === 'تعاقد') {
-            $result['contract_id']  = 'required';            
+            $result['contract_id']  = 'required';
         }
 
         if ($this->type === 'مقايسة') {
@@ -52,6 +53,8 @@ class InvoiceRequest extends FormRequest
             'number.max'=>' برجاء إدخال رقم الفاتورة لا يزيد عن 7 خانات. ',
             'number.numeric'=>' برجاء إدخال رقم الفاتور أرقم فقط. ',
             'number.uniuqe'=>' رقم الفاتورة تم إدخاله من قبل برجاء اختيار رقم آخر. ',
+            
+            'customer_id.required'=>' برجاء اختيار كود العميل. ',
 
             'type.required'=>' برجاء اختيار نوع الفاتورة. ',
 

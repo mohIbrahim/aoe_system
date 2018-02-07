@@ -37,27 +37,41 @@
 								    </tr>
 
                                     <tr>
-									    <th> نوع الفاتورة </th>
-									    <td>
-                                            {{$invoice->type}}
-                                        </td>
-								    </tr>
-
-                                    <tr>
-									    <th> كود العقد </th>
-									    <td>
-                                            <a href="{{action('ContractController@show', ['id'=>(isset($invoice->contract->code)?$invoice->contract->id:'')])}}">
-                                               {{$invoice->contract->code or ''}}
+                                        <th> اسم العميل </th>
+                                        <td>
+                                            <a href="{{action('CustomerController@show', ['id'=>(isset($invoice->customer->name)?$invoice->customer->id:'')])}}">
+                                                {{$invoice->customer->name or ''}} / {{$invoice->customer->code or ''}}
                                             </a>
                                         </td>
-								    </tr>
+                                    </tr>
 
                                     <tr>
-									    <th> كود المقايسة </th>
-									    <td>
-                                            <a href="{{action('IndexationController@show', ['id'=>(isset($invoice->indexation->code)?$invoice->indexation->id:'')])}}">
-                                               {{$invoice->indexation->code or ''}}
-                                            </a>
+									    <td colspan="2">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th> نوع الفاتورة </th>
+                                                        <th> الكود </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            {{$invoice->type}}
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{action('ContractController@show', ['id'=>(isset($invoice->contract->code)?$invoice->contract->id:'')])}}">
+                                                                {{$invoice->contract->code or ''}}
+                                                            </a>
+                                                            {{-- or --}}
+                                                            <a href="{{action('IndexationController@show', ['id'=>(isset($invoice->indexation->code)?$invoice->indexation->id:'')])}}">
+                                                               {{$invoice->indexation->code or ''}}
+                                                            </a>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </td>
 								    </tr>
 

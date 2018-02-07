@@ -27,6 +27,33 @@ class Indexation extends Model
         }
     }
 
+    public function setCustomerApprovalAttribute($data)
+    {
+        if (!isset($data)) {
+            $this->attributes['customer_approval'] = 'ليس بعد';
+        } else {
+            $this->attributes['customer_approval'] = $data;
+        }
+    }
+
+    public function setTechnicalManagerApprovalAttribute($data)
+    {
+        if (!isset($data)) {
+            $this->attributes['technical_manager_approval'] = 'ليس بعد';
+        } else {
+            $this->attributes['technical_manager_approval'] = $data;
+        }
+    }
+
+    public function setWarehouseApprovalAttribute($data)
+    {
+        if (!isset($data)) {
+            $this->attributes['warehouse_approval'] = 'ليس بعد';
+        } else {
+            $this->attributes['warehouse_approval'] = $data;
+        }
+    }
+
     public function reference()
     {
         return $this->belongsTo('App\Reference', 'reference_id');

@@ -7,6 +7,7 @@ use App\AOE\Repositories\Invoice\InvoiceInterface;
 use App\Indexation;
 use App\Contract;
 use App\ProjectImages;
+use App\Customer;
 
 class InvoiceController extends Controller
 {
@@ -38,7 +39,8 @@ class InvoiceController extends Controller
     {
         $indexationsCodes = Indexation::all()->pluck('code', 'id');
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
-        return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes'));
+        $customersIdsCodes = Customer::all()->pluck('code', 'id');
+        return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes'));
     }
 
     /**
@@ -77,7 +79,8 @@ class InvoiceController extends Controller
         $invoice = $this->invoice->getById($id);
         $indexationsCodes = Indexation::all()->pluck('code', 'id');
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
-        return view('invoices.edit', compact('invoice', 'indexationsCodes', 'contractsIdsCodes'));
+        $customersIdsCodes = Customer::all()->pluck('code', 'id');
+        return view('invoices.edit', compact('invoice', 'indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes'));
     }
 
     /**
