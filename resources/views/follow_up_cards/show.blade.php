@@ -114,6 +114,48 @@
 						</div>
 					@endif
 
+                    @if (in_array('view_contracts', $permissions))
+
+						<div class="panel panel-primary">
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-hover">
+										<thead>
+											<h2 class=" text-center"> بيانات الزيارات </h2>
+											<th> رقم الزيارة </th>
+											<th> التاريخ </th>
+											<th> العداد </th>
+											<th> اسم المسؤول </th>
+											<th> المهندس المختص </th>
+										</thead>
+										<tbody>
+                                            @foreach ($followUpCard->visits as $key3 => $visit)
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{action('VisitController@show', ['id'=>($visit->id)])}}">
+                                                            {{$visit->id}}
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        {{$visit->visit_date}}
+                                                    </td>
+                                                    <td>
+                                                        {{$visit->readings_of_printing_machine}}
+                                                    </td>
+                                                    <td>
+                                                        {{$visit->representative_customer_name}}
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					@endif
+
 
 				</div>
 			</div>

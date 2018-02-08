@@ -58,16 +58,20 @@
     حفظ
 </button>
 @section('head')
-{{-- bootstrapSelect --}}
-    <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
-{{-- bootstrapSelect --}}
 {{-- datePicker --}}
     <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
 {{-- datePicker --}}
+{{-- bootstrap-select --}}
+    <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
+{{-- bootstrap-select --}}
 @endsection
 @section('js_footer')
 {{-- datePicker --}}
     <script src="{{asset('js/datepicker/jquery-ui.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
 {{-- datePicker --}}
+{{-- bootstrap-select --}}
+    <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
+    <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
+{{-- bootstrap-select --}}
 @endsection

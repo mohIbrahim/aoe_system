@@ -23,12 +23,16 @@ class VisitRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $results = [
             'type'=>'required',
             'printing_machine_id'=>'required',
             'visit_date'=>'required|date',
             'readings_of_printing_machine'=>'required|numeric',
         ];
+        if ($this->type == 'بطاقة المتابعة') {
+            $results['follow_up_card_id'] = 'required';
+        }
+        return $results;
     }
 
     /**
@@ -39,6 +43,7 @@ class VisitRequest extends FormRequest
     {
         return [
             'type.required'=>' برجاء اختيار نوع الزيارة. ',
+            'follow_up_card_id.required'=>' برجاء اختيار كود بطاقة المتابعة. ',
             'printing_machine_id.required'=>' برجاء اختيار كود الآلة التصوير. ',
             'visit_date.required'=>' برجاء إدخال تاريخ الزيارة. ',
             'visit_date.date'=>' برجاء إدخال تاريخ الزيارة بشكل صحيح. ',

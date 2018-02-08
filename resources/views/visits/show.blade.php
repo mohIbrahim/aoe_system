@@ -1,17 +1,17 @@
 @extends('layouts.app')
 @section('title')
-    الزيارة: {{$visit->visit_date }}
+    الزيارة: {{$visit->id }}
 @endsection
 @section('content')
     <div class="row">
         <div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary main_arabic_font">
                 <div class="panel-heading">
-                    <h3 class="panel-title"> الزيارة: {{$visit->visit_date }}</h3>
+                    <h3 class="panel-title"> الزيارة: {{$visit->id }}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table class="table table-hover main_arabic_font">
+                        <table class="table table-hover">
                             <thead>
                                 <h2 class="text-center"> البيانات الآساسية للزيارة </h2>
                                 <div class="text-center">
@@ -31,6 +31,10 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <th> رقم الزيارة </th>
+                                <td>{{$visit->id}}</td>
+                            </tr>
+                            <tr>
                                 <th> كود الآلة التصوير </th>
                                 <td>
                                     <a href="{{action('PrintingMachineController@show', ['id'=>(isset($visit->printingMachine)?$visit->printingMachine->id:'')])}}">
@@ -45,8 +49,26 @@
                             </tr>
 
                             <tr>
-                                <th> نوع الزيارة </th>
-                                <td>{{$visit->type}}</td>
+                                <td colspan="2">
+                                    <table class="table table-hover">
+                                             <thead>
+                                                <tr>
+                                                    <th> نوع الزيارة </th>
+                                                    <th> الكود </th>
+                                                </tr>
+                                             </thead>
+                                             <tbody>
+                                                <tr>
+                                                    <td>{{$visit->type}}</td>
+                                                    <td>
+                                                        <a href="{{action('FollowUpCardController@show', ['id'=>(isset($visit->followUpCard)?$visit->followUpCard->id:'')])}}">
+                                                            {{$visit->followUpCard->code or ''}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                             </tbody>
+                                    </table>
+                                </td>
                             </tr>
 
                             <tr>

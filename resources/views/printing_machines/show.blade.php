@@ -184,8 +184,9 @@
                                 <div class="table-responsive">
                                     <table class="table table-hover">
                                         <thead>
-                                            <h2 class="text-center"> قراءات العداد </h2>
+                                            <h2 class="text-center"> الزيارات </h2>
                                             <tr>
+                                                <th> رقم الزيارة </th>
                                                 <th> تاريخ الزيارة </th>
                                                 <th> نوع الزيارة </th>
                                                 <th> قراءة العداد </th>
@@ -197,9 +198,10 @@
                                                 <tr>
                                                     <td>
                                                         <a href="{{action('VisitController@show', ['id'=>$visit->id])}}">
-                                                            {{$visit->visit_date}}
+                                                            {{$visit->id}}
                                                         </a>
                                                     </td>
+                                                    <td>{{$visit->visit_date}}</td>
                                                     <td>{{$visit->type}}</td>
                                                     <td>{{$visit->readings_of_printing_machine}}</td>
                                                 </tr>
