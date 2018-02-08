@@ -6,6 +6,7 @@ use App\Http\Requests\VisitRequest;
 use App\AOE\Repositories\Visit\VisitInterface;
 use App\PrintingMachine;
 use App\FollowUpCard;
+use App\Employee;
 
 class VisitController extends Controller
 {
@@ -37,7 +38,8 @@ class VisitController extends Controller
     {
         $printingMachineIdsCodes = PrintingMachine::all()->pluck('code', 'id');
         $followUpCardsIdsCodes = FollowUpCard::all()->pluck('code', 'id');
-        return view('visits.create', compact('printingMachineIdsCodes', 'followUpCardsIdsCodes'));
+        $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
+        return view('visits.create', compact('printingMachineIdsCodes', 'followUpCardsIdsCodes', 'employeesIdsNames'));
     }
 
     /**
@@ -73,7 +75,8 @@ class VisitController extends Controller
         $visit = $this->visit->getById($id);
         $printingMachineIdsCodes = PrintingMachine::all()->pluck('code', 'id');
         $followUpCardsIdsCodes = FollowUpCard::all()->pluck('code', 'id');
-        return view('visits.edit', compact('visit', 'printingMachineIdsCodes', 'followUpCardsIdsCodes'));
+        $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
+        return view('visits.edit', compact('visit', 'printingMachineIdsCodes', 'followUpCardsIdsCodes', 'employeesIdsNames'));
     }
 
     /**

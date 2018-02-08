@@ -72,6 +72,13 @@
                             </tr>
 
                             <tr>
+                                <th> المهندس الذي قام بالزيارة </th>
+                                <td>
+                                    {{$visit->theEmployeeWhoMadeTheVisit->user->name or ''}}
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <th> اسم الشخص المسؤول عن الآلة </th>
                                 <td>{{$visit->representative_customer_name}}</td>
                             </tr>

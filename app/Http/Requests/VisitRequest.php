@@ -27,6 +27,7 @@ class VisitRequest extends FormRequest
             'type'=>'required',
             'printing_machine_id'=>'required',
             'visit_date'=>'required|date',
+            'the_employee_who_made_the_visit_id'=>'required',
             'readings_of_printing_machine'=>'required|numeric',
         ];
         if ($this->type == 'بطاقة المتابعة') {
@@ -47,7 +48,8 @@ class VisitRequest extends FormRequest
             'printing_machine_id.required'=>' برجاء اختيار كود الآلة التصوير. ',
             'visit_date.required'=>' برجاء إدخال تاريخ الزيارة. ',
             'visit_date.date'=>' برجاء إدخال تاريخ الزيارة بشكل صحيح. ',
-            'readings_of_printing_machine.required'=>' برجاء إدخال قراءة العداد   ',
+            'the_employee_who_made_the_visit_id.required'=>' برجاء اختار اسم المهندس الذي قام بالزيارة. ',
+            'readings_of_printing_machine.required'=>' برجاء إدخال قراءة العداد. ',
             'readings_of_printing_machine.numeric'=>' برجاء إدخال قراءة العداد أرقام فقظ ',
         ];
     }

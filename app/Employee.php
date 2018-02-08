@@ -55,4 +55,9 @@ class Employee extends Model
     {
         return $this->hasMany('App\Contract', 'employee_id_who_edits_the_contract', 'id');
     }
+
+    public function visits()
+    {
+        return $this->hasMany('App\Visit', 'the_employee_who_made_the_visit_id', 'id');
+    }
 }

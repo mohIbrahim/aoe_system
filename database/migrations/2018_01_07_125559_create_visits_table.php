@@ -27,6 +27,9 @@ class CreateVisitsTable extends Migration
 
             $table->integer('follow_up_card_id')->unsigned()->nullable();
             $table->foreign('follow_up_card_id')->references('id')->on('follow_up_cards')->onDelete('set null');
+
+            $table->integer('the_employee_who_made_the_visit_id')->unsigned()->nullable();
+            $table->foreign('the_employee_who_made_the_visit_id')->references('id')->on('employees')->onDelete('set null');
         });
     }
 

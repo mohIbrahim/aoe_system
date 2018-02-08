@@ -46,6 +46,17 @@
 </div>
 
 <div class="form-group">
+    <label for="the_employee_who_made_the_visit_id"> اسم المهندس الذي قام بالزيارة <span style="color:red">*</span></label>
+    <select class="form-control selectpicker" name="the_employee_who_made_the_visit_id" data-live-search="true">
+        <?php $selectedEmployeeWhoMadeTheVisitId = isset($visit->the_employee_who_made_the_visit_id)? $visit->the_employee_who_made_the_visit_id:'' ;?>
+        <option value=""> اختر اسم المهندس الذي قام بالزيارة.  </option>
+        @foreach ($employeesIdsNames as $id => $name)
+            <option value="{{$id}}" {{($selectedEmployeeWhoMadeTheVisitId == $id)? 'selected' : ((old('the_employee_who_made_the_visit_id')==$id)?'selected':'')}}> {{$name}} </option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
     <label for="visit_date"> تاريخ الزيارة <span style="color:red">*</span></label>
     <input type="text" class="form-control datepicker" id="datepicker" name="visit_date"  placeholder=" اختر تاريخ الإصدار. " value="{{$visit->visit_date or old('visit_date')}}">
 </div>

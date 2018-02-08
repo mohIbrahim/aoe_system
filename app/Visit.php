@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Visit extends Model
 {
     protected $table = 'visits';
-    protected $fillable = ['type', 'visit_date', 'representative_customer_name', 'readings_of_printing_machine', 'comments', 'printing_machine_id', 'follow_up_card_id'];
+    protected $fillable = ['type', 'visit_date', 'representative_customer_name', 'readings_of_printing_machine', 'comments', 'printing_machine_id', 'follow_up_card_id', 'the_employee_who_made_the_visit_id'];
     protected $dates = ['visit_date'];
 
 
@@ -45,5 +45,10 @@ class Visit extends Model
     public function followUpCard()
     {
         return $this->belongsTo('App\followUpCard', 'follow_up_card_id', 'id');
+    }
+
+    public function theEmployeeWhoMadeTheVisit()
+    {
+        return $this->belongsTo('App\Employee', 'the_employee_who_made_the_visit_id', 'id');
     }
 }

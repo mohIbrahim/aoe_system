@@ -146,6 +146,7 @@
                                                         {{$visit->representative_customer_name}}
                                                     </td>
                                                     <td>
+                                                        {{$visit->theEmployeeWhoMadeTheVisit->user->name or ''}}
                                                     </td>
                                                 </tr>
                                             @endforeach
