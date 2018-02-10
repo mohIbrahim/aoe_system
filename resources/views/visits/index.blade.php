@@ -106,13 +106,7 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, visit) {
-                                if (visit.printing_machine) {
-                                    newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.id+"</a></td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.visit_date+"</a></td><td>"+visit.type+"</td><td><a href='{{url('printing_machines')}}/"+visit.printing_machine.id+"'>"+visit.printing_machine.code+"</a></td><td>"+visit.readings_of_printing_machine+"</td></tr>";
-                                } else if (visit.the_employee_who_made_the_visit) {
-                                    newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.id+"</a></td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.visit_date+"</a></td><td>"+visit.type+"</td><td></td><td>"+visit.readings_of_printing_machine+"</td><td>"+visit.the_employee_who_made_the_visit.user.name+"</td></tr>";
-                                }else {
-                                    newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.id+"</a></td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.visit_date+"</a></td><td>"+visit.type+"</td><td></td><td></td><td></td></tr>";
-                                }
+                                newResult += "<tr><td>"+(index+1)+"</td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.id+"</a></td><td>"+visit.visit_date+"</td><td>"+visit.type+"</td><td><a href='{{url('printing_machines')}}/"+((visit.printing_machine)?visit.printing_machine.id:'')+"'>"+((visit.printing_machine)?visit.printing_machine.code:'')+"</a></td><td>"+visit.readings_of_printing_machine+"</td><td>"+((visit.the_employee_who_made_the_visit)?((visit.the_employee_who_made_the_visit.user)?visit.the_employee_who_made_the_visit.user.name:''):'')+"</td></tr>";
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();
