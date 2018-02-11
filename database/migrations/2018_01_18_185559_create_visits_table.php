@@ -30,6 +30,9 @@ class CreateVisitsTable extends Migration
 
             $table->integer('the_employee_who_made_the_visit_id')->unsigned()->nullable();
             $table->foreign('the_employee_who_made_the_visit_id')->references('id')->on('employees')->onDelete('set null');
+
+            $table->integer('reference_id')->unsigned()->nullable();
+            $table->foreign('reference_id')->references('id')->on('references')->onDelete('set null');
         });
     }
 

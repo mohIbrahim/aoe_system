@@ -64,6 +64,9 @@
                                                         <a href="{{action('FollowUpCardController@show', ['id'=>(isset($visit->followUpCard)?$visit->followUpCard->id:'')])}}">
                                                             {{$visit->followUpCard->code or ''}}
                                                         </a>
+                                                        <a href="{{action('ReferenceController@show', ['id'=>(isset($visit->reference)?$visit->reference->id:'')])}}">
+                                                            {{$visit->reference->code or ''}}
+                                                        </a>
                                                     </td>
                                                 </tr>
                                              </tbody>

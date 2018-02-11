@@ -33,6 +33,9 @@ class VisitRequest extends FormRequest
         if ($this->type == 'بطاقة المتابعة') {
             $results['follow_up_card_id'] = 'required';
         }
+        if ($this->type == 'إشارة') {
+            $results['reference_id'] = 'required';
+        }
         return $results;
     }
 
@@ -45,6 +48,7 @@ class VisitRequest extends FormRequest
         return [
             'type.required'=>' برجاء اختيار نوع الزيارة. ',
             'follow_up_card_id.required'=>' برجاء اختيار كود بطاقة المتابعة. ',
+            'reference_id.required'=>' برجاء اختيار كود الإشارة. ',
             'printing_machine_id.required'=>' برجاء اختيار كود الآلة التصوير. ',
             'visit_date.required'=>' برجاء إدخال تاريخ الزيارة. ',
             'visit_date.date'=>' برجاء إدخال تاريخ الزيارة بشكل صحيح. ',

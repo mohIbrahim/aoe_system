@@ -34,4 +34,9 @@ class Reference extends Model
     {
         return $this->hasOne('App\Indexation', 'reference_id');
     }
+
+    public function visits()
+    {
+        return $this->hasMany('App\Visit', 'reference_id', 'id');
+    }
 }

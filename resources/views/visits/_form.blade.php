@@ -19,13 +19,24 @@
         </select>
     </div>
 
-    <div class="form-group" id="group-follow-up-card" style="display:block;">
+    <div class="form-group" id="group-follow-up-card" style="display:none;">
         <label for="follow_up_card_id"> كود بطاقة المتابعة <span style="color:red">*</span></label>
         <select class="form-control selectpicker" name="follow_up_card_id" data-live-search="true" id="follow-up-card-id">
             <?php $selectedFollowUpCardId = isset($visit->follow_up_card_id)? $visit->follow_up_card_id:'' ;?>
-            <option value=" "> اختر كود بطاقة المتابعة.  </option>
+            <option value=""> اختر كود بطاقة المتابعة.  </option>
             @foreach ($followUpCardsIdsCodes as $followUpCardId => $followUpCardCode)
-                <option value="{{$followUpCardId}}" {!!($selectedFollowUpCardId == $followUpCardId)? 'selected="selected"' : ((old('follow_up_card_id')==$followUpCardId)?'selected="selected"':'')!!}> {{$followUpCardCode}} </option>
+                <option value="{{$followUpCardId}}" {!!($selectedFollowUpCardId == $followUpCardId)? ' selected="selected"' : ((old('follow_up_card_id')==$followUpCardId)?' selected="selected"':'')!!}> {{$followUpCardCode}} </option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="form-group" id="group-reference" style="display:none;">
+        <label for="reference_id"> كود الإشارة <span style="color:red">*</span></label>
+        <select class="form-control selectpicker" name="reference_id" data-live-search="true" id="reference-id">
+            <?php $selectedReferenceId = isset($visit->reference_id)? $visit->reference_id:'' ;?>
+            <option value=""> اختر كود الإشارة.  </option>
+            @foreach ($referencesIdsCodes as $referenceId => $referenceCode)
+                <option value="{{$referenceId}}" {!!($selectedReferenceId == $referenceId)? ' selected="selected"' : ((old('reference_id')==$referenceId)?' selected="selected"':'')!!}> {{$referenceCode}} </option>
             @endforeach
         </select>
     </div>
@@ -96,6 +107,36 @@
     <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
 {{-- bootstrap-select --}}
+
+<script type="text/javascript">
+$(function(){
+    // for update view
+    if ($('#type').val() == 'إشارة') {
+        $('#group-reference').css('display', 'block');
+        $("#follow-up-card-id option:selected").removeAttr("selected");
+    }
+    // for update view
+    if ($('#type').val() == 'بطاقة المتابعة') {
+        $('#group-follow-up-card').css('display', 'block');
+        $("#reference-id option:selected").removeAttr("selected");
+    }
+    $('#type').on('change', function(){
+        if (this.value == 'إشارة') {
+            $('#group-reference').css('display', 'block');
+            $("#follow-up-card-id option:selected").removeAttr("selected");
+        } else {
+            $('#group-reference').css('display', 'none');
+        }
+
+        if (this.value == 'بطاقة المتابعة') {
+            $('#group-follow-up-card').css('display', 'block');
+            $("#reference-id option:selected").removeAttr("selected");
+        } else {
+            $('#group-follow-up-card').css('display', 'none');
+        }
+    });
+});
+</script>
 
 
 @endsection

@@ -6,15 +6,15 @@
 @section('content')
 	<div class="row">
 		<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-			<div class="panel panel-primary">
+			<div class="panel panel-primary main_arabic_font">
 				<div class="panel-heading">
 					<h3 class="panel-title"> الإشارة: {{$reference->code}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
-						     <table class="table table-hover main_arabic_font">
+						     <table class="table table-hover">
 							    <thead>
-								    <h2 class="text-center"> البيانات الآساسية </h2>
+								    <h2 class="text-center"> البيانات الآساسية للإشارة </h2>
 									<div class="text-center">
 										@if(in_array('update_references', $permissions))
 											<a href="{{action('ReferenceController@edit', ['id'=>$reference->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>
