@@ -53,6 +53,7 @@ class EloquentFollowUpCardSpecialReport implements FollowUpCardSpecialReportInte
     public function search($keyword)
     {
         $results = $this->followUpCardSpecialReport->where('the_date', 'like', '%'.$keyword.'%')
+                                                    ->orWhere('id', 'like', '%'.$keyword.'%')
                                                     ->orWhere('readings_of_printing_machine', 'like', '%'.$keyword.'%')
                                                     ->orWhere('indexation_number', 'like', '%'.$keyword.'%')
                                                     ->orWhere('invoice_number', 'like', '%'.$keyword.'%')

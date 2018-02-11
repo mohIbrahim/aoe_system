@@ -31,6 +31,16 @@
 
 							    </thead>
 							    <tbody>
+
+                                    <tr>
+									    <th> كود بطاقة المتابعة </th>
+                                        <td>
+                                            <a href="{{action('FollowUpCardController@show', ['id'=>(isset($followUpCardSpecialReport->followUpCard)?$followUpCardSpecialReport->followUpCard->id:'')])}}">
+                                                {{$followUpCardSpecialReport->followUpCard->code or ''}}
+                                            </a>
+                                        </td>
+								    </tr>
+
 								    <tr>
 									    <th> التاريخ </th>
 									    <td>{{$followUpCardSpecialReport->the_date}}</td>

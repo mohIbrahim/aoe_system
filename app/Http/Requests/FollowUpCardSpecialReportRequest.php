@@ -24,6 +24,7 @@ class FollowUpCardSpecialReportRequest extends FormRequest
     public function rules()
     {
         return [
+            'follow_up_card_id'=>'required',
             'the_date'=>'required|date',
             'report'=>'required',
             'readings_of_printing_machine'=>'numeric|nullable',
@@ -33,6 +34,7 @@ class FollowUpCardSpecialReportRequest extends FormRequest
     public function messages()
     {
         return [
+            'follow_up_card_id.required'=>' برجاء اختيار كود بطاقة المتابعة. ',
             'the_date.required'=>' برجاء إدخال التاريخ. ',
             'the_date.date'=>'   برجاء إدخال التاريخ بشكل الصحيح. ',
             'report.required'=>' برجاء إدخال التقرير. ',

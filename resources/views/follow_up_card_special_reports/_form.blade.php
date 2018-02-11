@@ -1,4 +1,15 @@
 <div class="form-group">
+    <label for="follow_up_card_id"> كود بطاقة المتابعة <span style="color:red">*</span></label>
+    <select class="form-control selectpicker" name="follow_up_card_id" data-live-search="true">
+        <?php $selectedFollowUpCardId = isset($followUpCardSpecialReport->follow_up_card_id)? $followUpCardSpecialReport->follow_up_card_id:'' ;?>
+        <option value=""> اختر كود بطاقة المتابعة.  </option>
+        @foreach ($followUpCardsIdsCodes as $followUpCardId => $followUpCardCode)
+            <option value="{{$followUpCardId}}" {!!($selectedFollowUpCardId == $followUpCardId)? ' selected="selected"' : ((old('follow_up_card_id')==$followUpCardId)?' selected="selected"':'')!!}> {{$followUpCardCode}} </option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
     <label for="the_date"> التاريخ <span style="color:red">*</span></label>
     <input type="text" class="form-control datepicker" id="datepicker" name="the_date"  placeholder=" اختر التاريخ. " value="{{$followUpCardSpecialReport->the_date or old('the_date')}}">
 </div>
@@ -45,10 +56,17 @@
 {{-- datePicker --}}
     <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
 {{-- datePicker --}}
+{{-- bootstrap-select --}}
+    <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
+{{-- bootstrap-select --}}
 @endsection
 @section('js_footer')
 {{-- datePicker --}}
     <script src="{{asset('js/datepicker/jquery-ui.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
 {{-- datePicker --}}
+{{-- bootstrap-select --}}
+    <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
+    <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
+{{-- bootstrap-select --}}
 @endsection

@@ -16,7 +16,7 @@
 				<legend> البحث عن التقارير الخاصة ببطاقات المتابعة </legend>
 
 				<div class="form-group">
-					<label for=""> البحث بـ التاريخ, قراءة العداد, رقم المقايسة, رقم الفاتورة. </label>
+					<label for=""> البحث بـ رقم, التاريخ, قراءة العداد, رقم المقايسة, رقم الفاتورة. </label>
                     <p>
                         <small> البحث بالتاريخ يتم كتابة السنة ثم الشهر ثم اليوم </small>
                     </p>
@@ -44,6 +44,7 @@
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>
+                                <th> رقم التقرير  </th>
                                 <th> التاريخ  </th>
 			  				    <th> قراءة العداد </th>
 			  				    <th> رقم المقايسة </th>
@@ -59,6 +60,7 @@
 										<td>
 											{{$k+1}}
 										</td>
+                                        <td>{{$followUpCardSpecialReport->id}}</td>
 										<td>
                                             <a href="{{action('FollowUpCardSpecialReportController@show', ['id'=>$followUpCardSpecialReport->id])}}" target="_blank">
                                                 {{$followUpCardSpecialReport->the_date}}
@@ -101,7 +103,7 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, follow_up_card_special_report) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('follow_up_card_special_reports')}}/"+follow_up_card_special_report.id+"'>"+follow_up_card_special_report.the_date+"</a></td><td>"+follow_up_card_special_report.readings_of_printing_machine+"</td><td>"+follow_up_card_special_report.indexation_number+"</td><td>"+follow_up_card_special_report.invoice_number+"</td><td>"+follow_up_card_special_report.the_payment+"</td></tr>"
+                                newResult += "<tr> <td>"+(index+1)+"</td><td>"+follow_up_card_special_report.id+"</td><td><a href='{{url('follow_up_card_special_reports')}}/"+follow_up_card_special_report.id+"'>"+follow_up_card_special_report.the_date+"</a></td><td>"+follow_up_card_special_report.readings_of_printing_machine+"</td><td>"+follow_up_card_special_report.indexation_number+"</td><td>"+follow_up_card_special_report.invoice_number+"</td><td>"+follow_up_card_special_report.the_payment+"</td></tr>"
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();

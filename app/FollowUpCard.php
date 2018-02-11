@@ -23,4 +23,9 @@ class FollowUpCard extends Model
     {
         return $this->hasMany('App\Visit', 'follow_up_card_id', 'id');
     }
+
+    public function specialReports()
+    {
+        return $this->hasMany('App\FollowUpCardSpecialReport', 'follow_up_card_id', 'id');
+    }
 }

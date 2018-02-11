@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AOE\Repositories\FollowUpCardSpecialReport\FollowUpCardSpecialReportInterface;
 use App\Http\Requests\FollowUpCardSpecialReportRequest;
+use App\FollowUpCard;
 
 class FollowUpCardSpecialReportController extends Controller
 {
@@ -24,7 +25,8 @@ class FollowUpCardSpecialReportController extends Controller
 
     public function create()
     {
-        return view('follow_up_card_special_reports.create');
+        $followUpCardsIdsCodes = FollowUpCard::all()->pluck('code', 'id');
+        return view('follow_up_card_special_reports.create', compact('followUpCardsIdsCodes'));
     }
 
     public function store(FollowUpCardSpecialReportRequest $request)
@@ -44,7 +46,8 @@ class FollowUpCardSpecialReportController extends Controller
     public function edit($id)
     {
         $followUpCardSpecialReport = $this->followUpCardSpecialReport->getById($id);
-        return view('follow_up_card_special_reports.edit', compact('followUpCardSpecialReport'));
+        $followUpCardsIdsCodes = FollowUpCard::all()->pluck('code', 'id');
+        return view('follow_up_card_special_reports.edit', compact('followUpCardSpecialReport', 'followUpCardsIdsCodes'));
     }
 
     public function update(FollowUpCardSpecialReportRequest $request, $id)

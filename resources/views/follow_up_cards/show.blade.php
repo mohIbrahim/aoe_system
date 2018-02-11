@@ -114,7 +114,7 @@
 						</div>
 					@endif
 
-                    @if (in_array('view_contracts', $permissions))
+                    @if (in_array('view_visits', $permissions))
 
 						<div class="panel panel-primary">
 							<div class="panel-body">
@@ -147,6 +147,47 @@
                                                     </td>
                                                     <td>
                                                         {{$visit->theEmployeeWhoMadeTheVisit->user->name or ''}}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					@endif
+
+
+                    @if (in_array('view_follow_up_card_special_reports', $permissions))
+
+						<div class="panel panel-primary">
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-hover">
+										<thead>
+											<h2 class=" text-center"> تقارير خاصة </h2>
+											<th> التاريخ </th>
+											<th> العداد </th>
+											<th> التقرير </th>
+											<th> رقم الفاتورة </th>
+										</thead>
+										<tbody>
+                                            @foreach ($followUpCard->specialReports as $key4 => $specialReport)
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{action('FollowUpCardSpecialReportController@show', ['id'=>($specialReport->id)])}}">
+                                                            {{$specialReport->the_date}}
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        {{$specialReport->readings_of_printing_machine}}
+                                                    </td>
+                                                    <td>
+                                                        {{$specialReport->report}}
+                                                    </td>
+
+                                                    <td>
+                                                        {{$specialReport->invoice_number}}
                                                     </td>
                                                 </tr>
                                             @endforeach
