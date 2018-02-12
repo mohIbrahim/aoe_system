@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AOE\Repositories\Reference\ReferenceInterface;
 use App\Http\Requests\ReferenceRequest;
 use App\Employee;
+use App\PrintingMachine;
 
 
 class ReferenceController extends Controller
@@ -28,7 +29,8 @@ class ReferenceController extends Controller
     public function create()
     {
         $employeesNames = Employee::all()->pluck('user.name', 'id');
-        return view('references.create', compact('employeesNames'));
+        $printingMachineIdsCodes = PrintingMachine::all()->pluck('code', 'id');
+        return view('references.create', compact('employeesNames', 'printingMachineIdsCodes'));
     }
 
 
@@ -51,7 +53,8 @@ class ReferenceController extends Controller
     {
         $reference = $this->reference->getById($id);
         $employeesNames = Employee::all()->pluck('user.name', 'id');
-        return view('references.edit', compact('reference', 'employeesNames'));
+        $printingMachineIdsCodes = PrintingMachine::all()->pluck('code', 'id');
+        return view('references.edit', compact('reference', 'employeesNames', 'printingMachineIdsCodes'));
     }
 
 

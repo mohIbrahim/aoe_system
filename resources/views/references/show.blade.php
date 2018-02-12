@@ -55,6 +55,22 @@
 									    <th> اسم المهندس المعيين لهذة الاشارة </th>
 									    <td>{{isset($reference->assignedEmployee)?(isset($reference->assignedEmployee->user)?$reference->assignedEmployee->user->name:''):''}}</td>
 								    </tr>
+                                    <tr>
+									    <th> كود الآلة </th>
+									    <td>
+                                            <a href="{{action('PrintingMachineController@show', ['id'=>(isset($reference->printingMachine)?$reference->printingMachine->id:'')])}}">
+                                                {{$reference->printingMachine->code or ''}}
+                                            </a>
+                                        </td>
+								    </tr>
+                                    <tr>
+									    <th> اسم العميل </th>
+									    <td>
+                                            <a href="{{action('CustomerController@show', ['id'=>(($reference->printingMachine)?(isset($reference->printingMachine->customer)?$reference->printingMachine->customer->id:''):'')])}}">
+                                                {{$reference->printingMachine->customer->name or ''}}
+                                            </a>
+                                        </td>
+								    </tr>
 								    <tr>
 									    <th> نوع العطل </th>
 									    <td>{{$reference->malfunctions_type}}</td>

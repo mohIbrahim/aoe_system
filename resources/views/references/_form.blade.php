@@ -49,6 +49,18 @@
 </div>
 
 <div class="form-group">
+    <label for="printing_machine_id"> كود الآلة التصوير <span style="color:red">*</span></label>
+    <select class="form-control selectpicker" name="printing_machine_id" data-live-search="true">
+        <?php $selectedPrintingMachineId = isset($reference->printing_machine_id)? $reference->printing_machine_id:'' ;?>
+        <option value=""> اختر كود الآلة التصوير.  </option>
+        @foreach ($printingMachineIdsCodes as $id => $code)
+            <option value="{{$id}}" {{($selectedPrintingMachineId == $id)? 'selected' : ((old('printing_machine_id')==$id)?'selected':'')}}> {{$code}} </option>
+        @endforeach
+    </select>
+</div>
+
+
+<div class="form-group">
     <label for="malfunctions_type"> نوع العطل </label>
     <textarea name="malfunctions_type" class="form-control" placeholder=" إدخل نوع العطل. ">{{$reference->malfunctions_type or old('malfunctions_type')}}</textarea>
 </div>

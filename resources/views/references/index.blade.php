@@ -15,7 +15,7 @@
 				<legend> البحث عن الإشارات </legend>
 
 				<div class="form-group">
-					<label for=""> البحث بـ كود, النوع , تاريخ, الإشارة أو اسم المهندس المعيين لهذة الاشارة. </label>
+					<label for=""> البحث بـ كود, النوع , تاريخ, الإشارة أو اسم المهندس المعيين لهذة الاشارة أو كود الآلة التصوير. </label>
 					<input type="text" class="form-control" id="references_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
@@ -39,6 +39,7 @@
                                 <th> نوع الإشارة </th>
                                 <th> اسم المهندس المعيين لهذة الاشار </th>
                                 <th> تاريخ الإستلام </th>
+                                <th> كود الآلة التصوير </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -65,6 +66,11 @@
                                         <td>
                                             {{$reference->received_date}}
                                         </td>
+                                        <td>
+                                            <a href="{{action('PrintingMachineController@show', ['id'=>(isset($reference->printingMachine)?$reference->printingMachine->id:'')])}}">
+                                                {{$reference->printingMachine->code or ''}}
+                                            </a>
+                                        </td
 									</tr>
 								@endforeach
 
@@ -98,7 +104,7 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, reference) {
-								newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('references')}}/"+reference.id+"'>"+reference.code+"</a></td><td>"+((reference.employee_who_receive_the_rereference)?((reference.employee_who_receive_the_rereference.user)?reference.employee_who_receive_the_rereference.user.name:''):'')+"</td><td>"+reference.type+"</td><td>"+((reference.assigned_employee)?((reference.assigned_employee.user)?reference.assigned_employee.user.name:''):'')+"</td><td>"+reference.received_date+"</td></tr>";
+								newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('references')}}/"+reference.id+"'>"+reference.code+"</a></td><td>"+((reference.employee_who_receive_the_rereference)?((reference.employee_who_receive_the_rereference.user)?reference.employee_who_receive_the_rereference.user.name:''):'')+"</td><td>"+reference.type+"</td><td>"+((reference.assigned_employee)?((reference.assigned_employee.user)?reference.assigned_employee.user.name:''):'')+"</td><td>"+reference.received_date+"</td><td><a href='{{url('printing_machines')}}/"+((reference.printing_machine)?reference.printing_machine.id:'')+"'>"+((reference.printing_machine)?reference.printing_machine.code:'')+"</a></td></tr>";
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();

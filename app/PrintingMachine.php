@@ -45,4 +45,9 @@ class PrintingMachine extends Model
     {
         return $this->hasMany('App\Contract', 'printing_machine_id', 'id');
     }
+
+    public function references()
+    {
+        return $this->hasMany('App\Reference', 'printing_machine_id', 'id');
+    }
 }
