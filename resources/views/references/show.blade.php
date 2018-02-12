@@ -36,6 +36,10 @@
 									    <td>{{$reference->code}}</td>
 								    </tr>
                                     <tr>
+									    <th> اسم مستلم الإشارة </th>
+									    <td>{{$reference->employeeWhoReceiveTheRereference->user->name or ''}}</td>
+								    </tr>
+                                    <tr>
 									    <th> كود الدفــتر </th>
 									    <td>{{$reference->notebook_number}}</td>
 								    </tr>

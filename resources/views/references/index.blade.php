@@ -35,6 +35,7 @@
 			  			    <tr>
 								<th>#</th>
                                 <th> كود الإشارة </th>
+                                <th> اسم مستلم الإشارة </th>
                                 <th> نوع الإشارة </th>
                                 <th> اسم المهندس المعيين لهذة الاشار </th>
                                 <th> تاريخ الإستلام </th>
@@ -51,6 +52,9 @@
                                             <a href="{{action('ReferenceController@show', ['id'=>$reference->id])}}" target="_blank">
                                                 {{$reference->code}}
                                             </a>
+                                        </td>
+                                        <td>
+                                            {{$reference->employeeWhoReceiveTheRereference->user->name or ''}}
                                         </td>
                                         <td>
                                             {{$reference->type}}
@@ -94,11 +98,7 @@
                             $("#my-table-body").fadeOut();
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, reference) {
-								if(reference.assigned_employee.user.name){
-									newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('references')}}/"+reference.id+"'>"+reference.code+"</a></td><td>"+reference.type+"</td><td>"+reference.assigned_employee.user.name+"</td><td>"+reference.received_date+"</td></tr>"
-								}else{
-									newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('references')}}/"+reference.id+"'>"+reference.code+"</a></td><td>"+reference.type+"</td><td>"+reference.received_date+"</td></tr>"
-								}
+								newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('references')}}/"+reference.id+"'>"+reference.code+"</a></td><td>"+((reference.employee_who_receive_the_rereference)?((reference.employee_who_receive_the_rereference.user)?reference.employee_who_receive_the_rereference.user.name:''):'')+"</td><td>"+reference.type+"</td><td>"+((reference.assigned_employee)?((reference.assigned_employee.user)?reference.assigned_employee.user.name:''):'')+"</td><td>"+reference.received_date+"</td></tr>";
                             });
                             $("#my-table-body").append(newResult);
                             $("#my-table-body").fadeIn();

@@ -25,6 +25,7 @@ class ReferenceRequest extends FormRequest
     {
         return [
             'code'=>'required|unique:references,code,'.$this->reference,
+            'employee_id_who_receive_the_reference'=>'required',
             'type'=>'required',
             'received_date'=>'required|date',
         ];
@@ -34,6 +35,7 @@ class ReferenceRequest extends FormRequest
     {
         return [
             'code.required'=>' برجاء إدخال كود الإشارة. ',
+            'employee_id_who_receive_the_reference.required'=>' برجاء اختيار اسم مستلم الإشارة. ',
             'code.unique'=>' كود الإشارة تم إدخاله من قبل برجاء إدخال كود آخر. ',
             'type.required'=>' برجاء إدخال نوع الإشارة. ',
             'received_date.required'=>' برجاء إدخال تاريخ الإشارة. ',

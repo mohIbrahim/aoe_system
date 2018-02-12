@@ -60,4 +60,13 @@ class Employee extends Model
     {
         return $this->hasMany('App\Visit', 'the_employee_who_made_the_visit_id', 'id');
     }
+
+    /**
+    * The references that received by admins
+    *
+    **/
+    public function theReferencesThatReceived()
+    {
+        return $this->hasMany('App\Reference', 'employee_id_who_receive_the_reference', 'id');
+    }
 }

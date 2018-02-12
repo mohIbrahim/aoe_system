@@ -27,6 +27,9 @@ class CreateReferencesTable extends Migration
 
             $table->integer('employee_id')->unsigned()->nullable();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('set null');
+
+            $table->integer('employee_id_who_receive_the_reference')->unsigned()->nullable();
+            $table->foreign('employee_id_who_receive_the_reference')->references('id')->on('references')->onDelete('set null');
         });
     }
 

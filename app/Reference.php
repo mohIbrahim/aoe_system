@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reference extends Model
 {
     protected $table = 'references';
-    protected $fillable = ['code', 'notebook_number', 'type', 'received_date', 'malfunctions_type', 'works_done_on_the_machine', 'readings_of_printing_machine', 'comments', 'employee_id'];
+    protected $fillable = ['code', 'notebook_number', 'type', 'received_date', 'malfunctions_type', 'works_done_on_the_machine', 'readings_of_printing_machine', 'comments', 'employee_id', 'employee_id_who_receive_the_reference'];
     protected $dates = ['received_date'];
 
     public function setReceivedDateAttribute($date)
@@ -38,5 +38,10 @@ class Reference extends Model
     public function visits()
     {
         return $this->hasMany('App\Visit', 'reference_id', 'id');
+    }
+
+    public function employeeWhoReceiveTheRereference()
+    {
+        return $this->belongsTo('App\Employee', 'employee_id_who_receive_the_reference', 'id');
     }
 }

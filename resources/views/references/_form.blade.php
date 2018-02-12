@@ -4,6 +4,17 @@
 </div>
 
 <div class="form-group">
+    <label for="employee_id_who_receive_the_reference"> اسم مستلم الإشارة <span style="color:red">*</span></label>
+    <select class="form-control selectpicker" name="employee_id_who_receive_the_reference" data-live-search="true">
+        <?php $selectedEmployee = isset($reference->employee_id_who_receive_the_reference)? $reference->employee_id_who_receive_the_reference: '' ?>
+        <option value=""> اختر اسم مستلم الإشارة. </option>
+        @foreach($employeesNames as $employeeId=>$employeeName)
+            <option value="{{$employeeId}}" {{($selectedEmployee == $employeeId)? ('selected'):((old('employee_id_who_receive_the_reference')==$employeeId)?'selected':'')}} >{{$employeeName}}</option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
     <label for="notebook_number"> كود الدفــتر </label>
     <input type="text" class="form-control" id="notebook_number" name="notebook_number"  placeholder=" إدخل كود دفتر  الإشارة. " value="{{$reference->notebook_number or old('notebook_number')}}">
 </div>
