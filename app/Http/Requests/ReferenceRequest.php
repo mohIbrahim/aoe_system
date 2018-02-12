@@ -29,6 +29,7 @@ class ReferenceRequest extends FormRequest
             'type'=>'required',
             'received_date'=>'required|date',
             'printing_machine_id'=>'required',
+            'reference_as_pdf'=>'mimes:pdf',
         ];
     }
 
@@ -42,6 +43,7 @@ class ReferenceRequest extends FormRequest
             'received_date.required'=>' برجاء إدخال تاريخ الإشارة. ',
             'received_date.date'=>' برجاء إدخال تاريخ الإشارة بشكل صحيح. ',
             'printing_machine_id.required'=>' برجاء اختيار كود الآلة التصوير. ',
+            'reference_as_pdf.mimes'=>' برجاء اختيار صورة للإشارة بأمتداد PDF.',
         ];
     }
 }

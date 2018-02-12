@@ -11,7 +11,7 @@
                     </div>
                     <div class="panel-body">
                         @include('errors.list')
-                        <form class="" action="{{ action('ReferenceController@update', ['id'=>$reference->id]) }}" method="POST">
+                        <form class="" action="{{ action('ReferenceController@update', ['id'=>$reference->id]) }}" method="POST" enctype="multipart/form-data">
 							<input type="hidden" name="_method" value="PATCH">
                             {{ csrf_field() }}
                             @include('references._form')

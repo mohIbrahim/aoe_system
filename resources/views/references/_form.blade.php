@@ -76,6 +76,19 @@
 </div>
 
 <div class="form-group">
+    <label for="reference_as_pdf"> صورة للإشارة بأمتداد PDF </label>
+    <input type="file" class="form-control" id="reference_as_pdf" name="reference_as_pdf">
+        @if (isset($reference->softCopies) && $reference->softCopies->isNotEmpty())
+            <div class="breadcrumb">
+                <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small> حذف ملف الإشارة </small>
+                <a role="button" href="{{action('ReferenceController@removeReferenceFile', ['id'=>$reference->softCopies->first()->id])}}" class="btn btn-danger btn-xs">
+                    Delete
+                </a>
+            </div>
+        @endif
+</div>
+
+<div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$reference->comments or old('comments')}}</textarea>
 </div>

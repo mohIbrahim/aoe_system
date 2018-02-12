@@ -84,6 +84,14 @@
 									    <td>{{$reference->readings_of_printing_machine}}</td>
 								    </tr>
                                     <tr>
+									    <th> ملف الإشارة </th>
+									    <td>
+											@foreach ($reference->softCopies as $key => $projectImage)
+												<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank"> صورة الإشارة </a>
+											@endforeach
+										</td>
+								    </tr>
+                                    <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$reference->comments}}</td>
 								    </tr>

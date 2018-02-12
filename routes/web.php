@@ -63,6 +63,7 @@ Route::resource('role_user', 'RoleUserController');
 //References
     Route::resource('references', 'ReferenceController');
     Route::get('references_search/{keyword}', 'ReferenceController@search')->name('references_search');
+    Route::get('remove_the_reference_file/{project_image_id}', 'ReferenceController@removeReferenceFile')->name('remove_the_reference_file');
 //Indexations
     Route::resource('indexations', 'IndexationController');
     Route::get('indexations_search/{keyword}', 'IndexationController@search')->name('indexations_search');

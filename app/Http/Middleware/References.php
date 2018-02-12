@@ -61,6 +61,11 @@ class References
             $response = $next($request);
         }else
 
+        if($request->route()->getName() == 'remove_the_reference_file'    && in_array('update_references', $permissions)){
+
+            $response = $next($request);
+        }else
+
 		if($request->route()->getName() == 'references_search'    && in_array('view_references', $permissions)){
 
             $response = $next($request);
