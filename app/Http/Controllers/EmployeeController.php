@@ -7,6 +7,7 @@ use App\Http\Requests\EmployeeRequest;
 use App\AOE\JobTitle\JobTitle;
 use App\User;
 use App\Department;
+use App\PrintingMachine;
 
 
 class EmployeeController extends Controller
@@ -34,13 +35,15 @@ class EmployeeController extends Controller
         $usersNames = User::all()->pluck('name', 'id');
         $managedDepartmentsIdsNames = Department::all()->pluck('name', 'id');
         $departmentsIdsNames = Department::all()->pluck('name', 'id');
-        return view('employees.create', compact('jobsTitles', 'usersNames', 'managedDepartmentsIdsNames', 'departmentsIdsNames'));
+        $printingMachinesIdsCodes = PrintingMachine::all()->pluck('code', 'id');
+        return view('employees.create', compact('jobsTitles', 'usersNames', 'managedDepartmentsIdsNames', 'departmentsIdsNames', 'printingMachinesIdsCodes'));
     }
 
 
     public function store(EmployeeRequest $request)
     {
         $employee = $this->employee->create($request->all());
+        $employee->assignedPrintingMachines()->attach($request->assigned_machines_ids);
         flash()->success(' تم إضافة الموظف بنجاح. ')->important();
         return redirect()->action('EmployeeController@show', ['id'=>$employee->id]);
     }
@@ -61,14 +64,16 @@ class EmployeeController extends Controller
         $usersNames = User::all()->pluck('name', 'id');
         $managedDepartmentsIdsNames = Department::all()->pluck('name', 'id');
         $departmentsIdsNames = Department::all()->pluck('name', 'id');
+        $printingMachinesIdsCodes = PrintingMachine::all()->pluck('code', 'id');
 
-        return view('employees.edit', compact('employee', 'jobsTitles', 'usersNames', 'managedDepartmentsIdsNames', 'departmentsIdsNames'));
+        return view('employees.edit', compact('employee', 'jobsTitles', 'usersNames', 'managedDepartmentsIdsNames', 'departmentsIdsNames', 'printingMachinesIdsCodes'));
     }
 
 
     public function update(EmployeeRequest $request, $id)
     {
         $employee = $this->employee->update($id, $request->all());
+        $employee->assignedPrintingMachines()->sync($request->assigned_machines_ids);
         flash()->success(' تم تعديل الموظف بنجاح. ')->important();
         return redirect()->action('EmployeeController@show', ['id'=>$id]);
     }

@@ -50,4 +50,9 @@ class PrintingMachine extends Model
     {
         return $this->hasMany('App\Reference', 'printing_machine_id', 'id');
     }
+
+    public function assignedEmployees()
+    {
+        return $this->belongsToMany('App\Employee', 'emp_mach_assignments');
+    }
 }

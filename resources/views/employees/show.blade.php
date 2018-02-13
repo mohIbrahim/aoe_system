@@ -72,6 +72,19 @@
 								    </tr>
 
                                     <tr>
+                                        <th>
+                                            الآلات التصوير المعينه لهذا الموظف
+                                        </th>
+                                        <td>
+                                            @foreach ($employee->assignedPrintingMachines as $key => $machine)
+                                                <a href="{{action('PrintingMachineController@show', ['id'=>$machine->id])}}">
+                                                    <span class="label label-default">{{$machine->code}}</span>
+                                                </a>
+                                            @endforeach
+                                        </td>
+                                    </tr>
+
+                                    <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$employee->comments}}</td>
 								    </tr>

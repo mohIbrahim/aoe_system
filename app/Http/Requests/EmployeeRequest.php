@@ -24,7 +24,7 @@ class EmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id'=>'required',
+            'user_id'=>'required|unique:employees,user_id,'.$this->employee,
             'job_title'=>'required',
             'date_of_hiring'=>'date|nullable',
             'salary'=>'numeric|nullable',
@@ -35,6 +35,7 @@ class EmployeeRequest extends FormRequest
     {
         return [
             'user_id.required'=>' برجاء اختيار اسم الموظف. ',
+            'user_id.unique'=>' اسم الموظف تم اختياره من قبل برجاء اختيار اسم آخر. ',
             'job_title.required'=>' برجاء اختيار المسمى الوظيفي. ',
             'date_of_hiring.date'=>' برجاء إدخال تاريخ التعيين بشكل صحيح. ',
             'salary.numeric'=>' برجاء إدخال الراتب بشكل صحيح. ',

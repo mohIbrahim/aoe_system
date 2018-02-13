@@ -62,6 +62,41 @@
     <input type="text" class="form-control" id="salary" name="salary"  placeholder=" إدخل قيمة راتب الموظف. " value="{{$employee->salary or old('salary')}}">
 </div>
 
+<div class="panel panel-primary">
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="assigned_machines_ids"> كود الآلات التصوير المعينة لهذا الموظف </label>
+            <p>
+                <small style="color:red">
+                     في حالة أن هذا الموظف احد مهندسي الصيانة يتم تعين الآلات التصوير لهم.
+                </small>
+            </p>
+            <select class="form-control selectpicker" name="assigned_machines_ids[]" data-live-search="true" multiple>
+              <option value="" disabled> اختر اكود الآلات التصوير.  </option>
+                <?php $selecteMachinesIds = isset($employee->assignedPrintingMachines)? $employee->assignedPrintingMachines->pluck('id')->toArray():[] ;?>
+
+
+                @if(!empty(old('assigned_machines_ids')))
+
+                    @foreach ($printingMachinesIdsCodes as $machineId => $machineCode)
+                        <option value="{{$machineId}}" {{(in_array($machineId, old('assigned_machines_ids')))? 'selected' : ''}}> {{$machineCode}} </option>
+                    @endforeach
+
+                @elseif(!empty($selecteMachinesIds))
+                    @foreach ($printingMachinesIdsCodes as $machineId => $machineCode)
+                        <option value="{{$machineId}}" {{(in_array($machineId, $selecteMachinesIds))? 'selected' : ''}}> {{$machineCode}} </option>
+                    @endforeach
+                @else
+                    @foreach ($printingMachinesIdsCodes as $machineId => $machineCode)
+                        <option value="{{$machineId}}"> {{$machineCode}} </option>
+                    @endforeach
+                @endif
+
+            </select>
+        </div>
+    </div>
+</div>
+
 <div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$employee->comments or old('comments')}}</textarea>

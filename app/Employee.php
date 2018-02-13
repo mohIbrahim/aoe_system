@@ -69,4 +69,9 @@ class Employee extends Model
     {
         return $this->hasMany('App\Reference', 'employee_id_who_receive_the_reference', 'id');
     }
+
+    public function assignedPrintingMachines()
+    {
+        return $this->belongsToMany('App\PrintingMachine', 'emp_mach_assignments');
+    }
 }

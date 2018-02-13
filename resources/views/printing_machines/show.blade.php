@@ -151,6 +151,19 @@
                                             </tr>
 
                                             <tr>
+                                                <th>
+                                                        اسماء الموظفين المعينين لهذة الآلة
+                                                </th>
+                                                <td>
+                                                    @foreach ($printingMachine->assignedEmployees as $key => $employee)
+                                                        <a href="{{action('EmployeeController@show', ['id'=>$employee->id])}}">
+                                                            <span class="label label-default">{{$employee->user->name or ''}}</span>
+                                                        </a>
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+
+                                            <tr>
                                                 <th> الملاحظات </th>
                                                 <td>{{$printingMachine->comments}}</td>
                                             </tr>
