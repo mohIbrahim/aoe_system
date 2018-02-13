@@ -6,6 +6,7 @@ use App\AOE\Repositories\Indexation\IndexationInterface;
 use App\Http\Requests\IndexationRequest;
 use App\Reference;
 use App\Visit;
+use App\ProjectImages;
 
 
 class IndexationController extends Controller
@@ -36,6 +37,9 @@ class IndexationController extends Controller
     public function store(IndexationRequest $request)
     {
         $indexation = $this->indexation->create($request->all());
+
+        $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'indexation_as_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
+
         flash()->success(' تم إضافة المقايسة بنجاح. ')->important();
         return redirect()->action('IndexationController@show', ['id'=>$indexation->id]);
     }
@@ -60,6 +64,15 @@ class IndexationController extends Controller
     public function update(IndexationRequest $request, $id)
     {
         $indexation = $this->indexation->update($id, $request->all());
+
+        if ($request->hasFile('indexation_as_pdf')) {
+            $projectImage = new ProjectImages();
+            if (isset($indexation->softCopies) && $indexation->softCopies->isNotEmpty()) {
+                $projectImage->deleteOneProjectImage($indexation->softCopies->first()->id);
+            }
+            $isUploaded = $projectImage->receiveAndCreat($request, 'indexation_as_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
+        }
+
         flash()->success(' تم تعديل المقايسة بنجاح. ')->important();
         return redirect()->action('IndexationController@show', ['id'=>$id]);
     }
@@ -67,7 +80,15 @@ class IndexationController extends Controller
 
     public function destroy($id)
     {
+        $indexation = $this->indexation->getById($id);
+
+        if (isset($indexation->softCopies) && $indexation->softCopies->isNotEmpty()) {
+            $projectImage = new ProjectImages();
+            $projectImage->deleteOneProjectImage($indexation->softCopies->first()->id);
+        }
+
         $isDeleted = $this->indexation->delete($id);
+
         flash()->success(' تم حذف المقايسة بنجاح. ')->important();
         return redirect()->action('IndexationController@index');
     }
@@ -75,5 +96,11 @@ class IndexationController extends Controller
     public function search($keyword)
     {
         return $this->indexation->search($keyword);
+    }
+
+    public function removeIndexationFile($projectImageId)
+    {
+        $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
+        return back()->withInput();
     }
 }

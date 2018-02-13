@@ -69,4 +69,9 @@ class Indexation extends Model
         return $this->hasOne('App\Invoice', 'indexation_id');
     }
 
+    public function softCopies()
+    {
+        return $this->morphMany('App\ProjectImages', 'imageable');
+    }
+
 }

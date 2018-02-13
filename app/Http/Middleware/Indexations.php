@@ -61,6 +61,11 @@ class Indexations
             $response = $next($request);
         }else
 
+        if($request->route()->getName() == 'remove_the_indexation_file'    && in_array('update_indexations', $permissions)){
+
+            $response = $next($request);
+        }else
+
 		if($request->route()->getName() == 'indexations_search'    && in_array('view_indexations', $permissions)){
 
             $response = $next($request);

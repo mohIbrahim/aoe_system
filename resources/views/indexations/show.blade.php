@@ -76,6 +76,14 @@
                                             </td>
 								    </tr>
                                     <tr>
+									    <th> صورة المقايسة </th>
+									    <td>
+											@foreach ($indexation->softCopies as $key => $projectImage)
+												<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank"> صورة المقايسة </a>
+											@endforeach
+										</td>
+								    </tr>
+                                    <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$indexation->comments}}</td>
 								    </tr>

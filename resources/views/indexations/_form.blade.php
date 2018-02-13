@@ -64,6 +64,19 @@
 </div>
 
 <div class="form-group">
+    <label for="indexation_as_pdf"> صورة المقايسة بأمتداد PDF </label>
+    <input type="file" class="form-control" id="indexation_as_pdf" name="indexation_as_pdf">
+        @if (isset($indexation->softCopies) && $indexation->softCopies->isNotEmpty())
+            <div class="breadcrumb">
+                <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small> حذف ملف المقايسة </small>
+                <a role="button" href="{{action('IndexationController@removeIndexationFile', ['id'=>$indexation->softCopies->first()->id])}}" class="btn btn-danger btn-xs">
+                    Delete
+                </a>
+            </div>
+        @endif
+</div>
+
+<div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$indexation->comments or old('comments')}}</textarea>
 </div>

@@ -28,6 +28,7 @@ class IndexationRequest extends FormRequest
             'the_date'=>'required|date',
             'reference_id'=>'nullable|unique:indexations,reference_id,'.$this->indexation,
             'visit_id'=>'required|unique:indexations,visit_id,'.$this->indexation,
+            'indexation_as_pdf'=>'mimes:pdf',
         ];
     }
 
@@ -42,6 +43,7 @@ class IndexationRequest extends FormRequest
             'reference_id.unique'=>'  كود الإشارة تم اختياره من قبل برجاء اختيار كود آخر. ',
             'visit_id.required'=>' برجاء اختيار رقم الزيارة. ',
             'visit_id.unique'=>'  رقم الزيارة تم اختياره من قبل برجاء اختيار رقم آخر. ',
+            'indexation_as_pdf.mimes'=> ' برجاء اختيار صورة المقايسة بأمتداد pdf. ',
         ];
     }
 }

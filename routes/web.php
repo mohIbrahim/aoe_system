@@ -67,6 +67,7 @@ Route::resource('role_user', 'RoleUserController');
 //Indexations
     Route::resource('indexations', 'IndexationController');
     Route::get('indexations_search/{keyword}', 'IndexationController@search')->name('indexations_search');
+    Route::get('remove_the_indexation_file/{project_image_id}', 'IndexationController@removeIndexationFile')->name('remove_the_indexation_file');
 //Employees
     Route::resource('employees', 'EmployeeController');
     Route::get('employees_search/{keyword}', 'EmployeeController@search')->name('employees_search');
