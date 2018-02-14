@@ -72,6 +72,6 @@ class Employee extends Model
 
     public function assignedPrintingMachines()
     {
-        return $this->belongsToMany('App\PrintingMachine', 'emp_mach_assignments');
+        return $this->belongsToMany('App\PrintingMachine', 'emp_mach_assignments')->withTimestamps();
     }
 }

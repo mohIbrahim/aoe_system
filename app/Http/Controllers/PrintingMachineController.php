@@ -25,7 +25,7 @@ class PrintingMachineController extends Controller
      */
     public function index()
     {
-		$printingMachines = $this->printingMachine->latest()->paginate(1);
+		$printingMachines = $this->printingMachine->latest()->paginate(25);
 		return view('printing_machines.index', compact('printingMachines'));
     }
 
