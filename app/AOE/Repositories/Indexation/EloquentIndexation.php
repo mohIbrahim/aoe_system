@@ -3,6 +3,7 @@
 namespace App\AOE\Repositories\Indexation;
 
 use App\Indexation;
+use App\Part;
 
 class EloquentIndexation implements IndexationInterface
 {
@@ -60,6 +61,13 @@ class EloquentIndexation implements IndexationInterface
                                 ->orWhereHas('reference', function($query) use($keyword){
                                     $query->where('code', 'like', '%'.$keyword.'%');
                                 })
+                                ->get();
+        return $results;
+    }
+
+    public function searchFormPart($keyword)
+    {
+        $results = Part::where('name', 'like', '%'.$keyword.'%')
                                 ->get();
         return $results;
     }

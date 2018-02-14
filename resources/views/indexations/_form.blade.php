@@ -1,3 +1,64 @@
+<div class="panel panel-primary">
+    <div class="panel-body">
+
+        <div class="form-group form-inline">
+            <label for=""> ابحث عن القطعة </label>
+            <input type="text" class="form-control" id="search-input" placeholder="">
+            <button type="button" class="btn btn-primary" id="search-button"> بحث </button>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th> اسم القطعة </th>
+                                <th> اضافة </th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-table-body">
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th> # </th>
+                                <th> اسم القطعة </th>
+                                <th> العداد </th>
+                                <th> السعر القطعة </th>
+                                <th> حذف </th>
+                            </tr>
+                        </thead>
+                        <tbody id="selected-parts-table-body">
+                            <tr>
+                                <td>1</td>
+                                <td> zzzdfasdf </td>
+
+                                <td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='part_count[]'></div><input type='hidden' class='form-control' placeholder=' ادخل عدد القطع ' name='part_id[]'></div></td><td>price</td><td><button   type='button' class='btn btn-danger btn-xs'> حذف </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
 <div class="form-group">
     <label for="code"> كود المقايسة <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود المقايسة. " value="{{$indexation->code or old('code')}}">
@@ -101,4 +162,36 @@
     <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
 {{-- bootstrap-select --}}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#search-button").on('click', function(){
+            var keyword = $('#search-input').val();
+            var selectedPartsTableIndex = 1;
+            if (keyword) {
+                $.ajax({
+                    type:"GET",
+                    url:"{{url('indexation_form_part_search')}}/"+keyword,
+                    dataType:"JSON",
+                    success:function(results){
+                        if (results) {
+                            var resultTableBody = $('#results-table-body').empty();
+                            $.each(results, function(key, part){
+                                resultTableBody.append("<tr><td>"+part.name+"</td><td><button type='button' class='btn btn-success btn-xs part-add-button' data-part-id='"+part.id+"' data-part-name='"+part.name+" data-part-price='"+part.price_with_tax+"' '> اضف </button></td></tr>");
+                            });
+                            $(".part-add-button").on("click", function(){
+                                var addButton = $(".part-add-button");
+                                $("#selected-parts-table-body").append("<tr><td>"+selectedPartsTableIndex+"</td><td>"+addButton.attr('data-part-name')+"</td></tr>");
+                                selectedPartsTableIndex++;
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+    });
+</script>
 @endsection

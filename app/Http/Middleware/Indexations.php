@@ -69,7 +69,13 @@ class Indexations
 		if($request->route()->getName() == 'indexations_search'    && in_array('view_indexations', $permissions)){
 
             $response = $next($request);
-        }else{
+        }else
+
+		if($request->route()->getName() == 'indexation_form_part_search'    && in_array('create_indexations', $permissions)){
+
+            $response = $next($request);
+        }
+        else{
             abort(403);
         }
 

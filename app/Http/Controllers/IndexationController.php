@@ -98,9 +98,15 @@ class IndexationController extends Controller
         return $this->indexation->search($keyword);
     }
 
+    public function indexationFormPartSearch($keyword)
+    {
+        return $this->indexation->searchFormPart($keyword);
+    }
+
     public function removeIndexationFile($projectImageId)
     {
         $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
         return back()->withInput();
     }
+
 }

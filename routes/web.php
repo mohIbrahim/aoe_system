@@ -46,7 +46,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::resource('contracts', 'ContractController');
     Route::get('contracts_search/{keyword}', 'ContractController@search')->name('contracts_search');
     Route::get('remove_the_contract_file/{project_image_id}', 'ContractController@removeContractFile')->name('remove_the_contract_file');
-//invoices
+//Invoices
     Route::resource('invoices', 'InvoiceController');
     Route::get('invoices_search/{keyword}', 'InvoiceController@search')->name('invoices_search');
     Route::get('remove_the_invoice_file/{project_image_id}', 'InvoiceController@removeInvoiceFile')->name('remove_the_invoice_file');
@@ -68,6 +68,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::resource('indexations', 'IndexationController');
     Route::get('indexations_search/{keyword}', 'IndexationController@search')->name('indexations_search');
     Route::get('remove_the_indexation_file/{project_image_id}', 'IndexationController@removeIndexationFile')->name('remove_the_indexation_file');
+    Route::get('indexation_form_part_search/{keyword}', 'IndexationController@indexationFormPartSearch')->name('indexation_form_part_search');
 //Employees
     Route::resource('employees', 'EmployeeController');
     Route::get('employees_search/{keyword}', 'EmployeeController@search')->name('employees_search');
