@@ -1,14 +1,15 @@
 <div class="panel panel-primary">
     <div class="panel-body">
-
-        <div class="form-group form-inline">
-            <label for=""> ابحث عن القطعة </label>
-            <input type="text" class="form-control" id="search-input" placeholder="">
-            <button type="button" class="btn btn-primary" id="search-button"> بحث </button>
-        </div>
-
+        <h2> إضافة قطع غيار للمقايسة </h2>
         <div class="panel panel-default">
             <div class="panel-body">
+                <h3> البحث عن القطع </h3>
+                <hr>
+                <div class="form-group form-inline">
+                    <label for=""> ادخل اسم القطعة </label>
+                    <input type="text" class="form-control" id="search-input" placeholder="">
+                    <button type="button" class="btn btn-primary" id="search-button"> بحث </button>
+                </div>
 
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -29,13 +30,14 @@
 
         <div class="panel panel-default">
             <div class="panel-body">
-
+                <h3> القطع المختارة </h3>
+                <hr>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th> # </th>
                                 <th> اسم القطعة </th>
+                                <th> الرقم المسلسل للقطعة </th>
                                 <th> العداد </th>
                                 <th> السعر القطعة </th>
                                 <th> حذف </th>
@@ -43,10 +45,24 @@
                         </thead>
                         <tbody id="selected-parts-table-body">
                             <tr>
-                                <td>1</td>
-                                <td> zzzdfasdf </td>
-
-                                <td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='part_count[]'></div><input type='hidden' class='form-control' placeholder=' ادخل عدد القطع ' name='part_id[]'></div></td><td>price</td><td><button   type='button' class='btn btn-danger btn-xs'> حذف </button></td>
+                                <td>part name</td>
+                                <td>
+                                    <div class='input-group'>
+                                        <input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group'>
+                                        <input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value="1">
+                                        <input type='hidden' class='form-control' name='parts_ids[]' value="value">
+                                    </div>
+                                </td>
+                                <td>
+                                    price
+                                </td>
+                                <td>
+                                    <button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -167,7 +183,7 @@
     $(document).ready(function(){
         $("#search-button").on('click', function(){
             var keyword = $('#search-input').val();
-            var selectedPartsTableIndex = 1;
+
             if (keyword) {
                 $.ajax({
                     type:"GET",
@@ -177,19 +193,31 @@
                         if (results) {
                             var resultTableBody = $('#results-table-body').empty();
                             $.each(results, function(key, part){
-                                resultTableBody.append("<tr><td>"+part.name+"</td><td><button type='button' class='btn btn-success btn-xs part-add-button' data-part-id='"+part.id+"' data-part-name='"+part.name+" data-part-price='"+part.price_with_tax+"' '> اضف </button></td></tr>");
+                                resultTableBody.append("<tr><td>"+part.name+"</td><td><button type='button' class='btn btn-success btn-xs part-add-button' data-part-id='"+part.id+"' data-part-name='"+part.name+" ' data-part-price='"+part.price_with_tax+"' '> اضف </button></td></tr>");
                             });
+
                             $(".part-add-button").on("click", function(){
-                                var addButton = $(".part-add-button");
-                                $("#selected-parts-table-body").append("<tr><td>"+selectedPartsTableIndex+"</td><td>"+addButton.attr('data-part-name')+"</td></tr>");
-                                selectedPartsTableIndex++;
+                                var addButton = $(this);
+                                $("#selected-parts-table-body").append("<tr><td>"+addButton.attr('data-part-name')+"</td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='"+addButton.attr('data-part-id')+"'></div></td><td>"+addButton.attr('data-part-price')+"</td><td><button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button></td></tr>");
+                                addButton.parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
+
+
+
+
+                                $('.delete-part-button').on('click', function(){
+                                    $(this).parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
+                                });
                             });
+
+
                         }
                     }
                 });
             }
         });
-
+        $('.delete-part-button').on('click', function(){
+            $(this).parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
+        });
 
 
     });

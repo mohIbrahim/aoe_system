@@ -74,4 +74,9 @@ class Indexation extends Model
         return $this->morphMany('App\ProjectImages', 'imageable');
     }
 
+    public function parts()
+    {
+        return $this->belongsToMany('App\Part', 'indexation_part')->withTimestamps();
+    }
+
 }

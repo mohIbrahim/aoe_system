@@ -36,9 +36,12 @@ class IndexationController extends Controller
 
     public function store(IndexationRequest $request)
     {
+        dd($request->parts_serial_numbers);
+
         $indexation = $this->indexation->create($request->all());
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'indexation_as_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
+
 
         flash()->success(' تم إضافة المقايسة بنجاح. ')->important();
         return redirect()->action('IndexationController@show', ['id'=>$indexation->id]);

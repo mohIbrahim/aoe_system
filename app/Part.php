@@ -26,4 +26,9 @@ class Part extends Model
         return $this->partSerialNumbers()->count();
     }
 
+    public function indexations()
+    {
+        return $this->belongsToMany('App\Indexation', 'indexation_part')->withTimestamps();
+    }
+
 }
