@@ -6,14 +6,12 @@
 			<span class="caret"></span>
 		</a>
 		@endif
-
 		<ul class="dropdown-menu">
 			@if(in_array('view_users', $permissions))
 				<li class="dropdown-header">Users</li>
 				<li><a href="{{ action('UserController@index') }}">Show All Users</a></li>
 				<li role="separator" class="divider"></li>
 			@endif
-
 			@if(in_array("view_roles", $permissions))
 				<li class="dropdown-header">Roles</li>
 
@@ -27,8 +25,6 @@
 
 				<li role="separator" class="divider"></li>
 			@endif
-
-
 			@if(in_array('view_permissions', $permissions))
 				<li class="dropdown-header">Permissions</li>
 				@if(in_array('create_permissions', $permissions))

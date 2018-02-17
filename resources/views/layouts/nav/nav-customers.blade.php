@@ -6,7 +6,6 @@
 			<span class="caret"></span>
 		</a>
 		@endif
-
 		<ul class="dropdown-menu">
 			@if(in_array('view_customers', $permissions))
 				<li class="dropdown-header"> العملاء </li>
@@ -14,7 +13,6 @@
 				@if(in_array('create_customers', $permissions))
 					<li><a href="{{ action('CustomerController@create') }}"> إضافة عميل جديد </a></li>
 				@endif
-				<li role="separator" class="divider"></li>
 			@endif
 		</ul>
 	</li>
