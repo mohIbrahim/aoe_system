@@ -76,7 +76,7 @@ class Indexation extends Model
 
     public function parts()
     {
-        return $this->belongsToMany('App\Part', 'indexation_part')->withTimestamps();
+        return $this->belongsToMany('App\Part', 'indexation_part')->withTimestamps()->withPivot('price', 'serial_number', 'number_of_parts');
     }
 
 }

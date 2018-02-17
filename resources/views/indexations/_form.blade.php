@@ -1,78 +1,3 @@
-<div class="panel panel-primary">
-    <div class="panel-body">
-        <h2> إضافة قطع غيار للمقايسة </h2>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h3> البحث عن القطع </h3>
-                <hr>
-                <div class="form-group form-inline">
-                    <label for=""> ادخل اسم القطعة </label>
-                    <input type="text" class="form-control" id="search-input" placeholder="">
-                    <button type="button" class="btn btn-primary" id="search-button"> بحث </button>
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th> اسم القطعة </th>
-                                <th> اضافة </th>
-                            </tr>
-                        </thead>
-                        <tbody id="results-table-body">
-
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h3> القطع المختارة </h3>
-                <hr>
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th> اسم القطعة </th>
-                                <th> الرقم المسلسل للقطعة </th>
-                                <th> العداد </th>
-                                <th> السعر القطعة </th>
-                                <th> حذف </th>
-                            </tr>
-                        </thead>
-                        <tbody id="selected-parts-table-body">
-                            <tr>
-                                <td>part name</td>
-                                <td>
-                                    <div class='input-group'>
-                                        <input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class='input-group'>
-                                        <input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value="1">
-                                        <input type='hidden' class='form-control' name='parts_ids[]' value="value">
-                                    </div>
-                                </td>
-                                <td>
-                                    price
-                                </td>
-                                <td>
-                                    <button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-</div>
 
 
 <div class="form-group">
@@ -153,6 +78,89 @@
         @endif
 </div>
 
+<div class="panel panel-primary">
+    <div class="panel-body">
+        <h2> إضافة قطع غيار للمقايسة </h2>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3> البحث عن القطع </h3>
+                <hr>
+                <div class="form-group form-inline">
+                    <label for=""> ادخل اسم القطعة </label>
+                    <input type="text" class="form-control" id="search-input" placeholder="">
+                    <button type="button" class="btn btn-primary" id="search-button"> بحث </button>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th> اسم القطعة </th>
+                                <th> اضافة </th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-table-body">
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3> القطع المختارة </h3>
+                <hr>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th> اسم القطعة </th>
+                                <th> الرقم المسلسل للقطعة </th>
+                                <th> العداد </th>
+                                <th> السعر القطعة </th>
+                                <th> حذف </th>
+                            </tr>
+                        </thead>
+                        <tbody id="selected-parts-table-body">
+
+                            @if(isset($parts))
+                                @foreach ($parts as $i => $part)
+
+                                    <tr>
+                                        <td>{{$part->name}}</td>
+                                        <td>
+                                            <div class='input-group'>
+                                                <input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]' value="{{$part->pivot->serial_number or ''}}">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class='input-group'>
+                                                <input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value="{{$part->pivot->number_of_parts or 1}}">
+                                                <input type='hidden' class='form-control' name='parts_ids[]' value="{{$part->id or ''}}">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{$part->pivot->price or ''}}
+                                            <input type='hidden' class='form-control' name='parts_prices[]' value="{{$part->pivot->price or ''}}">
+                                        </td>
+                                        <td>
+                                            <button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$indexation->comments or old('comments')}}</textarea>
@@ -198,7 +206,7 @@
 
                             $(".part-add-button").on("click", function(){
                                 var addButton = $(this);
-                                $("#selected-parts-table-body").append("<tr><td>"+addButton.attr('data-part-name')+"</td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='"+addButton.attr('data-part-id')+"'></div></td><td>"+addButton.attr('data-part-price')+"</td><td><button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button></td></tr>");
+                                $("#selected-parts-table-body").append("<tr><td>"+addButton.attr('data-part-name')+"</td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='"+addButton.attr('data-part-id')+"'></div></td><td>"+addButton.attr('data-part-price')+"<input type='hidden' class='form-control' name='parts_prices[]' value='"+addButton.attr('data-part-price')+"'></td><td><button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button></td></tr>");
                                 addButton.parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
 
 

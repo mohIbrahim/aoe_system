@@ -52,6 +52,7 @@
                                                     <tr>
                                                         <th> نوع الفاتورة </th>
                                                         <th> الكود </th>
+                                                        <th> الإجمالي </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -68,6 +69,25 @@
                                                                {{$invoice->indexation->code or ''}}
                                                             </a>
                                                         </td>
+
+														<td>
+															@if($invoice->type == 'تعاقد')
+																{{$invoice->contract->total_price or '0'}}
+															@endif
+															{{-- or --}}
+															<?php
+																$totalPartsPrice = 0;
+																if ($invoice->indexation) {
+																	if ($invoice->indexation->parts) {
+																		foreach ($invoice->indexation->parts as $part) {
+																			$totalPartsPrice += (isset($part->pivot)?$part->pivot->price:0) * (isset($part->pivot)?$part->pivot->number_of_parts:0);
+																		}
+																	}
+																}
+															?>
+															{{($invoice->type == 'مقايسة')?$totalPartsPrice:''}}
+														جنية
+														</td>
 
                                                     </tr>
                                                 </tbody>

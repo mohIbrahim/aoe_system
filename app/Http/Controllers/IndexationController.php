@@ -36,12 +36,19 @@ class IndexationController extends Controller
 
     public function store(IndexationRequest $request)
     {
-        dd($request->parts_serial_numbers);
-
         $indexation = $this->indexation->create($request->all());
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'indexation_as_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
 
+        $partsIds = $request->parts_ids;
+        $partsPrices = $request->parts_prices;
+        $partsSerial = $request->parts_serial_numbers;
+        $partcount  = $request->parts_count;
+        for ($i=0; $i < count($partsIds); $i++) {
+            $indexation->parts()->attach([
+                $partsIds[$i]=>['price'=>$partsPrices[$i], 'serial_number'=>$partsSerial[$i], 'number_of_parts'=>$partcount[$i]],
+            ]);
+        }
 
         flash()->success(' تم إضافة المقايسة بنجاح. ')->important();
         return redirect()->action('IndexationController@show', ['id'=>$indexation->id]);
@@ -60,7 +67,8 @@ class IndexationController extends Controller
         $indexation = $this->indexation->getById($id);
         $referencesIds = Reference::all()->pluck('code', 'id');
         $visitsIds = Visit::all()->pluck('id', 'id');
-        return view('indexations.edit', compact('indexation', 'referencesIds', 'visitsIds'));
+        $parts = $indexation->parts;
+        return view('indexations.edit', compact('indexation', 'referencesIds', 'visitsIds', 'parts'));
     }
 
 
@@ -74,6 +82,17 @@ class IndexationController extends Controller
                 $projectImage->deleteOneProjectImage($indexation->softCopies->first()->id);
             }
             $isUploaded = $projectImage->receiveAndCreat($request, 'indexation_as_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
+        }
+
+        $indexation->parts()->detach();
+        $partsIds = $request->parts_ids;
+        $partsPrices = $request->parts_prices;
+        $partsSerial = $request->parts_serial_numbers;
+        $partcount  = $request->parts_count;
+        for ($i=0; $i < count($partsIds); $i++) {
+            $indexation->parts()->attach([
+                $partsIds[$i]=>['price'=>$partsPrices[$i], 'serial_number'=>$partsSerial[$i], 'number_of_parts'=>$partcount[$i]],
+            ]);
         }
 
         flash()->success(' تم تعديل المقايسة بنجاح. ')->important();
