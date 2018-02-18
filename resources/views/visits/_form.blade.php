@@ -40,9 +40,42 @@
             @endforeach
         </select>
     </div>
+</div>
 
 
 
+
+
+
+
+
+
+
+
+
+<div class="form-group form-inline">
+  <label for="printing_machine_id"> كود الآلة التصوير:  </label>
+  <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id" placeholder="">
+  <button type="button" class="btn btn-default" id="printing-machine-search-btn"> ابحث </button>
+  <spna id="printing-machine-search-p">  </spna>
+  <table class="table table-hover">
+           <thead>
+              <tr>
+                  <th> كود الآلة </th>
+                  <th> اسم العميل </th>
+                  <th> اختيار </th>
+              </tr>
+           </thead>
+           <tbody  id="results-table-body">
+              <tr>
+                  <td>28820</td>
+                  <td>Mohammed</td>
+                  <td>
+                      <button type='button' class='btn btn-success btn-xs select-printing-machine' data-printing-machine-id='22' data-printing-machine-code='87338c'> اختيار هذة الآلة </button>
+                  </td>
+              </tr>
+           </tbody>
+  </table>
 </div>
 
 <div class="form-group">
@@ -151,5 +184,35 @@ $('.select2').select2();
 });
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#printing-machine-search-btn").on("click", function(){
+            var keyword = $("#printing-machine-id").val();
+            $("#printing-machine-search-p").text("");
+            $("#results-table-body ").children().remove();
+            var resultsTableBody = '';
+            if(keyword){
+                $.ajax({
+                    type:"GET",
+                    url:"{{url('visits_pm_search')}}/"+keyword,
+                    dataType:"json",
+                    success:function(results){
+                        $.each(results, function(key, machine){
+                            resultsTableBody += "<tr><td>"+machine.code+"</td><td>"+machine.customer.name+"</td><td><button type='button' class='btn btn-success btn-xs select-printing-machine' data-printing-machine-id='"+machine.id+"' data-printing-machine-code='"+machine.code+"'> اختيار هذة الآلة </button></td></tr>";
+                        });
+                        $("#results-table-body").append(resultsTableBody);
+                        $(".select-printing-machine").on("click", function(){
+                            printingMachineCode = $(this).attr('data-printing-machine-code');
+                            printingMachineId = $(this).attr('data-printing-machine-id');
+                            $("#printing-machine-id").val(printingMachineId);
+                        });
+                    },
+                });
+            }else{
+                $("#printing-machine-search-p").text(" برجاء إدخال قيمة ").css('color','red');
+            }
+        });
+    });
+</script>
 
 @endsection

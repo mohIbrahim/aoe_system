@@ -8,6 +8,7 @@ use App\PrintingMachine;
 use App\FollowUpCard;
 use App\Employee;
 use App\Reference;
+use \App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
 
 class VisitController extends Controller
 {
@@ -114,5 +115,11 @@ class VisitController extends Controller
     public function search($keyword)
     {
         return $this->visit->search($keyword);
+    }
+
+    public function searchingOnPrintingMachine($keyword)
+    {
+        $abc = new EloquentPrintingMachine(new PrintingMachine());
+        return $abc->searchLimitedCodeCustomer($keyword);
     }
 }
