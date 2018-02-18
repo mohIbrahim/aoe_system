@@ -47,7 +47,7 @@
 
 <div class="form-group">
     <label for="printing_machine_id"> كود الآلة التصوير <span style="color:red">*</span></label>
-    <select class="form-control selectpicker" name="printing_machine_id" data-live-search="true">
+    <select class="form-control select2" name="printing_machine_id" data-live-search="true">
         <?php $selectedPrintingMachineId = isset($visit->printing_machine_id)? $visit->printing_machine_id:'' ;?>
         <option value=""> اختر كود الآلة التصوير.  </option>
         @foreach ($printingMachineIdsCodes as $id => $code)
@@ -91,23 +91,30 @@
     حفظ
 </button>
 @section('head')
-{{-- datePicker --}}
-    <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
-{{-- datePicker --}}
-{{-- bootstrap-select --}}
-    <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
-{{-- bootstrap-select --}}
+    {{-- datePicker --}}
+        <link rel="stylesheet" href="{{asset('css/datepicker/jquery-ui.min.css')}}">
+    {{-- datePicker --}}
+    {{-- bootstrap-select --}}
+        <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
+    {{-- bootstrap-select --}}
+
+    {{-- select2 --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    {{-- select2 --}}
 @endsection
 @section('js_footer')
-{{-- datePicker --}}
-    <script src="{{asset('js/datepicker/jquery-ui.min.js')}}" charset="utf-8"></script>
-    <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
-{{-- datePicker --}}
-{{-- bootstrap-select --}}
-    <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
-    <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
-{{-- bootstrap-select --}}
+    {{-- datePicker --}}
+        <script src="{{asset('js/datepicker/jquery-ui.min.js')}}" charset="utf-8"></script>
+        <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
+    {{-- datePicker --}}
+    {{-- bootstrap-select --}}
+        <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
+        <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
+    {{-- bootstrap-select --}}
 
+    {{-- select2 --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    {{-- select2 --}}
 <script type="text/javascript">
 $(function(){
     // for update view
@@ -135,6 +142,12 @@ $(function(){
             $('#group-follow-up-card').css('display', 'none');
         }
     });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+$('.select2').select2();
 });
 </script>
 

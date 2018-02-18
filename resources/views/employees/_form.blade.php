@@ -71,7 +71,7 @@
                      في حالة أن هذا الموظف احد مهندسي الصيانة يتم تعين الآلات التصوير لهم.
                 </small>
             </p>
-            <select class="form-control selectpicker" name="assigned_machines_ids[]" data-live-search="true" multiple>
+            <select class="form-control select2" name="assigned_machines_ids[]" data-live-search="true" multiple="multiple">
               <option value="" disabled> اختر اكود الآلات التصوير.  </option>
                 <?php $selecteMachinesIds = isset($employee->assignedPrintingMachines)? $employee->assignedPrintingMachines->pluck('id')->toArray():[] ;?>
 
@@ -112,6 +112,10 @@
 {{-- bootstrap-select --}}
     <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
 {{-- bootstrap-select --}}
+
+{{-- select2 --}}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+{{-- select2 --}}
 @endsection
 @section('js_footer')
 {{-- datePicker --}}
@@ -122,4 +126,13 @@
     <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
 {{-- bootstrap-select --}}
+
+{{-- select2 --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+{{-- select2 --}}
+<script type="text/javascript">
+$(document).ready(function() {
+$('.select2').select2();
+});
+</script>
 @endsection
