@@ -60,9 +60,9 @@
                                     تسجيل الدخول
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                {{-- <a class="btn btn-link" href="{{ route('password.request') }}">
                                      هل نسيت كلمة المرور؟
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     </form>

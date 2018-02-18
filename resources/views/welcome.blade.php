@@ -9,9 +9,11 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Amiri" rel="stylesheet">
 
         <!-- Styles -->
         <style>
+
             html, body {
                 background-color: #fff;
                 color: #636b6f;
@@ -20,6 +22,11 @@
                 height: 100vh;
                 margin: 0;
             }
+            .main_arabic_font{
+                font-family: 'Amiri', serif;
+            	font-size: 1.2em;
+            }
+
 
             .full-height {
                 height: 100vh;
@@ -46,45 +53,42 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 70px;
             }
 
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
+                font-size: 20px;
+                /* font-weight: 600; */
+                /* letter-spacing: .1rem; */
                 text-decoration: none;
                 text-transform: uppercase;
             }
 
             .m-b-md {
-                margin-bottom: 30px;
+                /* margin-bottom: 30px; */
             }
         </style>
     </head>
-    <body>
+    <body class="main_arabic_font">
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}"> الصفحة الرئيسية </a>
                     @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
+                        <a href="{{ url('/login') }}"> تسجيل دخول </a>
+                        {{-- <a href="{{ url('/register') }}"> الإشتراك </a> --}}
                     @endif
                 </div>
             @endif
 
-            <div class="content">
+            <div class="content ">
+                <img src="{{asset('images/helper_images/branding_image.png')}}" alt="الشركة العربية لمهمات المكاتب" width="215">
+                <div class="title m-b-md"> الشركة العربية لمهمات المكاتب </div>
                 @include('flash::message')
-                <h3>
-                    نظام تخطيط موارد
-                </h3>
-                <div class="title m-b-md">
-                    الشركة العربية لمهمات المكاتب
-                </div>
+                <h3>  نظام تخطيط موارد  </h3>
 
 
             </div>
