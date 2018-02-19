@@ -49,7 +49,7 @@ class VisitRequest extends FormRequest
             'type.required'=>' برجاء اختيار نوع الزيارة. ',
             'follow_up_card_id.required'=>' برجاء اختيار كود بطاقة المتابعة. ',
             'reference_id.required'=>' برجاء اختيار كود الإشارة. ',
-            'printing_machine_id.required'=>' برجاء اختيار كود الآلة التصوير. ',
+            'printing_machine_id.required'=>' برجاء اختيار الآلة التصوير. ',
             'visit_date.required'=>' برجاء إدخال تاريخ الزيارة. ',
             'visit_date.date'=>' برجاء إدخال تاريخ الزيارة بشكل صحيح. ',
             'the_employee_who_made_the_visit_id.required'=>' برجاء اختار اسم المهندس الذي قام بالزيارة. ',

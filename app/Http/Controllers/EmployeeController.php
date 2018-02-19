@@ -8,7 +8,7 @@ use App\AOE\JobTitle\JobTitle;
 use App\User;
 use App\Department;
 use App\PrintingMachine;
-
+use \App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
 
 class EmployeeController extends Controller
 {
@@ -35,8 +35,7 @@ class EmployeeController extends Controller
         $usersNames = User::all()->pluck('name', 'id');
         $managedDepartmentsIdsNames = Department::all()->pluck('name', 'id');
         $departmentsIdsNames = Department::all()->pluck('name', 'id');
-        $printingMachinesIdsCodes = PrintingMachine::all()->pluck('code', 'id');
-        return view('employees.create', compact('jobsTitles', 'usersNames', 'managedDepartmentsIdsNames', 'departmentsIdsNames', 'printingMachinesIdsCodes'));
+        return view('employees.create', compact('jobsTitles', 'usersNames', 'managedDepartmentsIdsNames', 'departmentsIdsNames'));
     }
 
 
@@ -64,9 +63,8 @@ class EmployeeController extends Controller
         $usersNames = User::all()->pluck('name', 'id');
         $managedDepartmentsIdsNames = Department::all()->pluck('name', 'id');
         $departmentsIdsNames = Department::all()->pluck('name', 'id');
-        $printingMachinesIdsCodes = PrintingMachine::all()->pluck('code', 'id');
 
-        return view('employees.edit', compact('employee', 'jobsTitles', 'usersNames', 'managedDepartmentsIdsNames', 'departmentsIdsNames', 'printingMachinesIdsCodes'));
+        return view('employees.edit', compact('employee', 'jobsTitles', 'usersNames', 'managedDepartmentsIdsNames', 'departmentsIdsNames'));
     }
 
 
@@ -89,5 +87,11 @@ class EmployeeController extends Controller
     public function search($keyword)
     {
         return $this->employee->search($keyword);
+    }
+
+    public function searchingOnPrintingMachine($keyword)
+    {
+        $abc = new EloquentPrintingMachine(new PrintingMachine());
+        return $abc->searchLimitedCodeCustomer($keyword);
     }
 }

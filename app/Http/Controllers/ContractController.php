@@ -7,6 +7,7 @@ use App\AOE\Repositories\Contract\ContractInterface;
 use App\PrintingMachine;
 use App\ProjectImages;
 use App\Employee;
+use \App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
 
 class ContractController extends Controller
 {
@@ -36,9 +37,8 @@ class ContractController extends Controller
      */
     public function create()
     {
-        $printingMachineIdsNames = PrintingMachine::all()->pluck('code', 'id');
         $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
-        return view('contracts.create', compact('printingMachineIdsNames', 'employeesIdsNames'));
+        return view('contracts.create', compact('employeesIdsNames'));
     }
 
     /**
@@ -78,9 +78,8 @@ class ContractController extends Controller
     public function edit($id)
     {
         $contract = $this->contract->getById($id);
-        $printingMachineIdsNames = PrintingMachine::all()->pluck('code', 'id');
         $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
-        return view('contracts.edit', compact('contract', 'printingMachineIdsNames', 'employeesIdsNames'));
+        return view('contracts.edit', compact('contract', 'employeesIdsNames'));
     }
 
     /**
@@ -133,5 +132,11 @@ class ContractController extends Controller
     {
         $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
         return back()->withInput();
+    }
+
+    public function searchingOnPrintingMachine($keyword)
+    {
+        $abc = new EloquentPrintingMachine(new PrintingMachine());
+        return $abc->searchLimitedCodeCustomer($keyword);
     }
 }

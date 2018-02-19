@@ -69,7 +69,7 @@ class EloquentPrintingMachine implements PrintingMachineInterface
                             ->orWhereHas('customer', function($query) use($keyword){
                                 $query->where('name', 'like', '%'.$keyword.'%');
                             })
-                            ->limit(5)
+                            ->limit(50)
                             ->get();
         return $results;
     }

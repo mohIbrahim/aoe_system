@@ -61,6 +61,9 @@ class Employees
             $response = $next($request);
         }else
 
+		if($request->route()->getName() == 'employees_pm_search'    && (in_array('create_employees', $permissions) || in_array('update_employees', $permissions))){
+            $response = $next($request);
+        }else
 		if($request->route()->getName() == 'employees_search'    && in_array('view_employees', $permissions)){
 
             $response = $next($request);

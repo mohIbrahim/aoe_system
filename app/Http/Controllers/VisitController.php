@@ -38,11 +38,10 @@ class VisitController extends Controller
      */
     public function create()
     {
-        $printingMachineIdsCodes = PrintingMachine::all()->pluck('code', 'id');
         $followUpCardsIdsCodes = FollowUpCard::all()->pluck('code', 'id');
         $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
         $referencesIdsCodes = Reference::all()->pluck('code', 'id');
-        return view('visits.create', compact('printingMachineIdsCodes', 'followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes'));
+        return view('visits.create', compact('followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes'));
     }
 
     /**
@@ -76,11 +75,10 @@ class VisitController extends Controller
     public function edit($id)
     {
         $visit = $this->visit->getById($id);
-        $printingMachineIdsCodes = PrintingMachine::all()->pluck('code', 'id');
         $followUpCardsIdsCodes = FollowUpCard::all()->pluck('code', 'id');
         $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
         $referencesIdsCodes = Reference::all()->pluck('code', 'id');
-        return view('visits.edit', compact('visit', 'printingMachineIdsCodes', 'followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes'));
+        return view('visits.edit', compact('visit', 'followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes'));
     }
 
     /**

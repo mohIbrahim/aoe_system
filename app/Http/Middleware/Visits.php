@@ -66,7 +66,7 @@ class Visits
             $response = $next($request);
         }else
 
-		if($request->route()->getName() == 'visits_pm_search'    && in_array('create_visits', $permissions)){
+		if($request->route()->getName() == 'visits_pm_search'    && (in_array('create_visits', $permissions) || in_array('update_visits', $permissions))){
             $response = $next($request);
         }else{
             abort(403);

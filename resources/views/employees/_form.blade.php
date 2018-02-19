@@ -66,33 +66,61 @@
     <div class="panel-body">
         <div class="form-group">
             <label for="assigned_machines_ids"> كود الآلات التصوير المعينة لهذا الموظف </label>
-            <p>
-                <small style="color:red">
-                     في حالة أن هذا الموظف احد مهندسي الصيانة يتم تعين الآلات التصوير لهم.
-                </small>
-            </p>
-            <select class="form-control select2" name="assigned_machines_ids[]" data-live-search="true" multiple="multiple">
-              <option value="" disabled> اختر اكود الآلات التصوير.  </option>
-                <?php $selecteMachinesIds = isset($employee->assignedPrintingMachines)? $employee->assignedPrintingMachines->pluck('id')->toArray():[] ;?>
-
-
-                @if(!empty(old('assigned_machines_ids')))
-
-                    @foreach ($printingMachinesIdsCodes as $machineId => $machineCode)
-                        <option value="{{$machineId}}" {{(in_array($machineId, old('assigned_machines_ids')))? 'selected' : ''}}> {{$machineCode}} </option>
-                    @endforeach
-
-                @elseif(!empty($selecteMachinesIds))
-                    @foreach ($printingMachinesIdsCodes as $machineId => $machineCode)
-                        <option value="{{$machineId}}" {{(in_array($machineId, $selecteMachinesIds))? 'selected' : ''}}> {{$machineCode}} </option>
-                    @endforeach
-                @else
-                    @foreach ($printingMachinesIdsCodes as $machineId => $machineCode)
-                        <option value="{{$machineId}}"> {{$machineCode}} </option>
-                    @endforeach
-                @endif
-
-            </select>
+            <p class="help-block">في حالة أن هذا الموظف احد مهندسي الصيانة يتم تعين الآلات التصوير لهم.</p>
+        </div>
+        <div class="form-group form-inline">
+            <label for=""> البحث عن الآلة </label>
+            <input type="text" class="form-control" id="printing-machine-search-field" placeholder=" ادخل الكلمة المراد البحث عنها. ">
+            <button type="button" class="btn btn-default" id="printing-machine-search-button"> ابحث </button>
+            <p id="printing-machine-message"></p>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"> نتائج البحث </h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> اسم العميل </th>
+                            <th> كود الآلة </th>
+                            <th> الاختيار </th>
+                        </tr>
+                    </thead>
+                    <tbody id="printing-machine-search-results-table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"> الآلات المعينة </h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> اسم العميل </th>
+                            <th> كود الآلة </th>
+                            <th> الحذف </th>
+                        </tr>
+                    </thead>
+                    <tbody id="printing-machine-selected-results-table-body">
+                        @if (isset($employee))
+                            @foreach ($employee->assignedPrintingMachines as $key => $printingMachine)
+                                <tr>
+                                    <td>{{isset($printingMachine->customer)?$printingMachine->customer->name:''}}</td>
+                                    <td>{{$printingMachine->code}}</td>
+                                    <td>
+                                        <button type='button' class='btn btn-danger btn-xs printing-machine-delete-button'> حذف الآلة </button>
+                                        <input type='hidden' name='assigned_machines_ids[]' value='{{$printingMachine->id}}'>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -112,10 +140,6 @@
 {{-- bootstrap-select --}}
     <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
 {{-- bootstrap-select --}}
-
-{{-- select2 --}}
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-{{-- select2 --}}
 @endsection
 @section('js_footer')
 {{-- datePicker --}}
@@ -126,13 +150,49 @@
     <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
 {{-- bootstrap-select --}}
-
-{{-- select2 --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-{{-- select2 --}}
 <script type="text/javascript">
-$(document).ready(function() {
-$('.select2').select2();
-});
+    $(document).ready(function () {
+        $("#printing-machine-search-button").on("click", function(){
+            var keyword = $("#printing-machine-search-field").val();
+            var resultsTableBody = "";
+            if (keyword) {
+                $("#printing-machine-message").text("");
+                $("#printing-machine-search-results-table-body").children().remove();
+
+                $.ajax({
+                    type:"GET",
+                    url:"{{url('employees_pm_search')}}/"+keyword,
+                    dataType:"json",
+                    success:function(results){
+                        $.each(results, function(key, printingMachine){
+                            resultsTableBody += "<tr><td>"+((printingMachine.customer)?printingMachine.customer.name:'')+"</td><td>"+printingMachine.code+"</td><td><button type='button' class='btn btn-success btn-xs printing-machine-select-button' data-priting-machine-id='"+printingMachine.id+"' data-customer-name='"+((printingMachine.customer)?printingMachine.customer.name:'')+"' data-printing-machine-code='"+printingMachine.code+"'> اختيار الآلة </button></td></tr>";
+                        });
+                        $("#printing-machine-search-results-table-body").append(resultsTableBody);
+                        $(".printing-machine-select-button").on("click", function(){
+                            pMId = $(this).attr("data-priting-machine-id");
+                            pMCode = $(this).attr("data-printing-machine-code");
+                            customerName = $(this).attr("data-customer-name");
+                            $("#printing-machine-selected-results-table-body").append("<tr><td>"+customerName+"</td><td>"+pMCode+"</td><td><button type='button' class='btn btn-danger btn-xs printing-machine-delete-button'> حذف الآلة </button><input type='hidden' name='assigned_machines_ids[]' value='"+pMId+"'></td></tr>");
+                            $(this).parent().parent().fadeOut('500', function(){
+                                $(this).remove();
+                            });
+                            $(".printing-machine-delete-button").on("click", function(){
+                                $(this).parent().parent().fadeOut('500', function(){
+                                    $(this).remove();
+                                });
+                            });
+                        });
+                    },
+                });
+            } else {
+                $("#printing-machine-message").text(" برجاء ادخال الكلمة المراد البحث عنها. ").css("color", "red");
+            }
+        });
+        $(".printing-machine-delete-button").on("click", function(){
+            $(this).parent().parent().fadeOut('500', function(){
+                $(this).remove();
+            });
+        });
+    });
 </script>
 @endsection

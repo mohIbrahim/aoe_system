@@ -69,6 +69,10 @@ class References
 		if($request->route()->getName() == 'references_search'    && in_array('view_references', $permissions)){
 
             $response = $next($request);
+        }else
+
+		if($request->route()->getName() == 'references_pm_search'    && (in_array('create_references', $permissions) || in_array('update_references', $permissions))){
+            $response = $next($request);
         }else{
             abort(403);
         }
