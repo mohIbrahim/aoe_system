@@ -106,4 +106,10 @@ class ReferenceController extends Controller
         $abc = new EloquentPrintingMachine(new PrintingMachine());
         return $abc->searchLimitedCodeCustomer($keyword);
     }
+
+	public function createWithPrintingMachineId($printingMachineId)
+    {
+		$employeesNames = Employee::all()->pluck('user.name', 'id');
+        return view('references.create', compact('employeesNames', 'printingMachineId'));
+    }
 }

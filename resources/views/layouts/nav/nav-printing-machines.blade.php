@@ -2,7 +2,7 @@
 	<li class="dropdown">
 		@if(in_array('view_printing_machines',$permissions))
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-			 آلات الطباعة
+			 آلات التصوير
 			<span class="caret"></span>
 		</a>
 		@endif

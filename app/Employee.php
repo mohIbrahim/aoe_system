@@ -10,6 +10,12 @@ class Employee extends Model
     protected $fillable = ['code', 'job_title', 'date_of_hiring', 'salary', 'comments', 'user_id', 'managed_department_id', 'department_id'];
     protected $dates = ['date_of_hiring'];
 
+
+    public function getCodeAttribute($code)
+    {
+        return (isset($code)?$code:'');
+    }
+
     public function setDateOfHiringAttribute($date)
     {
         if (!empty($date)) {

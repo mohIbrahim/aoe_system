@@ -71,6 +71,11 @@ class Contracts
             $response = $next($request);
         }else
 
+		if($request->route()->getName() == 'create_contract_with_printing_machine_id'    && in_array('create_contracts', $permissions)){
+
+            $response = $next($request);
+        }else
+
         if($request->route()->getName() == 'contracts_pm_search'    && (in_array('create_contracts', $permissions) || in_array('update_contracts', $permissions))){
             $response = $next($request);
         } else{

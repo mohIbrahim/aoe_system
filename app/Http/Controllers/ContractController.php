@@ -139,4 +139,10 @@ class ContractController extends Controller
         $abc = new EloquentPrintingMachine(new PrintingMachine());
         return $abc->searchLimitedCodeCustomer($keyword);
     }
+
+	public function createWithPrintingMachineId($printingMachineId)
+    {
+		$employeesIdsNames = Employee::all()->pluck('user.name', 'id');
+        return view('contracts.create', compact('employeesIdsNames', 'printingMachineId'));
+    }
 }

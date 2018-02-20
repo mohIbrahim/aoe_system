@@ -120,4 +120,13 @@ class VisitController extends Controller
         $abc = new EloquentPrintingMachine(new PrintingMachine());
         return $abc->searchLimitedCodeCustomer($keyword);
     }
+
+	public function createWithPrintingMachineId($printingMachineId)
+    {
+        $followUpCardsIdsCodes = FollowUpCard::all()->pluck('code', 'id');
+        $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
+        $referencesIdsCodes = Reference::all()->pluck('code', 'id');
+
+        return view('visits.create', compact('followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes', 'printingMachineId'));
+    }
 }

@@ -72,7 +72,7 @@
             <p>
                 يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة، برجاء عدم ادخال اي رقم عشوائي
             </p>
-            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id"  value="{{$reference->printing_machine_id or old('printing_machine_id')}}">
+            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id"  value="{{(isset($reference->printing_machine_id))?($reference->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}">
         </div>
     </div>
 </div>

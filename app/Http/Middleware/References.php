@@ -71,6 +71,11 @@ class References
             $response = $next($request);
         }else
 
+		if($request->route()->getName() == 'create_reference_with_printing_machine_id'    && in_array('create_references', $permissions)){
+
+			$response = $next($request);
+		}else
+
 		if($request->route()->getName() == 'references_pm_search'    && (in_array('create_references', $permissions) || in_array('update_references', $permissions))){
             $response = $next($request);
         }else{

@@ -47,6 +47,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('contracts_search/{keyword}', 'ContractController@search')->name('contracts_search');
     Route::get('remove_the_contract_file/{project_image_id}', 'ContractController@removeContractFile')->name('remove_the_contract_file');
     Route::get('contracts_pm_search/{keyword}', 'ContractController@searchingOnPrintingMachine')->name('contracts_pm_search');
+	Route::get('create_contract_with_printing_machine_id/{pm_id}', 'ContractController@createWithPrintingMachineId')->name('create_contract_with_printing_machine_id');
 //Invoices
     Route::resource('invoices', 'InvoiceController');
     Route::get('invoices_search/{keyword}', 'InvoiceController@search')->name('invoices_search');
@@ -55,6 +56,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::resource('visits', 'VisitController');
     Route::get('visits_search/{keyword}', 'VisitController@search')->name('visits_search');
     Route::get('visits_pm_search/{keyword}', 'VisitController@searchingOnPrintingMachine')->name('visits_pm_search');
+    Route::get('create_visit_with_printing_machine_id/{pm_id}', 'VisitController@createWithPrintingMachineId')->name('create_visit_with_printing_machine_id');
 //Follow Up Cards
     Route::resource('follow_up_cards', 'FollowUpCardController');
     Route::get('follow_up_cards_search/{keyword}', 'FollowUpCardController@search')->name('follow_up_cards_search');
@@ -67,6 +69,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('references_search/{keyword}', 'ReferenceController@search')->name('references_search');
     Route::get('remove_the_reference_file/{project_image_id}', 'ReferenceController@removeReferenceFile')->name('remove_the_reference_file');
     Route::get('references_pm_search/{keyword}', 'ReferenceController@searchingOnPrintingMachine')->name('references_pm_search');
+	Route::get('create_reference_with_printing_machine_id/{pm_id}', 'ReferenceController@createWithPrintingMachineId')->name('create_reference_with_printing_machine_id');
 //Indexations
     Route::resource('indexations', 'IndexationController');
     Route::get('indexations_search/{keyword}', 'IndexationController@search')->name('indexations_search');

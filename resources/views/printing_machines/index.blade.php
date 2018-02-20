@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-	 عرض الآلات الطباعة
+	 عرض الآلات التصوير
 @endsection
 
 @section('content')
@@ -26,7 +26,7 @@
 				<a href=""  class="btn btn-success"> العودة </a>
 
 
-				<h3 class="text-center"> عرض الآلات الطباعة </h3>
+				<h3 class="text-center"> عرض الآلات التصوير </h3>
 		    </div>
 		    <div class="panel-body">
 
