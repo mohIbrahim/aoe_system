@@ -52,7 +52,7 @@
                                                     <tr>
                                                         <th> نوع الفاتورة </th>
                                                         <th> الكود </th>
-                                                        <th> الإجمالي </th>
+                                                        <th> القيمة </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -95,6 +95,10 @@
                                         </td>
 								    </tr>
 
+                                    <tr>
+									    <th> إجمالي قيمة الفاتورة </th>
+									    <td>{{(isset($invoice->total))?($invoice->total.' جنية'):('0جنية')}} </td>
+								    </tr>
                                     <tr>
 									    <th> جهة الإصدار </th>
 									    <td>{{$invoice->issuer}}</td>

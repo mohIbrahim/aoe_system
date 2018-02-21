@@ -33,6 +33,7 @@ class InvoiceRequest extends FormRequest
             'delivery_permission_number'=>'numeric|max:16777215|nullable',
             'release_date'=>'required|date',
             'indexation_id'=>'nullable|unique:invoices,indexation_id,'.$this->invoice,
+			'total'=>'required|numeric',
         ];
 
         if ($this->type === 'تعاقد') {
@@ -53,7 +54,7 @@ class InvoiceRequest extends FormRequest
             'number.max'=>' برجاء إدخال رقم الفاتورة لا يزيد عن 7 خانات. ',
             'number.numeric'=>' برجاء إدخال رقم الفاتور أرقم فقط. ',
             'number.uniuqe'=>' رقم الفاتورة تم إدخاله من قبل برجاء اختيار رقم آخر. ',
-            
+
             'customer_id.required'=>' برجاء اختيار كود العميل. ',
 
             'type.required'=>' برجاء اختيار نوع الفاتورة. ',
@@ -74,6 +75,8 @@ class InvoiceRequest extends FormRequest
             'release_date.date'=>' برجاء إدخال تاريخ الإصدار بشكل صحيح. ',
 
             'indexation_id.unique'=>' عفواً هذة المقايسة تم إخراج فاتورة لها من قبل برجاء اختيار كود مقايسة آخر. ',
+			'total.required'=>' برجاء إدخال القيمة الكلية للفاتورة. ',
+			'total.numeric'=>' برجاء إدخال القيمة الكلية للفاتورة أرقام فقط. ',
         ];
     }
 }

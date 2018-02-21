@@ -18,7 +18,9 @@
 							<div class="table-responsive">
 								<table class="table table-hover">
 									<thead>
-										<h2 class="text-center"> البيانات الآساسية لبطاقة المتابعة </h2>
+										<h3 class="text-center"> البيانات الآساسية لبطاقة المتابعة </h3>
+										<a href="{{action('FollowUpCardSpecialReportController@createWithFollowUpCardId', ['follow_up_card_id'=>$followUpCard->id])}}"><span class="glyphicon glyphicon-plus"></span> إضافة تقرير خاص لهذة البطاقة </a>
+										<hr />
 										<div class="text-center">
 											@if(in_array('update_follow_up_cards', $permissions))
 												<a href="{{action('FollowUpCardController@edit', ['id'=>$followUpCard->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>

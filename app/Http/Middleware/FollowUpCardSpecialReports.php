@@ -60,6 +60,10 @@ class FollowUpCardSpecialReports
 
             $response = $next($request);
         }else
+		if($request->route()->getName() == 'create_follow_up_card_special_reports_with_follow_up_card_id'    && in_array('create_follow_up_card_special_reports', $permissions)){
+
+            $response = $next($request);
+        }else
 
 		if($request->route()->getName() == 'follow_up_card_special_reports_search'    && in_array('view_follow_up_card_special_reports', $permissions)){
 

@@ -126,6 +126,11 @@
 </div>
 
 <div class="form-group">
+    <label for="total"> إجمالي الفاتورة <span style="color:red">*</span></label>
+    <input type="text" class="form-control" id="total" name="total"  placeholder=" إدخل إجمالي قيمة الفاتورة. " value="{{$invoice->total or old('total')}}">
+</div>
+
+<div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$invoice->comments or old('comments')}}</textarea>
 </div>

@@ -42,6 +42,7 @@
 			  				    <th> أمر توريد رقم</th>
 			  				    <th> إذن تسليم رقم العقد </th>
 			  				    <th> إطلاع قسم الحسابات </th>
+			  				    <th> إجمالي القيمة </th>
 			  				    <th> تاريخ الإصدار </th>
 			  			    </tr>
 			  		    </thead>
@@ -63,6 +64,7 @@
 										<td>{{$invoice->order_number}}</td>
 										<td>{{$invoice->delivery_permission_number}}</td>
 										<td>{{$invoice->finance_check_out}}</td>
+										<td>{{(isset($invoice->total))?($invoice->total.' جنية'):('0جنية')}} </td>
 										<td>{{$invoice->release_date}}</td>
 									</tr>
 								@endforeach
@@ -98,9 +100,9 @@
                             $("#my-table-body").children().remove();
                             $.each(results, function(index, invoice) {
                                 if(invoice.customer) {
-                                    newResult += "<tr><td>"+(index+1)+"</td><td><a href='{{url('invoices')}}/"+invoice.id+"'>"+invoice.number+"</a></td><td>"+invoice.customer.name+"</td><td>"+invoice.type+"</td><td>"+invoice.issuer+"</td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.release_date+"</td></tr>";
+                                    newResult += "<tr><td>"+(index+1)+"</td><td><a href='{{url('invoices')}}/"+invoice.id+"'>"+invoice.number+"</a></td><td>"+invoice.customer.name+"</td><td>"+invoice.type+"</td><td>"+invoice.issuer+"</td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.total+"</td><td>"+invoice.release_date+"</td></tr>";
                                 } else {
-                                    newResult += "<tr><td>"+(index+1)+"</td><td><a href='{{url('invoices')}}/"+invoice.id+"'>"+invoice.number+"</a></td><td></td><td>"+invoice.type+"</td><td>"+invoice.issuer+"</td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.release_date+"</td></tr>";
+                                    newResult += "<tr><td>"+(index+1)+"</td><td><a href='{{url('invoices')}}/"+invoice.id+"'>"+invoice.number+"</a></td><td></td><td>"+invoice.type+"</td><td>"+invoice.issuer+"</td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.total+"</td><td>"+invoice.release_date+"</td></tr>";
                                 }
 
                             });

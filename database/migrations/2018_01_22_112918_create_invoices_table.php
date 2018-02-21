@@ -23,6 +23,7 @@ class CreateInvoicesTable extends Migration
             $table->string('finance_check_out')->nullable()->default('لم يتم الاطلاع');
             $table->dateTime('release_date')->nullable();
             $table->text('descriptions')->nullable();
+            $table->float('total', 10, 2)->nullable()->default(0);
             $table->text('comments')->nullable();
             $table->timestamps();
 

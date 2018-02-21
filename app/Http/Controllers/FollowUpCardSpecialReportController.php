@@ -68,4 +68,10 @@ class FollowUpCardSpecialReportController extends Controller
     {
         return $this->followUpCardSpecialReport->search($keyword);
     }
+
+	public function createWithFollowUpCardId($follow_up_card_id)
+    {
+		$followUpCardsIdsCodes = FollowUpCard::all()->pluck('code', 'id');
+        return view('follow_up_card_special_reports.create', compact('followUpCardsIdsCodes', 'follow_up_card_id'));
+    }
 }

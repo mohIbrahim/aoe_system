@@ -8,6 +8,7 @@
 				<th> رقم الفاتورة </th>
 				<th> نوع الفاتورة </th>
 				<th> تاريخ الإصدار </th>
+				<th> الإجمالي </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -15,9 +16,14 @@
 				@if ($printingMachine->customer->invoices)
 					@foreach ($printingMachine->customer->invoices as $invoiceIterator => $invoice)
 						<tr>
-							<td>{{$invoice->number}}</td>
+							<td>
+								<a href="{{action('InvoiceController@show', ['id'=>$invoice->id])}}">
+									{{$invoice->number}}
+								</a>
+							</td>
 							<td>{{$invoice->type}}</td>
 							<td>{{$invoice->release_date}}</td>
+							<td>{{$invoice->total}}</td>
 						</tr>
 					@endforeach
 				@endif

@@ -19,7 +19,7 @@
 				<li class="dropdown-header"> التقارير الخاصة ببطاقات المتابعة  </li>
 				<li><a href="{{ action('FollowUpCardSpecialReportController@index') }}"> عرض كل التقارير الخاصة ببطاقات المتابعة  </a></li>
 				@if(in_array('create_follow_up_card_special_reports', $permissions))
-					<li><a href="{{ action('FollowUpCardSpecialReportController@create') }}"> إضافة بطاقة متابعة جديد </a></li>
+					<li><a href="{{ action('FollowUpCardSpecialReportController@create') }}"> إضافة تقرير خاص لبطاقة متابعة  </a></li>
 				@endif
 			@endif
 		</ul>

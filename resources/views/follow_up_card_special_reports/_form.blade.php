@@ -4,7 +4,7 @@
         <?php $selectedFollowUpCardId = isset($followUpCardSpecialReport->follow_up_card_id)? $followUpCardSpecialReport->follow_up_card_id:'' ;?>
         <option value=""> اختر كود بطاقة المتابعة.  </option>
         @foreach ($followUpCardsIdsCodes as $followUpCardId => $followUpCardCode)
-            <option value="{{$followUpCardId}}" {!!($selectedFollowUpCardId == $followUpCardId)? ' selected="selected"' : ((old('follow_up_card_id')==$followUpCardId)?' selected="selected"':'')!!}> {{$followUpCardCode}} </option>
+            <option value="{{$followUpCardId}}" {!!($selectedFollowUpCardId == $followUpCardId)?(' selected="selected"'):((old('follow_up_card_id')==$followUpCardId)?(' selected="selected"'):(($followUpCardId == (isset($follow_up_card_id))?($follow_up_card_id):(''))?(' selected="selected"'):('')))!!}> {{$followUpCardCode}} </option>
         @endforeach
     </select>
 </div>

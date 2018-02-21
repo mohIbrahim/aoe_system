@@ -8,8 +8,8 @@ use Carbon\Carbon;
 class Invoice extends Model
 {
     protected $table = 'invoices';
-    
-    protected $fillable = ['number', 'type', 'issuer', 'order_number', 'delivery_permission_number', 'finance_check_out', 'release_date', 'descriptions', 'comments', 'indexation_id', 'contract_id', 'customer_id'];
+
+    protected $fillable = ['number', 'type', 'issuer', 'order_number', 'delivery_permission_number', 'finance_check_out', 'release_date', 'descriptions', 'total', 'comments', 'indexation_id', 'contract_id', 'customer_id'];
 
     protected $dates = ['release_date'];
 
