@@ -1,4 +1,4 @@
-<h3 class="text-center"> العقود </h3>
+<h3 class="text-center"> المقايسات </h3>
 <a href="{{action('ContractController@createWithPrintingMachineId', ['printing_machine_id'=>$printingMachine->id] )}}"><span class="glyphicon glyphicon-plus"></span> إضافة مقايسة جديدة </a>
 <hr />
 <div class="table-responsive">
@@ -6,33 +6,27 @@
 		<thead>
 			<tr>
 				<th> # </th>
-				<th> كود العقد </th>
-				<th> نوع العقد </th>
-				<th> بطاقة المتابعة </th>
-				<th> بداية التعاقد </th>
-				<th> نهاية التعاقد </th>
-				<th> حالة التعاقد </th>
+				<th> كود المقايسة </th>
+				<th> التاريخ  </th>
+				<th> موافقة العميل </th>
+				<th> موافقة مدير الأقسام الفنية </th>
+				<th> موافقة المخازنة </th>
 			</tr>
 		</thead>
 		<tbody>
 
-			@foreach ($printingMachine->contracts as $key2 => $contract)
+			@foreach ($printingMachine->visits as $visitsIterator => $visit)
 				<tr>
-					<td>{{$key2+1}}</td>
+					<td>{{$visitsIterator+1}}</td>
 					<td>
-						<a href="{{action('ContractController@show', ['id'=>$contract->id])}}">
-							{{$contract->code}}
+						<a href="{{action('IndexationController@show', ['id'=>(($visit->indexation)?($visit->indexation->id):(''))])}}">
+							{{$visit->indexation->code or ''}}
 						</a>
 					</td>
-					<td>{{$contract->type}}</td>
-					<td>
-						<a href="{{action('FollowUpCardController@show', ['id'=>(($contract->followUpCard)?($contract->followUpCard->id):(''))])}}">
-							{{($contract->followUpCard)?($contract->followUpCard->code):('')}}
-						</a>
-					</td>
-					<td>{{$contract->start}}</td>
-					<td>{{$contract->end}}</td>
-					<td>{{$contract->status}}</td>
+					<td>{{$visit->indexation->the_date or ''}}</td>
+					<td>{{$visit->indexation->customer_approval or ''}}</td>
+					<td>{{$visit->indexation->technical_manager_approval or ''}}</td>
+					<td>{{$visit->indexation->warehouse_approval or ''}}</td>
 				</tr>
 			@endforeach
 		</tbody>

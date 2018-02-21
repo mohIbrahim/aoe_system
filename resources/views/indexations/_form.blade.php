@@ -142,8 +142,8 @@
                                             </div>
                                         </td>
                                         <td>
-                                            {{$part->pivot->price or ''}}
-                                            <input type='hidden' class='form-control' name='parts_prices[]' value="{{$part->pivot->price or ''}}">
+
+                                            <input type='text' class='form-control' name='parts_prices[]' value="{{$part->pivot->price or ''}}">
                                         </td>
                                         <td>
                                             <button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button>
@@ -206,7 +206,7 @@
 
                             $(".part-add-button").on("click", function(){
                                 var addButton = $(this);
-                                $("#selected-parts-table-body").append("<tr><td>"+addButton.attr('data-part-name')+"</td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='"+addButton.attr('data-part-id')+"'></div></td><td>"+addButton.attr('data-part-price')+"<input type='hidden' class='form-control' name='parts_prices[]' value='"+addButton.attr('data-part-price')+"'></td><td><button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button></td></tr>");
+                                $("#selected-parts-table-body").append("<tr><td>"+addButton.attr('data-part-name')+"</td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='"+addButton.attr('data-part-id')+"'></div></td><td><input type='text' class='form-control' name='parts_prices[]' value='"+addButton.attr('data-part-price')+"'></td><td><button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button></td></tr>");
                                 addButton.parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
 
 
