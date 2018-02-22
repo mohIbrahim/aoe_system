@@ -5,7 +5,7 @@
 @section('content')
     <div class="row">
         <div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-            <div class="panel panel-primary main_arabic_font">
+            <div class="panel panel-info main_arabic_font">
                 <div class="panel-heading text-center">
                     <h4> عرض الآلة التصوير</h4>
                     <h4> التي في حيازة العميل: {{ ($printingMachine->customer)?($printingMachine->customer->name):(' لم يتم تعين العميل حتى اللآن ')}} </h4>

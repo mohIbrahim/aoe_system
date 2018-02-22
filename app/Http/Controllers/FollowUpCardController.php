@@ -38,7 +38,7 @@ class FollowUpCardController extends Controller
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'follow_up_card_as_pdf', 'App\FollowUpCard', $followUpCard->id, 'pdf', 'no_cover');
 
-        flash()->success(' تم إضافة بطاقة المتابعة بنجاح. ')->important();
+        flash()->success(' تم إنشاء بطاقة المتابعة بنجاح. ')->important();
         return redirect()->action('FollowUpCardController@show', ['id'=>$followUpCard->id]);
     }
 

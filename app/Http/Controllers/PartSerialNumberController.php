@@ -50,7 +50,7 @@ class PartSerialNumberController extends Controller
     public function store(PartSerialNumberRequest $request)
     {
         $partSerialNumber = $this->partSerialNumber->create($request->all());
-        flash()->success(' تم إضافة قطعة جديدة فرعية بنجاح. ')->important();
+        flash()->success(' تم إنشاء قطعة جديدة فرعية بنجاح. ')->important();
         return redirect()->action('PartSerialNumberController@show', ['id'=>$partSerialNumber->id]);
     }
 

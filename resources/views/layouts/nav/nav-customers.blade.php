@@ -11,7 +11,7 @@
 				<li class="dropdown-header"> العملاء </li>
 				<li><a href="{{ action('CustomerController@index') }}"> عرض كل العملاء </a></li>
 				@if(in_array('create_customers', $permissions))
-					<li><a href="{{ action('CustomerController@create') }}"> إضافة عميل جديد </a></li>
+					<li><a href="{{ action('CustomerController@create') }}"> إنشاء عميل جديد </a></li>
 				@endif
 			@endif
 		</ul>

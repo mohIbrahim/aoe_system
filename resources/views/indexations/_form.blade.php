@@ -80,7 +80,7 @@
 
 <div class="panel panel-primary">
     <div class="panel-body">
-        <h2> إضافة قطع غيار للمقايسة </h2>
+        <h2> إنشاء قطع غيار للمقايسة </h2>
         <div class="panel panel-default">
             <div class="panel-body">
                 <h3> البحث عن القطع </h3>

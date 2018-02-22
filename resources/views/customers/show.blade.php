@@ -6,7 +6,7 @@
 @section('content')
     <div class="row">
         <div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-            <div class="panel panel-primary main_arabic_font">
+            <div class="panel panel-info main_arabic_font">
                 <div class="panel-heading">
                     <h3 class="panel-title"> العميل: {{$customer->name}}</h3>
                 </div>
@@ -54,8 +54,7 @@
                                                 @if(in_array('delete_customers', $permissions))
                                                     <a href="#" class=" btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span> حذف</a>
                                                 @endif
-
-                                                <br/>
+												<hr>
                                             </br/>
                                         </div>
 
@@ -223,17 +222,23 @@
                             <div role="tabpanel" class="tab-pane" id="machines">
                                 <table class="table table-hover">
                                     <h2 class="text-center"> الآلات </h2>
+									<hr>
                                     <thead>
                                         <tr>
+                                            <th> # </th>
                                             <th> كود الآلة </th>
                                             <th> اسم الشركة المصنعّة </th>
                                             <th> رقم ملف الآلة </th>
                                             <th> الموديل  </th>
+                                            <th> اسم الفرع  </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($customer->printingMachines as $key3 => $machine)
                                             <tr>
+                                                <td>
+                                                    {{$key3+1}}
+                                                </td>
                                                 <td>
                                                     <a href="{{action('PrintingMachineController@show', ['id'=>$machine->id])}}">
                                                         {{$machine->code}}
@@ -248,8 +253,47 @@
                                                 <td>
                                                     {{$machine->model_prefix.'-'.$machine->model_suffix}}
                                                 </td>
+												<td>
+                                                    {{$customer->name}}
+                                                </td>
                                             </tr>
                                         @endforeach
+										@if ($customer->branches)
+											@foreach ($customer->branches as $branchesIterator => $branche)
+												<tr>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												@foreach ($branche->printingMachines as $branchPMIterator => $pm)
+													<tr>
+														<td>
+		                                                    {{$branchPMIterator+1}}
+		                                                </td>
+														<td>
+															<a href="{{action('PrintingMachineController@show', ['id'=>$pm->id])}}">
+																{{$pm->code}}
+															</a>
+														</td>
+														<td>
+															{{$pm->the_manufacture_company}}
+														</td>
+														<td>
+															{{$pm->folder_number}}
+														</td>
+														<td>
+															{{$pm->model_prefix.'-'.$machine->model_suffix}}
+														</td>
+														<td>
+		                                                    {{$branche->name}}
+		                                                </td>
+													</tr>
+												@endforeach
+											@endforeach
+										@endif
                                     </tbody>
                                 </table>
                             </div>

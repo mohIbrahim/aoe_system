@@ -1,5 +1,5 @@
 <h3 class="text-center"> العقود </h3>
-<a href="{{action('ContractController@createWithPrintingMachineId', ['printing_machine_id'=>$printingMachine->id] )}}"><span class="glyphicon glyphicon-plus"></span> إضافة عقد جديدة </a>
+<a href="{{action('ContractController@createWithPrintingMachineId', ['printing_machine_id'=>$printingMachine->id] )}}"><span class="glyphicon glyphicon-plus"></span> إنشاء عقد جديدة </a>
 <hr />
 <div class="table-responsive">
 	<table class="table table-hover">
@@ -12,6 +12,7 @@
 				<th> بداية التعاقد </th>
 				<th> نهاية التعاقد </th>
 				<th> حالة التعاقد </th>
+				<th> محضر التركيب </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -33,6 +34,11 @@
 					<td>{{$contract->start}}</td>
 					<td>{{$contract->end}}</td>
 					<td>{{$contract->status}}</td>
+					<td>
+						<a href="{{action('InstallationRecordController@show', ['id'=>(($contract->installationRecord)?($contract->installationRecord->id):(''))])}}">
+							{{$contract->installationRecord->id or ''}}
+						</a>
+					</td>
 				</tr>
 			@endforeach
 		</tbody>

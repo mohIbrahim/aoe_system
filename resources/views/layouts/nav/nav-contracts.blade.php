@@ -11,7 +11,7 @@
 				<li class="dropdown-header"> العقود </li>
 				<li><a href="{{ action('ContractController@index') }}"> عرض كل العقود </a></li>
 				@if(in_array('create_contracts', $permissions))
-					<li><a href="{{ action('ContractController@create') }}"> إضافة عقد جديد </a></li>
+					<li><a href="{{ action('ContractController@create') }}"> إنشاء عقد جديد </a></li>
 				@endif
 			@endif
 		</ul>

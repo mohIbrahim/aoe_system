@@ -32,7 +32,7 @@ class FollowUpCardSpecialReportController extends Controller
     public function store(FollowUpCardSpecialReportRequest $request)
     {
         $followUpCardSpecialReport = $this->followUpCardSpecialReport->create($request->all());
-        flash()->success(' تم إضافة بطاقة المتابعة بنجاح. ')->important();
+        flash()->success(' تم إنشاء بطاقة المتابعة بنجاح. ')->important();
         return redirect()->action('FollowUpCardSpecialReportController@show', ['id'=>$followUpCardSpecialReport->id]);
     }
 

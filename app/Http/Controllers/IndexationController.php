@@ -50,7 +50,7 @@ class IndexationController extends Controller
             ]);
         }
 
-        flash()->success(' تم إضافة المقايسة بنجاح. ')->important();
+        flash()->success(' تم إنشاء المقايسة بنجاح. ')->important();
         return redirect()->action('IndexationController@show', ['id'=>$indexation->id]);
     }
 

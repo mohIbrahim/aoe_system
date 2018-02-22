@@ -1,5 +1,5 @@
 <h3 class="text-center"> الفواتير </h3>
-<a href="{{action('InvoiceController@create')}}"><span class="glyphicon glyphicon-plus"></span> إضافة فاتورة جديدة </a>
+<a href="{{action('InvoiceController@create')}}"><span class="glyphicon glyphicon-plus"></span> إنشاء فاتورة جديدة </a>
 <hr />
 <div class="table-responsive">
 	<table class="table table-hover">

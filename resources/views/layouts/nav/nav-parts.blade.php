@@ -11,7 +11,7 @@
 				<li class="dropdown-header"> قطع الغيار الرئيسية </li>
 				<li><a href="{{ action('PartController@index') }}"> عرض كل قطع الغيار الرئيسية </a></li>
 				@if(in_array('create_parts', $permissions))
-					<li><a href="{{ action('PartController@create') }}"> إضافة قطعة غيار رئيسية جديدة </a></li>
+					<li><a href="{{ action('PartController@create') }}"> إنشاء قطعة غيار رئيسية جديدة </a></li>
 				@endif
 			@endif
 			@if(in_array('view_part_serial_numbers', $permissions))
@@ -19,7 +19,7 @@
 				<li class="dropdown-header"> قطع الغيار الفرعية  </li>
 				<li><a href="{{ action('PartSerialNumberController@index') }}"> عرض كل قطع الغيار الفرعية  </a></li>
 				@if(in_array('create_part_serial_numbers', $permissions))
-					<li><a href="{{ action('PartSerialNumberController@create') }}"> إضافة قطعة غيار فرعية جديد </a></li>
+					<li><a href="{{ action('PartSerialNumberController@create') }}"> إنشاء قطعة غيار فرعية جديد </a></li>
 				@endif
 			@endif
 		</ul>

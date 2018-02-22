@@ -11,7 +11,7 @@
 				<li class="dropdown-header">  الإشارات </li>
 				<li><a href="{{ action('ReferenceController@index') }}"> عرض كل الإشارات </a></li>
 				@if(in_array('create_references', $permissions))
-					<li><a href="{{ action('ReferenceController@create') }}"> إضافة إشارة جديدة </a></li>
+					<li><a href="{{ action('ReferenceController@create') }}"> إنشاء إشارة جديدة </a></li>
 				@endif
 			@endif
 		</ul>

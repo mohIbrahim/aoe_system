@@ -52,7 +52,7 @@ class VisitController extends Controller
     public function store(VisitRequest $request)
     {
         $visit = $this->visit->create($request->all());
-        flash()->success(' تم إضافة الزيارة بنجاح. ')->important();
+        flash()->success(' تم إنشاء الزيارة بنجاح. ')->important();
         return redirect()->action('VisitController@show', ['id'=>$visit->id]);
     }
 

@@ -54,7 +54,7 @@ class InvoiceController extends Controller
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'invoice_as_pdf', 'App\Invoice', $invoice->id, 'pdf', 'no_cover');
 
-        flash()->success(' تم إضافة الفاتورة بنجاح. ')->important();
+        flash()->success(' تم إنشاء الفاتورة بنجاح. ')->important();
         return redirect()->action('InvoiceController@show', ['id'=>$invoice->id]);
     }
 

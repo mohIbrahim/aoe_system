@@ -1,5 +1,5 @@
 <h3 class="text-center"> الزيارات </h3>
-<a href="{{action('VisitController@createWithPrintingMachineId', ['printing_machine_id'=>$printingMachine->id] )}}"><span class="glyphicon glyphicon-plus"></span> إضافة زيارة جديدة </a>
+<a href="{{action('VisitController@createWithPrintingMachineId', ['printing_machine_id'=>$printingMachine->id] )}}"><span class="glyphicon glyphicon-plus"></span> إنشاء زيارة جديدة </a>
 <hr />
 <div class="table-responsive">
 	<table class="table table-hover">

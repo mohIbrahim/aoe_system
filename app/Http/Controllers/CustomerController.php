@@ -41,7 +41,7 @@ class CustomerController extends Controller
     public function create()
     {
         $egyptCities = (new EgyptCities())->getCities();
-        $customersIdsNames = Customer::all()->pluck('name', 'id');
+        $customersIdsNames = Customer::doesntHave('mainBranch')->pluck('name', 'id');
         return view('customers.create', compact('egyptCities', 'customersIdsNames'));
     }
 
@@ -53,7 +53,7 @@ class CustomerController extends Controller
     public function store(CustomerRequest $request)
     {
         $customer = $this->customer->create($request->all());
-        flash()->success(' تم إضافة عميل جديد بنجاح. ')->important();
+        flash()->success(' تم إنشاء عميل جديد بنجاح. ')->important();
         return redirect()->action('CustomerController@show', ['id'=>$customer->id]);
     }
 

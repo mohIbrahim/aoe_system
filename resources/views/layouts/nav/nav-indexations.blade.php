@@ -11,7 +11,7 @@
 				<li class="dropdown-header">  المقايســات </li>
 				<li><a href="{{ action('IndexationController@index') }}"> عرض كل المقايســات </a></li>
 				@if(in_array('create_indexations', $permissions))
-					<li><a href="{{ action('IndexationController@create') }}"> إضافة مقايسة جديد </a></li>
+					<li><a href="{{ action('IndexationController@create') }}"> إنشاء مقايسة جديد </a></li>
 				@endif
 			@endif
 		</ul>

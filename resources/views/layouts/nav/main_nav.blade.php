@@ -9,25 +9,28 @@
                 <span class="icon-bar"></span>
             </button>
             <!-- Branding Image -->
-            <a class="navbar-brand main_arabic_font" href="{{ url('/') }}">
-                الشركة العربية لمهمات المكاتب
-            </a>
+			<h4>
+				<a class="navbar-brand main_arabic_font" href="{{ url('/') }}">
+					{{-- <img src="{{asset('images/helper_images/branding_image.png')}}" class="navbar-left" alt="الشركة العربية لمهمات المكاتب" width="30px"> --}}
+					الشركــة العـــربيـــة لمهمـات المكاتـب
+				</a>
+			</h4>
         </div>
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- right Side Of Navbar -->
             @include('layouts.nav.nav-privileges')
 			@include('layouts.nav.nav-printing-machines')
             @include('layouts.nav.nav-customers')
+			@include('layouts.nav.nav-references')
+			@include('layouts.nav.nav-visits')
             @include('layouts.nav.nav-contracts')
-            @include('layouts.nav.nav-employees')
-            @include('layouts.nav.nav-departments')
             @include('layouts.nav.nav-follow-up-cards')
             @include('layouts.nav.nav-indexations')
             @include('layouts.nav.nav-installation-records')
             @include('layouts.nav.nav-invoices')
-            @include('layouts.nav.nav-parts')
-            @include('layouts.nav.nav-references')
-            @include('layouts.nav.nav-visits')
+			@include('layouts.nav.nav-employees')
+			@include('layouts.nav.nav-departments')
+			@include('layouts.nav.nav-parts')
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav navbar-left main_arabic_font">
                 <!-- Authentication Links -->

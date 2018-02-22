@@ -11,7 +11,7 @@
 				<li class="dropdown-header">  محاضر التراكيب </li>
 				<li><a href="{{ action('InstallationRecordController@index') }}"> عرض كل محاضر التراكيب </a></li>
 				@if(in_array('create_installation_records', $permissions))
-					<li><a href="{{ action('InstallationRecordController@create') }}"> إضافة محضر تركيب جديد </a></li>
+					<li><a href="{{ action('InstallationRecordController@create') }}"> إنشاء محضر تركيب جديد </a></li>
 				@endif
 			@endif
 		</ul>

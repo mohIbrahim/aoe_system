@@ -61,9 +61,9 @@ class Contract extends Model
     }
 
 
-    public function InstallationRecord()
+    public function installationRecord()
     {
-        $this->hasOne('App\InstallationRecord');
+        return $this->hasOne('App\InstallationRecord', 'contract_of_guarantee_id', 'id');
     }
 
     public function followUpCard()

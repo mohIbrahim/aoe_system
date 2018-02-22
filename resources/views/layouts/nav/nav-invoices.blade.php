@@ -11,7 +11,7 @@
 				<li class="dropdown-header">  الفواتيـــر </li>
 				<li><a href="{{ action('InvoiceController@index') }}"> عرض كل الفواتيـــر </a></li>
 				@if(in_array('create_invoices', $permissions))
-					<li><a href="{{ action('InvoiceController@create') }}"> إضافة محضر تركيب جديد </a></li>
+					<li><a href="{{ action('InvoiceController@create') }}"> إنشاء فاتورة جديدة </a></li>
 				@endif
 			@endif
 		</ul>

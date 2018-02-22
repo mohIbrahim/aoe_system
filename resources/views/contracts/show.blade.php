@@ -6,7 +6,7 @@
 @section('content')
 	<div class="row">
 		<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-			<div class="panel panel-primary main_arabic_font">
+			<div class="panel panel-info main_arabic_font">
 				<div class="panel-heading">
 					<h3 class="panel-title"> العقد: {{$contract->id}}</h3>
 				</div>
@@ -110,7 +110,8 @@
 								    </tr>
                                     <tr>
 									    <td colspan="2">
-                                            <h2> بيانات الآلة </h2>
+                                            <h3> بيانات الآلة </h3>
+											<hr />
                                             <div class="table-responsive">
                                                 <table class="table table-hover">
                                                     <thead>
@@ -140,7 +141,8 @@
 
                                     <tr>
 									    <td colspan="2">
-                                            <h2> بيانات العميل </h2>
+                                            <h3> بيانات العميل </h3>
+											<hr />
                                             <div class="table-responsive">
                                                 <table class="table table-hover">
                                                     <thead>
@@ -176,7 +178,8 @@
 
 									<tr>
 									    <td colspan="2">
-                                            <h2> بيانات الفواتير </h2>
+                                            <h3> بيانات الفواتير ودفعات السداد </h3>
+											<hr />
                                             <div class="table-responsive">
                                                 <table class="table table-hover">
                                                     <thead>

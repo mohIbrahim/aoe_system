@@ -53,7 +53,7 @@ class ContractController extends Controller
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'contract_as_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
 
-        flash()->success('تم إضافة العقد بنجاح. ')->important();
+        flash()->success('تم إنشاء العقد بنجاح. ')->important();
         return redirect()->action('ContractController@show', ['id'=>$contract->id]);
     }
 

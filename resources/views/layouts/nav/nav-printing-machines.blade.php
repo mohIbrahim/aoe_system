@@ -11,7 +11,7 @@
 				<li class="dropdown-header"> الآلات </li>
 				<li><a href="{{ action('PrintingMachineController@index') }}"> عرض كل الآلات </a></li>
 				@if(in_array('create_printing_machines', $permissions))
-					<li><a href="{{ action('PrintingMachineController@create') }}"> إضافة آلة جديدة  </a></li>
+					<li><a href="{{ action('PrintingMachineController@create') }}"> إنشاء آلة جديدة  </a></li>
 				@endif
 			@endif
 		</ul>

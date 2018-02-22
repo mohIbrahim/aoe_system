@@ -40,7 +40,7 @@ class ReferenceController extends Controller
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'reference_as_pdf', 'App\Reference', $reference->id, 'pdf', 'no_cover');
 
-        flash()->success(' تم إضافة الإشارة بنجاح. ')->important();
+        flash()->success(' تم إنشاء الإشارة بنجاح. ')->important();
         return redirect()->action('ReferenceController@show', ['id'=>$reference->id]);
     }
 

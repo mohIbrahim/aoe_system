@@ -51,7 +51,7 @@ class InstallationRecordController extends Controller
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'installation_record_as_pdf', 'App\InstallationRecord', $installationRecord->id, 'pdf', 'no_cover');
 
-        flash()->success(' تم إضافة محضر التركيب بنجاح. ')->important();
+        flash()->success(' تم إنشاء محضر التركيب بنجاح. ')->important();
         return redirect()->action('InstallationRecordController@show', ['id'=>$installationRecord->id]);
     }
 

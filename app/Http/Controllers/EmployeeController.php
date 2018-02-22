@@ -43,7 +43,7 @@ class EmployeeController extends Controller
     {
         $employee = $this->employee->create($request->all());
         $employee->assignedPrintingMachines()->attach($request->assigned_machines_ids);
-        flash()->success(' تم إضافة الموظف بنجاح. ')->important();
+        flash()->success(' تم إنشاء الموظف بنجاح. ')->important();
         return redirect()->action('EmployeeController@show', ['id'=>$employee->id]);
     }
 

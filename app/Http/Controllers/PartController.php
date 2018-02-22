@@ -46,7 +46,7 @@ class PartController extends Controller
     public function store(PartRequest $request)
     {
         $part = $this->part->create($request->all());
-        flash()->success(' تم إضافة قطعة جديدة رئيسية بنجاح. ')->important();
+        flash()->success(' تم إنشاء قطعة جديدة رئيسية بنجاح. ')->important();
         return redirect()->action('PartController@show', ['id'=>$part->id]);
     }
 

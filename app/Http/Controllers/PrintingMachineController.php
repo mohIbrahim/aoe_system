@@ -49,7 +49,7 @@ class PrintingMachineController extends Controller
     public function store(PrintingMachineRequest $request)
     {
 		$printingMachine = $this->printingMachine->create($request->all());
-		flash()->success('تم إضافة آلة جديدة بنجاح.')->important();
+		flash()->success('تم إنشاء آلة جديدة بنجاح.')->important();
 		return redirect()->action('PrintingMachineController@show', ['id'=>$printingMachine->id]);
     }
 

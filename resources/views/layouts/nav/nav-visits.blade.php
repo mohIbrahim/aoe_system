@@ -11,7 +11,7 @@
 				<li class="dropdown-header">  الزيارات </li>
 				<li><a href="{{ action('VisitController@index') }}"> عرض كل الزيارات </a></li>
 				@if(in_array('create_visits', $permissions))
-					<li><a href="{{ action('VisitController@create') }}"> إضافة زيارة جديدة </a></li>
+					<li><a href="{{ action('VisitController@create') }}"> إنشاء زيارة جديدة </a></li>
 				@endif
 			@endif
 		</ul>

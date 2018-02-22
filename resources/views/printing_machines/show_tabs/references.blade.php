@@ -1,5 +1,5 @@
 <h3 class="text-center"> الإشارات </h3>
-<a href="{{action('ReferenceController@createWithPrintingMachineId', ['printing_machine_id'=>$printingMachine->id] )}}"><span class="glyphicon glyphicon-plus"></span> إضافة إشارة جديدة </a>
+<a href="{{action('ReferenceController@createWithPrintingMachineId', ['printing_machine_id'=>$printingMachine->id] )}}"><span class="glyphicon glyphicon-plus"></span> إنشاء إشارة جديدة </a>
 <hr />
 <div class="table-responsive">
 	<table class="table table-hover">

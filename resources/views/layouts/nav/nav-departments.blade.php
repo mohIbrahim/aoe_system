@@ -11,7 +11,7 @@
 				<li class="dropdown-header"> الأقســام </li>
 				<li><a href="{{ action('DepartmentController@index') }}"> عرض كل الأقســام </a></li>
 				@if(in_array('create_departments', $permissions))
-					<li><a href="{{ action('DepartmentController@create') }}"> إضافة قسم جديد </a></li>
+					<li><a href="{{ action('DepartmentController@create') }}"> إنشاء قسم جديد </a></li>
 				@endif
 			@endif
 		</ul>
