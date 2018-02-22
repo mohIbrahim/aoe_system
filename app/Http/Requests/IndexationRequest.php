@@ -25,8 +25,7 @@ class IndexationRequest extends FormRequest
     {
         return [
             'code'=>'required|unique:indexations,code,'.$this->indexation,
-            'the_date'=>'required|date',
-            'reference_id'=>'nullable|unique:indexations,reference_id,'.$this->indexation,
+            'the_date'=>'required|date',            
             'visit_id'=>'required|unique:indexations,visit_id,'.$this->indexation,
             'indexation_as_pdf'=>'mimes:pdf',
         ];
@@ -39,8 +38,7 @@ class IndexationRequest extends FormRequest
             'code.required'=>' برجاء إدخال كود المقايسة. ',
             'code.unique'=>' كود المقايسة تم إدخاله من قبل برجاء إدخال كود آخر. ',
             'the_date.required'=>' برجاء اختيار تاريخ المقايسة. ',
-            'the_date.date'=>' برجاء إدخال التاريخ بشكل صحيح. ',
-            'reference_id.unique'=>'  كود الإشارة تم اختياره من قبل برجاء اختيار كود آخر. ',
+            'the_date.date'=>' برجاء إدخال التاريخ بشكل صحيح. ',            
             'visit_id.required'=>' برجاء اختيار رقم الزيارة. ',
             'visit_id.unique'=>'  رقم الزيارة تم اختياره من قبل برجاء اختيار رقم آخر. ',
             'indexation_as_pdf.mimes'=> ' برجاء اختيار صورة المقايسة بأمتداد pdf. ',

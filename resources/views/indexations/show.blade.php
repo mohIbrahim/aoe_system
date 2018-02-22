@@ -52,14 +52,6 @@
 								<td>{{$indexation->warehouse_approval}}</td>
 							</tr>
 							<tr>
-								<th> كود الإشارة </th>
-								<td>
-									<a href="{{action('ReferenceController@show', ['id'=>(isset($indexation->reference)?$indexation->reference->id:'')])}}" target="_blank">
-										{{isset($indexation->reference)?$indexation->reference->code:''}}
-									</a>
-								</td>
-							</tr>
-							<tr>
 								<th> رقم الزيـارة </th>
 								<td>
 									<a href="{{action('VisitController@show', ['id'=>(isset($indexation->visit)?$indexation->visit->id:'')])}}" target="_blank">

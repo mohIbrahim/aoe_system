@@ -93,6 +93,14 @@
 											@endforeach
 										</td>
 								    </tr>
+									<tr>
+									    <th> بطاقة المتابعة </th>
+									    <td>
+											<a href="{{action('FollowUpCardController@show', ['id'=>(($contract->followUpCard)?($contract->followUpCard->id):(''))])}}">
+												{{$contract->followUpCard->code or ''}}
+											</a>
+										</td>
+								    </tr>
 
 									<tr>
 									    <th> الملاحظات </th>

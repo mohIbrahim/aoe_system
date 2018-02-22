@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Indexation extends Model
 {
     protected $table = 'indexations';
-    protected $fillable = ['code', 'the_date', 'customer_approval', 'technical_manager_approval', 'warehouse_approval', 'comments', 'reference_id', 'visit_id'];
+    protected $fillable = ['code', 'the_date', 'customer_approval', 'technical_manager_approval', 'warehouse_approval', 'comments', 'visit_id'];
 
     protected $dates = ['the_date'];
 
@@ -52,11 +52,6 @@ class Indexation extends Model
         } else {
             $this->attributes['warehouse_approval'] = $data;
         }
-    }
-
-    public function reference()
-    {
-        return $this->belongsTo('App\Reference', 'reference_id');
     }
 
     public function visit()

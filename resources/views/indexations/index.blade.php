@@ -43,7 +43,6 @@
                                 <th> موافقة العميل </th>
                                 <th> موافقة مدير الأقسام الفنية </th>
                                 <th> موافقة المخازن </th>
-                                <th> كود الإشارة </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -71,10 +70,6 @@
                                             {{$indexation->warehouse_approval}}
                                         </td>
                                         <td>
-                                            <a href="{{action('ReferenceController@show', ['id'=>(isset($indexation->reference)?$indexation->reference->id:'')])}}" target="_blank">
-                                                {{isset($indexation->reference)?$indexation->reference->code:''}}
-                                            </a>
-                                        </td>
 									</tr>
 								@endforeach
 
@@ -110,9 +105,9 @@
                             $.each(results, function(index, indexation) {
                                 if(indexation.reference) {
 
-newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('indexations')}}/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td><td><a href='{{url('references')}}/"+indexation.reference.id+"'>"+indexation.reference.code+"</a></td></tr>";
+newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('indexations')}}/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td></tr>";
 }else {
-    newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('indexations')}}/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td><td><a href='{{url('references')}}/'></a></td></tr>";
+    newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('indexations')}}/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td></tr>";
 }
                             });
                             $("#my-table-body").append(newResult);
