@@ -62,7 +62,7 @@
     <input type="text" class="form-control" id="salary" name="salary"  placeholder=" إدخل قيمة راتب الموظف. " value="{{$employee->salary or old('salary')}}">
 </div>
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
     <div class="panel-body">
         <div class="form-group">
             <label for="assigned_machines_ids"> كود الآلات التصوير المعينة لهذا الموظف </label>

@@ -92,7 +92,7 @@
 
                                     <tr>
 									    <th>Finisher Product Key</th>
-									    <td>{{$installationRecord->finisher_product_key}} ورقة</td>
+									    <td>{{$installationRecord->finisher_product_key}}</td>
 								    </tr>
 
                                     <tr>

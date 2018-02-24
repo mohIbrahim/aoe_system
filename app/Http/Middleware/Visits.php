@@ -72,7 +72,12 @@ class Visits
 
 		if($request->route()->getName() == 'create_visit_with_printing_machine_id'    && in_array('create_visits', $permissions) ){
             $response = $next($request);
-        }else{
+        }else
+
+		if($request->route()->getName() == 'create_visit_with_printing_machine_id_and_follow_up_card_id'    && in_array('create_visits', $permissions) ){
+            $response = $next($request);
+        }
+        else{
             abort(403);
         }
 

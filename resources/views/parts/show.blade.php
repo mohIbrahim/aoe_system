@@ -6,7 +6,7 @@
 @section('content')
 	<div class="row">
 		<div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-			<div class="panel panel-primary">
+			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title"> القطعة: {{$part->name}}</h3>
 				</div>

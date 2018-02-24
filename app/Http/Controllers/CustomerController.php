@@ -77,7 +77,7 @@ class CustomerController extends Controller
     {
         $customer = $this->customer->getById($id);
         $egyptCities = (new EgyptCities())->getCities();
-        $customersIdsNames = Customer::all()->pluck('name', 'id');
+        $customersIdsNames = Customer::doesntHave('mainBranch')->pluck('name', 'id');
         return view('customers.edit', compact('customer', 'egyptCities', 'customersIdsNames'));
 
     }

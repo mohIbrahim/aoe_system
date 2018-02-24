@@ -129,4 +129,14 @@ class VisitController extends Controller
 
         return view('visits.create', compact('followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes', 'printingMachineId'));
     }
+
+    public function createWithPrintingMachineIdAndFollowUpCardId($printingMachineId, $followUpCardIdFromPrintingMachineShowView)
+    {
+        $followUpCardsIdsCodes = FollowUpCard::all()->pluck('code', 'id');
+        $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
+        $referencesIdsCodes = Reference::all()->pluck('code', 'id');
+        $type = 'بطاقة المتابعة';
+
+        return view('visits.create', compact('followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes', 'printingMachineId', 'type', 'followUpCardIdFromPrintingMachineShowView'));
+    }
 }

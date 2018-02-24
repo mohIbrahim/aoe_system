@@ -13,7 +13,7 @@
                 إشارة
             </option>
 
-            <option value="بطاقة المتابعة" {{($visitType == 'بطاقة المتابعة')? 'selected' : ((old('type')=='بطاقة المتابعة')?'selected':'')}}>
+            <option value="بطاقة المتابعة" {{(($visitType == 'بطاقة المتابعة')?('selected'):((old('type')=='بطاقة المتابعة')?('selected'):((isset($type))?(($type =='بطاقة المتابعة')?('selected'):('')):(''))))}}>
                 بطاقة المتابعة
             </option>
         </select>
@@ -25,7 +25,7 @@
             <?php $selectedFollowUpCardId = isset($visit->follow_up_card_id)? $visit->follow_up_card_id:'' ;?>
             <option value=""> اختر كود بطاقة المتابعة.  </option>
             @foreach ($followUpCardsIdsCodes as $followUpCardId => $followUpCardCode)
-                <option value="{{$followUpCardId}}" {!!($selectedFollowUpCardId == $followUpCardId)? ' selected="selected"' : ((old('follow_up_card_id')==$followUpCardId)?' selected="selected"':'')!!}> {{$followUpCardCode}} </option>
+                <option value="{{$followUpCardId}}" {!!($selectedFollowUpCardId == $followUpCardId)?(' selected="selected"'):((old('follow_up_card_id')==$followUpCardId)?(' selected="selected"'):((isset($followUpCardIdFromPrintingMachineShowView))?(($followUpCardIdFromPrintingMachineShowView==$followUpCardId)?(' selected="selected"'):('')):('')))!!}> {{$followUpCardCode}} </option>
             @endforeach
         </select>
     </div>

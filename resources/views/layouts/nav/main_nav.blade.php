@@ -19,14 +19,14 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- right Side Of Navbar -->
             @include('layouts.nav.nav-privileges')
-			@include('layouts.nav.nav-printing-machines')
             @include('layouts.nav.nav-customers')
-			@include('layouts.nav.nav-references')
-			@include('layouts.nav.nav-visits')
+			@include('layouts.nav.nav-printing-machines')
             @include('layouts.nav.nav-contracts')
             @include('layouts.nav.nav-follow-up-cards')
-            @include('layouts.nav.nav-indexations')
+            @include('layouts.nav.nav-references')
+            @include('layouts.nav.nav-visits')
             @include('layouts.nav.nav-installation-records')
+            @include('layouts.nav.nav-indexations')
             @include('layouts.nav.nav-invoices')
 			@include('layouts.nav.nav-employees')
 			@include('layouts.nav.nav-departments')

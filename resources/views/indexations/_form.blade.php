@@ -67,7 +67,7 @@
         @endif
 </div>
 
-<div class="panel panel-primary">
+<div class="panel panel-info">
     <div class="panel-body">
         <h2> إنشاء قطع غيار للمقايسة </h2>
         <div class="panel panel-default">

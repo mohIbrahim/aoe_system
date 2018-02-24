@@ -57,6 +57,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('visits_search/{keyword}', 'VisitController@search')->name('visits_search');
     Route::get('visits_pm_search/{keyword}', 'VisitController@searchingOnPrintingMachine')->name('visits_pm_search');
     Route::get('create_visit_with_printing_machine_id/{pm_id}', 'VisitController@createWithPrintingMachineId')->name('create_visit_with_printing_machine_id');
+    Route::get('create_visit_with_printing_machine_id_and_follow_up_card_id/{printin_machine_id}/{follow_up_card_id}', 'VisitController@createWithPrintingMachineIdAndFollowUpCardId')->name('create_visit_with_printing_machine_id_and_follow_up_card_id');
 //Follow Up Cards
     Route::resource('follow_up_cards', 'FollowUpCardController');
     Route::get('follow_up_cards_search/{keyword}', 'FollowUpCardController@search')->name('follow_up_cards_search');
