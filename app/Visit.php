@@ -44,7 +44,7 @@ class Visit extends Model
 
     public function followUpCard()
     {
-        return $this->belongsTo('App\followUpCard', 'follow_up_card_id', 'id');
+        return $this->belongsTo('App\FollowUpCard', 'follow_up_card_id', 'id');
     }
 
     public function theEmployeeWhoMadeTheVisit()
