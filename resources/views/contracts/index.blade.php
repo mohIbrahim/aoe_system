@@ -22,7 +22,7 @@
 
 
 
-				<button type="button" id="search_button" class="btn btn-primary"> بحث </button>
+				<button type="button" id="contract-search-button" class="btn btn-primary"> بحث </button>
 				<a href=""  class="btn btn-success"> العودة </a>
 
 
@@ -78,38 +78,4 @@
 	  </div>
 	</div>
 
-@endsection
-
-@section('js_footer')
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#search_button').on('click', function(){
-				var keyword = $('#contract_search').val();
-				var newResult = "";
-                if (keyword) {
-
-                    $.ajax({
-                        type: "GET",
-                        url:"contracts_search/"+keyword,
-                        dataType: "json",
-                        success: function(results){
-                            $("#my-table-body").fadeOut();
-                            $("#my-table-body").children().remove();
-                            $.each(results, function(index, contract) {
-                                if (contract.printing_machine) {
-                                    newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('contracts')}}/"+contract.id+"'>"+contract.code+"</a></td><td>"+contract.type+"</td><td>"+contract.start+"</td><td>"+contract.end+"</td><td>"+contract.status+"</td><td>"+contract.payment_system+"</td><td>"+contract.printing_machine.customer.name+"</td></tr>";
-                                } else {
-                                    newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('contracts')}}/"+contract.id+"'>"+contract.code+"</a></td><td>"+contract.type+"</td><td>"+contract.start+"</td><td>"+contract.end+"</td><td>"+contract.status+"</td><td>"+contract.payment_system+"</td><td></td></tr>";
-                                }
-                            });
-                            $("#my-table-body").append(newResult);
-                            $("#my-table-body").fadeIn();
-                        }
-
-                    });
-                }
-
-			});
-		});
-	</script>
 @endsection

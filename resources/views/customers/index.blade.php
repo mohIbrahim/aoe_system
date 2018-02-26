@@ -22,7 +22,7 @@
 
 
 
-				<button type="button" id="search_button" class="btn btn-primary"> بحث </button>
+				<button type="button" id="customers-search-button" class="btn btn-primary"> بحث </button>
 				<a href=""  class="btn btn-success"> العودة </a>
 
 
@@ -76,34 +76,4 @@
 	  </div>
 	</div>
 
-@endsection
-
-@section('js_footer')
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#search_button').on('click', function(){
-				var keyword = $('#customer_search').val();
-				var newResult = "";
-                if (keyword) {
-
-                    $.ajax({
-                        type: "GET",
-                        url:"customers_search/"+keyword,
-                        dataType: "json",
-                        success: function(results){
-                            $("#my-table-body").fadeOut();
-                            $("#my-table-body").children().remove();
-                            $.each(results, function(index, customer) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('customers')}}/"+customer.id+"'>"+customer.name+"</a></td><td>"+customer.code+"</td><td>"+customer.type+"</td><td>"+customer.governorate+"</td><td>"+customer.area+"</td><td>"+customer.telecoms[0].number+"</td></tr>"
-                            });
-                            $("#my-table-body").append(newResult);
-                            $("#my-table-body").fadeIn();
-                        }
-
-                    });
-                }
-
-			});
-		});
-	</script>
 @endsection

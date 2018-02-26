@@ -22,7 +22,7 @@
 
 
 
-				<button type="button" id="search_button" class="btn btn-primary"> بحث </button>
+				<button type="button" id="printing-machine-search-button" class="btn btn-primary"> بحث </button>
 				<a href=""  class="btn btn-success"> العودة </a>
 
 
@@ -68,35 +68,4 @@
 	  </div>
 	</div>
 
-@endsection
-
-@section('js_footer')
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#search_button').on('click', function(){
-				var keyword = $('#printing_machyines_search').val();
-				var newResult = "";
-				$.ajax({
-					type: "GET",
-					url:"printing_machines_search/"+keyword,
-					dataType: "json",
-					success: function(results){
-						$("#my-table-body").fadeOut();
-						$("#my-table-body").children().remove();
-						$.each(results, function(index, machine) {
-                            if(machine.customer) {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('printing_machines')}}/"+machine.id+"'>"+machine.folder_number+"</a></td><td>"+machine.code+"</td><td>"+machine.model_prefix+"-"+machine.model_suffix+"</td><td>"+machine.customer.name+"</td> </tr>";
-                            } else {
-                                newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('printing_machines')}}/"+machine.id+"'>"+machine.folder_number+"</a></td><td>"+machine.code+"</td><td>"+machine.model_prefix+"-"+machine.model_suffix+"</td><td></td> </tr>";
-                            }
-				        });
-						$("#my-table-body").append(newResult);
-						$("#my-table-body").fadeIn();
-					}
-
-				});
-
-			});
-		});
-	</script>
 @endsection
