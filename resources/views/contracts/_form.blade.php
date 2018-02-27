@@ -3,31 +3,67 @@
     <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود العقد. " value="{{$contract->code or old('code')}}">
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-info">
     <div class="panel-body">
-        <div class="form-group form-inline">
-            <label for="printing-machine-search-field">  البحث عن الآلة التصوير:  </label>
-            <input type="text" class="form-control" id="printing-machine-search-field" name="printing_machine_search_field" placeholder=" إدخل الكلمة المراد البحث عنها. " value="{{isset($contract->printingMachine)? isset($contract->printingMachine->customer)?$contract->printingMachine->customer->name:'':'' }}">
-            <button type="button" class="btn btn-default" id="printing-machine-search-btn"> ابحث </button>
-            <spna id="printing-machine-search-p">  </spna>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th> كود الآلة </th>
-                        <th> اسم العميل </th>
-                        <th> اختيار </th>
-                    </tr>
-                </thead>
-                <tbody  id="results-table-body">
-                </tbody>
-            </table>
-        </div>
         <div class="form-group">
-            <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير: </label>
-            <p>
-                يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة، برجاء عدم ادخال اي رقم عشوائي
-            </p>
-            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id"  value="{{(isset($contract->printing_machine_id))?($contract->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}">
+            <label for="assigned_machines_ids"> آلات التصوير المعينة لهذا العقد <span style="color:red">*</span></label>
+        </div>
+        <div class="form-group form-inline">
+            <label for=""> البحث عن الآلة باسم العميل </label>
+            <input type="text" class="form-control" id="printing-machine-search-field" placeholder=" ادخل الكلمة المراد البحث عنها. ">
+            <button type="button" class="btn btn-default" id="contract-form-printing-machine-search-button"> ابحث </button>
+            <p id="printing-machine-message"></p>
+			<p style="color:#F00">
+				 برجاء التأكد من الآلات المختارة بحيث تكون الآلات تحت اسم عميل واحد فقط
+			</p>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4> نتائج البحث </h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> اسم العميل </th>
+                            <th> كود الآلة </th>
+                            <th> الاختيار </th>
+                        </tr>
+                    </thead>
+                    <tbody id="printing-machine-search-results-table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"> الآلات المعينة </h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> اسم العميل </th>
+                            <th> كود الآلة </th>
+                            <th> الحذف </th>
+                        </tr>
+                    </thead>
+                    <tbody id="printing-machine-selected-results-table-body">
+                        @if (isset($contract))
+                            @foreach ($contract->printingMachines as $key => $printingMachine)
+                                <tr>
+                                    <td>{{isset($printingMachine->customer)?$printingMachine->customer->name:''}}</td>
+                                    <td>{{$printingMachine->code}}</td>
+                                    <td>
+                                        <button type='button' class='btn btn-danger btn-xs printing-machine-delete-button'> حذف الآلة </button>
+                                        <input type='hidden' name='assigned_machines_ids[]' value='{{$printingMachine->id}}'>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -190,36 +226,4 @@
     <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
 {{-- bootstrap-select --}}
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $("#printing-machine-search-btn").on("click", function(){
-            var keyword = $("#printing-machine-search-field").val();
-            $("#printing-machine-search-p").text("");
-            $("#results-table-body ").children().remove();
-            var resultsTableBody = '';
-            if(keyword){
-                $.ajax({
-                    type:"GET",
-                    url:"{{url('contracts_pm_search')}}/"+keyword,
-                    dataType:"json",
-                    success:function(results){
-                        $.each(results, function(key, machine){
-                            resultsTableBody += "<tr><td>"+machine.code+"</td><td>"+((machine.customer)?machine.customer.name:'')+"</td><td><button type='button' class='btn btn-success btn-xs select-printing-machine' data-printing-machine-id='"+machine.id+"' data-printing-machine-code='"+machine.code+"'> اختيار هذة الآلة </button></td></tr>";
-                        });
-                        $("#results-table-body").append(resultsTableBody);
-                        $(".select-printing-machine").on("click", function(){
-                            printingMachineCode = $(this).attr('data-printing-machine-code');
-                            printingMachineId = $(this).attr('data-printing-machine-id');
-                            $("#printing-machine-id").val(printingMachineId);
-                        });
-                    },
-                });
-            }else{
-                $("#printing-machine-search-p").text(" برجاء إدخال قيمة ").css('color','red');
-            }
-        });
-    });
-</script>
-
 @endsection

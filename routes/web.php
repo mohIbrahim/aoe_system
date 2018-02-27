@@ -46,7 +46,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::resource('contracts', 'ContractController');
     Route::get('contracts_search/{keyword}', 'ContractController@search')->name('contracts_search');
     Route::get('remove_the_contract_file/{project_image_id}', 'ContractController@removeContractFile')->name('remove_the_contract_file');
-    Route::get('contracts_pm_search/{keyword}', 'ContractController@searchingOnPrintingMachine')->name('contracts_pm_search');
+    Route::get('contracts_pm_search/{keyword}', 'ContractController@searchingOnPrintingMachinesByCustomerName')->name('contracts_pm_search');
 	Route::get('create_contract_with_printing_machine_id/{pm_id}', 'ContractController@createWithPrintingMachineId')->name('create_contract_with_printing_machine_id');
 //Invoices
     Route::resource('invoices', 'InvoiceController');

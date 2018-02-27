@@ -27,9 +27,6 @@ class CreateContractsTable extends Migration
             $table->text('comments')->nullable();
             $table->timestamps();
 
-            $table->integer('printing_machine_id')->unsigned()->nullable();
-            $table->foreign('printing_machine_id')->references('id')->on('printing_machines')->onDelete('set null');
-
             $table->integer('employee_id_who_edits_the_contract')->unsigned()->nullable();
             $table->foreign('employee_id_who_edits_the_contract')->references('id')->on('employees')->onDelete('set null');
         });

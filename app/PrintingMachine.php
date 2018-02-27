@@ -43,7 +43,7 @@ class PrintingMachine extends Model
 
     public function contracts()
     {
-        return $this->hasMany('App\Contract', 'printing_machine_id', 'id');
+        return $this->belongsToMany('App\Contract', 'contract_printing_machine' , 'p_machine_id', 'contract_id');
     }
 
     public function references()

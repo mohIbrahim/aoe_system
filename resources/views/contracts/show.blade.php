@@ -118,7 +118,7 @@
 								    </tr>
                                     <tr>
 									    <td colspan="2">
-                                            <h3> بيانات الآلة </h3>
+                                            <h3> بيانات الآلات </h3>
 											<hr />
                                             <div class="table-responsive">
                                                 <table class="table table-hover">
@@ -129,18 +129,20 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <a href="{{action('PrintingMachineController@show', ['id'=>(isset($contract->printingMachine)?$contract->printingMachine->id:'')])}}">
-                                                                    {{isset($contract->printingMachine)?$contract->printingMachine->code:''}}
-                                                                </a>
-                                                            </td>
-                                                            <td>
-                                                                {{ isset($contract->printingMachine)?$contract->printingMachine->model_prefix:''}}
-                                                                -
-                                                                {{ isset($contract->printingMachine)?$contract->printingMachine->model_suffix:''}}
-                                                            </td>
-                                                        </tr>
+														@foreach ($contract->printingMachines as $pritingMachineiterator => $printingMachine)
+															<tr>
+																<td>
+																	<a href="{{action('PrintingMachineController@show', ['id'=>(isset($printingMachine)?$printingMachine->id:'')])}}">
+																		{{isset($printingMachine)?$printingMachine->code:''}}
+																	</a>
+																</td>
+																<td>
+																	{{ isset($printingMachine)?$printingMachine->model_prefix:''}}
+																	-
+																	{{ isset($printingMachine)?$printingMachine->model_suffix:''}}
+																</td>
+															</tr>
+														@endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -164,18 +166,18 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>
-                                                                {{isset($contract->printingMachine->customer->name)?$contract->printingMachine->customer->name:''}}
+                                                                {{isset($contract->printingMachines()->first()->customer->name)?$contract->printingMachines()->first()->customer->name:''}}
                                                             </td>
                                                             <td>
-                                                                <a href="{{action('CustomerController@show', ['id'=>(isset($contract->printingMachine->customer->id)?$contract->printingMachine->customer->id:'')])}}">
-                                                                    {{isset($contract->printingMachine->customer->code)?$contract->printingMachine->customer->code:''}}
+                                                                <a href="{{action('CustomerController@show', ['id'=>(isset($contract->printingMachines()->first()->customer->id)?$contract->printingMachines()->first()->customer->id:'')])}}">
+                                                                    {{isset($contract->printingMachines()->first()->customer->code)?$contract->printingMachines()->first()->customer->code:''}}
                                                                 </a>
                                                             </td>
                                                             <td>
-                                                                {{isset($contract->printingMachine->customer->type)?$contract->printingMachine->customer->type:''}}
+                                                                {{isset($contract->printingMachines()->first()->customer->type)?$contract->printingMachines()->first()->customer->type:''}}
                                                             </td>
                                                             <td>
-                                                                {{isset($contract->printingMachine->customer->area)?$contract->printingMachine->customer->area:''}}
+                                                                {{isset($contract->printingMachines()->first()->customer->area)?$contract->printingMachines()->first()->customer->area:''}}
                                                             </td>
                                                         </tr>
                                                     </tbody>

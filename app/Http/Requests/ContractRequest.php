@@ -35,6 +35,7 @@ class ContractRequest extends FormRequest
                 'total_price'=>'required|numeric',
                 'payment_system'=>'required',
                 'contract_as_pdf'=>'mimes:pdf',
+				'assigned_machines_ids'=>'required',
             ];
     }
 
@@ -60,6 +61,7 @@ class ContractRequest extends FormRequest
                 'total_price.numeric'=>' برجاء إدخال القيمة الإجمالية لسعر التعاقد بشكل صحيح. ',
                 'payment_system.required'=>' برجاء اختيار نظام السداد. ',
                 'contract_as_pdf.mimes'=>' برجاء اختيار صورة العقد بأمتداد PDF.',
+				'assigned_machines_ids.required'=>' برجاء اختيار آلات التصوير المعينة لهذا العقد. ',
             ];
     }
 }

@@ -51,7 +51,7 @@ $(document).ready(function(){
 
 			$.ajax({
 				type: "GET",
-				url:"contracts_search/"+keyword,
+				url:"/contracts_search/"+keyword,
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
@@ -83,7 +83,7 @@ $(document).ready(function(){
 
 			$.ajax({
 				type: "GET",
-				url:"customers_search/"+keyword,
+				url:"/customers_search/"+keyword,
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
@@ -110,7 +110,7 @@ $(document).ready(function(){
 		if(keyword) {
 			$.ajax({
 				type: "GET",
-				url:"employees_search/"+keyword,
+				url:"/employees_search/"+keyword,
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
@@ -144,7 +144,7 @@ $(document).ready(function(){
 		if(keyword) {
 			$.ajax({
 				type: "GET",
-				url:"follow_up_card_special_reports_search/"+keyword,
+				url:"/follow_up_card_special_reports_search/"+keyword,
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
@@ -170,7 +170,7 @@ $(document).ready(function(){
 		if(keyword) {
 			$.ajax({
 				type: "GET",
-				url:"follow_up_cards_search/"+keyword,
+				url:"/follow_up_cards_search/"+keyword,
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
@@ -201,7 +201,7 @@ $(document).ready(function(){
 		if(keyword) {
 			$.ajax({
 				type: "GET",
-				url:"indexations_search/"+keyword,
+				url:"/indexations_search/"+keyword,
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
@@ -232,7 +232,7 @@ $(document).ready(function(){
 		if(keyword) {
 			$.ajax({
 				type: "GET",
-				url:"invoices_search/"+keyword,
+				url:"/invoices_search/"+keyword,
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
@@ -263,7 +263,7 @@ $(document).ready(function(){
 		if (keyword) {
 			$.ajax({
 				type: "GET",
-				url:"part_serial_numbers_search/"+keyword,
+				url:"/part_serial_numbers_search/"+keyword,
 				dataType: "json",
 				success: function(results){
 
@@ -289,7 +289,7 @@ $(document).ready(function(){
 		if (keyword) {
 			$.ajax({
 				type: "GET",
-				url:"parts_search/"+keyword,
+				url:"/parts_search/"+keyword,
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
@@ -315,7 +315,7 @@ $(document).ready(function(){
 		var newResult = "";
 		$.ajax({
 			type: "GET",
-			url:"printing_machines_search/"+keyword,
+			url:"/printing_machines_search/"+keyword,
 			dataType: "json",
 			success: function(results){
 				$("#my-table-body").fadeOut();
@@ -345,7 +345,7 @@ $(document).ready(function(){
 		if(keyword) {
 			$.ajax({
 				type: "GET",
-				url:"references_search/"+keyword,
+				url:"/references_search/"+keyword,
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
@@ -362,3 +362,49 @@ $(document).ready(function(){
 	});
 });
 // End Ajax for References index view
+
+//Start Ajax for contract _fom printing machine search
+$(document).ready(function () {
+	$("#contract-form-printing-machine-search-button").on("click", function(){
+		var keyword = $("#printing-machine-search-field").val();
+		var resultsTableBody = "";
+		if (keyword) {
+			$("#printing-machine-message").text("");
+			$("#printing-machine-search-results-table-body").children().remove();
+
+			$.ajax({
+				type:"GET",
+				url:"/contracts_pm_search/"+keyword,
+				dataType:"json",
+				success:function(results){
+					$.each(results, function(key, printingMachine){
+						resultsTableBody += "<tr><td>"+((printingMachine.customer)?printingMachine.customer.name:'')+"</td><td>"+printingMachine.code+"</td><td><button type='button' class='btn btn-success btn-xs printing-machine-select-button' data-priting-machine-id='"+printingMachine.id+"' data-customer-name='"+((printingMachine.customer)?printingMachine.customer.name:'')+"' data-printing-machine-code='"+printingMachine.code+"'> اختيار الآلة </button></td></tr>";
+					});
+					$("#printing-machine-search-results-table-body").append(resultsTableBody);
+					$(".printing-machine-select-button").on("click", function(){
+						pMId = $(this).attr("data-priting-machine-id");
+						pMCode = $(this).attr("data-printing-machine-code");
+						customerName = $(this).attr("data-customer-name");
+						$("#printing-machine-selected-results-table-body").append("<tr><td>"+customerName+"</td><td>"+pMCode+"</td><td><button type='button' class='btn btn-danger btn-xs printing-machine-delete-button'> حذف الآلة </button><input type='hidden' name='assigned_machines_ids[]' value='"+pMId+"'></td></tr>");
+						$(this).parent().parent().fadeOut('500', function(){
+							$(this).remove();
+						});
+						$(".printing-machine-delete-button").on("click", function(){
+							$(this).parent().parent().fadeOut('500', function(){
+								$(this).remove();
+							});
+						});
+					});
+				},
+			});
+		} else {
+			$("#printing-machine-message").text(" برجاء ادخال الكلمة المراد البحث عنها. ").css("color", "red");
+		}
+	});
+	$(".printing-machine-delete-button").on("click", function(){
+		$(this).parent().parent().fadeOut('500', function(){
+			$(this).remove();
+		});
+	});
+});
+//End Ajax for contract _fom printing machine search

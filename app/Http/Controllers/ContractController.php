@@ -52,6 +52,7 @@ class ContractController extends Controller
         $contract = $this->contract->create($request->all());
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'contract_as_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
+		$contract->printingMachines()->attach($request->assigned_machines_ids);
 
         flash()->success('تم إنشاء العقد بنجاح. ')->important();
         return redirect()->action('ContractController@show', ['id'=>$contract->id]);
@@ -100,7 +101,7 @@ class ContractController extends Controller
             }
             $isUploaded = $projectImage->receiveAndCreat($request, 'contract_as_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
         }
-
+		$contract->printingMachines()->sync($request->assigned_machines_ids);
         flash()->success('تم تعديل العقد بنجاح. ')->important();
         return redirect()->action('ContractController@show', ['id'=>$id]);
     }
@@ -133,13 +134,20 @@ class ContractController extends Controller
         $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
         return back()->withInput();
     }
-
-    public function searchingOnPrintingMachine($keyword)
+	/**
+	*	Searching for printing machine by customer name that ajax request from contract _form
+	*
+	**/
+    public function searchingOnPrintingMachinesByCustomerName($keyword)
     {
-        $abc = new EloquentPrintingMachine(new PrintingMachine());
-        return $abc->searchLimitedCodeCustomer($keyword);
+        $eloquentPrintingMachine = new EloquentPrintingMachine(new PrintingMachine());
+        return $eloquentPrintingMachine->searchingOnPrintingMachinesByCustomerName($keyword);
     }
-
+	/**
+	*	Create contract from priting machine show view by passing printing machine id
+	* 	to make easy for system users to create that contract
+	*
+	**/
 	public function createWithPrintingMachineId($printingMachineId)
     {
 		$employeesIdsNames = Employee::all()->pluck('user.name', 'id');
