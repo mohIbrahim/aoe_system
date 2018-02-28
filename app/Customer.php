@@ -13,6 +13,8 @@ class Customer extends Model
                             'email',
                             'website',
                             'responsible_person_name',
+                            'responsible_person_phone',
+                            'responsible_person_email',
                             'address',
                             'area',
                             'district',
@@ -22,6 +24,9 @@ class Customer extends Model
                             'department',
                             'comments',
                             'main_branch_id',
+                            'accounts_dep_emp_name',
+                            'accounts_dep_emp_phone',
+                            'accounts_dep_emp_email',
                          ];
 
     public function telecoms()

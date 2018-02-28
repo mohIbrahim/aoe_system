@@ -29,6 +29,11 @@ class CustomerRequest extends FormRequest
                     'type'=>'required',
                     'email'=>'email|nullable',
                     'telecom.*'=>'required|numeric',
+
+                    'responsible_person_phone'=>'numeric|nullable',
+                    'responsible_person_email'=>'email|nullable',
+                    'accounts_dep_emp_phone'=>'numeric|nullable',
+                    'accounts_dep_emp_email'=>'email|nullable',
                 ];
     }
 
@@ -39,6 +44,10 @@ class CustomerRequest extends FormRequest
                                     'name.required'=>' برجاء إدخال اسم العميل. ',
                                     'type.required'=>' برجاء أختيار نوع العميل. ',
                                     'email.email'=>' برجاء إدخال الإيمل بشكل صحيح. ',
+                                    'responsible_person_phone.numeric'=>' برجاء ادخال رقم الهاتف للشخص المسؤول عن الآلة على هيئة ارقام فقط ',
+                                    'responsible_person_email.email'=>' برجاء ادخال البريد الإلكتروني للشخص المسؤول عن الآلة بشكل صحيح. ',
+                                    'accounts_dep_emp_phone.numeric'=>' برجاء ادخال رقم الهاتف الخاص بقسم المحاسبة للعميل على هيئة ارقام فقط ',
+                                    'accounts_dep_emp_email.email'=>'  برجاء ادخال البريد الإلكتروني الخاص بقسم المحاسبة للعميل بشكل صحيح. ',
                                 ];
         for($i = 0 ; $i < count($this->telecom) ;$i++){
             $validationMessages["telecom*$i.required"] = "برجاء إدخال رقم الهاتف للحقل رقم ".($i+1);

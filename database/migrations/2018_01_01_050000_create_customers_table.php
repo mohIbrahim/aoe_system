@@ -21,6 +21,8 @@ class CreateCustomersTable extends Migration
             $table->string('email')->nullable();
             $table->string('website')->nullable();
             $table->string('responsible_person_name')->nullable();
+            $table->string('responsible_person_phone')->nullable();
+            $table->string('responsible_person_email')->nullable();
             $table->string('address')->nullable();
             $table->string('area')->nullable();
             $table->string('district')->nullable();
@@ -29,6 +31,9 @@ class CreateCustomersTable extends Migration
             $table->string('administration')->nullable();
             $table->string('department')->nullable();
             $table->text('comments')->nullable();
+            $table->string('accounts_dep_emp_name')->nullable();
+            $table->string('accounts_dep_emp_phone')->nullable();
+            $table->string('accounts_dep_emp_email')->nullable();
             $table->timestamps();
 
             $table->integer('main_branch_id')->unsigned()->nullable();
