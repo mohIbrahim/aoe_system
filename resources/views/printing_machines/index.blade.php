@@ -31,7 +31,7 @@
 		    <div class="panel-body">
 
 		  		<div class="table-responsive">
-			  	    <table class="table table-hover" id="printing-machine-index-table">
+			  	    <table class="table table-hover standart-datatable" id="printing-machine-index-table">
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>
@@ -69,21 +69,13 @@
 	</div>
 
 @endsection
+@section('head')
+{{-- Datatable --}}
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-3.2.1/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/fc-3.2.4/fh-3.1.3/datatables.min.css"/>
+{{-- Datatable --}}
+@endsection
 @section('js_footer')
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/af-2.2.2/b-1.5.1/b-colvis-1.5.1/b-html5-1.5.1/b-print-1.5.1/fh-3.1.3/r-2.2.1/rg-1.0.2/datatables.min.css"/>
-
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/af-2.2.2/b-1.5.1/b-colvis-1.5.1/b-html5-1.5.1/b-print-1.5.1/fh-3.1.3/r-2.2.1/rg-1.0.2/datatables.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#printing-machine-index-table').DataTable(
-			{
-				"language": {
-						    	"search": " البحث في النتائج "
-							},
-				"lengthChange": false,
-				"paging": false,
-
-			});
-	});
-</script>
+{{-- Datatable --}}
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-3.2.1/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/fc-3.2.4/fh-3.1.3/datatables.min.js"></script>
+{{-- Datatable --}}
 @endsection

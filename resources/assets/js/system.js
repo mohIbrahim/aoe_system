@@ -408,3 +408,18 @@ $(document).ready(function () {
 	});
 });
 //End Ajax for contract _fom printing machine search
+
+//Start Datatable
+$(document).ready(function() {
+	$('.standart-datatable').DataTable(
+		{
+			"searching": false,
+			"lengthChange": false,
+			"paging": false,
+			dom: 'Bfrtip',
+			buttons: [
+				'excel', 'print'
+			]
+		});
+});
+//End Datatable
