@@ -91,5 +91,9 @@ class Contract extends Model
         return $this->hasMany('App\Invoice', 'contract_id', 'id');
     }
 
+	public function ontesOnContracting()
+	{
+		return $this->hasMany('')
+	}
 
 }
