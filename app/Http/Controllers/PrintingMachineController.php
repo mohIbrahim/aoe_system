@@ -6,6 +6,7 @@ use App\PrintingMachine;
 use App\AOE\Repositories\PrintingMachine\PrintingMachineInterface;
 use App\Http\Requests\PrintingMachineRequest;
 use App\Customer;
+use App\Employee;
 
 class PrintingMachineController extends Controller
 {
@@ -37,7 +38,8 @@ class PrintingMachineController extends Controller
     public function create()
     {
         $customerIdsCodes = Customer::all()->pluck('code', 'id');
-        return view('printing_machines.create', compact('customerIdsCodes'));
+		$employeesNames = Employee::all()->pluck('user.name');
+        return view('printing_machines.create', compact('customerIdsCodes', 'employeesNames'));
     }
 
     /**
@@ -75,7 +77,8 @@ class PrintingMachineController extends Controller
     {
     	$printingMachine = $this->printingMachine->getById($id);
         $customerIdsCodes = Customer::all()->pluck('code', 'id');
-		return view('printing_machines.edit', compact('printingMachine', 'customerIdsCodes'));
+		$employeesNames = Employee::all()->pluck('user.name');
+		return view('printing_machines.edit', compact('printingMachine', 'customerIdsCodes', 'employeesNames'));
     }
 
     /**

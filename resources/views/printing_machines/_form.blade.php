@@ -90,6 +90,17 @@
   {{isset($printingMachine->is_sold_by_aoe)? (($printingMachine->is_sold_by_aoe == 0)? "checked":""):(old("is_sold_by_aoe"))}}>
 </div>
 
+ <div class="form-group">
+     <label for="employee_delivered_the_machine"> اسم الموظف الذي قام بتسليم الآلة </label>
+     <select class="form-control selectpicker" name="employee_delivered_the_machine" data-live-search="true">
+         <?php $selectedEmployeeName = isset($printingMachine->employee_delivered_the_machine)? $printingMachine->employee_delivered_the_machine: '' ?>
+         <option value=""> اختر اسم الموظف الذي قام بتسليم الآلة. </option>
+         @foreach($employeesNames as $employeeName)
+             <option value="{{$employeeName}}" {{($selectedEmployeeName == $employeeName)? ('selected'):((old('employee_delivered_the_machine')==$employeeName)?'selected':'')}} >{{$employeeName}}</option>
+         @endforeach
+     </select>
+ </div>
+
 <div class="form-group">
   <label for="comments"> الملاحظات </label>
   <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$printingMachine->comments or old('comments')}}</textarea>

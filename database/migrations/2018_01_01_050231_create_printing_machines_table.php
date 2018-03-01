@@ -28,6 +28,7 @@ class CreatePrintingMachinesTable extends Migration
             $table->float('price_without_tax', 10, 2)->nullable()->default(0);
             $table->float('price_with_tax', 10, 2)->nullable()->default(0);
             $table->boolean('is_sold_by_aoe')->nullable()->default(0);
+			$table->string('employee_delivered_the_machine')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
 

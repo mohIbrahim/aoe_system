@@ -24,6 +24,7 @@ class PrintingMachine extends Model
             'is_sold_by_aoe',
             'comments',
             'customer_id',
+            'employee_delivered_the_machine',
     ];
 
     public function customer()

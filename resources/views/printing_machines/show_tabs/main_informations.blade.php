@@ -100,6 +100,11 @@
 			</tr>
 
 			<tr>
+				<th> اسم الموظف الذي قام بتسليم الآلة </th>
+				<td>{{$printingMachine->employee_delivered_the_machine}}</td>
+			</tr>
+
+			<tr>
 				<th>
 						اسماء الموظفين المعينين لهذة الآلة
 				</th>
