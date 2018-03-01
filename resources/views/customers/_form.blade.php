@@ -122,8 +122,40 @@
 </div>
 
 <div class="form-group">
-    <label for="responsible_person_name"> اسم الشخص المسؤول عن الآلة. </label>
+    <label for="responsible_person_name"> اسم الشخص المسؤول عن الآلة </label>
     <input type="text" class="form-control" id="responsible_person_name" name="responsible_person_name"  placeholder=" إدخل اسم الشخص المسؤول عن الآلة. " value="{{$customer->responsible_person_name or old('responsible_person_name')}}">
+</div>
+
+<div class="form-group">
+    <label for="responsible_person_phone"> رقم تليفون الشخص المسؤول عن الآلة </label>
+    <input type="text" class="form-control" id="responsible_person_phone" name="responsible_person_phone"  placeholder=" إدخل رقم تليفون الشخص المسؤول عن الآلة. " value="{{$customer->responsible_person_phone or old('responsible_person_phone')}}">
+</div>
+
+<div class="form-group">
+    <label for="responsible_person_email"> البريد الإلكتروني للشخص المسؤول عن الآلة </label>
+    <input type="text" class="form-control" id="responsible_person_email" name="responsible_person_email"  placeholder=" إدخل البريد الإلكتروني للشخص المسؤول عن الآلة. " value="{{$customer->responsible_person_email or old('responsible_person_email')}}">
+</div>
+
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<h3 class="panel-title"> بيانات قسم الحسابات الخاص بالعميل </h3>
+	</div>
+	<div class="panel-body">
+		<div class="form-group">
+		    <label for="accounts_dep_emp_name"> اسم الموظف المسؤول </label>
+		    <input type="text" class="form-control" id="accounts_dep_emp_name" name="accounts_dep_emp_name"  placeholder=" إدخل اسم الشخص المسؤول في قسم الحسابات. " value="{{$customer->accounts_dep_emp_name or old('accounts_dep_emp_name')}}">
+		</div>
+
+		<div class="form-group">
+		    <label for="accounts_dep_emp_phone"> رقم التليفون </label>
+		    <input type="text" class="form-control" id="accounts_dep_emp_phone" name="accounts_dep_emp_phone"  placeholder=" إدخل رقم تليفون الخاص بقسم الحسابات. " value="{{$customer->accounts_dep_emp_phone or old('accounts_dep_emp_phone')}}">
+		</div>
+
+		<div class="form-group">
+		    <label for="accounts_dep_emp_email"> البريد الإلكتروني </label>
+		    <input type="text" class="form-control" id="accounts_dep_emp_email" name="accounts_dep_emp_email"  placeholder=" إدخل البريد الإلكتروني الخاص بقسم الحسابات. " value="{{$customer->accounts_dep_emp_email or old('accounts_dep_emp_email')}}">
+		</div>
+	</div>
 </div>
 
 <div class="form-group">

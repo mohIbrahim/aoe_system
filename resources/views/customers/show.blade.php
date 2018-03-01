@@ -155,6 +155,38 @@
                                             <td>{{$customer->responsible_person_name}}</td>
                                         </tr>
 
+										<tr>
+                                            <th> رقم تليفون الشخص المسؤول عن الآلة </th>
+                                            <td>{{$customer->responsible_person_phone}}</td>
+                                        </tr>
+
+										<tr>
+                                            <th> البريد الإلكتروني للشخص المسؤول عن الآلة </th>
+                                            <td>{{$customer->responsible_person_email}}</td>
+                                        </tr>
+
+										<tr>
+											<td colspan="2">
+												<table class="table table-hover">
+													<thead>
+														<h3> بيانات قسم الحسابات الخاص بالعميل </h3>
+														<tr>
+															<th> اسم الموظف المسؤول </th>
+															<th> رقم التليفون </th>
+															<th> البريد الإلكتروني </th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>{{$customer->accounts_dep_emp_name}}</td>
+															<td>{{$customer->accounts_dep_emp_phone}}</td>
+															<td>{{$customer->accounts_dep_emp_email}}</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+                                        </tr>
+
                                         <tr>
                                             <th> الملاحظات </th>
                                             <td>{{$customer->comments}}</td>
