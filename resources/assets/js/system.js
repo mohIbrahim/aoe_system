@@ -57,10 +57,10 @@ $(document).ready(function(){
 					$("#my-table-body").fadeOut();
 					$("#my-table-body").children().remove();
 					$.each(results, function(index, contract) {
-						if (contract.printing_machine) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('contracts')}}/"+contract.id+"'>"+contract.code+"</a></td><td>"+contract.type+"</td><td>"+contract.start+"</td><td>"+contract.end+"</td><td>"+contract.status+"</td><td>"+contract.payment_system+"</td><td>"+contract.printing_machine.customer.name+"</td></tr>";
+						if (contract.printing_machines) {
+							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/contracts/"+contract.id+"'>"+contract.code+"</a></td><td>"+contract.type+"</td><td>"+contract.start+"</td><td>"+contract.end+"</td><td>"+contract.status+"</td><td>"+contract.payment_system+"</td><td>"+contract.printing_machines[0].customer.name+"</td></tr>";
 						} else {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('contracts')}}/"+contract.id+"'>"+contract.code+"</a></td><td>"+contract.type+"</td><td>"+contract.start+"</td><td>"+contract.end+"</td><td>"+contract.status+"</td><td>"+contract.payment_system+"</td><td></td></tr>";
+							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/contracts/"+contract.id+"'>"+contract.code+"</a></td><td>"+contract.type+"</td><td>"+contract.start+"</td><td>"+contract.end+"</td><td>"+contract.status+"</td><td>"+contract.payment_system+"</td><td></td></tr>";
 						}
 					});
 					$("#my-table-body").append(newResult);
@@ -89,7 +89,7 @@ $(document).ready(function(){
 					$("#my-table-body").fadeOut();
 					$("#my-table-body").children().remove();
 					$.each(results, function(index, customer) {
-						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('customers')}}/"+customer.id+"'>"+customer.name+"</a></td><td>"+customer.code+"</td><td>"+customer.type+"</td><td>"+customer.governorate+"</td><td>"+customer.area+"</td><td>"+customer.telecoms[0].number+"</td></tr>"
+						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/customers/"+customer.id+"'>"+customer.name+"</a></td><td>"+customer.code+"</td><td>"+customer.type+"</td><td>"+customer.governorate+"</td><td>"+customer.area+"</td><td>"+customer.telecoms[0].number+"</td></tr>"
 					});
 					$("#my-table-body").append(newResult);
 					$("#my-table-body").fadeIn();
@@ -117,13 +117,13 @@ $(document).ready(function(){
 					$("#my-table-body").children().remove();
 					$.each(results, function(index, employee) {
 						if (employee.department && employee.the_department_that_he_manage_it) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('employees')}}/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td>"+employee.department.name+"</td><td>"+employee.the_department_that_he_manage_it.name+"</td><td>"+employee.date_of_hiring+"</td></tr>";
+							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/employees/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td>"+employee.department.name+"</td><td>"+employee.the_department_that_he_manage_it.name+"</td><td>"+employee.date_of_hiring+"</td></tr>";
 						} else if (employee.department) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('employees')}}/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td>"+employee.department.name+"</td><td> لا يوجد </td><td>"+employee.date_of_hiring+"</td></tr>";
+							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/employees/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td>"+employee.department.name+"</td><td> لا يوجد </td><td>"+employee.date_of_hiring+"</td></tr>";
 						} else if (employee.the_department_that_he_manage_it) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('employees')}}/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td> لا يوجد </td><td>"+employee.the_department_that_he_manage_it.name+"</td><td>"+employee.date_of_hiring+"</td></tr>";
+							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/employees/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td> لا يوجد </td><td>"+employee.the_department_that_he_manage_it.name+"</td><td>"+employee.date_of_hiring+"</td></tr>";
 						} else {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('employees')}}/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td> لا يوجد </td><td> لا يوجد </td><td>"+employee.date_of_hiring+"</td></tr>";
+							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/employees/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td> لا يوجد </td><td> لا يوجد </td><td>"+employee.date_of_hiring+"</td></tr>";
 						}
 					});
 					$("#my-table-body").append(newResult);
@@ -150,7 +150,7 @@ $(document).ready(function(){
 					$("#my-table-body").fadeOut();
 					$("#my-table-body").children().remove();
 					$.each(results, function(index, follow_up_card_special_report) {
-						newResult += "<tr> <td>"+(index+1)+"</td><td>"+follow_up_card_special_report.id+"</td><td><a href='{{url('follow_up_card_special_reports')}}/"+follow_up_card_special_report.id+"'>"+follow_up_card_special_report.the_date+"</a></td><td>"+follow_up_card_special_report.readings_of_printing_machine+"</td><td>"+follow_up_card_special_report.indexation_number+"</td><td>"+follow_up_card_special_report.invoice_number+"</td><td>"+follow_up_card_special_report.the_payment+"</td></tr>"
+						newResult += "<tr> <td>"+(index+1)+"</td><td>"+follow_up_card_special_report.id+"</td><td><a href='/follow_up_card_special_reports/"+follow_up_card_special_report.id+"'>"+follow_up_card_special_report.the_date+"</a></td><td>"+follow_up_card_special_report.readings_of_printing_machine+"</td><td>"+follow_up_card_special_report.indexation_number+"</td><td>"+follow_up_card_special_report.invoice_number+"</td><td>"+follow_up_card_special_report.the_payment+"</td></tr>"
 					});
 					$("#my-table-body").append(newResult);
 					$("#my-table-body").fadeIn();
@@ -177,9 +177,9 @@ $(document).ready(function(){
 					$("#my-table-body").children().remove();
 					$.each(results, function(index, follow_up_cards) {
 						if(follow_up_cards.contract){
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('follow_up_cards')}}/"+follow_up_cards.id+"'>"+follow_up_cards.code+"</a></td><td><a href='{{url('contracts')}}/"+follow_up_cards.contract.id+"'>"+follow_up_cards.contract.code+"</a></td></tr>"
+							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/follow_up_cards/"+follow_up_cards.id+"'>"+follow_up_cards.code+"</a></td><td><a href='/contracts/"+follow_up_cards.contract.id+"'>"+follow_up_cards.contract.code+"</a></td></tr>"
 						}else{
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('follow_up_cards')}}/"+follow_up_cards.id+"'>"+follow_up_cards.code+"</a></td></tr>"
+							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/follow_up_cards/"+follow_up_cards.id+"'>"+follow_up_cards.code+"</a></td></tr>"
 						}
 
 					});
@@ -209,9 +209,9 @@ $(document).ready(function(){
 					$.each(results, function(index, indexation) {
 						if(indexation.reference) {
 
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('indexations')}}/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td></tr>";
+							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/indexations/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td></tr>";
 						}else {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('indexations')}}/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td></tr>";
+							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/indexations/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td></tr>";
 						}
 					});
 					$("#my-table-body").append(newResult);
@@ -239,9 +239,9 @@ $(document).ready(function(){
 					$("#my-table-body").children().remove();
 					$.each(results, function(index, invoice) {
 						if(invoice.customer) {
-							newResult += "<tr><td>"+(index+1)+"</td><td><a href='{{url('invoices')}}/"+invoice.id+"'>"+invoice.number+"</a></td><td>"+invoice.customer.name+"</td><td>"+invoice.type+"</td><td>"+invoice.issuer+"</td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.total+"</td><td>"+invoice.release_date+"</td></tr>";
+							newResult += "<tr><td>"+(index+1)+"</td><td><a href='/invoices/"+invoice.id+"'>"+invoice.number+"</a></td><td>"+invoice.customer.name+"</td><td>"+invoice.type+"</td><td>"+invoice.issuer+"</td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.total+"</td><td>"+invoice.release_date+"</td></tr>";
 						} else {
-							newResult += "<tr><td>"+(index+1)+"</td><td><a href='{{url('invoices')}}/"+invoice.id+"'>"+invoice.number+"</a></td><td></td><td>"+invoice.type+"</td><td>"+invoice.issuer+"</td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.total+"</td><td>"+invoice.release_date+"</td></tr>";
+							newResult += "<tr><td>"+(index+1)+"</td><td><a href='/invoices/"+invoice.id+"'>"+invoice.number+"</a></td><td></td><td>"+invoice.type+"</td><td>"+invoice.issuer+"</td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.total+"</td><td>"+invoice.release_date+"</td></tr>";
 						}
 
 					});
@@ -270,7 +270,7 @@ $(document).ready(function(){
 					$("#my-table-body").fadeOut();
 					$("#my-table-body").children().remove();
 					$.each(results, function(index, part) {
-						newResult += "<tr><td>"+(index+1)+"</td><td>"+part.part.name+"</td><td><a href='{{url('part_serial_numbers')}}/"+part.id+"'>"+part.serial_number+"</a></td><td>"+part.code+"</td><td>"+part.availability+"</td><td>"+part.status+"</td><td>"+part.date_of_entry+"</td><td>"+part.date_of_departure+"</td><td></tr>"
+						newResult += "<tr><td>"+(index+1)+"</td><td>"+part.part.name+"</td><td><a href='/part_serial_numbers/"+part.id+"'>"+part.serial_number+"</a></td><td>"+part.code+"</td><td>"+part.availability+"</td><td>"+part.status+"</td><td>"+part.date_of_entry+"</td><td>"+part.date_of_departure+"</td><td></tr>"
 					});
 					$("#my-table-body").append(newResult);
 					$("#my-table-body").fadeIn();
@@ -295,7 +295,7 @@ $(document).ready(function(){
 					$("#my-table-body").fadeOut();
 					$("#my-table-body").children().remove();
 					$.each(results, function(index, part) {
-						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('parts')}}/"+part.id+"'>"+part.name+"</a></td><td>"+part.code+"</td><td>"+part.type+"</td><td>"+part.qty+"</td></tr>"
+						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/parts/"+part.id+"'>"+part.name+"</a></td><td>"+part.code+"</td><td>"+part.type+"</td><td></td></tr>"
 					});
 					$("#my-table-body").append(newResult);
 					$("#my-table-body").fadeIn();
@@ -322,9 +322,9 @@ $(document).ready(function(){
 				$("#my-table-body").children().remove();
 				$.each(results, function(index, machine) {
 					if(machine.customer) {
-						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('printing_machines')}}/"+machine.id+"'>"+machine.folder_number+"</a></td><td>"+machine.code+"</td><td>"+machine.model_prefix+"-"+machine.model_suffix+"</td><td>"+machine.customer.name+"</td> </tr>";
+						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/printing_machines/"+machine.id+"'>"+machine.folder_number+"</a></td><td>"+machine.code+"</td><td>"+machine.model_prefix+"-"+machine.model_suffix+"</td><td>"+machine.customer.name+"</td> </tr>";
 					} else {
-						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('printing_machines')}}/"+machine.id+"'>"+machine.folder_number+"</a></td><td>"+machine.code+"</td><td>"+machine.model_prefix+"-"+machine.model_suffix+"</td><td></td> </tr>";
+						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/printing_machines/"+machine.id+"'>"+machine.folder_number+"</a></td><td>"+machine.code+"</td><td>"+machine.model_prefix+"-"+machine.model_suffix+"</td><td></td> </tr>";
 					}
 				});
 				$("#my-table-body").append(newResult);
@@ -351,7 +351,7 @@ $(document).ready(function(){
 					$("#my-table-body").fadeOut();
 					$("#my-table-body").children().remove();
 					$.each(results, function(index, reference) {
-						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='{{url('references')}}/"+reference.id+"'>"+reference.code+"</a></td><td>"+((reference.employee_who_receive_the_rereference)?((reference.employee_who_receive_the_rereference.user)?reference.employee_who_receive_the_rereference.user.name:''):'')+"</td><td>"+reference.type+"</td><td>"+((reference.assigned_employee)?((reference.assigned_employee.user)?reference.assigned_employee.user.name:''):'')+"</td><td>"+reference.received_date+"</td><td><a href='{{url('printing_machines')}}/"+((reference.printing_machine)?reference.printing_machine.id:'')+"'>"+((reference.printing_machine)?reference.printing_machine.code:'')+"</a></td></tr>";
+						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/references/"+reference.id+"'>"+reference.code+"</a></td><td>"+((reference.employee_who_receive_the_rereference)?((reference.employee_who_receive_the_rereference.user)?reference.employee_who_receive_the_rereference.user.name:''):'')+"</td><td>"+reference.type+"</td><td>"+((reference.assigned_employee)?((reference.assigned_employee.user)?reference.assigned_employee.user.name:''):'')+"</td><td>"+reference.received_date+"</td><td><a href='/printing_machines/"+((reference.printing_machine)?reference.printing_machine.id:'')+"'>"+((reference.printing_machine)?reference.printing_machine.code:'')+"</a></td></tr>";
 					});
 					$("#my-table-body").append(newResult);
 					$("#my-table-body").fadeIn();

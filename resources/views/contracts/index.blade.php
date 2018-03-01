@@ -61,7 +61,7 @@
 										<td>{{$contract->end}}</td>
 										<td>{{$contract->status}}</td>
 										<td>{{$contract->payment_system}}</td>
-										<td>{{isset($contract->printingMachine->customer->name)?$contract->printingMachine->customer->name:''}}</td>
+										<td>{{isset($contract->printingMachines()->first()->customer->name)?$contract->printingMachines()->first()->customer->name:''}}</td>
 									</tr>
 								@endforeach
 
