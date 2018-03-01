@@ -47,8 +47,15 @@
 </div>
 
 <div class="form-group">
-  <label for="status"> حالة الآلة </label>
-  <input type="text" class="form-control" id="status" name="status"  placeholder=" إدخل حالة الآلة. " value="{{$printingMachine->status or old('status')}}">
+    <label for="status"> حالة الآلة <span style="color:red">*</span></label>
+    <select class="form-control" name="status">
+        <?php $printingMachineStatus = isset($printingMachine->status)? $printingMachine->status:'' ;?>
+        <option value="">  اختر حالة الآلة.  </option>
+        <option value="لم يتم تركيبها بعد" {{($printingMachineStatus == 'لم يتم تركيبها بعد')? 'selected' : ((old('status')=='لم يتم تركيبها بعد')?'selected':'')}}> لم يتم تركيبها بعد </option>
+        <option value="فعالة" {{($printingMachineStatus == 'فعالة')? 'selected' : ((old('status')=='فعالة')?'selected':'')}}> فعالة </option>
+        <option value="موقوفة" {{($printingMachineStatus == 'موقوفة')? 'selected' : ((old('status')=='موقوفة')?'selected':'')}}> موقوفة </option>
+        <option value="مكهنة" {{($printingMachineStatus == 'مكهنة')? 'selected' : ((old('status')=='مكهنة')?'selected':'')}}> مكهنة </option>
+    </select>
 </div>
 
 <div class="form-group">
