@@ -201,6 +201,69 @@
         @endif
 </div>
 
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		<h3> بنود خاصة </h3>
+	</div>
+
+	<div class="panel-body">
+		<div class="form-group">
+			<label for="add-note-btn"> إضافة بند </label>
+            <button type="button" class="btn btn-success" id="contract-new-note-btb">
+                إضافة
+            </button>
+            <p class="help-block"> قم بإضافة البند ووصفه. </p>
+		</div>
+        <div id="contract-notes-wrapper">
+            @if(null !== old('item_name'))
+                @foreach ( old('item_name') as $oldIterator => $oldNote )
+                    <div class='panel panel-default'>
+                        <div class='panel-heading clearfix'>
+                            <button type='button' class='btn btn-danger btn-xs pull-left contract-note-delete-btn'>
+                                حذف
+                            </button>
+                        </div>
+                        <div class='panel-body'>
+                            <div class='form-group'>
+                                <label for='item_name'> البند </label>
+                                <input type='text' class='form-control' name='item_name[]'  placeholder=' إدخل البند. ' value='{{$oldNote}}'>
+                            </div>
+                            <div class='form-group'>
+                                <label for='item_description'> تعريف البند </label>
+                                <textarea name='item_description[]' class='form-control' placeholder=' إدخل تعريف البند. '>{{old('item_description')[$oldIterator]}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @elseif (isset($contract->notesOnContracting) && $contract->notesOnContracting->isNotEmpty())
+                @foreach ($contract->notesOnContracting as $noteIterator => $note)
+                    <div class='panel panel-default'>
+                        <div class='panel-heading clearfix'>
+                            <button type='button' class='btn btn-danger btn-xs pull-left contract-note-delete-btn'>
+                                حذف
+                            </button>
+                        </div>
+                        <div class='panel-body'>
+                            <div class='form-group'>
+                                <label for='item_name'> البند </label>
+                                <input type='text' class='form-control' name='item_name[]'  placeholder=' إدخل البند. ' value='{{$note->item_name}}'>
+                            </div>
+                            <div class='form-group'>
+                                <label for='item_description'> تعريف البند </label>
+                                <textarea name='item_description[]' class='form-control' placeholder=' إدخل تعريف البند. '>{{$note->item_description}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+
+
+        </div>
+	</div>
+
+</div>
+
+
 <div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$contract->comments or old('comments')}}</textarea>

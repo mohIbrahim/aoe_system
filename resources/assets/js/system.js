@@ -1,4 +1,4 @@
-// add another item script
+// add another item script upload image
 	$(document).ready(function() {
 	    var max_fields      = 10; //maximum input boxes allowed
 	    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
@@ -17,9 +17,9 @@
 	        e.preventDefault(); $(this).parent('div').remove(); x--;
 	    })
 	});
-// bootstrap-select
+// bootstrap-select upload image
 
-// add another item script
+// add another item script telecom
 
 	$(document).ready(function() {
 	    var max_fields      = 10; //maximum input boxes allowed
@@ -40,7 +40,10 @@
 	    })
 	});
 
-// bootstrap-select
+// bootstrap-select telecome
+
+
+
 
 // Start Ajax for Contracts index view
 $(document).ready(function(){
@@ -71,6 +74,21 @@ $(document).ready(function(){
 		}
 
 	});
+});
+
+
+$(document).ready(function(){
+    $("#contract-new-note-btb").click(function(){
+        $("#contract-notes-wrapper").append("<div class='panel panel-default'> <div class='panel-heading clearfix'> <button type='button' class='btn btn-danger btn-xs pull-left contract-note-delete-btn'> حذف </button> </div><div class='panel-body'> <div class='form-group'> <label for='item_name'> البند </label> <input type='text' class='form-control' name='item_name[]' placeholder=' إدخل البند. ' value=''> </div><div class='form-group'> <label for='item_description'> تعريف البند </label> <textarea name='item_description[]' class='form-control' placeholder=' إدخل تعريف البند. '></textarea> </div></div></div>");
+
+        $(".contract-note-delete-btn").click(function(){
+            $(this).parent().parent().remove();
+        });
+    });
+
+    $(".contract-note-delete-btn").click(function(){
+        $(this).parent().parent().remove();
+    });
 });
 // End Ajax for Contracts index view
 
@@ -411,15 +429,18 @@ $(document).ready(function () {
 
 //Start Datatable
 $(document).ready(function() {
-	$('.standart-datatable').DataTable(
-		{
-			"searching": false,
-			"lengthChange": false,
-			"paging": false,
-			dom: 'Bfrtip',
-			buttons: [
-				'excel', 'print'
-			]
-		});
+    if ($('.standart-datatable').DataTable) {
+
+        $('.standart-datatable').DataTable(
+            {
+                "searching": false,
+                "lengthChange": false,
+                "paging": false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel', 'print'
+                ]
+            });
+    }
 });
 //End Datatable
