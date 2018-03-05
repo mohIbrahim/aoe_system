@@ -53,6 +53,17 @@ class ContractController extends Controller
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'contract_as_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
 		$contract->printingMachines()->attach($request->assigned_machines_ids);
+        //notesOfContracting
+        if (null !== ($request->input('item_description')) &&  null !== ($request->input('item_name'))) {
+            $itemNameArr = $request->input('item_name');
+            $itemDescriptionArr = $request->input('item_description');
+
+            if ( count($itemNameArr) == count($itemDescriptionArr) ) {
+                foreach ($itemNameArr as $itemNameIterator => $itemName) {
+                    $contract->notesOnContracting()->create(['item_name'=>$itemName, 'item_description'=>$itemDescriptionArr[$itemNameIterator]]);
+                }
+            }
+        }
 
         flash()->success('تم إنشاء العقد بنجاح. ')->important();
         return redirect()->action('ContractController@show', ['id'=>$contract->id]);
@@ -94,6 +105,7 @@ class ContractController extends Controller
     {
         $contract = $this->contract->update($id, $request->all());
 
+        //upload file
         if ($request->hasFile('contract_as_pdf')) {
             $projectImage = new ProjectImages();
             if (isset($contract->softCopies) && $contract->softCopies->isNotEmpty()) {
@@ -101,7 +113,21 @@ class ContractController extends Controller
             }
             $isUploaded = $projectImage->receiveAndCreat($request, 'contract_as_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
         }
+
 		$contract->printingMachines()->sync($request->assigned_machines_ids);
+
+        //notesOfContracting
+        $contract->notesOnContracting()->delete();
+        if (null !== ($request->input('item_description')) &&  null !== ($request->input('item_name'))) {
+            $itemNameArr = $request->input('item_name');
+            $itemDescriptionArr = $request->input('item_description');
+            if ( count($itemNameArr) == count($itemDescriptionArr) ) {
+                foreach ($itemNameArr as $itemNameIterator => $itemName) {
+                    $contract->notesOnContracting()->create(['item_name'=>$itemName, 'item_description'=>$itemDescriptionArr[$itemNameIterator]]);
+                }
+            }
+        }
+
         flash()->success('تم تعديل العقد بنجاح. ')->important();
         return redirect()->action('ContractController@show', ['id'=>$id]);
     }

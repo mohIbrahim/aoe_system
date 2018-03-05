@@ -116,6 +116,7 @@
 									    <th> تاريخ التعديل </th>
 									    <td style="direction:ltr; text-align:center">{{$contract->created_at}}</td>
 								    </tr>
+
                                     <tr>
 									    <td colspan="2">
                                             <h3> بيانات الآلات </h3>
@@ -214,6 +215,35 @@
 																</td>
 																<td>
 																	{{$invoice->release_date}}
+																</td>
+															</tr>
+														@endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </td>
+								    </tr>
+
+                                    <tr>
+									    <td colspan="2">
+                                            <h3> بنود خاصة </h3>
+											<hr />
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th> البند </th>
+                                                            <th> تعريفه </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+														@foreach ($contract->notesOnContracting as $noteIterator => $note)
+															<tr>
+																<td>
+																	{{$note->item_name or ''}}
+																</td>
+																<td>
+																	{{$note->item_description or ''}}
 																</td>
 															</tr>
 														@endforeach

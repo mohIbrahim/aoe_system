@@ -205,7 +205,6 @@
 	<div class="panel-heading text-center">
 		<h3> بنود خاصة </h3>
 	</div>
-
 	<div class="panel-body">
 		<div class="form-group">
 			<label for="add-note-btn"> إضافة بند </label>
@@ -256,11 +255,8 @@
                     </div>
                 @endforeach
             @endif
-
-
         </div>
 	</div>
-
 </div>
 
 
