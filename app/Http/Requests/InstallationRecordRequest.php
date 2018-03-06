@@ -26,6 +26,7 @@ class InstallationRecordRequest extends FormRequest
         return [
             'printing_machine_id'=>'required|unique:installation_records,printing_machine_id,'.$this->installation_record,
             'trainee_name'=>'required',
+            'recipient_of_the_printing_machine'=>'required',
             'installation_date'=>'required|date',
             'installation_record_as_pdf'=>'mimes:pdf',
         ];
@@ -39,6 +40,7 @@ class InstallationRecordRequest extends FormRequest
             'printing_machine_id.required'=>' برجاء اختيار الآلة التصوير. ',
             'printing_machine_id.unique'=>' الآلة التصوير تم اختياره من قبل برجاء اختيار الآلة آخرى. ',
             'trainee_name.required'=>'برجاء إدخال اسم المتدرب.',
+            'recipient_of_the_printing_machine.required'=>'برجاء ادخال اسم مستلم الآلة.',
             'installation_record_as_pdf.mimes'=>' برجاء اختيار صورة لمحضر التركيب بأمتداد PDF.',
         ];
     }

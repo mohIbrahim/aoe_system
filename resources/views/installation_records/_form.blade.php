@@ -39,6 +39,11 @@
 </div>
 
 <div class="form-group">
+    <label for="recipient_of_the_printing_machine"> اسم مستلم الآلة <span style="color:red">*</span></label>
+    <input type="text" class="form-control" id="recipient_of_the_printing_machine" name="recipient_of_the_printing_machine"  placeholder=" إدخل اسم مستلم الآلة. " value="{{$installationRecord->recipient_of_the_printing_machine or old('recipient_of_the_printing_machine')}}">
+</div>
+
+<div class="form-group">
     <label for="trainee_name"> اسم العميل الذي تدرب <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="trainee_name" name="trainee_name"  placeholder=" إدخل كود القطعة. " value="{{$installationRecord->trainee_name or old('trainee_name')}}">
 </div>

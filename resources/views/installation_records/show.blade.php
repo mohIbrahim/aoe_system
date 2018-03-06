@@ -50,6 +50,10 @@
 								    </tr>
 
 								    <tr>
+									    <th> اسم مستلم الآلة </th>
+									    <td>{{$installationRecord->recipient_of_the_printing_machine}}</td>
+								    </tr>
+								    <tr>
 									    <th> اسم العميل الذي تدرب </th>
 									    <td>{{$installationRecord->trainee_name}}</td>
 								    </tr>

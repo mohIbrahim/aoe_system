@@ -16,6 +16,7 @@ class CreateInstallationRecordsTable extends Migration
         Schema::create('installation_records', function (Blueprint $table) {
             $table->increments('id');
             $table->string('trainee_name')->nullable();
+            $table->string('recipient_of_the_printing_machine')->nullable();
             $table->dateTime('installation_date')->nullable();
 
             $table->string('feeder_model')->nullable();

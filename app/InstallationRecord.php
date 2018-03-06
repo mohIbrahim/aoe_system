@@ -10,6 +10,7 @@ class InstallationRecord extends Model
     protected $table = 'installation_records';
     protected $fillable = [
                     'trainee_name',
+                    'recipient_of_the_printing_machine',
                     'installation_date',
                     'feeder_model',
                     'feeder_serial_number',
