@@ -7,6 +7,8 @@ use App\Http\Requests\InstallationRecordRequest;
 use App\AOE\Repositories\InstallationRecord\InstallationRecordInterface;
 use App\Employee;
 use App\ProjectImages;
+use App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
+use App\PrintingMachine;
 
 class InstallationRecordController extends Controller
 {
@@ -35,9 +37,8 @@ class InstallationRecordController extends Controller
      */
     public function create()
     {
-        $contractsOfGuarantee = $this->installationRecord->contractOfGuarantee();
         $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
-        return view('installation_records.create', compact('contractsOfGuarantee', 'employeesIdsNames'));
+        return view('installation_records.create', compact('employeesIdsNames'));
     }
 
     /**
@@ -74,9 +75,8 @@ class InstallationRecordController extends Controller
     public function edit($id)
     {
         $installationRecord = $this->installationRecord->getById($id);
-        $contractsOfGuarantee = $this->installationRecord->contractOfGuarantee();
         $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
-        return view('installation_records.edit', compact('installationRecord', 'contractsOfGuarantee', 'employeesIdsNames'));
+        return view('installation_records.edit', compact('installationRecord', 'employeesIdsNames'));
     }
 
     /**
@@ -122,5 +122,11 @@ class InstallationRecordController extends Controller
     {
         $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
         return back()->withInput();
+    }
+
+    public function searchingOnPrintingMachine($keyword)
+    {
+        $abc = new EloquentPrintingMachine(new PrintingMachine());
+        return $abc->searchLimitedCodeCustomer($keyword);
     }
 }

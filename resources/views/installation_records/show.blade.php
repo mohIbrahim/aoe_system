@@ -31,15 +31,11 @@
 
 							    </thead>
 							    <tbody>
-									<?php
-										$installatinrecordId = isset($installationRecord->contractOfGuarantee)?$installationRecord->contractOfGuarantee->id:'';
-										$installatinrecordCode = isset($installationRecord->contractOfGuarantee)?$installationRecord->contractOfGuarantee->code:'';
-									?>
 									<tr>
-									    <th> رقم عقد الضمان </th>
+									    <th> كود آلة التصوير </th>
 									    <td>
-											<a href="{{action('ContractController@show', ['id'=>$installatinrecordId])}}">
-												{{$installatinrecordCode}}
+											<a href="{{action('PrintingMachineController@show', ['id'=>(isset($installationRecord->printingMachine))?($installationRecord->printingMachine->id):('')])}}">
+												{{ (isset($installationRecord->printingMachine))?($installationRecord->printingMachine->code):('') }}
 											</a>
 										</td>
 								    </tr>

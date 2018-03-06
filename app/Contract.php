@@ -58,13 +58,7 @@ class Contract extends Model
     {
         if (!empty($date))
             return $this->asDateTime($date)->format('Y-m-d');
-    }
-
-
-    public function installationRecord()
-    {
-        return $this->hasOne('App\InstallationRecord', 'contract_of_guarantee_id', 'id');
-    }
+    }    
 
     public function followUpCard()
     {

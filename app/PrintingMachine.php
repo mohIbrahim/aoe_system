@@ -56,4 +56,9 @@ class PrintingMachine extends Model
     {
         return $this->belongsToMany('App\Employee', 'emp_mach_assignments');
     }
+
+    public function installationRecord()
+    {
+        return $this->hasOne('App\InstallationRecord', 'printing_machine_id', 'id');
+    }
 }

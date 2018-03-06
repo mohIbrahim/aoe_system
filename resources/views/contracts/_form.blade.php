@@ -60,6 +60,15 @@
                                     </td>
                                 </tr>
                             @endforeach
+                        @elseif($pMachine)
+                            <tr>
+                                <td>{{isset($pMachine->customer)?$pMachine->customer->name:''}}</td>
+                                <td>{{$pMachine->code}}</td>
+                                <td>
+                                    <button type='button' class='btn btn-danger btn-xs printing-machine-delete-button'> حذف الآلة </button>
+                                    <input type='hidden' name='assigned_machines_ids[]' value='{{$pMachine->id}}'>
+                                </td>
+                            </tr>
                         @endif
                     </tbody>
                 </table>

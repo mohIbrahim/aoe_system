@@ -63,6 +63,10 @@ class InstallationRecords
             if($request->route()->getName() == 'remove_the_installation_record_file'    && in_array('update_installation_records', $permissions)){
 
             $response = $next($request);
+        }else
+
+		if($request->route()->getName() == 'installation_records_pm_search'   && (in_array('create_installation_records', $permissions) || in_array('update_installation_records', $permissions))){
+            $response = $next($request);       
         }else{
             abort(403);
         }

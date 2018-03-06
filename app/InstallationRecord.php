@@ -27,7 +27,7 @@ class InstallationRecord extends Model
                     'network_scanner_serial_number',
                     'network_scanner_product_key',
                     'comments',
-                    'contract_of_guarantee_id',
+                    'printing_machine_id',
                     'employee_id',
                 ];
     protected $dates = ['installation_date'];
@@ -48,9 +48,9 @@ class InstallationRecord extends Model
         }
     }
 
-    public function contractOfGuarantee()
+    public function printingMachine()
     {
-        return $this->belongsTo('App\Contract');
+        return $this->belongsTo('App\PrintingMachine');
     }
 
     public function responsibleEmployee()

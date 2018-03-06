@@ -24,7 +24,7 @@ class InstallationRecordRequest extends FormRequest
     public function rules()
     {
         return [
-            'contract_of_guarantee_id'=>'required|unique:installation_records,contract_of_guarantee_id,'.$this->installation_record,
+            'printing_machine_id'=>'required|unique:installation_records,printing_machine_id,'.$this->installation_record,
             'trainee_name'=>'required',
             'installation_date'=>'required|date',
             'installation_record_as_pdf'=>'mimes:pdf',
@@ -36,8 +36,8 @@ class InstallationRecordRequest extends FormRequest
         return [
             'installation_date.required'=>'برجاء إدخال تاريخ التركيب.',
             'installation_date.date'=>'برجاء إدخال تاريخ التركيب بشكل صحيح.',
-            'contract_of_guarantee_id.required'=>' برجاء اختيار عقد الضمان. ',
-            'contract_of_guarantee_id.unique'=>' عقد الضمان تم اختياره من قبل برجاء اختيار عقد آخر. ',
+            'printing_machine_id.required'=>' برجاء اختيار الآلة التصوير. ',
+            'printing_machine_id.unique'=>' الآلة التصوير تم اختياره من قبل برجاء اختيار الآلة آخرى. ',
             'trainee_name.required'=>'برجاء إدخال اسم المتدرب.',
             'installation_record_as_pdf.mimes'=>' برجاء اختيار صورة لمحضر التركيب بأمتداد PDF.',
         ];

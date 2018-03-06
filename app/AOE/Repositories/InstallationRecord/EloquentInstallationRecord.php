@@ -95,10 +95,4 @@ class EloquentInstallationRecord implements InstallationRecordInterface
         return $isDeleted;
     }
 
-
-    public function contractOfGuarantee()
-    {
-        return $contractsOfGuarantee = Contract::where('type','ضمان')->pluck('code', 'id');
-    }
-
 }

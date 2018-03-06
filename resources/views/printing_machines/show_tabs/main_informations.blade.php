@@ -118,6 +118,15 @@
 			</tr>
 
 			<tr>
+				<th>  رقم محضر التركيب </th>
+				<td>
+				<a href="{{action('InstallationRecordController@show', ['id'=>($printingMachine->installationRecord)?($printingMachine->installationRecord->id):('')])}}">
+					{{ ($printingMachine->installationRecord)?($printingMachine->installationRecord->id):('') }}					
+				</a>
+				</td>
+			</tr>
+
+			<tr>
 				<th> الملاحظات </th>
 				<td>{{$printingMachine->comments}}</td>
 			</tr>

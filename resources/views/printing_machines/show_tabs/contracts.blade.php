@@ -12,7 +12,6 @@
 				<th> بداية التعاقد </th>
 				<th> نهاية التعاقد </th>
 				<th> حالة التعاقد </th>
-				<th> محضر التركيب </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -33,12 +32,7 @@
 					</td>
 					<td>{{$contract->start}}</td>
 					<td>{{$contract->end}}</td>
-					<td>{{$contract->status}}</td>
-					<td>
-						<a href="{{action('InstallationRecordController@show', ['id'=>(($contract->installationRecord)?($contract->installationRecord->id):(''))])}}">
-							{{$contract->installationRecord->id or ''}}
-						</a>
-					</td>
+					<td>{{$contract->status}}</td>					
 				</tr>
 			@endforeach
 		</tbody>

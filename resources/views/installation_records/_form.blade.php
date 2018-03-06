@@ -1,12 +1,30 @@
-<div class="form-group">
-    <label for="contract_of_guarantee_id"> عقد الضمان <span style="color:red">*</span></label>
-    <select class="form-control selectpicker" name="contract_of_guarantee_id" data-live-search="true">
-        <?php $selectedContractOfGuarantee = isset($installationRecord->contract_of_guarantee_id)? $installationRecord->contract_of_guarantee_id: '' ?>
-        <option value=""> اختر عقد الضمان. </option>
-        @foreach($contractsOfGuarantee as $contractId=>$contractCode)
-            <option value="{{$contractId}}" {{($selectedContractOfGuarantee == $contractId)? ('selected'):((old('contract_of_guarantee_id')==$contractId)?'selected':'')}} >{{$contractCode}}</option>
-        @endforeach
-    </select>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <label for="installation-record-printing_machine_search_field">  البحث عن الآلة التصوير:  </label>
+            <input type="text" class="form-control" id="installation-record-printing_machine_search_field" name="installation-record-printing_machine_search_field" placeholder=" إدخل الكلمة المراد البحث عنها. " value="{{isset($installationRecord->printingMachine)? isset($installationRecord->printingMachine->customer)?$installationRecord->printingMachine->customer->name:'':'' }}">
+            <button type="button" class="btn btn-default" id="installation-record-printing-machine-search-btn"> ابحث </button>
+            <spna id="printing-machine-search-p">  </spna>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th> كود الآلة </th>
+                        <th> اسم العميل </th>
+                        <th> اختيار </th>
+                    </tr>
+                </thead>
+                <tbody  id="installation-record-results-table-body">
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير:  <span style="color:red">*</span></label>
+            <p>
+                يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة، برجاء عدم ادخال اي رقم عشوائي
+            </p>
+            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id"  value="{{(isset($installationRecord->printing_machine_id))?($installationRecord->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}">
+        </div>
+    </div>
 </div>
 
 <div class="form-group">

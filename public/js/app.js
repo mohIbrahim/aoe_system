@@ -31938,6 +31938,37 @@ $(document).ready(function () {
 });
 // End Ajax for Indexation index view
 
+//Start Ajax for Installation Records _fom printing machine search
+$(document).ready(function () {
+	$("#installation-record-printing-machine-search-btn").on("click", function () {
+		var keyword = $("#installation-record-printing_machine_search_field").val();
+		$("#printing-machine-search-p").text("");
+		$("#installation-record-results-table-body ").children().remove();
+		var resultsTableBody = '';
+		if (keyword) {
+			$.ajax({
+				type: "GET",
+				url: "/installation_records_pm_search/" + keyword,
+				dataType: "json",
+				success: function success(results) {
+					$.each(results, function (key, machine) {
+						resultsTableBody += "<tr><td>" + machine.code + "</td><td>" + (machine.customer ? machine.customer.name : '') + "</td><td><button type='button' class='btn btn-success btn-xs select-printing-machine' data-printing-machine-id='" + machine.id + "' data-printing-machine-code='" + machine.code + "'> اختيار هذة الآلة </button></td></tr>";
+					});
+					$("#installation-record-results-table-body").append(resultsTableBody);
+					$(".select-printing-machine").on("click", function () {
+						printingMachineCode = $(this).attr('data-printing-machine-code');
+						printingMachineId = $(this).attr('data-printing-machine-id');
+						$("#printing-machine-id").val(printingMachineId);
+					});
+				}
+			});
+		} else {
+			$("#printing-machine-search-p").text(" برجاء إدخال قيمة ").css('color', 'red');
+		}
+	});
+});
+//End Ajax for Installation Records _fom printing machine search
+
 // Start Ajax for Invoices index view
 $(document).ready(function () {
 	$('#invoices-search-button').on('click', function () {

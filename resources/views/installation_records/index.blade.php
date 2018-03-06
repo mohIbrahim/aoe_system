@@ -17,7 +17,7 @@
 			  		    <thead>
 			  			    <tr>
 								<th> # </th>
-								<th> رقم عقد الضمان </th>
+								<th> كود الآلة التصوير </th>
 								<th>  اسم الموظف المسؤول </th>
                                 <th> اسم المتدرب </th>
 			  				    <th> تاريخ التركيب </th>
@@ -34,7 +34,7 @@
                                         </td>
 
 										<td>
-											{{isset($installationRecord->contractOfGuarantee)?$installationRecord->contractOfGuarantee->code:''}}
+											{{(isset($installationRecord->printingMachine))?($installationRecord->printingMachine->code):('')}}
 										</td>
 
 										<td>

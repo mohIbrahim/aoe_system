@@ -176,7 +176,8 @@ class ContractController extends Controller
 	**/
 	public function createWithPrintingMachineId($printingMachineId)
     {
-		$employeesIdsNames = Employee::all()->pluck('user.name', 'id');
-        return view('contracts.create', compact('employeesIdsNames', 'printingMachineId'));
+        $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
+        $pMachine = PrintingMachine::findOrFail($printingMachineId);
+        return view('contracts.create', compact('employeesIdsNames', 'pMachine'));
     }
 }
