@@ -50,7 +50,7 @@
 								    </tr>
 
 								    <tr>
-									    <th> اسم المتدرب </th>
+									    <th> اسم العميل الذي تدرب </th>
 									    <td>{{$installationRecord->trainee_name}}</td>
 								    </tr>
 

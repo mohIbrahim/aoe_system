@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-danger">
     <div class="panel-body">
         <div class="form-group form-inline">
             <label for="installation-record-printing_machine_search_field">  البحث عن الآلة التصوير:  </label>
@@ -39,7 +39,7 @@
 </div>
 
 <div class="form-group">
-    <label for="trainee_name"> اسم المتدرب <span style="color:red">*</span></label>
+    <label for="trainee_name"> اسم العميل الذي تدرب <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="trainee_name" name="trainee_name"  placeholder=" إدخل كود القطعة. " value="{{$installationRecord->trainee_name or old('trainee_name')}}">
 </div>
 
