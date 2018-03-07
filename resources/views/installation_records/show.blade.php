@@ -147,6 +147,35 @@
 												<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank"> صورة محضر التركيب	 </a>
 											@endforeach
 										</td>
+									</tr>
+									
+									<tr>
+									    <td colspan="2">
+                                            <h3> عناصر آخرى </h3>
+											<hr />
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th> العنصر </th>
+                                                            <th> تعريفه </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+														@foreach ($installationRecord->otherItems as $itemIterator => $item)
+															<tr>
+																<td>
+																	{{$item->item_name or ''}}
+																</td>
+																<td>
+																	{{$item->item_description or ''}}
+																</td>
+															</tr>
+														@endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </td>
 								    </tr>
 
 									<tr>

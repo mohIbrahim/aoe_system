@@ -19,7 +19,7 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4> نتائج البحث </h4>
+                <h5> نتائج البحث </h5>
             </div>
             <div class="panel-body">
                 <table class="table table-hover">
@@ -35,7 +35,7 @@
                 </table>
             </div>
         </div>
-        <div class="panel panel-default">
+        <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title"> الآلات المعينة </h3>
             </div>
@@ -60,7 +60,7 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        @elseif($pMachine)
+                        @elseif(isset($pMachine))
                             <tr>
                                 <td>{{isset($pMachine->customer)?$pMachine->customer->name:''}}</td>
                                 <td>{{$pMachine->code}}</td>

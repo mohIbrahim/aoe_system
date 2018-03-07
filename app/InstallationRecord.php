@@ -64,5 +64,8 @@ class InstallationRecord extends Model
         return $this->morphMany('App\ProjectImages', 'imageable');
     }
 
-
+    public function otherItems()
+    {
+        return $this->hasMany('App\InstallationRecordOtherItems', 'installation_record_id', 'id');
+    }
 }

@@ -1,4 +1,7 @@
-<div class="panel panel-danger">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        اختيار الآلة التصوير الخاصة بهذا المحضر<span style="color:red">*</span>
+    </div>
     <div class="panel-body">
         <div class="form-group form-inline">
             <label for="installation-record-printing_machine_search_field">  البحث عن الآلة التصوير:  </label>
@@ -18,11 +21,11 @@
             </table>
         </div>
         <div class="form-group">
-            <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير:  <span style="color:red">*</span></label>
+            <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير:  </label>
             <p>
                 يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة، برجاء عدم ادخال اي رقم عشوائي
             </p>
-            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id"  value="{{(isset($installationRecord->printing_machine_id))?($installationRecord->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}">
+            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id" placeholder="اختار آلة التصوير من أعلى"  value="{{(isset($installationRecord->printing_machine_id))?($installationRecord->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}">
         </div>
     </div>
 </div>
@@ -139,6 +142,63 @@
         @endif
 </div>
 
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		<h3> إضافة عناصر آخرى </h3>
+	</div>
+	<div class="panel-body">
+		<div class="form-group">
+			<label for="add-note-btn"> إضافة عنصر</label>
+            <button type="button" class="btn btn-success" id="installation-record-new-items-btb">
+                إضافة
+            </button>
+            <p class="help-block"> قم بإضافة العنصر ووصفه. </p>
+		</div>
+        <div id="installation-record-items-wrapper">
+            @if(null !== old('item_name'))
+                @foreach ( old('item_name') as $oldIterator => $oldItem )
+                    <div class='panel panel-default'>
+                        <div class='panel-heading clearfix'>
+                            <button type='button' class='btn btn-danger btn-xs pull-left installation-record-itmes-delete-btn'>
+                                حذف
+                            </button>
+                        </div>
+                        <div class='panel-body'>
+                            <div class='form-group'>
+                                <label for='item_name'> العنصر </label>
+                                <input type='text' class='form-control' name='item_name[]'  placeholder=' إدخل العنصر. ' value='{{$oldItem}}'>
+                            </div>
+                            <div class='form-group'>
+                                <label for='item_description'> تعريف العنصر </label>
+                                <textarea name='item_description[]' class='form-control' placeholder=' إدخل تعريف العنصر. '>{{old('item_description')[$oldIterator]}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @elseif (isset($installationRecord->otherItems) && $installationRecord->otherItems->isNotEmpty())
+                @foreach ($installationRecord->otherItems as $itemIterator => $item)
+                    <div class='panel panel-default'>
+                        <div class='panel-heading clearfix'>
+                            <button type='button' class='btn btn-danger btn-xs pull-left contract-note-delete-btn'>
+                                حذف
+                            </button>
+                        </div>
+                        <div class='panel-body'>
+                            <div class='form-group'>
+                                <label for='item_name'> العنصر </label>
+                                <input type='text' class='form-control' name='item_name[]'  placeholder=' إدخل العنصر. ' value='{{$item->item_name}}'>
+                            </div>
+                            <div class='form-group'>
+                                <label for='item_description'> تعريف العنصر </label>
+                                <textarea name='item_description[]' class='form-control' placeholder=' إدخل تعريف العنصر. '>{{$item->item_description}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+        </div>
+	</div>
+</div>
 
 <div class="form-group">
     <label for="comments"> الملاحظات </label>

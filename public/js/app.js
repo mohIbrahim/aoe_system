@@ -31775,6 +31775,9 @@ $(document).ready(function () {
 	});
 });
 
+// End Ajax for Contracts index view
+
+//Start contract add items and descriptions
 $(document).ready(function () {
 	$("#contract-new-note-btb").click(function () {
 		$("#contract-notes-wrapper").append("<div class='panel panel-default'> <div class='panel-heading clearfix'> <button type='button' class='btn btn-danger btn-xs pull-left contract-note-delete-btn'> حذف </button> </div><div class='panel-body'> <div class='form-group'> <label for='item_name'> البند </label> <input type='text' class='form-control' name='item_name[]' placeholder=' إدخل البند. ' value=''> </div><div class='form-group'> <label for='item_description'> تعريف البند </label> <textarea name='item_description[]' class='form-control' placeholder=' إدخل تعريف البند. '></textarea> </div></div></div>");
@@ -31788,7 +31791,7 @@ $(document).ready(function () {
 		$(this).parent().parent().remove();
 	});
 });
-// End Ajax for Contracts index view
+//End contract add items and descriptions
 
 // Start Ajax for Customers index view
 $(document).ready(function () {
@@ -31968,6 +31971,22 @@ $(document).ready(function () {
 	});
 });
 //End Ajax for Installation Records _fom printing machine search
+
+//Start installation record add items and descriptions
+$(document).ready(function () {
+	$("#installation-record-new-items-btb").click(function () {
+		$("#installation-record-items-wrapper").append("<div class='panel panel-default'> <div class='panel-heading clearfix'> <button type='button' class='btn btn-danger btn-xs pull-left installation-record-itmes-delete-btn'> حذف </button> </div><div class='panel-body'> <div class='form-group'> <label for='item_name'> العنصر </label> <input type='text' class='form-control' name='item_name[]' placeholder=' إدخل العنصر. ' value=''> </div><div class='form-group'> <label for='item_description'> تعريف العنصر </label> <textarea name='item_description[]' class='form-control' placeholder=' إدخل تعريف العنصر. '></textarea> </div></div></div>");
+
+		$(".installation-record-itmes-delete-btn").click(function () {
+			$(this).parent().parent().remove();
+		});
+	});
+
+	$(".installation-record-itmes-delete-btn").click(function () {
+		$(this).parent().parent().remove();
+	});
+});
+//End installation record add items and descriptions
 
 // Start Ajax for Invoices index view
 $(document).ready(function () {

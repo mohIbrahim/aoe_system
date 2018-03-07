@@ -52,6 +52,18 @@ class InstallationRecordController extends Controller
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'installation_record_as_pdf', 'App\InstallationRecord', $installationRecord->id, 'pdf', 'no_cover');
 
+        //InstallationRecordOtherItems
+        if (null !== ($request->input('item_description')) &&  null !== ($request->input('item_name'))) {
+            $itemNameArr = $request->input('item_name');
+            $itemDescriptionArr = $request->input('item_description');
+
+            if ( count($itemNameArr) == count($itemDescriptionArr) ) {
+                foreach ($itemNameArr as $itemNameIterator => $itemName) {
+                    $installationRecord->otherItems()->create(['item_name'=>$itemName, 'item_description'=>$itemDescriptionArr[$itemNameIterator]]);
+                }
+            }
+        }
+
         flash()->success(' تم إنشاء محضر التركيب بنجاح. ')->important();
         return redirect()->action('InstallationRecordController@show', ['id'=>$installationRecord->id]);
     }
@@ -95,6 +107,18 @@ class InstallationRecordController extends Controller
                 $projectImage->deleteOneProjectImage($installationRecord->softCopies->first()->id);
             }
             $isUploaded = $projectImage->receiveAndCreat($request, 'installation_record_as_pdf', 'App\InstallationRecord', $installationRecord->id, 'pdf', 'no_cover');
+        }
+
+        //InstallationRecordOtherItems
+        $installationRecord->otherItems()->delete();
+        if (null !== ($request->input('item_description')) &&  null !== ($request->input('item_name'))) {
+            $itemNameArr = $request->input('item_name');
+            $itemDescriptionArr = $request->input('item_description');
+            if ( count($itemNameArr) == count($itemDescriptionArr) ) {
+                foreach ($itemNameArr as $itemNameIterator => $itemName) {
+                    $installationRecord->otherItems()->create(['item_name'=>$itemName, 'item_description'=>$itemDescriptionArr[$itemNameIterator]]);
+                }
+            }
         }
 
         flash()->success(' تم تعديل محضر التركيب بنجاح. ')->important();
