@@ -49,6 +49,9 @@
 </div>
 
 <div class="panel panel-default">
+        <div class="panel-heading">
+            اختيار الآلة التصوير الخاصة بهذة الإشارة<span style="color:red">*</span>
+        </div>
     <div class="panel-body">
         <div class="form-group form-inline">
             <label for="printing-machine-search-field">  البحث عن الآلة التصوير:  </label>
@@ -68,11 +71,11 @@
             </table>
         </div>
         <div class="form-group">
-            <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير:  <span style="color:red">*</span></label>
+            <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير:  </label>
             <p>
-                يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة، برجاء عدم ادخال اي رقم عشوائي
+                يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة.
             </p>
-            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id"  value="{{(isset($reference->printing_machine_id))?($reference->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}">
+            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id"  value="{{(isset($reference->printing_machine_id))?($reference->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}" readonly>
         </div>
     </div>
 </div>

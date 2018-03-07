@@ -25,6 +25,7 @@ class InstallationRecordRequest extends FormRequest
     {
         return [
             'printing_machine_id'=>'required|unique:installation_records,printing_machine_id,'.$this->installation_record,
+            'employee_id'=>'required',
             'trainee_name'=>'required',
             'recipient_of_the_printing_machine'=>'required',
             'installation_date'=>'required|date',
@@ -36,6 +37,7 @@ class InstallationRecordRequest extends FormRequest
     {
         return [
             'installation_date.required'=>'برجاء إدخال تاريخ التركيب.',
+            'employee_id.required'=>' برجاء إختيار المهندس المسؤول عن التركيب. ',
             'installation_date.date'=>'برجاء إدخال تاريخ التركيب بشكل صحيح.',
             'printing_machine_id.required'=>' برجاء اختيار الآلة التصوير. ',
             'printing_machine_id.unique'=>' الآلة التصوير تم اختياره من قبل برجاء اختيار الآلة آخرى. ',

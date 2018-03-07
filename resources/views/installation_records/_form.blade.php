@@ -23,15 +23,15 @@
         <div class="form-group">
             <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير:  </label>
             <p>
-                يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة، برجاء عدم ادخال اي رقم عشوائي
+                يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة.
             </p>
-            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id" placeholder="اختار آلة التصوير من أعلى"  value="{{(isset($installationRecord->printing_machine_id))?($installationRecord->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}">
+            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id" placeholder="اختار آلة التصوير من أعلى"  value="{{(isset($installationRecord->printing_machine_id))?($installationRecord->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}" readonly>
         </div>
     </div>
 </div>
 
 <div class="form-group">
-    <label for="employee_id"> اسم الموظف المسؤول </label> <p> <smale>"المهندس الذي قام بالتركيب"</smale></p>
+    <label for="employee_id"> اسم الموظف المسؤول <span style="color:red">*</span></label> <p> <smale>"المهندس الذي قام بالتركيب"</smale></p>
     <select class="form-control selectpicker" name="employee_id" data-live-search="true">
         <?php $selectedEmployeeId = isset($installationRecord->employee_id)? $installationRecord->employee_id: '' ?>
         <option value=""> اختر اسم الموظف المسؤول. </option>
