@@ -65,7 +65,7 @@ class EloquentPrintingMachine implements PrintingMachineInterface
 
     public function searchLimitedCodeCustomer($keyword)
     {
-        $results = $this->printingMachine->with('customer')
+        $results = $this->printingMachine->with('customer', 'assignedEmployees.user')
 							->where('code', 'like', "%$keyword%")
                             ->orWhereHas('customer', function($query) use($keyword){
                                 $query->where('name', 'like', '%'.$keyword.'%');
