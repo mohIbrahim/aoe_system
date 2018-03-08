@@ -87,7 +87,7 @@
 
 <div class="form-group">
     <label for="visit_date"> تاريخ الزيارة <span style="color:red">*</span></label>
-    <input type="text" class="form-control datepicker" id="datepicker" name="visit_date"  placeholder=" اختر تاريخ الإصدار. " value="{{$visit->visit_date or old('visit_date')}}">
+    <input type="text" class="form-control" id="datepicker" name="visit_date"  placeholder=" اختر تاريخ الإصدار. " value="{{$visit->visit_date or old('visit_date')}}">
 </div>
 
 <div class="form-group">

@@ -25,6 +25,8 @@ class CreateInvoicesTable extends Migration
             $table->text('descriptions')->nullable();
             $table->float('total', 10, 2)->nullable()->default(0);
             $table->text('comments')->nullable();
+            $table->string('collect_date')->nullable();
+            $table->string('collector_employee_name')->nullable();
             $table->timestamps();
 
             $table->integer('indexation_id')->unsigned()->nullable();

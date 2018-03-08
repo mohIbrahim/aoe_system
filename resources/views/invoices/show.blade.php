@@ -124,8 +124,18 @@
                                     <tr>
 									    <th>  تاريخ الإصدار </th>
 									    <td>{{$invoice->release_date}}</td>
+									</tr>
+									
+									<tr>
+									    <th>  اسم الموظف الذي قام بالتحصيل </th>
+									    <td>{{$invoice->collector_employee_name}}</td>
+									</tr>
+									
+									<tr>
+									    <th>  تاريخ التحصيل </th>
+									    <td>{{$invoice->collect_date}}</td>
 								    </tr>
-
+									
                                     <tr>
 									    <th> الوصف </th>
 									    <td>{{$invoice->descriptions}}</td>

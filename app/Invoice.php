@@ -9,9 +9,9 @@ class Invoice extends Model
 {
     protected $table = 'invoices';
 
-    protected $fillable = ['number', 'type', 'issuer', 'order_number', 'delivery_permission_number', 'finance_check_out', 'release_date', 'descriptions', 'total', 'comments', 'indexation_id', 'contract_id', 'customer_id'];
+    protected $fillable = ['number', 'type', 'issuer', 'order_number', 'delivery_permission_number', 'finance_check_out', 'release_date', 'descriptions', 'total', 'comments', 'collect_date', 'collector_employee_name', 'indexation_id', 'contract_id', 'customer_id'];
 
-    protected $dates = ['release_date'];
+    protected $dates = ['release_date', 'collect_date'];
 
     public function setReleaseDateAttribute($date)
     {
@@ -26,6 +26,22 @@ class Invoice extends Model
     {
         if (!empty($date))
             return $this->asDateTime($date)->format('Y-m-d');
+    }
+
+    public function setCollectDateAttribute($date)
+    {
+        if (!empty($date)) {
+            $this->attributes['collect_date']  = Carbon::parse($date);
+        } else {
+            $this->attributes['collect_date'] = null;
+        }
+    }
+
+    public function getCollectDateAttribute($date)
+    {
+        if (!empty($date)) {
+            return $this->asDateTime($date)->format('Y-m-d');
+        }
     }
 
     public function setFinanceCheckOutAttribute($data)

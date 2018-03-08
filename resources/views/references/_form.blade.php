@@ -34,7 +34,7 @@
 
 <div class="form-group">
     <label for="received_date"> تاريخ الإستلام  <span style="color:red">*</span></label>
-    <input type="text" class="form-control datepicker" id="datepicker" name="received_date"  placeholder=" اختر تاريخ الإستلام. " value="{{$reference->received_date or old('received_date')}}">
+    <input type="text" class="form-control" id="datepicker" name="received_date"  placeholder=" اختر تاريخ الإستلام. " value="{{$reference->received_date or old('received_date')}}">
 </div>
 
 <div class="form-group">

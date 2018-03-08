@@ -33,6 +33,7 @@
 			  				    <th> إطلاع قسم الحسابات </th>
 			  				    <th> إجمالي القيمة </th>
 			  				    <th> تاريخ الإصدار </th>
+			  				    <th> تاريخ التحصيل </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -55,6 +56,7 @@
 										<td>{{$invoice->finance_check_out}}</td>
 										<td>{{(isset($invoice->total))?($invoice->total.' جنية'):('0جنية')}} </td>
 										<td>{{$invoice->release_date}}</td>
+										<td>{{$invoice->collect_date}}</td>
 									</tr>
 								@endforeach
 

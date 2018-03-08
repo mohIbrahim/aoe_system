@@ -104,8 +104,25 @@
 
 <div class="form-group">
     <label for="release_date"> تاريخ الإصدار <span style="color:red">*</span></label>
-    <input type="text" class="form-control datepicker" id="datepicker" name="release_date"  placeholder=" اختر تاريخ الإصدار. " value="{{$invoice->release_date or old('release_date')}}">
+    <input type="text" class="form-control" id="datepicker" name="release_date"  placeholder=" اختر تاريخ الإصدار. " value="{{$invoice->release_date or old('release_date')}}">
 </div>
+
+<div class="form-group" >
+    <label for="collector_employee_name"> اسم الموظف الذي قام بالتحصيل </label>
+    <select class="form-control selectpicker" name="collector_employee_name" data-live-search="true" id="collector-employee-name">
+        <?php $selectecCollectorName = isset($invoice->collector_employee_name)? $invoice->collector_employee_name:'' ;?>
+        <option value=" "> اختراسم الموظف الذي قام بالتحصيل.  </option>
+        @foreach ($employeesNames as $employeeIterator => $employeeName)
+            <option value="{{$employeeName}}" {!!($selectecCollectorName == $employeeName)? 'selected="selected"' : ((old('contract_id')==$employeeName)?'selected="selected"':'')!!}> {{$employeeName}} </option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="collect_date"> تاريخ التحصيل </label>
+    <input type="text" class="form-control" id="datepicker2" name="collect_date"  placeholder=" اختر تاريخ التحصيل. " value="{{$invoice->collect_date or old('collect_date')}}">
+</div>
+
 
 <div class="form-group">
     <label for="descriptions"> الوصف </label>

@@ -8,6 +8,7 @@ use App\Indexation;
 use App\Contract;
 use App\ProjectImages;
 use App\Customer;
+use App\Employee;
 
 class InvoiceController extends Controller
 {
@@ -40,7 +41,8 @@ class InvoiceController extends Controller
         $indexationsCodes = Indexation::all()->pluck('code', 'id');
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
         $customersIdsCodes = Customer::all()->pluck('code', 'id');
-        return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes'));
+        $employeesNames = Employee::all()->pluck('user.name', 'user.name');
+        return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames'));
     }
 
     /**
@@ -80,7 +82,8 @@ class InvoiceController extends Controller
         $indexationsCodes = Indexation::all()->pluck('code', 'id');
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
         $customersIdsCodes = Customer::all()->pluck('code', 'id');
-        return view('invoices.edit', compact('invoice', 'indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes'));
+        $employeesNames = Employee::all()->pluck('user.name', 'user.name');
+        return view('invoices.edit', compact('invoice', 'indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames'));
     }
 
     /**

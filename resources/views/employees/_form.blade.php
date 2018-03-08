@@ -54,7 +54,7 @@
 
 <div class="form-group">
     <label for="date_of_hiring"> تاريخ التعيين  </label>
-    <input type="text" class="form-control datepicker" id="datepicker" name="date_of_hiring"  placeholder=" اختر تاريخ التعيين. " value="{{$employee->date_of_hiring or old('date_of_hiring')}}">
+    <input type="text" class="form-control" id="datepicker" name="date_of_hiring"  placeholder=" اختر تاريخ التعيين. " value="{{$employee->date_of_hiring or old('date_of_hiring')}}">
 </div>
 
 <div class="form-group">
