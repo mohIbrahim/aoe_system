@@ -66,6 +66,10 @@ class FollowUpCards
             $response = $next($request);
         }else
 
+        if($request->route()->getName() == 'follow_up_card_pm_search'    && (in_array('create_follow_up_cards', $permissions) || in_array('update_follow_up_cards', $permissions))){
+            $response = $next($request);
+        }else
+
 		if($request->route()->getName() == 'follow_up_cards_search'    && in_array('view_follow_up_cards', $permissions)){
 
             $response = $next($request);

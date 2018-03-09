@@ -31988,6 +31988,37 @@ $(document).ready(function () {
 });
 // End Ajax for Follow Up Card Special Report index view
 
+// Start Ajax for Follow Up Card _form view
+$(document).ready(function () {
+	$("#follow-up-card-printing-machine-search-btn").on("click", function () {
+		var keyword = $("#follow-up-card-printing-machine-search-field").val();
+		$("#follow-up-card-printing-machine-search-p").text("");
+		$("#follow-up-card-results-table-body ").children().remove();
+		var resultsTableBody = '';
+		if (keyword) {
+			$.ajax({
+				type: "GET",
+				url: "/follow_up_card_pm_search/" + keyword,
+				dataType: "json",
+				success: function success(results) {
+					$.each(results, function (key, machine) {
+						resultsTableBody += "<tr><td>" + machine.code + "</td><td>" + (machine.customer ? machine.customer.name : '') + "</td><td><button type='button' class='btn btn-success btn-xs select-printing-machine' data-printing-machine-id='" + machine.id + "' data-printing-machine-code='" + machine.code + "'> اختيار هذة الآلة </button></td></tr>";
+					});
+					$("#follow-up-card-results-table-body").append(resultsTableBody);
+					$(".select-printing-machine").on("click", function () {
+						printingMachineCode = $(this).attr('data-printing-machine-code');
+						printingMachineId = $(this).attr('data-printing-machine-id');
+						$("#printing-machine-id").val(printingMachineId);
+					});
+				}
+			});
+		} else {
+			$("#follow-up-card-printing-machine-search-p").text(" برجاء إدخال قيمة ").css('color', 'red');
+		}
+	});
+});
+// End Ajax for Follow Up Card _form view
+
 // Sart Ajax for Follow Up Card index view
 $(document).ready(function () {
 	$('#follow-up-card-search-button').on('click', function () {

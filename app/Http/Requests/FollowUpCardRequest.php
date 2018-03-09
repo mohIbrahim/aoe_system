@@ -25,6 +25,7 @@ class FollowUpCardRequest extends FormRequest
     {
         return [
             'code'=>'required|unique:follow_up_cards,code,'.$this->follow_up_card,
+            'printing_machine_id'=>'required',
             'contract_id'=>'required|unique:follow_up_cards,contract_id,'.$this->follow_up_card,
             'follow_up_card_as_pdf'=>'mimes:pdf',
         ];
@@ -33,10 +34,11 @@ class FollowUpCardRequest extends FormRequest
     public function messages()
     {
         return [
-            'contract_id.required'=>' برجاء اختيار العقد. ',
-            'contract_id.unique'=>' هذا العقد تم اختياره من قبل برجاء اختيار عقد آخر. ',
             'code.required'=>' برجاء إدخال كود البطاقة. ',
             'code.unique'=>' برجاء إختار كود آخر للبطاقة هذا الكود تم إدخاله من قبل. ',
+            'printing_machine_id.required'=>' برجاء اختيار الآلة الخاصة بهذة البطاقة. ',
+            'contract_id.required'=>' برجاء اختيار العقد. ',
+            'contract_id.unique'=>' هذا العقد تم اختياره من قبل برجاء اختيار عقد آخر. ',
             'follow_up_card_as_pdf.mimes'=>' برجاء اختيار صورة بطاقة المتابعة بأمتداد PDF.',
         ];
     }

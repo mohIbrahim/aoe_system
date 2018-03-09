@@ -9,6 +9,38 @@
     </select>
 </div>
 
+<div class="panel panel-default">
+        <div class="panel-heading">
+            اختيار الآلة التصوير الخاصة بهذة البطاقة<span style="color:red;font-weight:bolder">*</span>
+        </div>
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <label for="follow-up-card-printing-machine-search-field">  البحث عن الآلة التصوير:  </label>
+            <input type="text" class="form-control" id="follow-up-card-printing-machine-search-field" name="printing_machine_search_field" placeholder=" إدخل الكلمة المراد البحث عنها. " value="{{isset($followUpCard->printingMachine)? isset($followUpCard->printingMachine->customer)?$followUpCard->printingMachine->customer->name:'':'' }}">
+            <button type="button" class="btn btn-default" id="follow-up-card-printing-machine-search-btn"> ابحث </button>
+            <spna id="follow-up-card-printing-machine-search-p">  </spna>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th> كود الآلة </th>
+                        <th> اسم العميل </th>
+                        <th> اختيار </th>
+                    </tr>
+                </thead>
+                <tbody  id="follow-up-card-results-table-body">
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير:  </label>
+            <p>
+                يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة.
+            </p>
+            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id"  value="{{(isset($followUpCard->printing_machine_id))?($followUpCard->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}" readonly>
+        </div>
+    </div>
+</div>
+
 <div class="form-group">
     <label for="code"> كود البطاقة <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود البطاقة. " value="{{$followUpCard->code or old('code')}}">

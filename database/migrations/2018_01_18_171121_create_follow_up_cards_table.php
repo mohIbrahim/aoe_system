@@ -21,6 +21,9 @@ class CreateFollowUpCardsTable extends Migration
 
             $table->integer('contract_id')->unsigned()->nullable();
             $table->foreign('contract_id')->references('id')->on('contracts')->onDelete('cascade');
+
+            $table->integer('printing_machine_id')->unsigned()->nullable();
+            $table->foreign('printing_machine_id')->references('id')->on('printing_machines')->onDelete('cascade');
         });
     }
 

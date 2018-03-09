@@ -115,10 +115,6 @@
     {{-- bootstrap-select --}}
         <link rel="stylesheet" href="{{asset('css/bootstrap-select/bootstrap-select.min.css')}}">
     {{-- bootstrap-select --}}
-
-    {{-- select2 --}}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    {{-- select2 --}}
 @endsection
 @section('js_footer')
     {{-- datePicker --}}
@@ -129,10 +125,6 @@
         <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
         <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
     {{-- bootstrap-select --}}
-
-    {{-- select2 --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-    {{-- select2 --}}
 <script type="text/javascript">
 $(function(){
     // for update view
@@ -160,12 +152,6 @@ $(function(){
             $('#group-follow-up-card').css('display', 'none');
         }
     });
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function() {
-$('.select2').select2();
 });
 </script>
 

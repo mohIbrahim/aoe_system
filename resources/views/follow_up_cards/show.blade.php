@@ -78,21 +78,21 @@
 										<tbody>
 											<tr>
 												<td>
-													<a href="{{action('CustomerController@show', ['id'=>((isset($followUpCard->contract->printingMachine->customer))?($followUpCard->contract->printingMachine->customer->id):(''))])}}" target="_blank">
-														{{(isset($followUpCard->contract->printingMachine->customer))?($followUpCard->contract->printingMachine->customer->name):('')}}
+													<a href="{{action('CustomerController@show', ['id'=>((isset($followUpCard->printingMachine->customer))?($followUpCard->printingMachine->customer->id):(''))])}}" target="_blank">
+														{{(isset($followUpCard->printingMachine->customer))?($followUpCard->printingMachine->customer->name):('')}}
 													</a>
 												</td>
 												<td>
-													{{((isset($followUpCard->contract->printingMachine->customer))?($followUpCard->contract->printingMachine->customer->code):(''))}}
+													{{((isset($followUpCard->printingMachine->customer))?($followUpCard->printingMachine->customer->code):(''))}}
 												</td>
 												<td>
-													{{((isset($followUpCard->contract->printingMachine->customer))?($followUpCard->contract->printingMachine->customer->type):(''))}}
+													{{((isset($followUpCard->printingMachine->customer))?($followUpCard->printingMachine->customer->type):(''))}}
 												</td>
 												<td>
-													{{((isset($followUpCard->contract->printingMachine->customer))?($followUpCard->contract->printingMachine->customer->city):(''))}}
+													{{((isset($followUpCard->printingMachine->customer))?($followUpCard->printingMachine->customer->city):(''))}}
 												</td>
 												<td>
-													{{((isset($followUpCard->contract->printingMachine->customer))?($followUpCard->contract->printingMachine->customer->area):(''))}}
+													{{((isset($followUpCard->printingMachine->customer))?($followUpCard->printingMachine->customer->area):(''))}}
 												</td>
 
 											</tr>
@@ -103,8 +103,45 @@
 						</div>
 					@endif
 
-					@if (in_array('view_contracts', $permissions))
+					@if (in_array('view_printing_machines', $permissions))
+						<div class="panel panel-info">
+							<div class="panel-body">
+								<h3 class=" text-center"> بيانات الآلة </h3>
+								<hr>
+								<div class="table-responsive">
+									<table class="table table-hover">
+										<thead>
+											<th> كود الآلة  </th>
+											<th> رقم الملف الآلة </th>
+											<th> اسم الشركة المصنعة </th>
+											<th> الموديل </th>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<a href="{{action('PrintingMachineController@show', ['id'=>((isset($followUpCard->printingMachine))?($followUpCard->printingMachine->id):(''))])}}" target="_blank">
+													{{((isset($followUpCard->printingMachine))?($followUpCard->printingMachine->code):(''))}}
+													</a>
+												</td>
+												<td>
+													{{(isset($followUpCard->printingMachine))?($followUpCard->printingMachine->folder_number):('')}}
+												</td>
+												<td>
+													{{(isset($followUpCard->printingMachine))?($followUpCard->printingMachine->the_manufacture_company):('')}}
+												</td>
+												<td>
+													{{((isset($followUpCard->printingMachine))?($followUpCard->printingMachine->model_prefix).' - ':(''))}}
+													{{((isset($followUpCard->printingMachine))?($followUpCard->printingMachine->model_suffix):(''))}}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					@endif
 
+					@if (in_array('view_contracts', $permissions))
 						<div class="panel panel-info">
 							<div class="panel-body">
 								<h3 class=" text-center"> بيانات العقد </h3>
@@ -150,11 +187,10 @@
 					@endif
 
                     @if (in_array('view_visits', $permissions))
-
 						<div class="panel panel-info">
 							<div class="panel-body">
 								<h3 class=" text-center"> بيانات الزيارات </h3>
-									<a href="{{action('VisitController@createWithPrintingMachineIdAndFollowUpCardId', ['printing_machine_id'=>(   (isset($followUpCard->contract->printingMachine))?($followUpCard->contract->printingMachine->id):('')),'follow_up_card_id'=>$followUpCard->id])}}">
+									<a href="{{action('VisitController@createWithPrintingMachineIdAndFollowUpCardId', ['printing_machine_id'=>(   (isset($followUpCard->printingMachine))?($followUpCard->printingMachine->id):('')),'follow_up_card_id'=>$followUpCard->id])}}">
 									<span class="glyphicon glyphicon-plus"></span>
 									 إنشاء زيارة لهذة البطاقة
 								</a>
@@ -198,9 +234,7 @@
 						</div>
 					@endif
 
-
                     @if (in_array('view_follow_up_card_special_reports', $permissions))
-
 						<div class="panel panel-info">
 							<div class="panel-body">
 								<h3 class=" text-center"> تقارير خاصة </h3>
@@ -243,7 +277,6 @@
 							</div>
 						</div>
 					@endif
-
 
 				</div>
 			</div>

@@ -63,6 +63,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::resource('follow_up_cards', 'FollowUpCardController');
     Route::get('follow_up_cards_search/{keyword}', 'FollowUpCardController@search')->name('follow_up_cards_search');
     Route::get('remove_follow_up_card_file/{project_image_id}', 'FollowUpCardController@removeFollowUpCardFile')->name('remove_follow_up_card_file');
+    Route::get('follow_up_card_pm_search/{keyword}', 'FollowUpCardController@searchingOnPrintingMachine')->name('follow_up_card_pm_search');
 //Follow Up Card special reports
     Route::resource('follow_up_card_special_reports', 'FollowUpCardSpecialReportController');
     Route::get('follow_up_card_special_reports_search/{keyword}', 'FollowUpCardSpecialReportController@search')->name('follow_up_card_special_reports_search');

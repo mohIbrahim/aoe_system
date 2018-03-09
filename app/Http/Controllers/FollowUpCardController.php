@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\AOE\Repositories\FollowUpCard\FollowUpCardInterface;
 use App\Http\Requests\FollowUpCardRequest;
 use App\ProjectImages;
+use App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
+use App\PrintingMachine;
 
 
 class FollowUpCardController extends Controller
@@ -96,5 +98,11 @@ class FollowUpCardController extends Controller
     {
         $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
         return back()->withInput();
+    }
+
+    public function searchingOnPrintingMachine($keyword)
+    {
+        $abc = new EloquentPrintingMachine(new PrintingMachine());
+        return $abc->searchLimitedCodeCustomer($keyword);
     }
 }
