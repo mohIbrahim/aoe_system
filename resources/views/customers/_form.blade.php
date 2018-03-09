@@ -75,12 +75,12 @@
 
 <div class="form-group">
     <label for="administration"> الإدارة </label>
-    <input type="text" class="form-control" id="administration" name="administration"  placeholder=" إدخل الإدارة. " value="{{$customer->administration or old('address')}}">
+    <input type="text" class="form-control" id="administration" name="administration"  placeholder=" إدخل الإدارة. " value="{{$customer->administration or old('administration')}}">
 </div>
 
 <div class="form-group">
     <label for="department"> القسم </label>
-    <input type="text" class="form-control" id="department" name="department"  placeholder=" إدخل القسم. " value="{{$customer->department or old('address')}}">
+    <input type="text" class="form-control" id="department" name="department"  placeholder=" إدخل القسم. " value="{{$customer->department or old('department')}}">
 </div>
 
 <div class="form-group">
@@ -91,12 +91,12 @@
 
 <div class="form-group">
     <label for="area"> المنطقة </label>
-    <input type="text" class="form-control" id="area" name="area"  placeholder="  إدخل المنطقة. " value="{{$customer->area or old('address')}}">
+    <input type="text" class="form-control" id="area" name="area"  placeholder="  إدخل المنطقة. " value="{{$customer->area or old('area')}}">
 </div>
 
 <div class="form-group">
     <label for="district"> الحي </label>
-    <input type="text" class="form-control" id="district" name="district"  placeholder=" إدخل الحي. " value="{{$customer->district or old('address')}}">
+    <input type="text" class="form-control" id="district" name="district"  placeholder=" إدخل الحي. " value="{{$customer->district or old('district')}}">
 </div>
 
 <div class="form-group">
