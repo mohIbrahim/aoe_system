@@ -126,6 +126,65 @@
         <label for="network_scanner_product_key"> Network Scanner Product Key </label>
         <input type="text" class="form-control" id="network_scanner_product_key" name="network_scanner_product_key"  placeholder="Enter network scanner product key " value="{{$installationRecord->network_scanner_product_key or old('network_scanner_product_key')}}">
     </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading text-center">
+            <h3> إضافة عناصر آخرى </h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="add-note-btn"> إضافة عنصر</label>
+                <button type="button" class="btn btn-success" id="installation-record-new-items-btb">
+                    إضافة
+                </button>
+                <p class="help-block"> قم بإضافة العنصر ووصفه. </p>
+            </div>
+            <div id="installation-record-items-wrapper">
+                @if(null !== old('item_name'))
+                    @foreach ( old('item_name') as $oldIterator => $oldItem )
+                        <div class='panel panel-default'>
+                            <div class='panel-heading clearfix'>
+                                <button type='button' class='btn btn-danger btn-xs pull-left installation-record-itmes-delete-btn'>
+                                    حذف
+                                </button>
+                            </div>
+                            <div class='panel-body'>
+                                <div class='form-group'>
+                                    <label for='item_name'> العنصر </label>
+                                    <input type='text' class='form-control' name='item_name[]'  placeholder=' إدخل العنصر. ' value='{{$oldItem}}'>
+                                </div>
+                                <div class='form-group'>
+                                    <label for='item_description'> تعريف العنصر </label>
+                                    <textarea name='item_description[]' class='form-control' placeholder=' إدخل تعريف العنصر. '>{{old('item_description')[$oldIterator]}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @elseif (isset($installationRecord->otherItems) && $installationRecord->otherItems->isNotEmpty())
+                    @foreach ($installationRecord->otherItems as $itemIterator => $item)
+                        <div class='panel panel-default'>
+                            <div class='panel-heading clearfix'>
+                                <button type='button' class='btn btn-danger btn-xs pull-left contract-note-delete-btn'>
+                                    حذف
+                                </button>
+                            </div>
+                            <div class='panel-body'>
+                                <div class='form-group'>
+                                    <label for='item_name'> العنصر </label>
+                                    <input type='text' class='form-control' name='item_name[]'  placeholder=' إدخل العنصر. ' value='{{$item->item_name}}'>
+                                </div>
+                                <div class='form-group'>
+                                    <label for='item_description'> تعريف العنصر </label>
+                                    <textarea name='item_description[]' class='form-control' placeholder=' إدخل تعريف العنصر. '>{{$item->item_description}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+    </div>
+    
 </div>
 
 <div class="form-group">
@@ -142,63 +201,7 @@
         @endif
 </div>
 
-<div class="panel panel-default">
-	<div class="panel-heading text-center">
-		<h3> إضافة عناصر آخرى </h3>
-	</div>
-	<div class="panel-body">
-		<div class="form-group">
-			<label for="add-note-btn"> إضافة عنصر</label>
-            <button type="button" class="btn btn-success" id="installation-record-new-items-btb">
-                إضافة
-            </button>
-            <p class="help-block"> قم بإضافة العنصر ووصفه. </p>
-		</div>
-        <div id="installation-record-items-wrapper">
-            @if(null !== old('item_name'))
-                @foreach ( old('item_name') as $oldIterator => $oldItem )
-                    <div class='panel panel-default'>
-                        <div class='panel-heading clearfix'>
-                            <button type='button' class='btn btn-danger btn-xs pull-left installation-record-itmes-delete-btn'>
-                                حذف
-                            </button>
-                        </div>
-                        <div class='panel-body'>
-                            <div class='form-group'>
-                                <label for='item_name'> العنصر </label>
-                                <input type='text' class='form-control' name='item_name[]'  placeholder=' إدخل العنصر. ' value='{{$oldItem}}'>
-                            </div>
-                            <div class='form-group'>
-                                <label for='item_description'> تعريف العنصر </label>
-                                <textarea name='item_description[]' class='form-control' placeholder=' إدخل تعريف العنصر. '>{{old('item_description')[$oldIterator]}}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            @elseif (isset($installationRecord->otherItems) && $installationRecord->otherItems->isNotEmpty())
-                @foreach ($installationRecord->otherItems as $itemIterator => $item)
-                    <div class='panel panel-default'>
-                        <div class='panel-heading clearfix'>
-                            <button type='button' class='btn btn-danger btn-xs pull-left contract-note-delete-btn'>
-                                حذف
-                            </button>
-                        </div>
-                        <div class='panel-body'>
-                            <div class='form-group'>
-                                <label for='item_name'> العنصر </label>
-                                <input type='text' class='form-control' name='item_name[]'  placeholder=' إدخل العنصر. ' value='{{$item->item_name}}'>
-                            </div>
-                            <div class='form-group'>
-                                <label for='item_description'> تعريف العنصر </label>
-                                <textarea name='item_description[]' class='form-control' placeholder=' إدخل تعريف العنصر. '>{{$item->item_description}}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            @endif
-        </div>
-	</div>
-</div>
+
 
 <div class="form-group">
     <label for="comments"> الملاحظات </label>
