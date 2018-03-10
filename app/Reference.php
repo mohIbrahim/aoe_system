@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reference extends Model
 {
     protected $table = 'references';
-    protected $fillable = ['code', 'notebook_number', 'type', 'received_date', 'malfunctions_type', 'works_done_on_the_machine', 'readings_of_printing_machine', 'comments', 'employee_id', 'employee_id_who_receive_the_reference', 'printing_machine_id'];
+    protected $fillable = ['code', 'notebook_number', 'type', 'received_date', 'readings_of_printing_machine', 'comments', 'employee_id', 'employee_id_who_receive_the_reference', 'printing_machine_id'];
     protected $dates = ['received_date'];
 
     public function setReceivedDateAttribute($date)
@@ -48,5 +48,10 @@ class Reference extends Model
     public function softCopies()
     {
         return $this->morphMany('App\ProjectImages', 'imageable');
+    }
+
+    public function malfunctions()
+    {
+        return $this->hasMany('App\ReferenceMalfunction', 'reference_id', 'id');
     }
 }

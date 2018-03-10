@@ -31885,22 +31885,6 @@ $(document).ready(function () {
 
 // End Ajax for Contracts index view
 
-//Start contract add items and descriptions
-$(document).ready(function () {
-	$("#contract-new-note-btb").click(function () {
-		$("#contract-notes-wrapper").append("<div class='panel panel-default'> <div class='panel-heading clearfix'> <button type='button' class='btn btn-danger btn-xs pull-left contract-note-delete-btn'> حذف </button> </div><div class='panel-body'> <div class='form-group'> <label for='item_name'> البند </label> <input type='text' class='form-control' name='item_name[]' placeholder=' إدخل البند. ' value=''> </div><div class='form-group'> <label for='item_description'> تعريف البند </label> <textarea name='item_description[]' class='form-control' placeholder=' إدخل تعريف البند. '></textarea> </div></div></div>");
-
-		$(".contract-note-delete-btn").click(function () {
-			$(this).parent().parent().remove();
-		});
-	});
-
-	$(".contract-note-delete-btn").click(function () {
-		$(this).parent().parent().remove();
-	});
-});
-//End contract add items and descriptions
-
 // Start Ajax for Customers index view
 $(document).ready(function () {
 	$('#customers-search-button').on('click', function () {
@@ -31927,6 +31911,68 @@ $(document).ready(function () {
 	});
 });
 // End Ajax for Customers index view
+
+//Start Ajax for contract _fom printing machine search
+$(document).ready(function () {
+	$("#contract-form-printing-machine-search-button").on("click", function () {
+		var keyword = $("#printing-machine-search-field").val();
+		var resultsTableBody = "";
+		if (keyword) {
+			$("#printing-machine-message").text("");
+			$("#printing-machine-search-results-table-body").children().remove();
+
+			$.ajax({
+				type: "GET",
+				url: "/contracts_pm_search/" + keyword,
+				dataType: "json",
+				success: function success(results) {
+					$.each(results, function (key, printingMachine) {
+						resultsTableBody += "<tr><td>" + (printingMachine.customer ? printingMachine.customer.name : '') + "</td><td>" + printingMachine.code + "</td><td><button type='button' class='btn btn-success btn-xs printing-machine-select-button' data-priting-machine-id='" + printingMachine.id + "' data-customer-name='" + (printingMachine.customer ? printingMachine.customer.name : '') + "' data-printing-machine-code='" + printingMachine.code + "'> اختيار الآلة </button></td></tr>";
+					});
+					$("#printing-machine-search-results-table-body").append(resultsTableBody);
+					$(".printing-machine-select-button").on("click", function () {
+						pMId = $(this).attr("data-priting-machine-id");
+						pMCode = $(this).attr("data-printing-machine-code");
+						customerName = $(this).attr("data-customer-name");
+						$("#printing-machine-selected-results-table-body").append("<tr><td>" + customerName + "</td><td>" + pMCode + "</td><td><button type='button' class='btn btn-danger btn-xs printing-machine-delete-button'> حذف الآلة </button><input type='hidden' name='assigned_machines_ids[]' value='" + pMId + "'></td></tr>");
+						$(this).parent().parent().fadeOut('500', function () {
+							$(this).remove();
+						});
+						$(".printing-machine-delete-button").on("click", function () {
+							$(this).parent().parent().fadeOut('500', function () {
+								$(this).remove();
+							});
+						});
+					});
+				}
+			});
+		} else {
+			$("#printing-machine-message").text(" برجاء ادخال الكلمة المراد البحث عنها. ").css("color", "red");
+		}
+	});
+	$(".printing-machine-delete-button").on("click", function () {
+		$(this).parent().parent().fadeOut('500', function () {
+			$(this).remove();
+		});
+	});
+});
+//End Ajax for contract _fom printing machine search
+
+//Start contract add items and descriptions _form view
+$(document).ready(function () {
+	$("#contract-new-note-btb").click(function () {
+		$("#contract-notes-wrapper").append("<div class='panel panel-default'> <div class='panel-heading clearfix'> <button type='button' class='btn btn-danger btn-xs pull-left contract-note-delete-btn'> حذف </button> </div><div class='panel-body'> <div class='form-group'> <label for='item_name'> البند </label> <input type='text' class='form-control' name='item_name[]' placeholder=' إدخل البند. ' value=''> </div><div class='form-group'> <label for='item_description'> تعريف البند </label> <textarea name='item_description[]' class='form-control' placeholder=' إدخل تعريف البند. '></textarea> </div></div></div>");
+
+		$(".contract-note-delete-btn").click(function () {
+			$(this).parent().parent().remove();
+		});
+	});
+
+	$(".contract-note-delete-btn").click(function () {
+		$(this).parent().parent().remove();
+	});
+});
+//End contract add items and descriptions _form view
 
 // Start Ajax for Employees index view
 $(document).ready(function () {
@@ -32002,10 +32048,10 @@ $(document).ready(function () {
 				dataType: "json",
 				success: function success(results) {
 					$.each(results, function (key, machine) {
-						resultsTableBody += "<tr><td>" + machine.code + "</td><td>" + (machine.customer ? machine.customer.name : '') + "</td><td><button type='button' class='btn btn-success btn-xs select-printing-machine' data-printing-machine-id='" + machine.id + "' data-printing-machine-code='" + machine.code + "'> اختيار هذة الآلة </button></td></tr>";
+						resultsTableBody += "<tr><td>" + machine.code + "</td><td>" + (machine.customer ? machine.customer.name : '') + "</td><td><button type='button' class='btn btn-success btn-xs follow-up-card-select-printing-machine' data-printing-machine-id='" + machine.id + "' data-printing-machine-code='" + machine.code + "'> اختيار هذة الآلة </button></td></tr>";
 					});
 					$("#follow-up-card-results-table-body").append(resultsTableBody);
-					$(".select-printing-machine").on("click", function () {
+					$(".follow-up-card-select-printing-machine").on("click", function () {
 						printingMachineCode = $(this).attr('data-printing-machine-code');
 						printingMachineId = $(this).attr('data-printing-machine-id');
 						$("#printing-machine-id").val(printingMachineId);
@@ -32094,10 +32140,10 @@ $(document).ready(function () {
 				dataType: "json",
 				success: function success(results) {
 					$.each(results, function (key, machine) {
-						resultsTableBody += "<tr><td>" + machine.code + "</td><td>" + (machine.customer ? machine.customer.name : '') + "</td><td><button type='button' class='btn btn-success btn-xs select-printing-machine' data-printing-machine-id='" + machine.id + "' data-printing-machine-code='" + machine.code + "'> اختيار هذة الآلة </button></td></tr>";
+						resultsTableBody += "<tr><td>" + machine.code + "</td><td>" + (machine.customer ? machine.customer.name : '') + "</td><td><button type='button' class='btn btn-success btn-xs installation-record-select-printing-machine' data-printing-machine-id='" + machine.id + "' data-printing-machine-code='" + machine.code + "'> اختيار هذة الآلة </button></td></tr>";
 					});
 					$("#installation-record-results-table-body").append(resultsTableBody);
-					$(".select-printing-machine").on("click", function () {
+					$(".installation-record-select-printing-machine").on("click", function () {
 						printingMachineCode = $(this).attr('data-printing-machine-code');
 						printingMachineId = $(this).attr('data-printing-machine-id');
 						$("#printing-machine-id").val(printingMachineId);
@@ -32263,51 +32309,52 @@ $(document).ready(function () {
 });
 // End Ajax for References index view
 
-//Start Ajax for contract _fom printing machine search
+//Start References Searching on Printing machine on _from view
 $(document).ready(function () {
-	$("#contract-form-printing-machine-search-button").on("click", function () {
-		var keyword = $("#printing-machine-search-field").val();
-		var resultsTableBody = "";
+	$("#reference-printing-machine-search-btn").on("click", function () {
+		var keyword = $("#reference-printing-machine-search-field").val();
+		$("#reference-printing-machine-search-p").text("");
+		$("#reference-results-table-body ").children().remove();
+		var resultsTableBody = '';
 		if (keyword) {
-			$("#printing-machine-message").text("");
-			$("#printing-machine-search-results-table-body").children().remove();
-
 			$.ajax({
 				type: "GET",
-				url: "/contracts_pm_search/" + keyword,
+				url: "/references_pm_search/" + keyword,
 				dataType: "json",
 				success: function success(results) {
-					$.each(results, function (key, printingMachine) {
-						resultsTableBody += "<tr><td>" + (printingMachine.customer ? printingMachine.customer.name : '') + "</td><td>" + printingMachine.code + "</td><td><button type='button' class='btn btn-success btn-xs printing-machine-select-button' data-priting-machine-id='" + printingMachine.id + "' data-customer-name='" + (printingMachine.customer ? printingMachine.customer.name : '') + "' data-printing-machine-code='" + printingMachine.code + "'> اختيار الآلة </button></td></tr>";
+					$.each(results, function (key, machine) {
+						resultsTableBody += "<tr><td>" + machine.code + "</td><td>" + (machine.customer ? machine.customer.name : '') + "</td><td>" + (machine.assigned_employees ? machine.assigned_employees[0] ? machine.assigned_employees[0].user ? machine.assigned_employees[0].user.name ? machine.assigned_employees[0].user.name : '' : '' : '' : '') + "</td><td><button type='button' class='btn btn-success btn-xs select-printing-machine' data-printing-machine-id='" + machine.id + "' data-printing-machine-code='" + machine.code + "'> اختيار هذة الآلة </button></td></tr>";
 					});
-					$("#printing-machine-search-results-table-body").append(resultsTableBody);
-					$(".printing-machine-select-button").on("click", function () {
-						pMId = $(this).attr("data-priting-machine-id");
-						pMCode = $(this).attr("data-printing-machine-code");
-						customerName = $(this).attr("data-customer-name");
-						$("#printing-machine-selected-results-table-body").append("<tr><td>" + customerName + "</td><td>" + pMCode + "</td><td><button type='button' class='btn btn-danger btn-xs printing-machine-delete-button'> حذف الآلة </button><input type='hidden' name='assigned_machines_ids[]' value='" + pMId + "'></td></tr>");
-						$(this).parent().parent().fadeOut('500', function () {
-							$(this).remove();
-						});
-						$(".printing-machine-delete-button").on("click", function () {
-							$(this).parent().parent().fadeOut('500', function () {
-								$(this).remove();
-							});
-						});
+					$("#reference-results-table-body").append(resultsTableBody);
+					$(".select-printing-machine").on("click", function () {
+						printingMachineCode = $(this).attr('data-printing-machine-code');
+						printingMachineId = $(this).attr('data-printing-machine-id');
+						$("#printing-machine-id").val(printingMachineId);
 					});
 				}
 			});
 		} else {
-			$("#printing-machine-message").text(" برجاء ادخال الكلمة المراد البحث عنها. ").css("color", "red");
+			$("#reference-printing-machine-search-p").text(" برجاء إدخال قيمة ").css('color', 'red');
 		}
 	});
-	$(".printing-machine-delete-button").on("click", function () {
-		$(this).parent().parent().fadeOut('500', function () {
-			$(this).remove();
+});
+//End References Searching on Printing machine on _from view
+
+//Start References add malunctions and works were done on it _form view
+$(document).ready(function () {
+	$("#reference-new-malfunction-btb").click(function () {
+		$("#reference-malfunction-wrapper").append("<div class='panel panel-default'> <div class='panel-heading clearfix'> <button type='button' class='btn btn-danger btn-xs pull-left reference-malfunction-delete-btn'> حذف </button> </div><div class='panel-body'> <div class='form-group'> <label for='malfunction_type'> نوع العطل </label> <input type='text' class='form-control' name='malfunction_type[]' placeholder=' إدخل نوع العطل. ' value=''> </div><div class='form-group'> <label for='works_were_done'> الأعمال التي تم تنفيذها </label> <textarea name='works_were_done[]' class='form-control' placeholder=' إدخل الأعمال التي تم تنفيذها. '></textarea> </div></div></div>");
+
+		$(".reference-malfunction-delete-btn").click(function () {
+			$(this).parent().parent().remove();
 		});
 	});
+
+	$(".reference-malfunction-delete-btn").click(function () {
+		$(this).parent().parent().remove();
+	});
 });
-//End Ajax for contract _fom printing machine search
+//End References add malunctions and works were done on it _form view
 
 //Start Datatable
 $(document).ready(function () {

@@ -40,6 +40,18 @@ class ReferenceController extends Controller
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'reference_as_pdf', 'App\Reference', $reference->id, 'pdf', 'no_cover');
 
+        //ReferenceMalfunction
+        if (null !== ($request->input('works_were_done')) &&  null !== ($request->input('malfunction_type'))) {
+            $malfunctionType = $request->input('malfunction_type');
+            $worksWereDone = $request->input('works_were_done');
+
+            if ( count($malfunctionType) == count($worksWereDone) ) {
+                foreach ($malfunctionType as $itemNameIterator => $itemName) {
+                    $reference->malfunctions()->create(['malfunction_type'=>$itemName, 'works_were_done'=>$worksWereDone[$itemNameIterator]]);
+                }
+            }
+        }
+
         flash()->success(' تم إنشاء الإشارة بنجاح. ')->important();
         return redirect()->action('ReferenceController@show', ['id'=>$reference->id]);
     }
@@ -69,6 +81,19 @@ class ReferenceController extends Controller
                 $projectImage->deleteOneProjectImage($reference->softCopies->first()->id);
             }
             $isUploaded = $projectImage->receiveAndCreat($request, 'reference_as_pdf', 'App\Reference', $reference->id, 'pdf', 'no_cover');
+        }
+
+        //ReferenceMalfunction
+        $reference->malfunctions()->delete();
+        if (null !== ($request->input('works_were_done')) &&  null !== ($request->input('malfunction_type'))) {
+            $malfunctionType = $request->input('malfunction_type');
+            $worksWereDone = $request->input('works_were_done');
+
+            if ( count($malfunctionType) == count($worksWereDone) ) {
+                foreach ($malfunctionType as $itemNameIterator => $itemName) {
+                    $reference->malfunctions()->create(['malfunction_type'=>$itemName, 'works_were_done'=>$worksWereDone[$itemNameIterator]]);
+                }
+            }
         }
 
         flash()->success(' تم تعديل الإشارة بنجاح. ')->important();

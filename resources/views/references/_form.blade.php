@@ -54,10 +54,10 @@
         </div>
     <div class="panel-body">
         <div class="form-group form-inline">
-            <label for="printing-machine-search-field">  البحث عن الآلة التصوير:  </label>
-            <input type="text" class="form-control" id="printing-machine-search-field" name="printing_machine_search_field" placeholder=" إدخل الكلمة المراد البحث عنها. " value="{{isset($reference->printingMachine)? isset($reference->printingMachine->code)?$reference->printingMachine->code:'':'' }}">
-            <button type="button" class="btn btn-default" id="printing-machine-search-btn"> ابحث </button>
-            <spna id="printing-machine-search-p">  </spna>
+            <label for="reference-printing-machine-search-field">  البحث عن الآلة التصوير:  </label>
+            <input type="text" class="form-control" id="reference-printing-machine-search-field" name="printing_machine_search_field" placeholder=" إدخل الكلمة المراد البحث عنها. " value="{{isset($reference->printingMachine)? isset($reference->printingMachine->code)?$reference->printingMachine->code:'':'' }}">
+            <button type="button" class="btn btn-default" id="reference-printing-machine-search-btn"> ابحث </button>
+            <spna id="reference-printing-machine-search-p">  </spna>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -67,7 +67,7 @@
                         <th> اختيار </th> 
                     </tr>
                 </thead>
-                <tbody  id="results-table-body">
+                <tbody  id="reference-results-table-body">
                 </tbody>
             </table>
         </div>
@@ -81,14 +81,62 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label for="malfunctions_type"> نوع العطل </label>
-    <textarea name="malfunctions_type" class="form-control" placeholder=" إدخل نوع العطل. ">{{$reference->malfunctions_type or old('malfunctions_type')}}</textarea>
-</div>
-
-<div class="form-group">
-    <label for="works_done_on_the_machine"> الأعمال التي تم تنفيذها على الآلة </label>
-    <textarea name="works_done_on_the_machine" class="form-control" placeholder=" إدخل الأعمال التي تم تنفيذها على الآلة. ">{{$reference->works_done_on_the_machine or old('works_done_on_the_machine')}}</textarea>
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		<h3> الأعطال </h3>
+	</div>
+	<div class="panel-body">
+		<div class="form-group">
+			<label for="add-note-btn"> إضافة عطل </label>
+            <button type="button" class="btn btn-success" id="reference-new-malfunction-btb">
+                إضافة
+            </button>
+            <p class="help-block"> قم بإضافة العطل والعمل الذي تم تنفيذه عليه. </p>
+		</div>
+        <div id="reference-malfunction-wrapper">
+            @if(null !== old('malfunction_type'))
+                @foreach ( old('malfunction_type') as $oldMalfunctionTypeIterator => $oldMalfunctionType )
+                    <div class='panel panel-default'>
+                        <div class='panel-heading clearfix'>
+                            <button type='button' class='btn btn-danger btn-xs pull-left reference-malfunction-delete-btn'>
+                                حذف
+                            </button>
+                        </div>
+                        <div class='panel-body'>
+                            <div class='form-group'>
+                                <label for='malfunction_type'> نوع العطل </label>
+                                <input type='text' class='form-control' name='malfunction_type[]'  placeholder=' إدخل نوع العطل. ' value='{{$oldMalfunctionType}}'>
+                            </div>
+                            <div class='form-group'>
+                                <label for='works_were_done'> الأعمال التي تم تنفيذها </label>
+                                <textarea name='works_were_done[]' class='form-control' placeholder=' إدخل الأعمال التي تم تنفيذها. '>{{old('works_were_done')[$oldMalfunctionTypeIterator]}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @elseif (isset($reference->malfunctions) && $reference->malfunctions->isNotEmpty())
+                @foreach ($reference->malfunctions as $malfunctionIterator => $malfunction)
+                    <div class='panel panel-default'>
+                        <div class='panel-heading clearfix'>
+                            <button type='button' class='btn btn-danger btn-xs pull-left reference-malfunction-delete-btn'>
+                                حذف
+                            </button>
+                        </div>
+                        <div class='panel-body'>
+                            <div class='form-group'>
+                                <label for='malfunction_type'> نوع العطل </label>
+                                <input type='text' class='form-control' name='malfunction_type[]'  placeholder=' إدخل نوع العطل. ' value='{{$malfunction->malfunction_type}}'>
+                            </div>
+                            <div class='form-group'>
+                                <label for='works_were_done'> الأعمال التي تم تنفيذها </label>
+                                <textarea name='works_were_done[]' class='form-control' placeholder=' إدخل الأعمال التي تم تنفيذها. '>{{$malfunction->works_were_done}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+        </div>
+	</div>
 </div>
 
 <div class="form-group">
@@ -134,36 +182,4 @@
     <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
 {{-- bootstrap-select --}}
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $("#printing-machine-search-btn").on("click", function(){
-            var keyword = $("#printing-machine-search-field").val();
-            $("#printing-machine-search-p").text("");
-            $("#results-table-body ").children().remove();
-            var resultsTableBody = '';
-            if(keyword){
-                $.ajax({
-                    type:"GET",
-                    url:"{{url('references_pm_search')}}/"+keyword,
-                    dataType:"json",
-                    success:function(results){
-                        $.each(results, function(key, machine){
-                            resultsTableBody += "<tr><td>"+machine.code+"</td><td>"+((machine.customer)?machine.customer.name:'')+"</td><td>"+((machine.assigned_employees)?((machine.assigned_employees[0].user)?((machine.assigned_employees[0].user.name)?(machine.assigned_employees[0].user.name):('')):('')):(''))+"</td><td><button type='button' class='btn btn-success btn-xs select-printing-machine' data-printing-machine-id='"+machine.id+"' data-printing-machine-code='"+machine.code+"'> اختيار هذة الآلة </button></td></tr>";
-                        });
-                        $("#results-table-body").append(resultsTableBody);
-                        $(".select-printing-machine").on("click", function(){
-                            printingMachineCode = $(this).attr('data-printing-machine-code');
-                            printingMachineId = $(this).attr('data-printing-machine-id');
-                            $("#printing-machine-id").val(printingMachineId);
-                        });
-                    },
-                });
-            }else{
-                $("#printing-machine-search-p").text(" برجاء إدخال قيمة ").css('color','red');
-            }
-        });
-    });
-</script>
-
 @endsection

@@ -71,13 +71,35 @@
                                             </a>
                                         </td>
 								    </tr>
-								    <tr>
-									    <th> نوع العطل </th>
-									    <td>{{$reference->malfunctions_type}}</td>
-								    </tr>
-								    <tr>
-									    <th> الأعمال التي تم تنفيذها على الآلة </th>
-									    <td>{{$reference->works_done_on_the_machine}}</td>
+									<tr>
+									    <td colspan="2" class="text-center">
+                                            <h3> الأعطال </h3>
+											<hr />
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th> # </th>
+                                                            <th> نوع العطل </th>
+                                                            <th> الأعمال التي تم تنفيذها </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+														@foreach ($reference->malfunctions as $malfunctionIterator => $malfunction)
+															<tr>
+																<td>{{++$malfunctionIterator}}</td>
+																<td>
+																	{{$malfunction->malfunction_type or ''}}
+																</td>
+																<td>
+																	{{$malfunction->works_were_done or ''}}
+																</td>
+															</tr>
+														@endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </td>
 								    </tr>
 								    <tr>
 									    <th> قراءة العداد </th>
