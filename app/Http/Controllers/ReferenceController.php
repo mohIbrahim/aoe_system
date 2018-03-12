@@ -146,4 +146,9 @@ class ReferenceController extends Controller
         $reference->save();
         return redirect()->action('ReferenceController@show', ['id'=>$reference->id]);
     }
+
+    public function referencesReportDuringLastTwoWorkingDays()
+    {
+        return $this->reference->referencesReportDuringWorkingDays(2);
+    }
 }

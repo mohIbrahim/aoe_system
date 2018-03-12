@@ -67,4 +67,20 @@ class EloquentReference implements ReferenceInterface
         return $results;
     }
 
+    public function referencesReportDuringWorkingDays(int $days)
+    {
+        $todayOfWeek = now()->addDays(0)->format('D');
+        $today = now();
+        $from = '';
+        
+        if ($todayOfWeek == 'Sun') {
+            $from = now()->subDays(4);
+        } else if ($todayOfWeek == 'Mon') {
+            $from = now()->subDays(3);
+        } else {
+            $from = now()->subDays(2);
+        }
+        return $from;
+    }
+
 }

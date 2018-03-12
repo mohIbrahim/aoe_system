@@ -75,6 +75,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('references_pm_search/{keyword}', 'ReferenceController@searchingOnPrintingMachine')->name('references_pm_search');
     Route::get('create_reference_with_printing_machine_id/{pm_id}', 'ReferenceController@createWithPrintingMachineId')->name('create_reference_with_printing_machine_id');
     Route::get('reference_close/{reference_id}', 'ReferenceController@closeTheReference')->name('reference_close');
+    Route::get('references_report_during_last_two_working_days','ReferenceController@referencesReportDuringLastTwoWorkingDays')->name('references_report_during_last_two_working_days');
 //Indexations
     Route::resource('indexations', 'IndexationController');
     Route::get('indexations_search/{keyword}', 'IndexationController@search')->name('indexations_search');

@@ -83,6 +83,12 @@ class References
         if($request->route()->getName() == 'reference_close'    && (in_array('update_references', $permissions) )){
             $response = $next($request);
         }
+
+        else
+        
+        if($request->route()->getName() == 'references_report_during_last_two_working_days'    && (in_array('view_references', $permissions) )){
+            $response = $next($request);
+        }
         
         else{
             abort(403);
