@@ -27,6 +27,7 @@
                                 <th> كود الإشارة </th>
                                 <th> اسم مستلم الإشارة </th>
                                 <th> نوع الإشارة </th>
+                                <th> حالة الإشارة </th>
                                 <th> اسم المهندس المعيين لهذة الاشار </th>
                                 <th> تاريخ الإستلام </th>
                                 <th> كود الآلة التصوير </th>
@@ -49,6 +50,9 @@
                                         </td>
                                         <td>
                                             {{$reference->type}}
+                                        </td>
+                                        <td>
+                                            {{$reference->status}}
                                         </td>
                                         <td>
                                             {{isset($reference->assignedEmployee)?(isset($reference->assignedEmployee->user)?$reference->assignedEmployee->user->name:''):''}}

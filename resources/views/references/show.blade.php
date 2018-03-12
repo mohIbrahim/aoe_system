@@ -46,7 +46,11 @@
 								    <tr>
 									    <th> نوع الإشارة </th>
 									    <td>{{$reference->type}}</td>
-								    </tr>
+									</tr>									
+									<tr>
+										<th> حالة الإشارة </th>
+										<td>{{$reference->status}}</td>
+									</tr>
 								    <tr>
 									    <th> تاريخ الإستلام </th>
 									    <td>{{$reference->received_date}}</td>
@@ -116,6 +120,10 @@
                                     <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$reference->comments}}</td>
+								    </tr>
+                                    <tr>
+									    <th> تاريخ غلق الإشارة </th>
+									    <td>{{$reference->closing_date or 'لم يتم غلقها بعد'}}</td>
 								    </tr>
 								    <tr>
 									    <th> تاريخ الإنشاء </th>

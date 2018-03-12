@@ -137,4 +137,13 @@ class ReferenceController extends Controller
 		$employeesNames = Employee::all()->pluck('user.name', 'id');
         return view('references.create', compact('employeesNames', 'printingMachineId'));
     }
+    
+    public function closeTheReference($referenceId)
+    {
+        $reference = $this->reference->getById($referenceId);
+        $reference->closing_date = now();
+        $reference->status = 'مغلقة';
+        $reference->save();
+        return redirect()->action('ReferenceController@show', ['id'=>$reference->id]);
+    }
 }

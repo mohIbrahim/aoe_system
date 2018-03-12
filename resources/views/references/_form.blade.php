@@ -33,6 +33,17 @@
 </div>
 
 <div class="form-group">
+    <label for="status"> حالة الإشارة <span style="color:red">*</span></label>
+    <select class="form-control" name="status">
+        <?php $referencestatus = isset($reference->status)? $reference->status:'' ;?>
+        <option value="">  اختر حالة الإشارة.  </option>
+        <option value="مفتوحة" {{($referenceType == 'مفتوحة')? 'selected' : ((old('type')=='مفتوحة')?'selected':'')}}> مفتوحة </option>
+        <option value="مغلقة" {{($referenceType == 'مغلقة')? 'selected' : ((old('type')=='مغلقة')?'selected':'')}}> مغلقة </option>
+        <option value="معلقة لسبب ما" {{($referenceType == 'معلقة لسبب ما')? 'selected' : ((old('type')=='معلقة لسبب ما')?'selected':'')}}> معلقة لسبب ما </option>
+    </select>
+</div>
+
+<div class="form-group">
     <label for="received_date"> تاريخ الإستلام  <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="datepicker" name="received_date"  placeholder=" اختر تاريخ الإستلام. " value="{{$reference->received_date or old('received_date')}}">
 </div>
@@ -162,7 +173,16 @@
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$reference->comments or old('comments')}}</textarea>
 </div>
 
-<button type="submit" class="btn btn-primary btn-lg center-block" >
+@if(isset($reference))
+    <div class="clearfix pull-left text-center">
+        <a role="button" href="{{action('ReferenceController@closeTheReference', ['refrence_id'=>$reference->id])}}" class="btn btn-success btn-md">غلــق الإشارة</a>
+        <p >تاريخ الغلق: {{$reference->closing_date or 'لم يتم الغلق بعد'}}</p>
+    </div>
+    <div class="clearfix">
+    </div>
+@endif
+
+<button type="submit" class="btn btn-primary btn-lg center-block">
     حفظ
 </button>
 @section('head')

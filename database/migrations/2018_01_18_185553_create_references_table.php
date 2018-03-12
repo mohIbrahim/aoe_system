@@ -18,7 +18,9 @@ class CreateReferencesTable extends Migration
             $table->string('code')->nullable();
             $table->string('notebook_number')->nullable();
             $table->string('type')->nullable();
+            $table->string('status')->nullable()->nullable();
             $table->dateTime('received_date')->nullable();
+            $table->dateTime('closing_date')->nullable();
             $table->string('readings_of_printing_machine')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
