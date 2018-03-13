@@ -35,12 +35,19 @@ class EloquentContract implements ContractInterface
     public function create(array $attributes)
     {
         $contract = $this->contract->create($attributes);
+        if(isset($attributes['item_name']) && isset($attributes['item_description']))
+            $this->createNoteOnContracting($contract, $attributes['item_name'] , $attributes['item_description']);
         return $contract;
     }
     public function update($id, array $attributes)
     {
         $contract = $this->contract->findOrFail($id);
         $contract->update($attributes);
+        
+        $contract->notesOnContracting()->delete();
+        if(isset($attributes['item_name']) && isset($attributes['item_description']))
+            $this->createNoteOnContracting($contract, $attributes['item_name'] , $attributes['item_description']);
+            
         return $contract;
     }
     public function delete($id)
@@ -62,4 +69,22 @@ class EloquentContract implements ContractInterface
                         ->get();
         return $results;
     }
+
+    public function createNoteOnContracting(Contract $contract, array $itemsNames, array $itmesDescriptions)
+    {
+        if (null !== ($itmesDescriptions) &&  null !== ($itemsNames)) {
+            $itemNameArr = $itemsNames;
+            $itemDescriptionArr = $itmesDescriptions;
+
+            if ( count($itemNameArr) == count($itemDescriptionArr) ) {
+                foreach ($itemNameArr as $itemNameIterator => $itemName) {
+                    $contract->notesOnContracting()->create(['item_name'=>$itemName, 'item_description'=>$itemDescriptionArr[$itemNameIterator]]);
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+
+    }    
 }

@@ -195,9 +195,11 @@
                                                 <table class="table table-hover">
                                                     <thead>
                                                         <tr>
+                                                            <th> رقم الدفعة </th>
                                                             <th> كود الفاتورة </th>
                                                             <th> نوع الفاتورة </th>
                                                             <th> تاريخ الفاتورة </th>
+                                                            <th> تاريخ السداد  </th>
 
 
                                                         </tr>
@@ -205,6 +207,9 @@
                                                     <tbody>
 														@foreach ($contract->invoices as $key3 => $invoice)
 															<tr>
+																<td>
+																	
+																</td>
 																<td>
 																	<a href="{{action('InvoiceController@show', ['id'=>$invoice->id])}}">
 																		{{$invoice->number}}
@@ -215,6 +220,9 @@
 																</td>
 																<td>
 																	{{$invoice->release_date}}
+																</td>
+																<td>
+																	{{$invoice->collect_date}}
 																</td>
 															</tr>
 														@endforeach
