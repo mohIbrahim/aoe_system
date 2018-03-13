@@ -67,20 +67,21 @@ class EloquentReference implements ReferenceInterface
         return $results;
     }
 
-    public function referencesReportDuringWorkingDays(int $days)
+    public function referencesReportDuringLastTwoWorkingDays()
     {
-        $todayOfWeek = now()->addDays(0)->format('D');
-        $today = now();
+        $todayOfWeek = now()->subDays(0)->format('D');
+        $today = now()->toDateString();
         $from = '';
         
         if ($todayOfWeek == 'Sun') {
-            $from = now()->subDays(4);
+            $from = now()->subDays(4)->toDateString();
         } else if ($todayOfWeek == 'Mon') {
-            $from = now()->subDays(3);
+            $from = now()->subDays(3)->toDateString();
         } else {
-            $from = now()->subDays(2);
+            $from = now()->subDays(2)->toDateString();
         }
-        return $from;
+        $results = $this->reference->whereBetween('received_date', [$from, $today]);
+        return $results;
     }
 
 }

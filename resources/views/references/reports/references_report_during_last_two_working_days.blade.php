@@ -1,13 +1,16 @@
 @extends('layouts.app')
 
 @section('title')
-	 عرض الإشارات خلال آخر يومين عمل
+	تقرير عن الإشارات التي تم استلامها خلال آخر يومين عمل
 @endsection
 
 @section('content')
 	<div class="row main_arabic_font">
 	  <div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 col-lg-12 col-lg-offset-0">
-		  <div class="panel panel-default">		    
+		  <div class="panel panel-default">	
+			<div class="panel-heading text-center">
+				<h3> تقرير عن الإشارات التي تم استلامها خلال آخر يومين عمل </h3>
+			</div>	    
 		    <div class="panel-body">
 		  		<div class="table-responsive">
 			  	    <table class="table table-hover">

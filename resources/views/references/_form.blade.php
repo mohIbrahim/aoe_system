@@ -35,11 +35,11 @@
 <div class="form-group">
     <label for="status"> حالة الإشارة <span style="color:red">*</span></label>
     <select class="form-control" name="status">
-        <?php $referencestatus = isset($reference->status)? $reference->status:'' ;?>
+        <?php $referenceStatus = isset($reference->status)? $reference->status:'' ;?>
         <option value="">  اختر حالة الإشارة.  </option>
-        <option value="مفتوحة" {{($referenceType == 'مفتوحة')? 'selected' : ((old('type')=='مفتوحة')?'selected':'')}}> مفتوحة </option>
-        <option value="مغلقة" {{($referenceType == 'مغلقة')? 'selected' : ((old('type')=='مغلقة')?'selected':'')}}> مغلقة </option>
-        <option value="معلقة لسبب ما" {{($referenceType == 'معلقة لسبب ما')? 'selected' : ((old('type')=='معلقة لسبب ما')?'selected':'')}}> معلقة لسبب ما </option>
+        <option value="مفتوحة" {{($referenceStatus == 'مفتوحة')? 'selected' : ((old('status')=='مفتوحة')?'selected':'')}}> مفتوحة </option>
+        <option value="مغلقة" {{($referenceStatus == 'مغلقة')? 'selected' : ((old('status')=='مغلقة')?'selected':'')}}> مغلقة </option>
+        <option value="معلقة لسبب ما" {{($referenceStatus == 'معلقة لسبب ما')? 'selected' : ((old('status')=='معلقة لسبب ما')?'selected':'')}}> معلقة لسبب ما </option>
     </select>
 </div>
 

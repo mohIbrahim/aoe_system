@@ -149,6 +149,7 @@ class ReferenceController extends Controller
 
     public function referencesReportDuringLastTwoWorkingDays()
     {
-        return $this->reference->referencesReportDuringWorkingDays(2);
+        $references = $this->reference->referencesReportDuringLastTwoWorkingDays()->paginate(15);
+        return view('references.reports.references_report_during_last_two_working_days', compact('references'));
     }
 }
