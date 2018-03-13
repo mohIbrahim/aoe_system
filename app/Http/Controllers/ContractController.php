@@ -52,7 +52,7 @@ class ContractController extends Controller
         $contract = $this->contract->create($request->all());
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'contract_as_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
-        
+
         $contract->printingMachines()->attach($request->assigned_machines_ids);
         
         flash()->success('تم إنشاء العقد بنجاح. ')->important();
@@ -68,7 +68,9 @@ class ContractController extends Controller
     public function show($id)
     {
         $contract = $this->contract->getById($id);
-        return view('contracts.show', compact('contract'));
+        return $this->contract->paymentIsDue($contract);
+        $paymentCount = $this->contract->paymentCount($contract);
+        return view('contracts.show', compact('contract', 'paymentCount'));
     }
 
     /**

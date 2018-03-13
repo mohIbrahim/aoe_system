@@ -205,10 +205,10 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-														@foreach ($contract->invoices as $key3 => $invoice)
+														@foreach ($contract->invoices as $invoicesIterator => $invoice)
 															<tr>
 																<td>
-																	
+																	{{ (++$invoicesIterator) }}
 																</td>
 																<td>
 																	<a href="{{action('InvoiceController@show', ['id'=>$invoice->id])}}">

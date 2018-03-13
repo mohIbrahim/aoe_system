@@ -86,5 +86,36 @@ class EloquentContract implements ContractInterface
             return false;
         }
 
-    }    
+    }
+
+    public function paymentCount(Contract $contract)
+    {
+        $paymentSystem = $contract->payment_system;
+        $count = 0;
+        if ($paymentSystem == 'مقدم' || $paymentSystem == 'نهاية المدة') {
+            $count = 1;         
+        } else if ($paymentSystem == 'ربع سنوي') {
+            $count = 4;            
+        } else if ($paymentSystem == 'نصف سنوي') {
+            $count = 2;            
+        }
+        return $count;
+    }
+
+    public function paymentIsDue($contract)
+    {
+        $paymentCount = $this->paymentCount($contract);
+        $numberOfPayedInvoices = $contract->invoices()->count();
+        if ($paymentCount == $numberOfPayedInvoices) {
+            //All invoice is payed
+        }
+        if ($paymentCount > $numberOfPayedInvoices) {
+            $countOfRemainingPayments = $paymentCount - $numberOfPayedInvoices;
+            $latestPayedInvoice = $contract->invoices()->latest()->first();        
+            $dateOfLatestPayedInvoice = $latestPayedInvoice->collectDate;
+
+            
+        }
+        return $latestPayedInvoice;
+    }
 }
