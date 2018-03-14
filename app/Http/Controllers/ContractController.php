@@ -68,9 +68,10 @@ class ContractController extends Controller
     public function show($id)
     {
         $contract = $this->contract->getById($id);
-        return $this->contract->paymentIsDue($contract);
-        $paymentCount = $this->contract->paymentCount($contract);
-        return view('contracts.show', compact('contract', 'paymentCount'));
+        $paymentsNamesAndDates = $this->contract->paymentsNamesAndDates($contract);
+        $paymentsNames = $paymentsNamesAndDates[0];
+        $paymentsDates = $paymentsNamesAndDates[1];
+        return view('contracts.show', compact('contract', 'paymentsNames', 'paymentsDates'));
     }
 
     /**
