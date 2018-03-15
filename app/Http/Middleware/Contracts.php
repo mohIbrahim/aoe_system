@@ -78,7 +78,11 @@ class Contracts
 
         if($request->route()->getName() == 'contracts_pm_search'    && (in_array('create_contracts', $permissions) || in_array('update_contracts', $permissions))){
             $response = $next($request);
-        } else{
+        } else
+        if($request->route()->getName() == 'payments_is_due_in_this_month_for_valid_contracts'    && ( in_array('view_contracts', $permissions))){
+            $response = $next($request);
+        } else
+        {
             abort(403);
         }
 

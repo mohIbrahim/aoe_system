@@ -57,7 +57,7 @@
                                             <a href="{{action('PrintingMachineController@show', ['id'=>(isset($reference->printingMachine)?$reference->printingMachine->id:'')])}}">
                                                 {{$reference->printingMachine->code or ''}}
                                             </a>
-                                        </td
+                                        </td>
 									</tr>
 								@endforeach
 							</div>

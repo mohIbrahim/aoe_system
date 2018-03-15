@@ -204,31 +204,29 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-														@for ($i = 0; $i < count($paymentsNames); $i++)
-															
-			<tr>
-				<td>
-					{{ $paymentsNames[$i] }}
-				</td>
-				<td>
-					{{ $paymentsDates[$i] }}
-				</td>
-				<td>
-					<a href="{{action('InvoiceController@show', ['id'=>($i+1 <= count($contract->invoices))?($contract->invoices[$i]->id):('')])}}">
-						{{($i+1 <= count($contract->invoices))?($contract->invoices[$i]->number):('')}}
-					</a>
-				</td>
-				<td>
-					{{($i+1 <= count($contract->invoices))?($contract->invoices[$i]->type):('')}}
-				</td>
-				<td>
-					{{($i+1 <= count($contract->invoices))?($contract->invoices[$i]->release_date):('')}}
-				</td>
-				<td>
-					{{($i+1 <= count($contract->invoices))?($contract->invoices[$i]->collect_date):('')}}
-				</td>
-			</tr>
-															
+														@for ($i = 0; $i < count($paymentsNames); $i++)								
+															<tr>
+																<td>
+																	{{ $paymentsNames[$i] }}
+																</td>
+																<td>
+																	{{ $paymentsDates[$i] }}
+																</td>
+																<td>
+																	<a href="{{action('InvoiceController@show', ['id'=>($i+1 <= count($contract->invoices))?($contract->invoices[$i]->id):('')])}}">
+																		{{($i+1 <= count($contract->invoices))?($contract->invoices[$i]->number):('')}}
+																	</a>
+																</td>
+																<td>
+																	{{($i+1 <= count($contract->invoices))?($contract->invoices[$i]->type):('')}}
+																</td>
+																<td>
+																	{{($i+1 <= count($contract->invoices))?($contract->invoices[$i]->release_date):('')}}
+																</td>
+																<td>
+																	{{($i+1 <= count($contract->invoices))?($contract->invoices[$i]->collect_date):('')}}
+																</td>
+															</tr>															
 														@endfor
                                                     </tbody>
                                                 </table>

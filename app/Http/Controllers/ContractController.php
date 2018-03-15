@@ -68,7 +68,7 @@ class ContractController extends Controller
     public function show($id)
     {
         $contract = $this->contract->getById($id);
-        $paymentsNamesAndDates = $this->contract->paymentsNamesAndDates($contract);
+        $paymentsNamesAndDates = $this->contract->paymentsIsDueNamesAndDates($contract);
         $paymentsNames = $paymentsNamesAndDates[0];
         $paymentsDates = $paymentsNamesAndDates[1];
         return view('contracts.show', compact('contract', 'paymentsNames', 'paymentsDates'));
@@ -159,5 +159,14 @@ class ContractController extends Controller
         $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
         $pMachine = PrintingMachine::findOrFail($printingMachineId);
         return view('contracts.create', compact('employeesIdsNames', 'pMachine'));
+    }
+
+    public function paymentsIsDueInThisMonthReport()
+    {
+        $paymentsNamesDatesContract = $this->contract->getPaymentsIsDueInThisMonth();
+        $paymentsNames = $paymentsNamesDatesContract[0];
+        $paymentsDates = $paymentsNamesDatesContract[1];
+        $contracts = $paymentsNamesDatesContract[2];
+        return view('contracts.reports.payments_is_due_in_this_month', compact('paymentsNames', 'paymentsDates', 'contracts'));
     }
 }

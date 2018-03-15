@@ -48,7 +48,8 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('contracts_search/{keyword}', 'ContractController@search')->name('contracts_search');
     Route::get('remove_the_contract_file/{project_image_id}', 'ContractController@removeContractFile')->name('remove_the_contract_file');
     Route::get('contracts_pm_search/{keyword}', 'ContractController@searchingOnPrintingMachinesByCustomerName')->name('contracts_pm_search');
-	Route::get('create_contract_with_printing_machine_id/{pm_id}', 'ContractController@createWithPrintingMachineId')->name('create_contract_with_printing_machine_id');
+    Route::get('create_contract_with_printing_machine_id/{pm_id}', 'ContractController@createWithPrintingMachineId')->name('create_contract_with_printing_machine_id');
+    Route::get('payments_is_due_in_this_month_for_valid_contracts', 'ContractController@paymentsIsDueInThisMonthReport')->name('payments_is_due_in_this_month_for_valid_contracts');
 //Invoices
     Route::resource('invoices', 'InvoiceController');
     Route::get('invoices_search/{keyword}', 'InvoiceController@search')->name('invoices_search');

@@ -103,7 +103,7 @@ class EloquentContract implements ContractInterface
         return $count;
     }
 
-    public function paymentsNamesAndDates($contract)
+    public function paymentsIsDueNamesAndDates($contract)
     {
         $contractStart = $contract->start;
         $contractEnd = $contract->end;
@@ -130,7 +130,7 @@ class EloquentContract implements ContractInterface
                 }
             } else if ( $contractPaymentSystem == 'نصف سنوي' ) {
                 $flag = 1;
-                for ($i = 6; $i <= $contractingMonths ; $i=$i+6) {
+                for ($i = 0; $i < $contractingMonths ; $i=$i+6) {
                     $paymentsDates[] = Carbon::parse($contractStart)->addMonths($i)->format('Y-m-d');
                     $paymentsNames[] = $paymentArabicNaming[$flag];
                     $flag++;
@@ -138,5 +138,46 @@ class EloquentContract implements ContractInterface
             }
         }        
         return [$paymentsNames,$paymentsDates];
+    }
+
+    public function validContracts(){
+        return $this->contract->where('start', '<=', now())
+                                ->where('end', '>=', now())->get();
+    }
+
+    public function getPaymentsIsDueInThisMonth()
+    {
+        $paymentsIsDueInThisMonth = null;
+        $thisYear = now()->year;
+        $thisMonth = now()->month;
+        $daysInThisMonth = now()->daysInMonth;
+
+        $dateOfFirstDayInThisMonth = $thisYear.'-'.$thisMonth.'-1';
+        $dateOfFistDayInThisMonthCarbon = Carbon::parse($dateOfFirstDayInThisMonth);
+
+        $dateOfLastDayInThisMonth = $thisYear.'-'.$thisMonth.'-'.$daysInThisMonth;
+        $dateOfLastDayInThisMonthCarbon = Carbon::parse($dateOfLastDayInThisMonth);
+        
+        $validContracts = $this->validContracts();
+        $selectePaymentsNames = [];
+        $selectePaymentsDates = [];
+        $selecteContracts = [];
+        foreach ($validContracts as $contractIterator => $contract) {
+            $paymentsNamesAndDates = $this->paymentsIsDueNamesAndDates($contract);
+            $paymentsNames = $paymentsNamesAndDates[0];
+            $paymentsDates = $paymentsNamesAndDates[1];
+            
+            foreach ($paymentsDates as $paymentDateIterator => $paymentDate) {
+                if ( (Carbon::parse($paymentDate)->gte($dateOfFistDayInThisMonthCarbon)) && 
+                     (Carbon::parse($paymentDate)->lte($dateOfLastDayInThisMonthCarbon))
+                    ) {
+                    $selectePaymentsNames[] = $paymentsNames[$paymentDateIterator];
+                    $selectePaymentsDates[] = $paymentDate;
+                    $selecteContracts[] = $contract;
+                }
+            }
+        }
+        $paymentsIsDueInThisMonth = [$selectePaymentsNames, $selectePaymentsDates, $selecteContracts];
+        return $paymentsIsDueInThisMonth;
     }
 }
