@@ -114,7 +114,6 @@ class EloquentContract implements ContractInterface
         if ( !empty($contractStart) && !empty($contractEnd) ) {
             $contractingYears = Carbon::parse($contractStart)->diffInYears(Carbon::parse($contractEnd));
             $contractingMonths = $contractingYears * 12;
-            $paymentArabicNaming = [1=>'الدفعة الآولى', 2=>'الدفعة الثانية', 3=>'الدفعة الثالثة', 4=>'الدفعة الرابعة', 5=>'الدفعة الخامسة', 6=>'الدفعة السادسة', 7=>'الدفعة السابعة', 8=>'الدفعة الثامنة', 9=>'الدفعة التاسعة', 10=>'الدفعة العاشرة', 11=>'الدفعة الحادية عشرة', 12=>'الدفعة الثانية عشرة', 13=>'الدفعة الثالثة عشرة', 14=>'الدفعة الرابعة عشرة', 15=>'الدفعة الخامسة عشرة', 16=>'الدفعة السادسة عشرة', 17=>'الدفعة السابعة عشرة', 18=>'الدفعة الثامنة عشرة', 19=>'الدفعة التاسعة عشرة', 20=>'الدفعة العشرون'];
             if ( $contractPaymentSystem == 'مقدم' ) {
                 $paymentsDates[] = Carbon::parse($contractStart)->format('Y-m-d');
                 $paymentsNames[] = 'دفعة واحدة فقط';
@@ -125,14 +124,51 @@ class EloquentContract implements ContractInterface
                 $flag = 1;
                 for ($i = 0; $i < $contractingMonths ; $i=$i+3) {
                     $paymentsDates[] = Carbon::parse($contractStart)->addMonths($i)->format('Y-m-d');
-                    $paymentsNames[] = $paymentArabicNaming[$flag];
+                    $paymentsNames[] = $this->paymentArabicNames()[$flag];
                     $flag++;
                 }
             } else if ( $contractPaymentSystem == 'نصف سنوي' ) {
                 $flag = 1;
                 for ($i = 0; $i < $contractingMonths ; $i=$i+6) {
                     $paymentsDates[] = Carbon::parse($contractStart)->addMonths($i)->format('Y-m-d');
-                    $paymentsNames[] = $paymentArabicNaming[$flag];
+                    $paymentsNames[] = $this->paymentArabicNames()[$flag];
+                    $flag++;
+                }
+            }
+        }        
+        return [$paymentsNames,$paymentsDates];
+    }
+
+    public function createInvoicesForNewContract($contract)
+    {
+        $contractStart = $contract->start;
+        $contractEnd = $contract->end;
+        $contractPaymentSystem = $contract->payment_system;
+        $paymentsDates = [];
+        $paymentsNames = [];
+
+        if ( !empty($contractStart) && !empty($contractEnd) ) {
+            $contractingYears = Carbon::parse($contractStart)->diffInYears(Carbon::parse($contractEnd));
+            $contractingMonths = $contractingYears * 12;
+            if ( $contractPaymentSystem == 'مقدم' ) {
+                $paymentsDates[] = Carbon::parse($contractStart)->format('Y-m-d');
+                $paymentsNames[] = 'دفعة واحدة فقط';
+                $contract->invoice()->create(['number'=>null, 'type'=>'تعاقد', 'الأقسام الفنية', 'release_date'=>$contractStart, '']);
+            } else if ( $contractPaymentSystem == 'نهاية المدة' ) {
+                $paymentsDates[] = Carbon::parse($contractEnd)->format('Y-m-d');
+                $paymentsNames[] = 'دفعة واحدة فقط';
+            } else if ( $contractPaymentSystem == 'ربع سنوي' ) {
+                $flag = 1;
+                for ($i = 0; $i < $contractingMonths ; $i=$i+3) {
+                    $paymentsDates[] = Carbon::parse($contractStart)->addMonths($i)->format('Y-m-d');
+                    $paymentsNames[] = $this->paymentArabicNames()[$flag];
+                    $flag++;
+                }
+            } else if ( $contractPaymentSystem == 'نصف سنوي' ) {
+                $flag = 1;
+                for ($i = 0; $i < $contractingMonths ; $i=$i+6) {
+                    $paymentsDates[] = Carbon::parse($contractStart)->addMonths($i)->format('Y-m-d');
+                    $paymentsNames[] = $this->paymentArabicNames()[$flag];
                     $flag++;
                 }
             }
@@ -166,7 +202,7 @@ class EloquentContract implements ContractInterface
             $paymentsNamesAndDates = $this->paymentsIsDueNamesAndDates($contract);
             $paymentsNames = $paymentsNamesAndDates[0];
             $paymentsDates = $paymentsNamesAndDates[1];
-            
+
             foreach ($paymentsDates as $paymentDateIterator => $paymentDate) {
                 if ( (Carbon::parse($paymentDate)->gte($dateOfFistDayInThisMonthCarbon)) && 
                      (Carbon::parse($paymentDate)->lte($dateOfLastDayInThisMonthCarbon))
@@ -177,7 +213,12 @@ class EloquentContract implements ContractInterface
                 }
             }
         }
-        $paymentsIsDueInThisMonth = [$selectePaymentsNames, $selectePaymentsDates, $selecteContracts];
+        $paymentsIsDueInThisMonth = [$selectePaymentsNames, $selectePaymentsDates, $selecteContracts, $thisMonth, $thisYear];
         return $paymentsIsDueInThisMonth;
+    }
+
+    public function paymentArabicNames()
+    {
+        return [1=>'الدفعة الآولى', 2=>'الدفعة الثانية', 3=>'الدفعة الثالثة', 4=>'الدفعة الرابعة', 5=>'الدفعة الخامسة', 6=>'الدفعة السادسة', 7=>'الدفعة السابعة', 8=>'الدفعة الثامنة', 9=>'الدفعة التاسعة', 10=>'الدفعة العاشرة', 11=>'الدفعة الحادية عشرة', 12=>'الدفعة الثانية عشرة', 13=>'الدفعة الثالثة عشرة', 14=>'الدفعة الرابعة عشرة', 15=>'الدفعة الخامسة عشرة', 16=>'الدفعة السادسة عشرة', 17=>'الدفعة السابعة عشرة', 18=>'الدفعة الثامنة عشرة', 19=>'الدفعة التاسعة عشرة', 20=>'الدفعة العشرون'];
     }
 }

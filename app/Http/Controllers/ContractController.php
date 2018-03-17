@@ -167,6 +167,8 @@ class ContractController extends Controller
         $paymentsNames = $paymentsNamesDatesContract[0];
         $paymentsDates = $paymentsNamesDatesContract[1];
         $contracts = $paymentsNamesDatesContract[2];
-        return view('contracts.reports.payments_is_due_in_this_month', compact('paymentsNames', 'paymentsDates', 'contracts'));
+        $thisYear = $paymentsNamesDatesContract[3];
+        $thisMonth = $paymentsNamesDatesContract[4];
+        return view('contracts.reports.payments_is_due_in_this_month', compact('paymentsNames', 'paymentsDates', 'contracts', 'thisYear', 'thisMonth'));
     }
 }
