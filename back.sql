@@ -39,7 +39,7 @@ CREATE TABLE `contract_printing_machine` (
 
 LOCK TABLES `contract_printing_machine` WRITE;
 /*!40000 ALTER TABLE `contract_printing_machine` DISABLE KEYS */;
-INSERT INTO `contract_printing_machine` VALUES (1,1);
+INSERT INTO `contract_printing_machine` VALUES (1,1),(14,1);
 /*!40000 ALTER TABLE `contract_printing_machine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `contracts` (
   PRIMARY KEY (`id`),
   KEY `contracts_employee_id_who_edits_the_contract_foreign` (`employee_id_who_edits_the_contract`),
   CONSTRAINT `contracts_employee_id_who_edits_the_contract_foreign` FOREIGN KEY (`employee_id_who_edits_the_contract`) REFERENCES `employees` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +77,7 @@ CREATE TABLE `contracts` (
 
 LOCK TABLES `contracts` WRITE;
 /*!40000 ALTER TABLE `contracts` DISABLE KEYS */;
-INSERT INTO `contracts` VALUES (1,'543','ضمان','2018-03-11 00:00:00','2019-03-11 00:00:00','ساري',1000.00,10,1010.00,'ربع سنوي',NULL,'2018-03-11 06:51:11','2018-03-11 06:51:11',1);
+INSERT INTO `contracts` VALUES (1,'543','ضمان','2018-03-15 00:00:00','2019-03-15 00:00:00','ساري',1000.00,10,1010.00,'ربع سنوي',NULL,'2018-03-11 06:51:11','2018-03-15 12:58:28',1),(14,'1212','صيانة شاملة قطع الغيار','2018-03-18 00:00:00','2019-03-18 00:00:00','ساري',1000.00,10,1100.00,'نصف سنوي',NULL,'2018-03-18 13:18:58','2018-03-18 13:18:58',NULL);
 /*!40000 ALTER TABLE `contracts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -468,12 +468,12 @@ CREATE TABLE `invoices` (
   `customer_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `invoices_indexation_id_foreign` (`indexation_id`),
-  KEY `invoices_contract_id_foreign` (`contract_id`),
   KEY `invoices_customer_id_foreign` (`customer_id`),
-  CONSTRAINT `invoices_contract_id_foreign` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`) ON DELETE SET NULL,
+  KEY `invoices_contract_id_foreignkey` (`contract_id`),
+  CONSTRAINT `invoices_contract_id_foreignkey` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `invoices_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL,
   CONSTRAINT `invoices_indexation_id_foreign` FOREIGN KEY (`indexation_id`) REFERENCES `indexations` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -482,7 +482,7 @@ CREATE TABLE `invoices` (
 
 LOCK TABLES `invoices` WRITE;
 /*!40000 ALTER TABLE `invoices` DISABLE KEYS */;
-INSERT INTO `invoices` VALUES (1,89239,'مقايسة','الأقسام الفنية',23443,23887,'لم يتم الاطلاع','2018-03-11 00:00:00',NULL,450.00,NULL,'2018-03-11 00:00:00',NULL,'2018-03-11 07:13:08','2018-03-11 07:13:08',1,NULL,1),(2,454455,'تعاقد','الأقسام الفنية',NULL,NULL,'لم يتم الاطلاع','2018-03-13 00:00:00',NULL,1000.00,NULL,'2018-03-13 00:00:00',NULL,'2018-03-13 10:13:09','2018-03-13 10:13:09',NULL,1,1),(3,99099,'تعاقد','الأقسام الفنية',NULL,NULL,'لم يتم الاطلاع','2018-03-13 00:00:00',NULL,200000.00,NULL,NULL,NULL,'2018-03-13 13:10:26','2018-03-13 13:10:26',NULL,1,1);
+INSERT INTO `invoices` VALUES (1,89239,'مقايسة','الأقسام الفنية',23443,23887,'لم يتم الاطلاع','2018-03-11 00:00:00',NULL,450.00,NULL,'2018-03-11 00:00:00',NULL,'2018-03-11 07:13:08','2018-03-11 07:13:08',1,NULL,1),(2,454455,'تعاقد','الأقسام الفنية',NULL,NULL,'لم يتم الاطلاع','2018-03-13 00:00:00',NULL,1000.00,NULL,'2018-03-13 00:00:00',NULL,'2018-03-13 10:13:09','2018-03-13 10:13:09',NULL,1,1),(3,99099,'تعاقد','الأقسام الفنية',NULL,NULL,'لم يتم الاطلاع','2018-03-13 00:00:00',NULL,200000.00,NULL,NULL,NULL,'2018-03-13 13:10:26','2018-03-13 13:10:26',NULL,1,1),(16,NULL,'تعاقد',NULL,NULL,NULL,'لم يتم الاطلاع','2018-03-18 00:00:00',NULL,550.00,NULL,NULL,NULL,'2018-03-18 13:18:58','2018-03-18 13:18:58',NULL,14,1),(17,NULL,'تعاقد',NULL,NULL,NULL,'لم يتم الاطلاع','2018-09-18 00:00:00',NULL,550.00,NULL,NULL,NULL,'2018-03-18 13:18:58','2018-03-18 13:18:58',NULL,14,1);
 /*!40000 ALTER TABLE `invoices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -528,7 +528,7 @@ CREATE TABLE `notes_on_contracting` (
   PRIMARY KEY (`id`),
   KEY `notes_on_contracting_contract_id_foreign` (`contract_id`),
   CONSTRAINT `notes_on_contracting_contract_id_foreign` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1032,4 +1032,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-13 15:51:15
+-- Dump completed on 2018-03-18 15:43:54

@@ -33,7 +33,7 @@ class CreateInvoicesTable extends Migration
             $table->foreign('indexation_id')->references('id')->on('indexations')->onDelete('set null');
 
             $table->integer('contract_id')->unsigned()->nullable();
-            $table->foreign('contract_id')->references('id')->on('contracts')->onDelete('set null');
+            $table->foreign('contract_id')->references('id')->on('contracts')->onDelete('cascade');
 
             $table->integer('customer_id')->unsigned()->nullable();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('set null');

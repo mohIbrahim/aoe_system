@@ -54,6 +54,7 @@ class ContractController extends Controller
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'contract_as_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
 
         $contract->printingMachines()->attach($request->assigned_machines_ids);
+        $this->contract->createInvoicesForNewContract($contract);
         
         flash()->success('تم إنشاء العقد بنجاح. ')->important();
         return redirect()->action('ContractController@show', ['id'=>$contract->id]);

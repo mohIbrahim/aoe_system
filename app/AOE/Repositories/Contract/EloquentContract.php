@@ -36,8 +36,9 @@ class EloquentContract implements ContractInterface
     public function create(array $attributes)
     {
         $contract = $this->contract->create($attributes);
-        if(isset($attributes['item_name']) && isset($attributes['item_description']))
+        if (isset($attributes['item_name']) && isset($attributes['item_description'])) {
             $this->createNoteOnContracting($contract, $attributes['item_name'] , $attributes['item_description']);
+        }
         return $contract;
     }
     public function update($id, array $attributes)
@@ -51,6 +52,7 @@ class EloquentContract implements ContractInterface
             
         return $contract;
     }
+
     public function delete($id)
     {
         $contract = $this->contract->findOrFail($id);
@@ -141,39 +143,32 @@ class EloquentContract implements ContractInterface
 
     public function createInvoicesForNewContract($contract)
     {
-        $contractStart = $contract->start;
-        $contractEnd = $contract->end;
-        $contractPaymentSystem = $contract->payment_system;
-        $paymentsDates = [];
-        $paymentsNames = [];
-
-        if ( !empty($contractStart) && !empty($contractEnd) ) {
+        if (!empty($contract->start) && !empty($contract->end)) {
+            $contractStart = $contract->start;
+            $contractEnd = $contract->end;
+            $contractPaymentSystem = $contract->payment_system;
             $contractingYears = Carbon::parse($contractStart)->diffInYears(Carbon::parse($contractEnd));
             $contractingMonths = $contractingYears * 12;
+            $contractTotalPrice = $contract->total_price;
+            $customerId = $contract->printingMachines()->first()->customer->id;
+
             if ( $contractPaymentSystem == 'مقدم' ) {
-                $paymentsDates[] = Carbon::parse($contractStart)->format('Y-m-d');
-                $paymentsNames[] = 'دفعة واحدة فقط';
-                $contract->invoice()->create(['number'=>null, 'type'=>'تعاقد', 'الأقسام الفنية', 'release_date'=>$contractStart, '']);
+                $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>$contractStart, 'total'=>(($contractTotalPrice)/($contractingYears * 1)), 'customer_id'=>$customerId]);
             } else if ( $contractPaymentSystem == 'نهاية المدة' ) {
-                $paymentsDates[] = Carbon::parse($contractEnd)->format('Y-m-d');
-                $paymentsNames[] = 'دفعة واحدة فقط';
+                $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>$contractEnd, 'total'=>(($contractTotalPrice)/($contractingYears * 1)), 'customer_id'=>$customerId]);
             } else if ( $contractPaymentSystem == 'ربع سنوي' ) {
-                $flag = 1;
                 for ($i = 0; $i < $contractingMonths ; $i=$i+3) {
-                    $paymentsDates[] = Carbon::parse($contractStart)->addMonths($i)->format('Y-m-d');
-                    $paymentsNames[] = $this->paymentArabicNames()[$flag];
-                    $flag++;
+                    $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractStart)->addMonths($i)->format('Y-m-d')), 'total'=>(($contractTotalPrice)/($contractingYears * 4)), 'customer_id'=>$customerId]);
                 }
             } else if ( $contractPaymentSystem == 'نصف سنوي' ) {
-                $flag = 1;
                 for ($i = 0; $i < $contractingMonths ; $i=$i+6) {
-                    $paymentsDates[] = Carbon::parse($contractStart)->addMonths($i)->format('Y-m-d');
-                    $paymentsNames[] = $this->paymentArabicNames()[$flag];
-                    $flag++;
+                    $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractStart)->addMonths($i)->format('Y-m-d')), 'total'=>(($contractTotalPrice)/($contractingYears * 2)), 'customer_id'=>$customerId]);
                 }
             }
-        }        
-        return [$paymentsNames,$paymentsDates];
+            
+            return true;
+        }
+        return false;
     }
 
     public function validContracts(){
