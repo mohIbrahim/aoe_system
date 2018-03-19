@@ -369,9 +369,9 @@ $(document).ready(function(){
 					$("#my-table-body").children().remove();
 					$.each(results, function(index, invoice) {
 						if(invoice.customer) {
-							newResult += "<tr><td>"+(index+1)+"</td><td><a href='/invoices/"+invoice.id+"'>"+invoice.number+"</a></td><td>"+invoice.customer.name+"</td><td>"+invoice.type+"</td><td>"+invoice.issuer+"</td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.total+"</td><td>"+invoice.release_date+"</td></tr>";
+							newResult += "<tr><td>"+(index+1)+"</td><td><a href='/invoices/"+invoice.id+"'>"+( (invoice.number)?(invoice.number):('لم يتم تعين الرقم حتى الآن') )+"</a></td><td>"+invoice.customer.name+"</td><td>"+invoice.type+"</td><td>"+invoice.issuer+"</td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.total+"</td><td>"+invoice.release_date+"</td></tr>";
 						} else {
-							newResult += "<tr><td>"+(index+1)+"</td><td><a href='/invoices/"+invoice.id+"'>"+invoice.number+"</a></td><td></td><td>"+invoice.type+"</td><td>"+invoice.issuer+"</td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.total+"</td><td>"+invoice.release_date+"</td></tr>";
+							newResult += "<tr><td>"+(index+1)+"</td><td><a href='/invoices/"+invoice.id+"'>"+( (invoice.number)?(invoice.number):('لم يتم تعين الرقم حتى الآن') )+"</a></td><td></td><td>"+invoice.type+"</td><td>"+invoice.issuer+"</td><td>"+invoice.order_number+"</td><td>"+invoice.delivery_permission_number+"</td><td>"+invoice.finance_check_out+"</td><td>"+invoice.total+"</td><td>"+invoice.release_date+"</td></tr>";
 						}
 
 					});

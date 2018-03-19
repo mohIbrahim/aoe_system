@@ -45,7 +45,7 @@
 										</td>
 										<td>
                                             <a href="{{action('InvoiceController@show', ['id'=>$invoice->id])}}" target="_blank">
-                                                {{$invoice->number}}
+                                                {{$invoice->number or 'لم يتم تعين الرقم حتى الآن'}}
                                             </a>
                                         </td>
                                         <td>{{$invoice->customer->name or ''}}</td>

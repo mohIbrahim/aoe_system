@@ -197,37 +197,34 @@
                                                         <tr>
                                                             <th> رقم الدفعة </th>
                                                             <th> تاريخ الإستحقاق </th>
-                                                            <th> كود الفاتورة </th>
+                                                            <th> رقم الفاتورة </th>
                                                             <th> نوع الفاتورة </th>
-                                                            <th> تاريخ الفاتورة </th>
                                                             <th> تاريخ السداد  </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-														@for ($i = 0; $i < count($paymentsNames); $i++)								
+														@foreach ($contract->invoices as $invoiceKey => $invoice)
 															<tr>
 																<td>
-																	{{ $paymentsNames[$i] }}
+																	{{ $paymentsNames[($invoiceKey+1)] }}
 																</td>
 																<td>
-																	{{ $paymentsDates[$i] }}
+																	{{$invoice->release_date}}
 																</td>
 																<td>
-																	<a href="{{action('InvoiceController@show', ['id'=>($i+1 <= count($contract->invoices))?($contract->invoices[$i]->id):('')])}}">
-																		{{($i+1 <= count($contract->invoices))?($contract->invoices[$i]->number):('')}}
+																	<a href="{{action('InvoiceController@show', ['id'=>(($invoice->id)?($invoice->id):(''))])}}">
+																		{{($invoice->number)?($invoice->number):('لم يتم تعين الرقم')}}
 																	</a>
 																</td>
 																<td>
-																	{{($i+1 <= count($contract->invoices))?($contract->invoices[$i]->type):('')}}
+																		{{($invoice->type)?($invoice->type):('')}}
 																</td>
 																<td>
-																	{{($i+1 <= count($contract->invoices))?($contract->invoices[$i]->release_date):('')}}
+																		{{($invoice->collect_date)?($invoice->collect_date):('الفاتورة لم يتم سدادها بعد')}}
 																</td>
-																<td>
-																	{{($i+1 <= count($contract->invoices))?($contract->invoices[$i]->collect_date):('')}}
-																</td>
+																
 															</tr>															
-														@endfor
+														@endforeach
                                                     </tbody>
                                                 </table>
                                             </div>

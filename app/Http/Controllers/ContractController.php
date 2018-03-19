@@ -69,9 +69,7 @@ class ContractController extends Controller
     public function show($id)
     {
         $contract = $this->contract->getById($id);
-        $paymentsNamesAndDates = $this->contract->paymentsIsDueNamesAndDates($contract);
-        $paymentsNames = $paymentsNamesAndDates[0];
-        $paymentsDates = $paymentsNamesAndDates[1];
+        $paymentsNames = $this->contract->paymentArabicNames();        
         return view('contracts.show', compact('contract', 'paymentsNames', 'paymentsDates'));
     }
 
@@ -162,14 +160,14 @@ class ContractController extends Controller
         return view('contracts.create', compact('employeesIdsNames', 'pMachine'));
     }
 
-    public function paymentsIsDueInThisMonthReport()
+    public function contractsInvoicesAreDueInThisMonthReport()
     {
-        $paymentsNamesDatesContract = $this->contract->getPaymentsIsDueInThisMonth();
-        $paymentsNames = $paymentsNamesDatesContract[0];
-        $paymentsDates = $paymentsNamesDatesContract[1];
-        $contracts = $paymentsNamesDatesContract[2];
-        $thisYear = $paymentsNamesDatesContract[3];
-        $thisMonth = $paymentsNamesDatesContract[4];
-        return view('contracts.reports.payments_is_due_in_this_month', compact('paymentsNames', 'paymentsDates', 'contracts', 'thisYear', 'thisMonth'));
+        $data = $this->contract->getContractsInvoicesAreDueInThisMonthReportData();
+        $paymentsNames  = $data[0];
+        $invoices       = $data[1];
+        $contracts      = $data[2];
+        $thisYear       = $data[3];
+        $thisMonth      = $data[4];
+        return view('contracts.reports.contracts_invoices_are_due_in_this_month_report', compact('paymentsNames', 'invoices', 'contracts', 'thisYear', 'thisMonth'));
     }
 }
