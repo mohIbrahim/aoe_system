@@ -52,7 +52,7 @@ class EloquentReference implements ReferenceInterface
 
     public function search($keyword)
     {
-        $results = $this->reference->with('assignedEmployee.user', 'employeeWhoReceiveTheRereference.user', 'printingMachine')->where('code', 'like', '%'.$keyword.'%')
+        $results = $this->reference->with('assignedEmployee.user', 'employeeWhoReceiveTheRereference.user', 'printingMachine', 'printingMachine.customer')->where('code', 'like', '%'.$keyword.'%')
                                     ->orWhere('type', 'like', '%'.$keyword.'%')
                                     ->orWhere('received_date', 'like', '%'.$keyword.'%')
                                     ->orWhereHas('assignedEmployee', function($queryOne) use($keyword){
@@ -61,7 +61,13 @@ class EloquentReference implements ReferenceInterface
                                         });
                                     })
                                     ->orWhereHas('printingMachine', function($queryThree) use($keyword){
-                                        $queryThree->where('code', 'like', '%'.$keyword.'%');
+                                        $queryThree->where('code', 'like', '%'.$keyword.'%')
+                                                    ->orWhere('serial_number', 'like', '%'.$keyword.'%');
+                                    })
+                                    ->orWhereHas('printingMachine', function($queryFour) use($keyword){
+                                        $queryFour->whereHas('customer', function($queryFive) use($keyword){
+                                            $queryFive->where('name', 'like', '%'.$keyword.'%');
+                                        });
                                     })
                                     ->get();
         return $results;

@@ -11,7 +11,7 @@
 		    <div class="panel-heading ">
 				<legend> البحث عن الإشارات </legend>
 				<div class="form-group">
-					<label for=""> البحث بـ كود, النوع , تاريخ, الإشارة أو اسم المهندس المعيين لهذة الاشارة أو كود الآلة التصوير. </label>
+					<label for=""> البحث بـ كود, نوع , تاريخ, الإشارة, اسم المهندس المعيين لهذة الاشارة أو كود, الرقم المسلسل لآلة التصوير أو اسم العميل. </label>
 					<input type="text" class="form-control" id="references_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 				<button type="button" id="references-search-button" class="btn btn-primary"> بحث </button>
@@ -30,8 +30,10 @@
                                 <th> حالة الإشارة </th>
                                 <th> اسم المهندس المعيين لهذة الاشار </th>
                                 <th> تاريخ الإستلام </th>
-                                <th> كود الآلة التصوير </th>
-			  			    </tr>
+								<th> كود الآلة التصوير </th>
+								<th> الرقم المسلسل لآلة التصوير </th>
+								<th> اسم العميل </th>
+							</tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
 							<div class="">
@@ -64,7 +66,13 @@
                                             <a href="{{action('PrintingMachineController@show', ['id'=>(isset($reference->printingMachine)?$reference->printingMachine->id:'')])}}">
                                                 {{$reference->printingMachine->code or ''}}
                                             </a>
-                                        </td
+										</td>
+										<td>
+											{{(($reference->printingMachine)?(($reference->printingMachine->serial_number)?($reference->printingMachine->serial_number):('')):(''))}}
+										</td>
+										<td>
+											{{(($reference->printingMachine)?(($reference->printingMachine->customer)?($reference->printingMachine->customer->name):('')):(''))}}
+										</td>
 									</tr>
 								@endforeach
 							</div>
