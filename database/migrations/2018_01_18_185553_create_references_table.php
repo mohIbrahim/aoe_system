@@ -25,6 +25,7 @@ class CreateReferencesTable extends Migration
             $table->text('comments')->nullable();
             $table->string('informer_name')->nullable();
             $table->string('informer_phone')->nullable();
+            $table->string('reviewed_by_the_chief_engineer')->nullable();
             $table->timestamps();
 
             $table->integer('employee_id')->unsigned()->nullable();

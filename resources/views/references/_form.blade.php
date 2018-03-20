@@ -179,6 +179,14 @@
 </div>
 
 <div class="form-group">
+        <label for="reviewed_by_the_chief_engineer"> هل تم المراجعة من كبير المهندسيين؟ </label><br>
+        <input type="radio" name="reviewed_by_the_chief_engineer" value="نعم" {{(  (old('reviewed_by_the_chief_engineer')=='نعم')?('checked'):((isset($reference) && (old('reviewed_by_the_chief_engineer') == ''))?(($reference->reviewed_by_the_chief_engineer == 'نعم')?('checked'):('')):(''))  )}}>
+        <h4 style="display:inline"> نعم </h4><br>
+        <input type="radio" name="reviewed_by_the_chief_engineer" value="لا" {{(  (old('reviewed_by_the_chief_engineer') == 'لا')?('checked'):((isset($reference) && (old('reviewed_by_the_chief_engineer') == ''))?(($reference->reviewed_by_the_chief_engineer == 'لا')?('checked'):('')):(''))  )}}>
+        <h4 style="display:inline"> لا </h4><br>
+    </div>
+
+<div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$reference->comments or old('comments')}}</textarea>
 </div>

@@ -129,6 +129,11 @@
 										<th> تاريخ غلق الإشارة </th>
 										<td>{{$reference->closing_date or 'لم يتم غلقها بعد'}}</td>
 									</tr>
+									<tr>
+										<th> هل تم المراجعة من كبير المهندسيين؟
+											</th>
+										<td>{{$reference->reviewed_by_the_chief_engineer or ''}}</td>
+									</tr>
                                     <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$reference->comments}}</td>

@@ -33,6 +33,7 @@
 								<th> كود الآلة التصوير </th>
 								<th> الرقم المسلسل لآلة التصوير </th>
 								<th> اسم العميل </th>
+								<th> مراجعة كبير المهندسيين </th>
 							</tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -72,6 +73,9 @@
 										</td>
 										<td>
 											{{(($reference->printingMachine)?(($reference->printingMachine->customer)?($reference->printingMachine->customer->name):('')):(''))}}
+										</td>
+										<td>
+											{{$reference->reviewed_by_the_chief_engineer}}
 										</td>
 									</tr>
 								@endforeach

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reference extends Model
 {
     protected $table = 'references';
-    protected $fillable = ['code', 'notebook_number', 'type', 'status', 'received_date', 'closing_date', 'readings_of_printing_machine', 'informer_name', 'informer_phone', 'comments', 'employee_id', 'employee_id_who_receive_the_reference', 'printing_machine_id'];
+    protected $fillable = ['code', 'notebook_number', 'type', 'status', 'received_date', 'closing_date', 'readings_of_printing_machine', 'informer_name', 'informer_phone', 'reviewed_by_the_chief_engineer', 'comments', 'employee_id', 'employee_id_who_receive_the_reference', 'printing_machine_id'];
     
     protected $dates = ['received_date', 'closing_date'];
 
@@ -24,7 +24,7 @@ class Reference extends Model
     {
         if (!empty($date))
             return $this->asDateTime($date)->format('Y-m-d');
-    }    
+    }
 
     public function assignedEmployee()
     {
