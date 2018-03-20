@@ -156,6 +156,16 @@
 </div>
 
 <div class="form-group">
+    <label for="informer_name"> اسم مُبلغ الإشارة </label>
+    <input type="text" class="form-control" id="informer_name" name="informer_name"  placeholder=" إدخل اسم مُبلغ الإشارة. " value="{{$reference->informer_name or old('informer_name')}}">
+</div>
+
+<div class="form-group">
+    <label for="informer_phone"> رقم تليفون المُبلغ عن الإشارة </label>
+    <input type="text" class="form-control" id="informer_phone" name="informer_phone"  placeholder=" إدخل رقم تليفون المُبلغ عن الإشارة. " value="{{$reference->informer_phone or old('informer_phone')}}">
+</div>
+
+<div class="form-group">
     <label for="reference_as_pdf"> صورة للإشارة بأمتداد PDF </label>
     <input type="file" class="form-control" id="reference_as_pdf" name="reference_as_pdf">
         @if (isset($reference->softCopies) && $reference->softCopies->isNotEmpty())

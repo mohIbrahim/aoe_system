@@ -23,6 +23,8 @@ class CreateReferencesTable extends Migration
             $table->dateTime('closing_date')->nullable();
             $table->string('readings_of_printing_machine')->nullable();
             $table->text('comments')->nullable();
+            $table->string('informer_name')->nullable();
+            $table->string('informer_phone')->nullable();
             $table->timestamps();
 
             $table->integer('employee_id')->unsigned()->nullable();

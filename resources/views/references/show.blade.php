@@ -116,14 +116,22 @@
 												<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank"> صورة الإشارة </a>
 											@endforeach
 										</td>
-								    </tr>
+									</tr>
+									<tr>
+									    <th> اسم مُبلغ الإشارة  </th>
+									    <td>{{$reference->informer_name}}</td>
+									</tr>
+									<tr>
+										<th> رقم تليفون المُبلغ عن الإشارة </th>
+										<td>{{$reference->informer_phone}}</td>
+									</tr>
+									<tr>
+										<th> تاريخ غلق الإشارة </th>
+										<td>{{$reference->closing_date or 'لم يتم غلقها بعد'}}</td>
+									</tr>
                                     <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$reference->comments}}</td>
-								    </tr>
-                                    <tr>
-									    <th> تاريخ غلق الإشارة </th>
-									    <td>{{$reference->closing_date or 'لم يتم غلقها بعد'}}</td>
 								    </tr>
 								    <tr>
 									    <th> تاريخ الإنشاء </th>
