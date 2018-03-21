@@ -115,8 +115,8 @@
     <select class="form-control selectpicker" name="governorate" data-live-search="true">
         <?php $selectedGovernorate = isset($customer->governorate)? $customer->governorate: '' ?>
         <option value=""> اختر المحافظة. </option>
-        @foreach($egyptCities as $egyptCity)
-            <option value="{{$egyptCity}}" {{($selectedGovernorate == $egyptCity)? ('selected'):((old('governorate')==$egyptCity)?'selected':'')}} >{{$egyptCity}}</option>
+        @foreach($egyptGovernorate as $governorate)
+            <option value="{{$governorate}}" {{($selectedGovernorate == $governorate)? ('selected'):((old('governorate')==$governorate)?'selected':'')}} >{{$governorate}}</option>
         @endforeach
     </select>
 </div>

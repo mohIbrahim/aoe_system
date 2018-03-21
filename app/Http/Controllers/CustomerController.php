@@ -40,9 +40,11 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        $egyptCities = (new EgyptCities())->getCities();
+        $egypt = (new EgyptCities());
+        $egyptCities = $egypt->getCities();
+        $egyptGovernorate = $egypt->getGovernorates();
         $customersIdsNames = Customer::doesntHave('mainBranch')->pluck('name', 'id');
-        return view('customers.create', compact('egyptCities', 'customersIdsNames'));
+        return view('customers.create', compact('egyptCities', 'customersIdsNames', 'egyptGovernorate'));
     }
 
     /**
@@ -76,9 +78,11 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $customer = $this->customer->getById($id);
-        $egyptCities = (new EgyptCities())->getCities();
+        $egypt = (new EgyptCities());
+        $egyptCities = $egypt->getCities();
+        $egyptGovernorate = $egypt->getGovernorates();
         $customersIdsNames = Customer::doesntHave('mainBranch')->pluck('name', 'id');
-        return view('customers.edit', compact('customer', 'egyptCities', 'customersIdsNames'));
+        return view('customers.edit', compact('customer', 'egyptCities', 'customersIdsNames', 'egyptGovernorate'));
 
     }
 
