@@ -42,9 +42,9 @@ class Employee extends Model
         return $this->belongsTo('App\Department', 'managed_department_id', 'id');
     }
 
-    public function assignedReference()
+    public function assignedReferences()
     {
-        return $this->hasOne('App\Reference');
+        return $this->hasMany('App\Reference', 'employee_id', 'id');
     }
 
     public function department()

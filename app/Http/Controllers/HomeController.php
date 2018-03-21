@@ -22,7 +22,11 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('home');
+    {        
+        if( auth()->user()->roles()->get()->isNotEmpty() ) {
+            return redirect()->action('DashboardController@dashboard');
+        } else {
+            return view('home');
+        }
     }
 }
