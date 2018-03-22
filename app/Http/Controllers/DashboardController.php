@@ -6,10 +6,14 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    
+    private $authenticatedUser ;
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware( function($request, $next){
+            $this->authenticatedUser = auth()->user();
+            return $next($request);
+        });   
     }
 
 
@@ -23,17 +27,19 @@ class DashboardController extends Controller
         $roles = $this->getRoles();
         if ( ($this->getRolesCount($roles)) == 1 ) {
             $name =  $roles->first()->name;
-            return $this->callView(strtolower($name));
+            return $this->callViewByRole(strtolower($name));
         } else {
             //To be containued
-            return $this->callView('');
+            return $this->callViewByRole('');
         }
     }
 
-    public function callView($name)
+    public function callViewByRole($name)
     {
         if ($name == 'developer'){
             return $this->developer();
+        } else if ($name == 'maintenance engineer') {
+            return $this->maintenanceEngineers();
         } else {            
             return $this->userWhithManyRoles();
         }
@@ -41,13 +47,15 @@ class DashboardController extends Controller
     
     public function developer()
     {
-        return auth()->user()->employee->assignedReferences;
         return view('dashboard.developer.main');
     }
 
     public function maintenanceEngineers()
     {
-
+        $lastAssignedReferences =  $this->authenticatedUser->employee->assignedReferences()->latest('received_date')->limit(25)->get();
+        $engineerName = $this->authenticatedUser->name;
+        $departmentName = $this->authenticatedUser->department->name;
+        return view('dashboard.maintenance_engineers.main', compact('lastAssignedReferences', 'engineerName', 'departmentName'));
     }
 
     public function userWhithManyRoles()

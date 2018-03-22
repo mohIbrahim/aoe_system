@@ -39,7 +39,7 @@ CREATE TABLE `contract_printing_machine` (
 
 LOCK TABLES `contract_printing_machine` WRITE;
 /*!40000 ALTER TABLE `contract_printing_machine` DISABLE KEYS */;
-INSERT INTO `contract_printing_machine` VALUES (1,1),(14,1);
+INSERT INTO `contract_printing_machine` VALUES (17,1);
 /*!40000 ALTER TABLE `contract_printing_machine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `contracts` (
   PRIMARY KEY (`id`),
   KEY `contracts_employee_id_who_edits_the_contract_foreign` (`employee_id_who_edits_the_contract`),
   CONSTRAINT `contracts_employee_id_who_edits_the_contract_foreign` FOREIGN KEY (`employee_id_who_edits_the_contract`) REFERENCES `employees` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +77,7 @@ CREATE TABLE `contracts` (
 
 LOCK TABLES `contracts` WRITE;
 /*!40000 ALTER TABLE `contracts` DISABLE KEYS */;
-INSERT INTO `contracts` VALUES (1,'543','ضمان','2018-03-15 00:00:00','2019-03-15 00:00:00','ساري',1000.00,10,1010.00,'ربع سنوي',NULL,'2018-03-11 06:51:11','2018-03-15 12:58:28',1),(14,'1212','صيانة شاملة قطع الغيار','2018-03-18 00:00:00','2019-03-18 00:00:00','ساري',1000.00,10,1100.00,'نصف سنوي',NULL,'2018-03-18 13:18:58','2018-03-18 13:18:58',NULL);
+INSERT INTO `contracts` VALUES (17,'20201','ضمان','2018-03-19 00:00:00','2019-03-19 00:00:00','ساري',1000.00,10,1100.00,'ربع سنوي',NULL,'2018-03-19 10:52:57','2018-03-19 10:52:57',1);
 /*!40000 ALTER TABLE `contracts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,7 +210,7 @@ CREATE TABLE `employees` (
   CONSTRAINT `employees_department_id_foreign` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE SET NULL,
   CONSTRAINT `employees_managed_department_id_foreign` FOREIGN KEY (`managed_department_id`) REFERENCES `departments` (`id`) ON DELETE SET NULL,
   CONSTRAINT `employees_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -219,7 +219,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (1,'88765','مهندس صيانة','2010-07-06 00:00:00',1000.00,NULL,'2018-03-11 06:00:19','2018-03-11 06:00:19',3,NULL,2);
+INSERT INTO `employees` VALUES (1,'88765','مهندس صيانة','2010-07-06 00:00:00',1000.00,NULL,'2018-03-11 06:00:19','2018-03-11 06:00:19',3,NULL,2),(2,'10','مهندس صيانة',NULL,NULL,NULL,'2018-03-21 12:55:02','2018-03-21 12:55:02',1,NULL,2);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -246,7 +246,7 @@ CREATE TABLE `follow_up_card_special_reports` (
   PRIMARY KEY (`id`),
   KEY `follow_up_card_special_reports_follow_up_card_id_foreign` (`follow_up_card_id`),
   CONSTRAINT `follow_up_card_special_reports_follow_up_card_id_foreign` FOREIGN KEY (`follow_up_card_id`) REFERENCES `follow_up_cards` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -255,7 +255,6 @@ CREATE TABLE `follow_up_card_special_reports` (
 
 LOCK TABLES `follow_up_card_special_reports` WRITE;
 /*!40000 ALTER TABLE `follow_up_card_special_reports` DISABLE KEYS */;
-INSERT INTO `follow_up_card_special_reports` VALUES (1,'2018-03-11 00:00:00','8388223','1001','10134','20000','Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.','علي كمال',NULL,'2018-03-11 06:55:48','2018-03-11 06:55:48',1);
 /*!40000 ALTER TABLE `follow_up_card_special_reports` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,7 +278,7 @@ CREATE TABLE `follow_up_cards` (
   KEY `follow_up_cards_printing_machine_id_foreign` (`printing_machine_id`),
   CONSTRAINT `follow_up_cards_contract_id_foreign` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `follow_up_cards_printing_machine_id_foreign` FOREIGN KEY (`printing_machine_id`) REFERENCES `printing_machines` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +287,6 @@ CREATE TABLE `follow_up_cards` (
 
 LOCK TABLES `follow_up_cards` WRITE;
 /*!40000 ALTER TABLE `follow_up_cards` DISABLE KEYS */;
-INSERT INTO `follow_up_cards` VALUES (1,'20938',NULL,'2018-03-11 06:53:30','2018-03-11 06:53:30',1,1);
 /*!40000 ALTER TABLE `follow_up_cards` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -473,7 +471,7 @@ CREATE TABLE `invoices` (
   CONSTRAINT `invoices_contract_id_foreignkey` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `invoices_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL,
   CONSTRAINT `invoices_indexation_id_foreign` FOREIGN KEY (`indexation_id`) REFERENCES `indexations` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -482,7 +480,7 @@ CREATE TABLE `invoices` (
 
 LOCK TABLES `invoices` WRITE;
 /*!40000 ALTER TABLE `invoices` DISABLE KEYS */;
-INSERT INTO `invoices` VALUES (1,89239,'مقايسة','الأقسام الفنية',23443,23887,'لم يتم الاطلاع','2018-03-11 00:00:00',NULL,450.00,NULL,'2018-03-11 00:00:00',NULL,'2018-03-11 07:13:08','2018-03-11 07:13:08',1,NULL,1),(2,454455,'تعاقد','الأقسام الفنية',NULL,NULL,'لم يتم الاطلاع','2018-03-13 00:00:00',NULL,1000.00,NULL,'2018-03-13 00:00:00',NULL,'2018-03-13 10:13:09','2018-03-13 10:13:09',NULL,1,1),(3,99099,'تعاقد','الأقسام الفنية',NULL,NULL,'لم يتم الاطلاع','2018-03-13 00:00:00',NULL,200000.00,NULL,NULL,NULL,'2018-03-13 13:10:26','2018-03-13 13:10:26',NULL,1,1),(16,NULL,'تعاقد',NULL,NULL,NULL,'لم يتم الاطلاع','2018-03-18 00:00:00',NULL,550.00,NULL,NULL,NULL,'2018-03-18 13:18:58','2018-03-18 13:18:58',NULL,14,1),(17,NULL,'تعاقد',NULL,NULL,NULL,'لم يتم الاطلاع','2018-09-18 00:00:00',NULL,550.00,NULL,NULL,NULL,'2018-03-18 13:18:58','2018-03-18 13:18:58',NULL,14,1);
+INSERT INTO `invoices` VALUES (1,89239,'مقايسة','الأقسام الفنية',23443,23887,'لم يتم الاطلاع','2018-03-11 00:00:00',NULL,450.00,NULL,'2018-03-11 00:00:00',NULL,'2018-03-11 07:13:08','2018-03-11 07:13:08',1,NULL,1),(38,102938,'تعاقد','الأقسام الفنية',NULL,NULL,'لم يتم الاطلاع','2018-03-19 00:00:00',NULL,275.00,NULL,'2018-03-26 00:00:00',NULL,'2018-03-19 10:52:57','2018-03-19 11:47:12',NULL,17,1),(39,NULL,'تعاقد',NULL,NULL,NULL,'لم يتم الاطلاع','2018-06-19 00:00:00',NULL,275.00,NULL,NULL,NULL,'2018-03-19 10:52:57','2018-03-19 10:52:57',NULL,17,1),(40,NULL,'تعاقد',NULL,NULL,NULL,'لم يتم الاطلاع','2018-09-19 00:00:00',NULL,275.00,NULL,NULL,NULL,'2018-03-19 10:52:57','2018-03-19 10:52:57',NULL,17,1),(41,NULL,'تعاقد',NULL,NULL,NULL,'لم يتم الاطلاع','2018-12-19 00:00:00',NULL,275.00,NULL,NULL,NULL,'2018-03-19 10:52:58','2018-03-19 10:52:58',NULL,17,1);
 /*!40000 ALTER TABLE `invoices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -528,7 +526,7 @@ CREATE TABLE `notes_on_contracting` (
   PRIMARY KEY (`id`),
   KEY `notes_on_contracting_contract_id_foreign` (`contract_id`),
   CONSTRAINT `notes_on_contracting_contract_id_foreign` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -537,6 +535,7 @@ CREATE TABLE `notes_on_contracting` (
 
 LOCK TABLES `notes_on_contracting` WRITE;
 /*!40000 ALTER TABLE `notes_on_contracting` DISABLE KEYS */;
+INSERT INTO `notes_on_contracting` VALUES (1,17,'1','2','2018-03-19 10:52:57','2018-03-19 10:52:57');
 /*!40000 ALTER TABLE `notes_on_contracting` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -658,7 +657,7 @@ CREATE TABLE `permission_role` (
 
 LOCK TABLES `permission_role` WRITE;
 /*!40000 ALTER TABLE `permission_role` DISABLE KEYS */;
-INSERT INTO `permission_role` VALUES (1,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(2,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(3,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(4,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(5,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(6,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(7,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(8,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(9,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(10,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(11,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(12,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(13,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(14,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(15,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(16,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(17,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(18,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(19,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(20,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(21,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(22,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(23,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(24,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(25,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(26,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(27,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(28,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(29,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(30,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(31,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(32,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(33,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(34,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(35,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(36,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(37,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(38,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(39,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(40,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(41,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(42,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(43,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(44,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(45,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(46,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(47,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(48,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(49,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(50,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(51,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(52,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(53,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(54,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(55,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(56,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(58,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(60,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(61,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(62,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(63,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(64,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(65,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(66,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(67,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(68,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(69,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(59,1,'2018-03-12 11:40:25','2018-03-12 11:40:25'),(57,1,'2018-03-13 09:42:59','2018-03-13 09:42:59');
+INSERT INTO `permission_role` VALUES (1,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(2,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(3,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(4,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(5,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(6,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(7,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(8,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(9,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(10,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(11,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(12,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(13,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(14,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(15,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(16,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(17,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(18,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(19,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(20,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(21,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(22,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(23,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(24,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(25,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(26,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(27,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(28,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(29,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(30,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(31,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(32,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(33,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(34,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(35,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(36,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(37,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(38,1,'2018-03-11 05:36:54','2018-03-11 05:36:54'),(39,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(40,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(41,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(42,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(43,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(44,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(45,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(46,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(47,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(48,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(49,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(50,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(51,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(52,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(53,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(54,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(55,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(56,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(58,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(60,1,'2018-03-11 05:36:55','2018-03-11 05:36:55'),(61,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(62,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(63,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(64,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(65,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(66,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(67,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(68,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(69,1,'2018-03-11 05:36:56','2018-03-11 05:36:56'),(59,1,'2018-03-12 11:40:25','2018-03-12 11:40:25'),(57,1,'2018-03-13 09:42:59','2018-03-13 09:42:59'),(13,2,'2018-03-21 11:34:29','2018-03-21 11:34:29'),(14,2,'2018-03-21 11:34:29','2018-03-21 11:34:29'),(15,2,'2018-03-21 11:34:29','2018-03-21 11:34:29'),(16,2,'2018-03-21 11:34:29','2018-03-21 11:34:29'),(13,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(14,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(15,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(16,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(17,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(18,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(19,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(20,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(21,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(22,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(23,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(24,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(25,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(26,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(27,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(28,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(29,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(30,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(31,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(32,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(33,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(34,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(35,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(36,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(37,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(38,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(39,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(40,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(41,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(42,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(43,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(44,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(45,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(46,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(47,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(48,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(49,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(50,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(51,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(52,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(53,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(54,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(55,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(56,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(57,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(58,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(59,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(60,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(61,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(62,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(63,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(64,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(65,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(66,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(67,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(68,3,'2018-03-22 09:50:21','2018-03-22 09:50:21'),(69,3,'2018-03-22 09:50:21','2018-03-22 09:50:21');
 /*!40000 ALTER TABLE `permission_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -812,7 +811,7 @@ CREATE TABLE `reference_malfunctions` (
   PRIMARY KEY (`id`),
   KEY `reference_malfunctions_reference_id_foreign` (`reference_id`),
   CONSTRAINT `reference_malfunctions_reference_id_foreign` FOREIGN KEY (`reference_id`) REFERENCES `references` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -821,7 +820,7 @@ CREATE TABLE `reference_malfunctions` (
 
 LOCK TABLES `reference_malfunctions` WRITE;
 /*!40000 ALTER TABLE `reference_malfunctions` DISABLE KEYS */;
-INSERT INTO `reference_malfunctions` VALUES (20,'نوع العطل','الأعمال التي تم تنفيذها','2018-03-13 07:34:28','2018-03-13 07:34:28',1);
+INSERT INTO `reference_malfunctions` VALUES (58,'نوع العطل','الأعمال التي تم تنفيذها','2018-03-21 13:48:43','2018-03-21 13:48:43',1),(61,'1','1','2018-03-22 07:10:35','2018-03-22 07:10:35',2);
 /*!40000 ALTER TABLE `reference_malfunctions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -847,6 +846,9 @@ CREATE TABLE `references` (
   `printing_machine_id` int(10) unsigned DEFAULT NULL,
   `closing_date` datetime DEFAULT NULL,
   `status` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `informer_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `informer_phone` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reviewed_by_the_chief_engineer` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `references_employee_id_foreign` (`employee_id`),
   KEY `references_employee_id_who_receive_the_reference_foreign` (`employee_id_who_receive_the_reference`),
@@ -854,7 +856,7 @@ CREATE TABLE `references` (
   CONSTRAINT `references_employee_id_foreign` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE SET NULL,
   CONSTRAINT `references_employee_id_who_receive_the_reference_foreign` FOREIGN KEY (`employee_id_who_receive_the_reference`) REFERENCES `employees` (`id`) ON DELETE SET NULL,
   CONSTRAINT `references_printing_machine_id_foreign` FOREIGN KEY (`printing_machine_id`) REFERENCES `printing_machines` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -863,7 +865,7 @@ CREATE TABLE `references` (
 
 LOCK TABLES `references` WRITE;
 /*!40000 ALTER TABLE `references` DISABLE KEYS */;
-INSERT INTO `references` VALUES (1,'726723','728','ضمان','2018-03-13 00:00:00','3889239',NULL,'2018-03-11 06:57:00','2018-03-13 07:34:28',1,1,1,'2018-03-12 13:40:31','مفتوحة');
+INSERT INTO `references` VALUES (1,'726723','728','ضمان','2018-03-13 00:00:00','3889239',NULL,'2018-03-11 06:57:00','2018-03-22 06:45:00',2,1,1,'2018-03-22 08:45:00','مغلقة','ياسر علي','01008377373','نعم'),(2,'8811','020','تركيب','2018-03-22 00:00:00',NULL,NULL,'2018-03-22 07:06:11','2018-03-22 07:10:34',2,1,1,NULL,'مفتوحة',NULL,NULL,'لا');
 /*!40000 ALTER TABLE `references` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -892,7 +894,7 @@ CREATE TABLE `role_user` (
 
 LOCK TABLES `role_user` WRITE;
 /*!40000 ALTER TABLE `role_user` DISABLE KEYS */;
-INSERT INTO `role_user` VALUES (1,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(1,2,'2018-03-11 05:36:53','2018-03-11 05:36:53');
+INSERT INTO `role_user` VALUES (1,1,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(1,2,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(3,3,'2018-03-22 09:50:55','2018-03-22 09:50:55');
 /*!40000 ALTER TABLE `role_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -909,7 +911,7 @@ CREATE TABLE `roles` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -918,7 +920,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'Developer','2018-03-11 05:36:53','2018-03-11 05:36:53');
+INSERT INTO `roles` VALUES (1,'Developer','2018-03-11 05:36:53','2018-03-11 05:36:53'),(2,'Admin','2018-03-21 11:34:28','2018-03-21 11:34:28'),(3,'Maintenance Engineer','2018-03-22 09:50:21','2018-03-22 09:50:21');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -977,7 +979,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Mohammed Ibrahim Fawzy','mohibrahimqop@gmail.com','$2y$10$Z/5mSqlBebgasIA7rAY8ceBGSoXflp7l8T2gsc38XNm//w/EbsSqm',NULL,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(2,'John Sameh','j.sameh@infomed-me.com','$2y$10$tbJQFSnd8tkj1tbX4mW0u.UlJtK2mWz4padT9Oxc9X7WwSZ6U4lmi',NULL,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(3,'محمود إسماعيل','m.ismail@gmial.com','$2y$10$IMHRmNdbgD.dz6vBSW3zzO3H.6drxYJN1441iGRxoILkmCAFn.hkq',NULL,'2018-03-11 05:58:54','2018-03-11 05:58:54');
+INSERT INTO `users` VALUES (1,'Mohammed Ibrahim Fawzy','mohibrahimqop@gmail.com','$2y$10$Z/5mSqlBebgasIA7rAY8ceBGSoXflp7l8T2gsc38XNm//w/EbsSqm','pCnOvoQS3XNyj3NmISbKYitTZQzRZ0D1EseP5Zuw5JKBPAyvlJGlH3XeIbP7','2018-03-11 05:36:53','2018-03-11 05:36:53'),(2,'John Sameh','j.sameh@infomed-me.com','$2y$10$tbJQFSnd8tkj1tbX4mW0u.UlJtK2mWz4padT9Oxc9X7WwSZ6U4lmi',NULL,'2018-03-11 05:36:53','2018-03-11 05:36:53'),(3,'محمود إسماعيل','m.ismail@gmial.com','$2y$10$hozXEu/uTCfvNdekSNEUDe/6SJ03.g4Kh4vnaLhcqHEJYqXZmbaRm',NULL,'2018-03-11 05:58:54','2018-03-22 09:51:51');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1019,7 +1021,7 @@ CREATE TABLE `visits` (
 
 LOCK TABLES `visits` WRITE;
 /*!40000 ALTER TABLE `visits` DISABLE KEYS */;
-INSERT INTO `visits` VALUES (1,'بطاقة المتابعة','2018-03-11 00:00:00','محمد حسن',3778322323,NULL,'2018-03-11 06:54:17','2018-03-13 06:18:49',1,1,1,NULL);
+INSERT INTO `visits` VALUES (1,'بطاقة المتابعة','2018-03-11 00:00:00','محمد حسن',3778322323,NULL,'2018-03-11 06:54:17','2018-03-13 06:18:49',1,NULL,1,NULL);
 /*!40000 ALTER TABLE `visits` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1032,4 +1034,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-18 15:43:54
+-- Dump completed on 2018-03-22 15:56:54
