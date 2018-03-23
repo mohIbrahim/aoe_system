@@ -10,9 +10,9 @@
             
             
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    مرحباً! {{$engineerName}} 
-                    <h3>قسم: {{ $departmentName }}</h3>
+                <div class="panel-heading" >
+                    <h4 class="pull-right"> مرحباً! {{$engineerName}}  </h4>
+                    <h5 class="text-left">قسم: {{ $departmentName }}</h5>
                 </div>
                 <div class="panel-body">
                     

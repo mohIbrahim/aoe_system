@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     private $authenticatedUser ;
+    private $authenticatedEmployee;
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware( function($request, $next){
             $this->authenticatedUser = auth()->user();
+            $this->authenticatedEmployee = $this->authenticatedUser->employee;
             return $next($request);
         });   
     }
@@ -52,9 +54,9 @@ class DashboardController extends Controller
 
     public function maintenanceEngineers()
     {
-        $lastAssignedReferences =  $this->authenticatedUser->employee->assignedReferences()->latest('received_date')->limit(25)->get();
+        $lastAssignedReferences =  $this->authenticatedEmployee->assignedReferences()->latest('received_date')->limit(25)->get();
         $engineerName = $this->authenticatedUser->name;
-        $departmentName = $this->authenticatedUser->department->name;
+        $departmentName = ( $this->authenticatedEmployee)?(( $this->authenticatedEmployee->department)?( $this->authenticatedEmployee->department->name):('')):('');
         return view('dashboard.maintenance_engineers.main', compact('lastAssignedReferences', 'engineerName', 'departmentName'));
     }
 
@@ -65,7 +67,7 @@ class DashboardController extends Controller
 
     public function getRoles()
     {
-        $roles = auth()->user()->roles;
+        $roles = $this->authenticatedUser->roles;
         return $roles;
     }
 
