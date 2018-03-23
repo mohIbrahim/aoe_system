@@ -37,8 +37,8 @@
 </div>
 
 <div class="form-group">
-  <label for="serial_number"> Serial Number </label>
-  <input type="text" class="form-control" id="serial_number" name="serial_number"  placeholder=" إدخل ال serial number. " value="{{$printingMachine->serial_number or old('serial_number')}}">
+  <label for="serial_number"> الرقم المسلسل <span style="color:red">*</span></label>
+  <input type="text" class="form-control" id="serial_number" name="serial_number"  placeholder=" إدخل الرقم المسلسل. " value="{{$printingMachine->serial_number or old('serial_number')}}">
 </div>
 
 <div class="form-group">
