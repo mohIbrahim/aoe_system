@@ -30,7 +30,7 @@
 		    </div>
 		    <div class="panel-body">
 
-		  		<div class="table-responsive">
+		  		<div class="table-responsive" style="overflow:hidden">
 			  	    <table class="table table-hover standart-datatable" id="printing-machine-index-table">
 			  		    <thead>
 			  			    <tr>
@@ -57,6 +57,15 @@
 
 							</div>
 			  		    </tbody>
+						<tfoot>
+							<tr>
+								<th>#</th>
+			  				    <th> رقم الملف الآلة </th>
+			  				    <th> كود الآلة </th>
+			  				    <th> الموديل </th>
+			  				    <th> اسم العميل </th>
+							</tr>
+						</tfoot>
 			  	     </table>
 					 <div class="text-center">
 						 {{$printingMachines->links()}}

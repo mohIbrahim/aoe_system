@@ -55,6 +55,17 @@
 
 							</div>
 			  		    </tbody>
+						  	<tfoot>
+								<tr>
+									<th>#</th>
+									<th> الاسم </th>
+									<th> الكود </th>
+									<th> النوع </th>
+									<th> المحافظة </th>
+									<th> المنطقة </th>
+									<th> التليفون </th>
+									</tr>
+							</tfoot>
 			  	     </table>
 					 <div class="text-center">
 						 {{$customers->links()}}

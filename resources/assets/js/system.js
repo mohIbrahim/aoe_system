@@ -543,17 +543,39 @@ $(document).ready(function(){
 //Start Datatable
 $(document).ready(function() {
     if ($('.standart-datatable').DataTable) {
-
-        $('.standart-datatable').DataTable(
-            {
-                "searching": false,
-                "lengthChange": false,
-                "paging": false,
-                dom: 'Bfrtip',
-                buttons: [
-                    'excel', 'print'
-                ]
-            });
-    }
+		
+			
+			// Setup - add a text input to each footer cell
+			$('.standart-datatable tfoot th').each( function (i) {
+				var title = $('.standart-datatable thead th').eq( $(this).index() ).text();
+				$(this).html( '<input class="form-control" type="text" placeholder="بحث بـ'+title+'" data-index="'+i+'" style="width: 50%"/>' );
+			} );
+		  
+			// DataTable
+			var theTable = $('.standart-datatable').DataTable(
+				{
+					
+					"searching": true,
+					"lengthChange": false,
+					// "scrollY": '500px',
+					"paging": false,
+					dom: 'Bfrtip',
+					buttons: [
+						'excel', 'print'
+					],
+					
+				});
+			
+		 
+			// Filter event handler
+			$( theTable.table().container() ).on( 'keyup', 'tfoot input', function () {
+				theTable
+					.column( $(this).data('index') )
+					.search( this.value )
+					.draw();
+			} );
+			$(".dataTables_filter, .dataTables_info").css('display','none');
+	}
+	
 });
 //End Datatable
