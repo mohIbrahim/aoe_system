@@ -109,16 +109,50 @@
                                 <th> الرقم المسلسل للقطعة </th>
                                 <th> العداد </th>
                                 <th> السعر القطعة </th>
+                                <th> نسبة الخصم على القطعة الواحدة </th>
                                 <th> حذف </th>
                             </tr>
                         </thead>
                         <tbody id="selected-parts-table-body">
 
-                            @if(isset($parts))
+                            @if(old('parts_ids'))
+                                @for ($i = 0; $i < count(old('parts_ids')); $i++)
+
+                                    <tr>
+                                        <td>
+                                            {{old('parts_names')[$i]}}
+                                            <input type='hidden' name='parts_names[]' value='{{old('parts_names')[$i]}}'>
+                                        </td>
+                                        <td>
+                                            <div class='input-group'>
+                                                <input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]' value="{{old('parts_serial_numbers')[$i]}}">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class='input-group'>
+                                                <input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value="{{old('parts_count')[$i]}}">
+                                                <input type='hidden' class='form-control' name='parts_ids[]' value="{{old('parts_ids')[$i]}}">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type='text' class='form-control' name='parts_prices[]' value="{{old('parts_prices')[$i]}}">
+                                        </td>
+                                        <td>
+                                            <input type='text' class='form-control' name='discount_rate[]' value="{{old('discount_rate')[$i]}}" placeholder='إدخل نسبة الخصم إن وجدت'>
+                                        </td>
+                                        <td>
+                                            <button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button>
+                                        </td>
+                                    </tr>
+                                @endfor
+                            @elseif(isset($parts))
                                 @foreach ($parts as $i => $part)
 
                                     <tr>
-                                        <td>{{$part->name}}</td>
+                                        <td>
+                                            {{$part->name}}
+                                            <input type='hidden' name='parts_names[]' value='{{$part->name}}'>
+                                        </td>
                                         <td>
                                             <div class='input-group'>
                                                 <input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]' value="{{$part->pivot->serial_number or ''}}">
@@ -131,8 +165,10 @@
                                             </div>
                                         </td>
                                         <td>
-
                                             <input type='text' class='form-control' name='parts_prices[]' value="{{$part->pivot->price or ''}}">
+                                        </td>
+                                        <td>
+                                            <input type='text' class='form-control' name='discount_rate[]' value="{{$part->pivot->discount_rate or ''}}" placeholder='إدخل نسبة الخصم إن وجدت'>
                                         </td>
                                         <td>
                                             <button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button>
@@ -195,7 +231,7 @@
 
                             $(".part-add-button").on("click", function(){
                                 var addButton = $(this);
-                                $("#selected-parts-table-body").append("<tr><td>"+addButton.attr('data-part-name')+"</td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='"+addButton.attr('data-part-id')+"'></div></td><td><input type='text' class='form-control' name='parts_prices[]' value='"+addButton.attr('data-part-price')+"'></td><td><button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button></td></tr>");
+                                $("#selected-parts-table-body").append("<tr><td>"+addButton.attr('data-part-name')+"<input type='hidden' name='parts_names[]' value='"+addButton.attr('data-part-name')+"'></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='"+addButton.attr('data-part-id')+"'></div></td><td><input type='text' class='form-control' name='parts_prices[]' value='"+addButton.attr('data-part-price')+"'></td><td><input type='text' class='form-control' name='discount_rate[]' placeholder='إدخل نسبة الخصم إن وجدت'></td><td><button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button></td></tr>");
                                 addButton.parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
 
 

@@ -120,6 +120,7 @@
 												<th> الرقم المسلسل </th>
 												<th> العدد </th>
 												<th> سعر القطعة </th>
+												<th> تسبة الخصم على القطعة الوحدة </th>
 												<th> إجمالي الصنف الواحد </th>
 											</tr>
 										</thead>
@@ -130,6 +131,7 @@
 													<td>{{$part->pivot->serial_number or ''}}</td>
 													<td>{{$part->pivot->number_of_parts or ''}}</td>
 													<td>{{$part->pivot->price or ''}}</td>
+													<td>{{$part->pivot->discount_rate or '0'}}%</td>
 													<td>
 														{{(isset($part->pivot)?$part->pivot->price:1) * (isset($part->pivot->number_of_parts)?$part->pivot->number_of_parts:0) }}
 														<?php $total += (isset($part->pivot)?$part->pivot->price:1) * (isset($part->pivot->number_of_parts)?$part->pivot->number_of_parts:0);?>
@@ -137,6 +139,7 @@
 												</tr>
 											@endforeach
 											<tr>
+												<td></td>
 												<td></td>
 												<td></td>
 												<td></td>

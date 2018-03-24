@@ -28,6 +28,7 @@ class IndexationRequest extends FormRequest
             'the_date'=>'required|date',            
             'visit_id'=>'required|unique:indexations,visit_id,'.$this->indexation,
             'indexation_as_pdf'=>'mimes:pdf',
+            'discount_rate.*'=>'nullable|numeric|min:0|max:100',
         ];
     }
 
@@ -42,6 +43,9 @@ class IndexationRequest extends FormRequest
             'visit_id.required'=>' برجاء اختيار رقم الزيارة. ',
             'visit_id.unique'=>'  رقم الزيارة تم اختياره من قبل برجاء اختيار رقم آخر. ',
             'indexation_as_pdf.mimes'=> ' برجاء اختيار صورة المقايسة بأمتداد pdf. ',
+            'discount_rate.*.numeric'=>' نسبة الخصم على القطعة الواحدة يجب أن تكون رقم محصور بين الصفر والمئة. ',
+            'discount_rate.*.min'=>' نسبة الخصم على القطعة الواحدة يجب أن تكون رقم محصور بين الصفر والمئة. ',
+            'discount_rate.*.max'=>' نسبة الخصم على القطعة الواحدة يجب أن تكون رقم محصور بين الصفر والمئة. ',
         ];
     }
 }

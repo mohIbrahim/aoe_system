@@ -44,10 +44,16 @@ class IndexationController extends Controller
         $partsPrices = $request->parts_prices;
         $partsSerial = $request->parts_serial_numbers;
         $partcount  = $request->parts_count;
+        $discountRate = $request->discount_rate;
         for ($i=0; $i < count($partsIds); $i++) {
             $indexation->parts()->attach([
-                $partsIds[$i]=>['price'=>$partsPrices[$i], 'serial_number'=>$partsSerial[$i], 'number_of_parts'=>$partcount[$i]],
-            ]);
+                                            $partsIds[$i]=> [
+                                                                'price'=>$partsPrices[$i],
+                                                                'serial_number'=>$partsSerial[$i],
+                                                                'number_of_parts'=>$partcount[$i],
+                                                                'discount_rate'=>$discountRate[$i],
+                                                            ]
+                                        ]);
         }
 
         flash()->success(' تم إنشاء المقايسة بنجاح. ')->important();
@@ -89,10 +95,16 @@ class IndexationController extends Controller
         $partsPrices = $request->parts_prices;
         $partsSerial = $request->parts_serial_numbers;
         $partcount  = $request->parts_count;
+        $discountRate = $request->discount_rate;
         for ($i=0; $i < count($partsIds); $i++) {
             $indexation->parts()->attach([
-                $partsIds[$i]=>['price'=>$partsPrices[$i], 'serial_number'=>$partsSerial[$i], 'number_of_parts'=>$partcount[$i]],
-            ]);
+                                            $partsIds[$i]=> [
+                                                                'price'=>$partsPrices[$i],
+                                                                'serial_number'=>$partsSerial[$i],
+                                                                'number_of_parts'=>$partcount[$i],
+                                                                'discount_rate'=>$discountRate[$i],
+                                                            ]
+                                        ]);
         }
 
         flash()->success(' تم تعديل المقايسة بنجاح. ')->important();
