@@ -57,7 +57,7 @@
 </div>
 
 <div class="jumbotron">
-    <legend>فيدر</legend>
+    {{-- <legend>فيدر</legend>
     <div class="form-group">
         <label for="feeder_model"> Feeder Model </label>
         <input type="text" class="form-control" id="feeder_model" name="feeder_model"  placeholder="Enter feeder modle. " value="{{$installationRecord->feeder_model or old('feeder_model')}}">
@@ -125,11 +125,11 @@
     <div class="form-group">
         <label for="network_scanner_product_key"> Network Scanner Product Key </label>
         <input type="text" class="form-control" id="network_scanner_product_key" name="network_scanner_product_key"  placeholder="Enter network scanner product key " value="{{$installationRecord->network_scanner_product_key or old('network_scanner_product_key')}}">
-    </div>
+    </div> --}}
 
     <div class="panel panel-default">
         <div class="panel-heading text-center">
-            <h3> إضافة عناصر آخرى </h3>
+            <h3> إضافة عناصر </h3>
         </div>
         <div class="panel-body">
             <div class="form-group">

@@ -25,6 +25,11 @@ class PrintingMachine extends Model
             'comments',
             'customer_id',
             'employee_delivered_the_machine',
+            'feeder_model',
+            'finisher_model',
+            'hard_disk_model',
+            'paper_drawer_model',
+            'network_scanner_model',
     ];
 
     public function customer()

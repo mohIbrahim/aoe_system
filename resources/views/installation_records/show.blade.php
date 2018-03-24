@@ -63,7 +63,7 @@
 									    <td>{{$installationRecord->installation_date}}</td>
 								    </tr>
 
-								    <tr>
+								    {{-- <tr>
 									    <th>Feeder Model</th>
 									    <td>{{$installationRecord->feeder_model}}</td>
 								    </tr>
@@ -138,7 +138,7 @@
 									<tr>
 									    <th>Network Scanner Product Key</th>
 									    <td>{{$installationRecord->network_scanner_product_key}}</td>
-								    </tr>
+								    </tr> --}}
 
 								    <tr>
 									    <th> صورة محضر التركيب </th>
