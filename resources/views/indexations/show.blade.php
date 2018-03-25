@@ -125,17 +125,14 @@
 											</tr>
 										</thead>
 										<tbody>
-											@foreach ($indexation->parts as $key => $part)
+											@foreach ($statementOfRequiredParts as $rowKey => $row)
 												<tr>
-													<td>{{$part->name or ''}}</td>
-													<td>{{$part->pivot->serial_number or ''}}</td>
-													<td>{{$part->pivot->number_of_parts or ''}}</td>
-													<td>{{$part->pivot->price or ''}}</td>
-													<td>{{$part->pivot->discount_rate or '0'}}%</td>
-													<td>
-														{{(isset($part->pivot)?$part->pivot->price:1) * (isset($part->pivot->number_of_parts)?$part->pivot->number_of_parts:0) }}
-														<?php $total += (isset($part->pivot)?$part->pivot->price:1) * (isset($part->pivot->number_of_parts)?$part->pivot->number_of_parts:0);?>
-													</td>
+													<td>{{$row['name']}}</td>
+													<td>{{$row['serialNumber']}}</td>
+													<td>{{$row['numberOfParts']}}</td>
+													<td>{{$row['partPrice']}}</td>
+													<td>{{$row['discount']}}%</td>
+													<td>{{$row['rowPrice']}}</td>
 												</tr>
 											@endforeach
 											<tr>
@@ -146,7 +143,7 @@
 												<td></td>
 												<th>
 													<span style="color:3d3d3d;border-top:1px solid #3d3d3d;padding:5px">
-														 الإجمالــي: {{$total}} جنية
+														 الإجمالــي: {{$totalPrice}} جنية
 													 </span>
 												 </th>
 											</tr>

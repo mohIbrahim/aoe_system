@@ -107,7 +107,7 @@
                             <tr>
                                 <th> اسم القطعة </th>
                                 <th> الرقم المسلسل للقطعة </th>
-                                <th> العداد </th>
+                                <th> العدد </th>
                                 <th> السعر القطعة </th>
                                 <th> نسبة الخصم على القطعة الواحدة </th>
                                 <th> حذف </th>
@@ -135,7 +135,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <input type='text' class='form-control' name='parts_prices[]' value="{{old('parts_prices')[$i]}}">
+                                            <input type='text' class='form-control' name='parts_prices[]' readonly value="{{old('parts_prices')[$i]}}">
                                         </td>
                                         <td>
                                             <input type='text' class='form-control' name='discount_rate[]' value="{{old('discount_rate')[$i]}}" placeholder='إدخل نسبة الخصم إن وجدت'>
@@ -165,7 +165,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <input type='text' class='form-control' name='parts_prices[]' value="{{$part->pivot->price or ''}}">
+                                            <input type='text' class='form-control' name='parts_prices[]' readonly value="{{$part->pivot->price or ''}}">
                                         </td>
                                         <td>
                                             <input type='text' class='form-control' name='discount_rate[]' value="{{$part->pivot->discount_rate or ''}}" placeholder='إدخل نسبة الخصم إن وجدت'>
@@ -231,7 +231,7 @@
 
                             $(".part-add-button").on("click", function(){
                                 var addButton = $(this);
-                                $("#selected-parts-table-body").append("<tr><td>"+addButton.attr('data-part-name')+"<input type='hidden' name='parts_names[]' value='"+addButton.attr('data-part-name')+"'></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='"+addButton.attr('data-part-id')+"'></div></td><td><input type='text' class='form-control' name='parts_prices[]' value='"+addButton.attr('data-part-price')+"'></td><td><input type='text' class='form-control' name='discount_rate[]' placeholder='إدخل نسبة الخصم إن وجدت'></td><td><button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button></td></tr>");
+                                $("#selected-parts-table-body").append("<tr><td>"+addButton.attr('data-part-name')+"<input type='hidden' name='parts_names[]' value='"+addButton.attr('data-part-name')+"'></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='"+addButton.attr('data-part-id')+"'></div></td><td><input type='text' class='form-control' name='parts_prices[]' readonly value='"+addButton.attr('data-part-price')+"'></td><td><input type='text' class='form-control' name='discount_rate[]' placeholder='إدخل نسبة الخصم إن وجدت'></td><td><button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button></td></tr>");
                                 addButton.parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
 
 

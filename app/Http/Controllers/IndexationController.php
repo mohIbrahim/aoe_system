@@ -64,7 +64,10 @@ class IndexationController extends Controller
     public function show($id)
     {
         $indexation = $this->indexation->getById($id);
-        return view('indexations.show', compact('indexation'));
+        $statement = $indexation->statementOfRequiredParts();
+        $statementOfRequiredParts = $statement[0];
+        $totalPrice = $statement[1];
+        return view('indexations.show', compact('indexation', 'statementOfRequiredParts', 'totalPrice'));
     }
 
 
@@ -141,6 +144,6 @@ class IndexationController extends Controller
     {
         $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
         return back()->withInput();
-    }
+    }    
 
 }
