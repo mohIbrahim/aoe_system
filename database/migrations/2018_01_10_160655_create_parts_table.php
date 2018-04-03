@@ -19,6 +19,10 @@ class CreatePartsTable extends Migration
             $table->string('name')->nullable();
             $table->string('type')->nullable();
             $table->string('model')->nullable();
+            $table->text('location_in_warehouse')->nullable();
+            $table->string('part_number')->nullable();
+            $table->dateTime('production_date')->nullable();
+            $table->dateTime('expiry_date')->nullable();
             $table->string('product_number')->nullable();
             $table->float('price_without_tax', 8, 2)->nullable()->default(0);
             $table->float('price_with_tax', 8, 2)->nullable()->default(0);

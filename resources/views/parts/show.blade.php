@@ -36,6 +36,11 @@
 									    <td>{{$part->code}}</td>
 								    </tr>
 
+									<tr>
+									    <th> رقم القطعة </th>
+									    <td>{{$part->part_number}}</td>
+								    </tr>
+
 								    <tr>
 									    <th> اسم القطعة </th>
 									    <td>{{$part->name}}</td>
@@ -50,6 +55,13 @@
 									    <th> طراز القطعة </th>
 										<td>
 											{{$part->model}}
+										</td>
+								    </tr>
+
+									<tr>
+									    <th> مكان القطعة في المخزن </th>
+										<td>
+											{{$part->location_in_warehouse}}
 										</td>
 								    </tr>
 
@@ -71,6 +83,16 @@
                                     <tr>
 									    <th>  العمر الافتراضي للقطعة  </th>
 									    <td>{{$part->life}} ورقة</td>
+								    </tr>
+
+									<tr>
+									    <th>  تاريخ الإنتاج للقطعة  </th>
+									    <td>{{$part->production_date}}</td>
+								    </tr>
+
+									<tr>
+									    <th>  تاريخ الإنتهاء للقطعة  </th>
+									    <td>{{$part->expiry_date}}</td>
 								    </tr>
 
                                     <tr>

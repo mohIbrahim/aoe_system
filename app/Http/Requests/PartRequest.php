@@ -25,6 +25,7 @@ class PartRequest extends FormRequest
     {
         return [
             'code'=>'required',
+            'part_number'=>'required',
             'name'=>'required',
             'type'=>'required',
         ];
@@ -34,6 +35,7 @@ class PartRequest extends FormRequest
     {
         return  [
                 'code.required'=>' برجاء إدخال كود القطعة. ',
+                'part_number.required'=>' برجاء إدخال رقم القطعة. ',
                 'name.required'=>' برجاء إدخال اسم القطعة. ',
                 'type.required'=>' برجاء أختيار نوع القطعة. ',
         ];
