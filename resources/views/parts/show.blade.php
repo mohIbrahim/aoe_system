@@ -97,7 +97,7 @@
 
                                     <tr>
 									    <th> الكمية </th>
-									    <td>{{$part->serialNumbersCount()}}</td>
+									    <td>{{($part->is_serialized == 'لا')?($part->no_serial_qty):($part->serialNumbersCount())}}</td>
 								    </tr>
 
 								    <tr>

@@ -23,21 +23,28 @@ class PartRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $results =  [
             'code'=>'required',
-            'part_number'=>'required',
             'name'=>'required',
             'type'=>'required',
+            'is_serialized'=>'required',
+            'is_serialized'=>'required',
         ];
+        if ($this->input('is_serialized') == 'لا') {
+            $results['no_serial_qty'] =  'required|numeric';
+        }
+        return $results;
     }
 
     public function messages()
     {
         return  [
                 'code.required'=>' برجاء إدخال كود القطعة. ',
-                'part_number.required'=>' برجاء إدخال رقم القطعة. ',
                 'name.required'=>' برجاء إدخال اسم القطعة. ',
                 'type.required'=>' برجاء أختيار نوع القطعة. ',
+                'is_serialized.required'=>' برجاء إختيار هل لها قطع فرعية ام لا. ',
+                'no_serial_qty.required'=>' برجاء إدخال عدد القطع. ',
+                'no_serial_qty.numeric'=>' برجاء إدخال عدد القطع أرقام فقظ. ',
         ];
     }
 }

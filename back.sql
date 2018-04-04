@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.1.28-MariaDB, for Win32 (AMD64)
+-- MySQL dump 10.16  Distrib 10.1.31-MariaDB, for Win32 (AMD64)
 --
 -- Host: localhost    Database: aoe_system
 -- ------------------------------------------------------
--- Server version	10.1.28-MariaDB
+-- Server version	10.1.31-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -586,7 +586,7 @@ CREATE TABLE `parts` (
   `code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `model` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `compatible_printing_machines` text COLLATE utf8mb4_unicode_ci,
   `product_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price_without_tax` double(8,2) DEFAULT '0.00',
   `price_with_tax` double(8,2) DEFAULT '0.00',
@@ -595,6 +595,12 @@ CREATE TABLE `parts` (
   `comments` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `location_in_warehouse` text COLLATE utf8mb4_unicode_ci,
+  `part_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `production_date` datetime DEFAULT NULL,
+  `expiry_date` datetime DEFAULT NULL,
+  `no_serial_qty` int(11) DEFAULT NULL,
+  `is_serialized` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -605,7 +611,7 @@ CREATE TABLE `parts` (
 
 LOCK TABLES `parts` WRITE;
 /*!40000 ALTER TABLE `parts` DISABLE KEYS */;
-INSERT INTO `parts` VALUES (1,'838872','Genuine DRUM','قطعة غيار','82727','2387672376',200.00,220.00,2000,0,NULL,'2018-03-11 07:09:18','2018-03-11 07:09:18'),(2,'8668238','FUSING UNIT','مستهلكات','892399823','2378823',210.00,230.00,10000,0,NULL,'2018-03-11 07:10:12','2018-03-11 07:10:12');
+INSERT INTO `parts` VALUES (1,'838872','Genuine DRUM','قطعة غيار','82727','2387672376',200.00,220.00,2000,0,NULL,'2018-03-11 07:09:18','2018-03-11 07:09:18',NULL,NULL,NULL,NULL,NULL,NULL),(2,'8668238','FUSING UNIT','مستهلكات','22','2378823',210.00,230.00,10000,0,NULL,'2018-03-11 07:10:12','2018-04-04 13:16:39','top down','10987','2018-04-03 00:00:00','2018-04-03 00:00:00',0,'نعم');
 /*!40000 ALTER TABLE `parts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1040,4 +1046,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-24 21:03:52
+-- Dump completed on 2018-04-04 15:27:56

@@ -4,7 +4,7 @@
 </div>
 
 <div class="form-group">
-    <label for="part_number"> رقم القطعة <span style="color:red">*</span></label>
+    <label for="part_number"> رقم القطعة </label>
     <input type="text" class="form-control" id="part_number" name="part_number"  placeholder=" إدخل رقم القطعة. " value="{{$part->part_number or old('part_number')}}">
 </div>
 
@@ -24,7 +24,20 @@
     </select>
 </div>
 
+<div class="form-group">
+    <label for="is_serialized"> هل لها قطع فرعية <span style="color:red">*</span></label>
+    <select class="form-control" name="is_serialized" id="is-serialized">
+        <?php $isSerialized = isset($part->is_serialized)? $part->is_serialized:'' ;?>
+        <option value="">  اختر نعم أو لا  </option>
+        <option value="نعم" {{($isSerialized == 'نعم')? 'selected' : ((old('is_serialized')=='نعم')?'selected':'')}}> نعم </option>
+        <option value="لا" {{($isSerialized == 'لا')? 'selected' : ((old('is_serialized')=='لا')?'selected':'')}}> لا </option>
+    </select>
+</div>
 
+<div class="form-group" id="no-serial-qty-group" style="display: none">
+    <label for="no_serial_qty"> عدد القطع <span style="color:red">*</span></label>
+    <input type="text" class="form-control" id="no-serial-qty-input" name="no_serial_qty" placeholder=" إدخل رقم القطعة. " value="{{$part->no_serial_qty or old('no_serial_qty')}}">
+</div>
 
 <div class="form-group">
     <label for="compatible_printing_machines"> آلات الطباعة المتوافقة مع هذة القطعة </label>
@@ -85,4 +98,21 @@
     <script src="{{asset('js/datepicker/jquery-ui.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
 {{-- datePicker --}}
+
+<script>
+    $(document).ready(function(){
+        if ($('#is-serialized').val() == 'لا') {
+            $('#no-serial-qty-input').val(0);
+            $('#no-serial-qty-group').css('display', 'block');
+        }
+        $('#is-serialized').on('change', function(){
+            if ($(this).val() == 'لا') {
+                $('#no-serial-qty-group').fadeIn('slow');
+            } else {
+                $('#no-serial-qty-group').css('display', 'none');
+                $('#no-serial-qty-input').val(0);
+            }
+        });
+    });
+</script>
 @endsection
