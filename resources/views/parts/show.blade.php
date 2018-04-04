@@ -52,9 +52,9 @@
 								    </tr>
 
 								    <tr>
-									    <th> طراز القطعة </th>
+									    <th> آلات الطباعة المتوافقة مع هذة القطعة </th>
 										<td>
-											{{$part->model}}
+											{{$part->compatible_printing_machines}}
 										</td>
 								    </tr>
 

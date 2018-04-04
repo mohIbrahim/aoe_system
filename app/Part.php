@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Part extends Model
 {
     protected $table = 'parts';
-    protected $fillable = ['code', 'name', 'type', 'model', 'location_in_warehouse', 'part_number', 'production_date', 'expiry_date', 'product_number', 'price_without_tax', 'price_with_tax', 'life', 'qty', 'comments'];
+    protected $fillable = ['code', 'name', 'type', 'compatible_printing_machines', 'location_in_warehouse', 'part_number', 'production_date', 'expiry_date', 'product_number', 'price_without_tax', 'price_with_tax', 'life', 'qty', 'comments'];
 
 
     protected $dates = ['production_date', 'expiry_date'];

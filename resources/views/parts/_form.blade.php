@@ -24,9 +24,11 @@
     </select>
 </div>
 
+
+
 <div class="form-group">
-    <label for="model"> الطراز "Model"</label>
-    <input type="text" class="form-control" id="model" name="model"  placeholder=" إدخل طراز القطعة. " value="{{$part->model or old('model')}}">
+    <label for="compatible_printing_machines"> آلات الطباعة المتوافقة مع هذة القطعة </label>
+    <textarea name="compatible_printing_machines" class="form-control" placeholder=" إدخل آلات الطباعة المتوافقة مع هذة القطعة. ">{{$part->compatible_printing_machines or old('compatible_printing_machines')}}</textarea>
 </div>
 
 <div class="form-group">
