@@ -30,7 +30,7 @@ class PartRequest extends FormRequest
             'is_serialized'=>'required',
             'is_serialized'=>'required',
         ];
-        if ($this->input('is_serialized') == 'لا') {
+        if ($this->input('is_serialized') == '0') {
             $results['no_serial_qty'] =  'required|numeric';
         }
         return $results;

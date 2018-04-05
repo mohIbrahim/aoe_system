@@ -44,7 +44,7 @@
                                         </td>
 										<td>{{$part->code}}</td>
 										<td>{{$part->type}}</td>
-										<td>{{$part->serialNumbersCount()}}</td>
+										<td>{{($part->is_serialized == '0')?($part->no_serial_qty):($part->serialNumbersCount())}}</td>
 									</tr>
 								@endforeach
 							</div>

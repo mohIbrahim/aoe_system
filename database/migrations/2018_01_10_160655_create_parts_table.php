@@ -18,7 +18,7 @@ class CreatePartsTable extends Migration
             $table->string('code')->nullable();
             $table->string('name')->nullable();
             $table->string('type')->nullable();
-            $table->string('is_serialized')->nullable();
+            $table->boolean('is_serialized')->default(ture);
             $table->text('compatible_printing_machines')->nullable();
             $table->text('location_in_warehouse')->nullable();
             $table->string('part_number')->nullable();

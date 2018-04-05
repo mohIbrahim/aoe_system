@@ -29,8 +29,8 @@
     <select class="form-control" name="is_serialized" id="is-serialized">
         <?php $isSerialized = isset($part->is_serialized)? $part->is_serialized:'' ;?>
         <option value="">  اختر نعم أو لا  </option>
-        <option value="نعم" {{($isSerialized == 'نعم')? 'selected' : ((old('is_serialized')=='نعم')?'selected':'')}}> نعم </option>
-        <option value="لا" {{($isSerialized == 'لا')? 'selected' : ((old('is_serialized')=='لا')?'selected':'')}}> لا </option>
+        <option value="1" {{($isSerialized == '1')? 'selected' : ((old('is_serialized')=='1')?'selected':'')}}> نعم </option>
+        <option value="0" {{($isSerialized == '0')? 'selected' : ((old('is_serialized')=='0')?'selected':'')}}> لا </option>
     </select>
 </div>
 
@@ -101,12 +101,11 @@
 
 <script>
     $(document).ready(function(){
-        if ($('#is-serialized').val() == 'لا') {
-            $('#no-serial-qty-input').val(0);
+        if ($('#is-serialized').val() == '0') {
             $('#no-serial-qty-group').css('display', 'block');
         }
         $('#is-serialized').on('change', function(){
-            if ($(this).val() == 'لا') {
+            if ($(this).val() == '0') {
                 $('#no-serial-qty-group').fadeIn('slow');
             } else {
                 $('#no-serial-qty-group').css('display', 'none');
