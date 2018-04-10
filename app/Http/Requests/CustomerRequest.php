@@ -24,7 +24,8 @@ class CustomerRequest extends FormRequest
     public function rules()
     {
         return  [
-                    'code'=>'required|unique:customers,code,'.$this->customer,
+                    // 'code'=>'required|unique:customers,code,'.$this->customer,
+                    'sector'=>'required',
                     'name'=>'required',
                     'type'=>'required',
                     'email'=>'email|nullable',
@@ -39,7 +40,8 @@ class CustomerRequest extends FormRequest
     public function messages()
     {
         $validationMessages =   [
-                                    'code.required'=>' برجاء إدخال كود العميل. ',
+                                    // 'code.required'=>' برجاء إدخال كود العميل. ',
+                                    'sector.required'=>' برجاء إختيار قطع العمل الخاص بالعميل. ',
                                     'code.unique'=>' كود العميل تم إدخاله من قبل برجاء اختيار كود آخر. ',
                                     'name.required'=>' برجاء إدخال اسم العميل. ',
                                     'type.required'=>' برجاء أختيار نوع العميل. ',

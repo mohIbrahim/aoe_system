@@ -35,6 +35,9 @@ class EloquentCustomer implements CustomerInterface
 	public function create(array $attributes)
 	{
 		$customer = $this->customer->create($attributes);
+		$code = $this->setCustomCode($attributes, $customer);
+		$customer->code = $code;
+		$customer->save();		
 		$this->addPhones($attributes['telecom'], $customer->id);
 		return $customer;
 	}
@@ -42,6 +45,7 @@ class EloquentCustomer implements CustomerInterface
 	public function update($id, array $attributes)
 	{
 		$customer = $this->customer->findOrFail($id);
+		$attributes['code'] = $this->setCustomCode($attributes, $customer);		
 		$customer->update($attributes);
 		$this->updatePhones($customer, $attributes['telecom']);
 		return $customer;
@@ -86,5 +90,26 @@ class EloquentCustomer implements CustomerInterface
                                     ->orWhere('code', 'like', "%$keyword%")
                                     ->get();
         return $results;
-    }
+	}
+	
+	private function setCustomCode(array $attributes,Customer $customer)
+	{
+		$sector = ($attributes['sector'] == 'قطاع حكومي')?('Gov'):('Pri');
+		$type = '';
+		if( $customer->type == 'أفراد') {
+			$type = 'Ind';
+		} else if ($customer->type == 'شركات') {
+			$type = 'Cor';
+		} else if ($customer->type == 'هيئات حكومية') {
+			$type = 'GovAuth';
+		} else if ($customer->type == 'مدارس') {
+			$type = 'Sc';
+		} else if ($customer->type == 'مستشفيات') {
+			$type = 'Hl';
+		} else if ($customer->type == 'بنوك') {
+			$type = 'Bn';
+		}
+		$code = $sector.'-'.$type.'-'.$customer->id;
+		return $code;
+	}
 }

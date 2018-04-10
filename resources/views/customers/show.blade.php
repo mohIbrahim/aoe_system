@@ -50,14 +50,11 @@
                                                     <a href="{{action('CustomerController@edit', ['id'=>$customer->id])}}" class=" btn btn-success btn-xs"><span class="glyphicon glyphicon-wrench"></span> تعديل</a>
                                                     |
                                                 @endif
-
                                                 @if(in_array('delete_customers', $permissions))
                                                     <a href="#" class=" btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span> حذف</a>
-                                                @endif
-												<hr>
-                                            </br/>
-                                        </div>
-
+                                                @endif   
+                                            </div>
+                                            <br>
                                     </thead>
                                     <tbody>
                                         @if (isset($customer->mainBranch))
@@ -72,18 +69,23 @@
                                         @endif
 
                                         <tr>
-                                            <th> كود العميل </th>
-                                            <td>{{$customer->code}}</td>
-                                        </tr>
-
-                                        <tr>
                                             <th> اسم العميل </th>
                                             <td>{{$customer->name}}</td>
                                         </tr>
 
                                         <tr>
+                                            <th> القطاع </th>
+                                            <td>{{$customer->sector}}</td>
+                                        </tr>
+
+                                        <tr>
                                             <th> نوع العميل </th>
                                             <td>{{$customer->type}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th> كود العميل </th>
+                                            <td>{{$customer->code}}</td>
                                         </tr>
 
                                         <tr>

@@ -1,7 +1,31 @@
 <div class="form-group">
+    <label for="sector"> قطاع العمل الخاص بالعميل <span style="color:red">*</span></label>
+    <select class="form-control" name="sector">
+        <?php $customersector = isset($customer->sector)? $customer->sector:'' ;?>
+        <option value="">  اختر قطاع العمل الخاص بالعميل.  </option>
+        <option value="قطاع حكومي" {{($customersector == 'قطاع حكومي')? 'selected' : ((old('sector')=='قطاع حكومي')?'selected':'')}}> قطاع حكومي </option>
+        <option value="قطاع خاص" {{($customersector == 'قطاع خاص')? 'selected' : ((old('sector')=='قطاع خاص')?'selected':'')}}> قطاع خاص </option>        
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="type"> نوع العميل <span style="color:red">*</span></label>
+    <select class="form-control" name="type">
+        <?php $customerType = isset($customer->type)? $customer->type:'' ;?>
+        <option value="">  اختر نوع العميل.  </option>
+        <option value="أفراد" {{($customerType == 'أفراد')? 'selected' : ((old('type')=='أفراد')?'selected':'')}}> أفراد </option>
+        <option value="شركات" {{($customerType == 'شركات')? 'selected' : ((old('type')=='شركات')?'selected':'')}}> شركات </option>
+        <option value="هيئات حكومية" {{($customerType == 'هيئات حكومية')? 'selected' : ((old('type')=='هيئات حكومية')?'selected':'')}}> هيئات حكومية </option>
+        <option value="مدارس" {{($customerType == 'مدارس')? 'selected' : ((old('type')=='مدارس')?'selected':'')}}> مدارس </option>
+        <option value="مستشفيات" {{($customerType == 'مستشفيات')? 'selected' : ((old('type')=='مستشفيات')?'selected':'')}}> مستشفيات </option>
+        <option value="بنوك" {{($customerType == 'بنوك')? 'selected' : ((old('type')=='بنوك')?'selected':'')}}> بنوك </option>
+    </select>
+</div>
+
+{{-- <div class="form-group">
     <label for="code"> كود العميل <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود العميل. " value="{{$customer->code or old('code')}}">
-</div>
+</div> --}}
 
 <div class="form-group">
     <label for="main_branch_id"> اسم الفرع الرئيسي </label>
@@ -22,19 +46,6 @@
     <input type="text" class="form-control" id="name" name="name"  placeholder=" إدخل اسم العميل. " value="{{$customer->name or old('name')}}">
 </div>
 
-<div class="form-group">
-    <label for="type"> نوع العميل <span style="color:red">*</span></label>
-    <select class="form-control" name="type">
-        <?php $customerType = isset($customer->type)? $customer->type:'' ;?>
-        <option value="">  اختر نوع العميل.  </option>
-        <option value="أفراد" {{($customerType == 'أفراد')? 'selected' : ((old('type')=='أفراد')?'selected':'')}}> أفراد </option>
-        <option value="شركات" {{($customerType == 'شركات')? 'selected' : ((old('type')=='شركات')?'selected':'')}}> شركات </option>
-        <option value="هيئات حكومية" {{($customerType == 'هيئات حكومية')? 'selected' : ((old('type')=='هيئات حكومية')?'selected':'')}}> هيئات حكومية </option>
-        <option value="مدارس" {{($customerType == 'مدارس')? 'selected' : ((old('type')=='مدارس')?'selected':'')}}> مدارس </option>
-        <option value="مستشفيات" {{($customerType == 'مستشفيات')? 'selected' : ((old('type')=='مستشفيات')?'selected':'')}}> مستشفيات </option>
-        <option value="بنوك" {{($customerType == 'بنوك')? 'selected' : ((old('type')=='بنوك')?'selected':'')}}> بنوك </option>
-    </select>
-</div>
 
 <div class="input_fields_wrap_1">
     <div class="form-group">

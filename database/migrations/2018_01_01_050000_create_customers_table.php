@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,7 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('sector')->nullable();
             $table->string('code')->nullable();
             $table->string('name')->nullable();
             $table->string('type')->nullable();
