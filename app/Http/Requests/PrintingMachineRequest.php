@@ -24,7 +24,7 @@ class PrintingMachineRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'=>'required',
+            'customer_id'=>'required',
             'folder_number'=>'required',
 			'model_prefix'=>'required',
             'model_suffix'=>'required',
@@ -38,8 +38,8 @@ class PrintingMachineRequest extends FormRequest
 	public function messages()
 	{
 		return [
+			'customer_id.required'=>'برجاء إختيار كود العميل.',
 			'folder_number.required'=>'برجاء إدخال رقم ملف الآلة.',
-			'code.required'=> 'برجاء إدخال كود الآلة.',
 			'model_prefix.required'=>'برجاء إدخال الموديل الجزء الأول.',
             'model_suffix.required'=>'برجاء إدخال الموديل الجزء الثاني.',
             'serial_number.required'=>'برجاء إدخال الرقم المسلسل.',

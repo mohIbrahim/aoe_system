@@ -48,6 +48,7 @@ class EloquentCustomer implements CustomerInterface
 		$attributes['code'] = $this->setCustomCode($attributes, $customer);		
 		$customer->update($attributes);
 		$this->updatePhones($customer, $attributes['telecom']);
+		$this->updateCustomerPrintingMachinesCode($customer);
 		return $customer;
 	}
 
@@ -92,7 +93,7 @@ class EloquentCustomer implements CustomerInterface
         return $results;
 	}
 	
-	private function setCustomCode(array $attributes,Customer $customer)
+	private function setCustomCode(array $attributes, Customer $customer)
 	{
 		$sector = ($attributes['sector'] == 'قطاع حكومي')?('Gov'):('Pri');
 		$type = '';
@@ -111,5 +112,16 @@ class EloquentCustomer implements CustomerInterface
 		}
 		$code = $sector.'-'.$type.'-'.$customer->id;
 		return $code;
+	}
+
+	private function updateCustomerPrintingMachinesCode(Customer $customer)
+	{
+		$printingMachins = $customer->printingMachines;
+		if ($printingMachins->isNotEmpty()) {
+			foreach ($printingMachins as $printingMachine) {
+				$printingMachine->code = $customer->code.'-'.$printingMachine->id;
+				$printingMachine->save();
+			}
+		}
 	}
 }

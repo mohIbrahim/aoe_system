@@ -76,7 +76,7 @@ class PrintingMachineController extends Controller
     public function edit($id)
     {
     	$printingMachine = $this->printingMachine->getById($id);
-        $customerIdsCodes = Customer::all()->pluck('code', 'id');
+        $customerIdsCodes = $this->mergeCustomersCodesAndNames();
 		$employeesNames = Employee::all()->pluck('user.name');
 		return view('printing_machines.edit', compact('printingMachine', 'customerIdsCodes', 'employeesNames'));
     }
@@ -112,5 +112,16 @@ class PrintingMachineController extends Controller
     public function search($keyword)
     {
         return $this->printingMachine->search($keyword);
+    }
+
+    public function mergeCustomersCodesAndNames()
+    {
+        $mergedArray = array();
+        $customers = $customerIdsCodes = Customer::all();
+        foreach ($customers as $key => $customer ) {
+            $mergedArray[$customer->id] = $customer->code.'('.$customer->name.')'; 
+        }
+        return $mergedArray;
+
     }
 }

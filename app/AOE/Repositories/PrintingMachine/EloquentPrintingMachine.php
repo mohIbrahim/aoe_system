@@ -34,12 +34,17 @@ class EloquentPrintingMachine implements PrintingMachineInterface
 
     public function create(array $attributes)
     {
-        return $this->printingMachine->create($attributes);
+        $printingMachine = $this->printingMachine->create($attributes);
+        $code = $this->setCustomCode($printingMachine);
+        $printingMachine->code = $code;
+        $printingMachine->save();
+        return $printingMachine;
     }
 
     public function update($id, array $attributes)
     {
         $printingMachine = $this->printingMachine->findOrFail($id);
+        $attributes['code'] = $this->setCustomCode($printingMachine);
         $printingMachine->update($attributes);
         return $printingMachine;
     }
@@ -84,6 +89,15 @@ class EloquentPrintingMachine implements PrintingMachineInterface
                             ->limit(50)
                             ->get();
         return $results;
+    }
+
+    private function setCustomCode(PrintingMachine $printingMachine)
+    {
+        if ( isset($printingMachine->customer) && !empty($printingMachine->customer->code) ) {            
+            $customerCode = $printingMachine->customer->code;
+            $customerCode .= '-'.$printingMachine->id;
+            return $customerCode;
+        }
     }
 
 }

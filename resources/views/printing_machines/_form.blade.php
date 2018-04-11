@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="customer_id"> كود العميل مالك أو مستأجر الآلة </label>
+    <label for="customer_id"> كود العميل مالك أو مستأجر الآلة <span style="color:red">*</span></label>
     <select class="form-control selectpicker" name="customer_id" data-live-search="true">
         <?php $selectedCustomerId = isset($printingMachine->customer_id)? $printingMachine->customer_id:'' ;?>
         <option value=""> اختر كود العميل.  </option>
@@ -12,11 +12,6 @@
 <div class="form-group">
     <label for="folder_number"> رقم ملف الآلة <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="folder_number" name="folder_number"  placeholder=" إدخل رقم ملف الآلة. " value="{{$printingMachine->folder_number or old('folder_number')}}">
-</div>
-
-<div class="form-group">
-    <label for="code">كود الآلة <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل الكود الخاص بالآلة. " value="{{$printingMachine->code or old('code')}}">
 </div>
 
 <div class="form-group">
