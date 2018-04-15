@@ -139,7 +139,7 @@
 
 <div class="form-group">
     <label for="price"> السعر عند التعاقد "بدون الضريبة" <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="price" name="price"  placeholder=" إدخل السعر عند التعاقد. " value="{{$contract->price or old('price')}}">
+    <input type="text" class="form-control" id="price" name="price"  placeholder=" إدخل السعر عند التعاقد. " value="{{(   (old('price'))?(old('price')):((isset($contract))?($contract->price):(0))    )}}">
 </div>
 
 <div class="form-group">
@@ -149,12 +149,12 @@
             إدخل رقم صحيح بدون العلامة المئوية.
         </small>
     </P>
-    <input type="text" class="form-control" id="tax" name="tax"  placeholder=" إدخل قيمة الضريبة. " value="{{$contract->tax or old('tax')}}">
+    <input type="text" class="form-control" id="tax" name="tax"  placeholder=" إدخل قيمة الضريبة. " value="{{(   (old('tax'))?(old('tax')):((isset($contract))?($contract->tax):(0))    )}}">
 </div>
 
 <div class="form-group">
     <label for="total_price"> السعر الكلي للتعاقد شامل الضريبة <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="total_price" name="total_price"  placeholder=" إدخل السعر الكلي شامل الضريبة. " value="{{$contract->total_price or old('total_price')}}">
+    <input type="text" class="form-control" id="total_price" name="total_price"  placeholder=" إدخل السعر الكلي شامل الضريبة. " value="{{(   (old('total_price'))?(old('total_price')):((isset($contract))?($contract->total_price):(0))    )}}">
 </div>
 
 <div class="form-group">
@@ -181,6 +181,10 @@
 
         <option value="نهاية المدة" {{($contractStatus == 'نهاية المدة')? 'selected' : ((old('payment_system')=='نهاية المدة')?'selected':'')}}>
              نهاية المدة
+        </option>
+
+        <option value="بدون" {{($contractStatus == 'بدون')? 'selected' : ((old('payment_system')=='بدون')?'selected':'')}}>
+             بدون "عقد ضمان"
         </option>
 
     </select>
