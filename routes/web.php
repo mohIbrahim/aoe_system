@@ -88,3 +88,5 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('employees_pm_search/{keyword}', 'EmployeeController@searchingOnPrintingMachine')->name('employees_pm_search');
 //Dashboard
     Route::get('dashboard', 'DashboardController@dashboard');
+//DataEntry
+    Route::get('import', 'DataEntryController@import');

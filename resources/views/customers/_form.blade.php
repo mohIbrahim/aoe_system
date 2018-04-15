@@ -15,10 +15,11 @@
         <option value="">  اختر نوع العميل.  </option>
         <option value="أفراد" {{($customerType == 'أفراد')? 'selected' : ((old('type')=='أفراد')?'selected':'')}}> أفراد </option>
         <option value="شركات" {{($customerType == 'شركات')? 'selected' : ((old('type')=='شركات')?'selected':'')}}> شركات </option>
-        <option value="هيئات حكومية" {{($customerType == 'هيئات حكومية')? 'selected' : ((old('type')=='هيئات حكومية')?'selected':'')}}> هيئات حكومية </option>
+        <option value="وزارات" {{($customerType == 'وزارات')? 'selected' : ((old('type')=='وزارات')?'selected':'')}}> وزارات </option>
         <option value="مدارس" {{($customerType == 'مدارس')? 'selected' : ((old('type')=='مدارس')?'selected':'')}}> مدارس </option>
         <option value="مستشفيات" {{($customerType == 'مستشفيات')? 'selected' : ((old('type')=='مستشفيات')?'selected':'')}}> مستشفيات </option>
         <option value="بنوك" {{($customerType == 'بنوك')? 'selected' : ((old('type')=='بنوك')?'selected':'')}}> بنوك </option>
+        <option value="مؤسسة" {{($customerType == 'مؤسسة')? 'selected' : ((old('type')=='مؤسسة')?'selected':'')}}> مؤسسة </option>
     </select>
 </div>
 

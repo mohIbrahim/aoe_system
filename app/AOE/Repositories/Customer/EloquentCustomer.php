@@ -101,14 +101,16 @@ class EloquentCustomer implements CustomerInterface
 			$type = 'Ind';
 		} else if ($customer->type == 'شركات') {
 			$type = 'Cor';
-		} else if ($customer->type == 'هيئات حكومية') {
-			$type = 'GovAuth';
+		} else if ($customer->type == 'وزارات') {
+			$type = 'Minis';
 		} else if ($customer->type == 'مدارس') {
 			$type = 'Sc';
 		} else if ($customer->type == 'مستشفيات') {
 			$type = 'Hl';
 		} else if ($customer->type == 'بنوك') {
-			$type = 'Bn';
+			$type = 'Bn';		
+		} else if ($customer->type == 'مؤسسة') {
+			$type = 'Inst';
 		}
 		$code = $sector.'-'.$type.'-'.$customer->id;
 		return $code;
