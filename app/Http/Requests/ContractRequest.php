@@ -25,7 +25,6 @@ class ContractRequest extends FormRequest
     {
         return
             [
-                'code'=>'required|unique:contracts,code,'.$this->contract,
                 'type'=>'required',
                 'start'=>'required|date',
                 'end'=>'required|date|after:start',
@@ -43,8 +42,6 @@ class ContractRequest extends FormRequest
     {
         return
             [
-                'code.required'=>' برجاء إدخال كود العقد. ',
-                'code.unique'=>' كود العقد تم إدخاله من قبل برجاء التأكد من القيمة المدخله. ',
                 'type.required'=>' برجاء إدخال نوع العقد. ',
                 'start.required'=>' برجاء إدخال تاريخ بداية التعاقد. ',
                 'start.date'=>' إدخل تاريخ بداية التعاقد بشكل صحيح. ',

@@ -39,6 +39,8 @@ class EloquentContract implements ContractInterface
         if (isset($attributes['item_name']) && isset($attributes['item_description'])) {
             $this->createNoteOnContracting($contract, $attributes['item_name'] , $attributes['item_description']);
         }
+        $contract->code = $contract->id;
+        $contract->save();
         return $contract;
     }
     public function update($id, array $attributes)

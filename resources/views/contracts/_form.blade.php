@@ -1,8 +1,3 @@
-<div class="form-group">
-    <label for="code"> كود العقد <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود العقد. " value="{{$contract->code or old('code')}}">
-</div>
-
 <div class="panel panel-info">
     <div class="panel-body">
         <div class="form-group">

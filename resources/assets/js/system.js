@@ -79,7 +79,7 @@ $(document).ready(function(){
 					$("#my-table-body").fadeOut();
 					$("#my-table-body").children().remove();
 					$.each(results, function(index, customer) {
-						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/customers/"+customer.id+"'>"+customer.name+"</a></td><td>"+customer.code+"</td><td>"+customer.type+"</td><td>"+customer.governorate+"</td><td>"+customer.area+"</td><td>"+customer.telecoms[0].number+"</td></tr>"
+						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/customers/"+customer.id+"'>"+customer.name+"</a></td><td>"+customer.code+"</td><td>"+customer.sector+"</td><td>"+customer.type+"</td><td>"+customer.governorate+"</td><td>"+customer.area+"</td><td>"+( (customer)?((customer.telecoms[0])?(customer.telecoms[0].number):('')):('') )+"</td></tr>"
 					});
 					$("#my-table-body").append(newResult);
 					$("#my-table-body").fadeIn();

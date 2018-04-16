@@ -10,7 +10,7 @@
 	  <div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 col-lg-12 col-lg-offset-0">
 		  <div class="panel panel-default">
 		    <div class="panel-heading ">
-				<legend> البحث عن العملاء. </legend>
+				<legend> البحث عن العملاء </legend>
 				<div class="form-group">
 					<label for=""> البحث بـ الاسم وكود العميل. </label>
 					<input type="text" class="form-control" id="customer_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
@@ -27,6 +27,7 @@
 								<th>#</th>
                                 <th> الاسم </th>
 			  				    <th> الكود </th>
+			  				    <th> القطاع </th>
 			  				    <th> النوع </th>
 			  				    <th> المحافظة </th>
 			  				    <th> المنطقة </th>
@@ -46,10 +47,11 @@
                                             </a>
                                         </td>
 										<td>{{$customer->code}}</td>
+										<td>{{$customer->sector}}</td>
 										<td>{{$customer->type}}</td>
 										<td>{{$customer->governorate}}</td>
 										<td>{{$customer->area}}</td>
-										<td>{{$customer->telecoms()->first()->number}}</td>
+										<td>{{$customer->telecoms()->first()->number or ''}}</td>
 									</tr>
 								@endforeach
 
