@@ -10,15 +10,16 @@ use App\PrintingMachine;
 use App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
 use App\Contract;
 use App\AOE\Repositories\Contract\EloquentContract;
+use App\Employee;
 
 class DataEntryController extends Controller
 {
     public function import()
     {
-        $this->createEmployees();
+        $this->importTheSheet();
     }
 
-    private function createEmployees()
+    private function importTheSheet()
     {
         \Excel::load('excel/warranty.xlsx', function($reader) {
 
@@ -69,6 +70,7 @@ class DataEntryController extends Controller
                 
 
                 if (!empty($customerName)) {
+                    $empId = User::where('name', 'like', $username )->get()->first()->employee->id;
                     if (Customer::where('name', 'like', $customerName)->get()->isEmpty()) {
                         //main
                         $customerMain =   $eloquentCustomer->create([
@@ -89,7 +91,7 @@ class DataEntryController extends Controller
                         $pm = $this->createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerMain->id);
                         $contract = $this->createContract($contractStart, $contractEnd);
                         $pm->contracts()->attach([$contract->id]);
-                        $employee->assignedPrintingMachines()->attach($pm->id);
+                        $pm->assignedEmployees()->attach($empId);
                         
                     } else {
                         //brach
@@ -114,19 +116,17 @@ class DataEntryController extends Controller
                             $pm = $this->createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerBranch->id);
                             $contract = $this->createContract($contractStart, $contractEnd);
                             $pm->contracts()->attach([$contract->id]);
-                            $employee->assignedPrintingMachines()->attach($pm->id);
+                            $pm->assignedEmployees()->attach($empId);
                         }
                     }
                 }
-
-                //Printing Machine
 
 
 
 
             }
-            return redirect()->home();
         });
+        return redirect()->route('home');
     }
 
     private function createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerId)
