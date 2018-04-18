@@ -11,15 +11,16 @@ use App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
 use App\Contract;
 use App\AOE\Repositories\Contract\EloquentContract;
 use App\Employee;
+use App\Part;
 
 class DataEntryController extends Controller
 {
     public function import()
     {
-        $this->importTheSheet();
+        $this->importSparePartSheet();
     }
 
-    private function importTheSheet()
+    private function importWarrntySheet()
     {
         \Excel::load('excel/warranty.xlsx', function($reader) {
 
@@ -156,5 +157,37 @@ class DataEntryController extends Controller
                                             'payment_system'=>'بدون',
                                         ]);
         return $contract;
+    }
+
+
+    public function importSparePartSheet()
+    {
+        \Excel::load('excel/SPARE_PARTS_.xls', function($reader) {
+
+            $results = $reader->takeRows(1402)->get();
+            foreach ($results as $row ) {
+                $partName           = $row->name;
+                $partCode           = $row->code;
+                $partDescription    = $row->descriptions;
+                $partQty            = $row->qty;
+                $partPrice          = $row->price_without;
+                $partNumber         = $row->part_number;
+                $locaton            = $row->location;
+                
+                $part = Part::create([
+                                        'code' => $partCode, 
+                                        'name' => $partName, 
+                                        'type' => 'قطعة غيار', 
+                                        'descriptions' => $partDescription, 
+                                        'is_serialized' => 0, 
+                                        'location_in_warehouse' => $locaton, 
+                                        'part_number' => $partNumber, 
+                                        'price_without_tax' => $partPrice, 
+                                        'no_serial_qty' => $partQty, 
+                                    ]);
+            }
+            return '';
+        });
+        return redirect()->action('PartController@index');
     }
 }

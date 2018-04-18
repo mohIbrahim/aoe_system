@@ -425,7 +425,7 @@ $(document).ready(function(){
 					$("#my-table-body").fadeOut();
 					$("#my-table-body").children().remove();
 					$.each(results, function(index, part) {
-						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/parts/"+part.id+"'>"+part.name+"</a></td><td>"+part.code+"</td><td>"+part.type+"</td><td></td></tr>"
+						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/parts/"+part.id+"'>"+part.name+"</a></td><td>"+part.code+"</td><td>"+part.type+"</td><td>"+((part.is_serialized)?(part.qty):(part.no_serial_qty))+"</td></tr>"
 					});
 					$("#my-table-body").append(newResult);
 					$("#my-table-body").fadeIn();
