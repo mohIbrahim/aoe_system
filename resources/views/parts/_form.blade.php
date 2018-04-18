@@ -25,6 +25,11 @@
 </div>
 
 <div class="form-group">
+    <label for="descriptions"> وصف القطعة </label>
+    <textarea name="descriptions" class="form-control" placeholder=" إدخل وصف القطعة. ">{{$part->descriptions or old('descriptions')}}</textarea>
+</div>
+
+<div class="form-group">
     <label for="is_serialized"> هل لها قطع فرعية <span style="color:red">*</span></label>
     <select class="form-control" name="is_serialized" id="is-serialized">
         <?php $isSerialized = isset($part->is_serialized)? $part->is_serialized:'' ;?>

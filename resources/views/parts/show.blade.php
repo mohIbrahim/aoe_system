@@ -51,6 +51,11 @@
 									    <td>{{$part->type}}</td>
 								    </tr>
 
+									<tr>
+									    <th> وصف القطعة </th>
+									    <td>{{$part->descriptions}}</td>
+								    </tr>
+
 								    <tr>
 									    <th> آلات الطباعة المتوافقة مع هذة القطعة </th>
 										<td>
