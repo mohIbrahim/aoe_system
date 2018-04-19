@@ -23,7 +23,7 @@ class CreateEmployeesTable extends Migration
             $table->timestamps();
 
             $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->integer('managed_department_id')->unsigned()->nullable();
             $table->foreign('managed_department_id')->references('id')->on('departments')->onDelete('set null');

@@ -17,7 +17,8 @@ class DataEntryController extends Controller
 {
     public function import()
     {
-        $this->importSparePartSheet();
+        $this->importConsumableSheet();
+        return null;
     }
 
     private function importWarrntySheet()
@@ -27,6 +28,7 @@ class DataEntryController extends Controller
             $results = $reader->takeRows(256)->get();
             foreach ($results as $row)
             {
+                // dd(count($results));
                 //Employee
                 $username = $row->engineer;
                 $user = null;
@@ -125,9 +127,9 @@ class DataEntryController extends Controller
 
 
 
-            }
-        });
-        return redirect()->route('home');
+            }        
+        });        
+        return null;
     }
 
     private function createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerId)
@@ -165,6 +167,7 @@ class DataEntryController extends Controller
         \Excel::load('excel/SPARE_PARTS_.xls', function($reader) {
 
             $results = $reader->takeRows(1402)->get();
+            
             foreach ($results as $row ) {
                 $partName           = $row->name;
                 $partCode           = $row->code;
@@ -186,8 +189,38 @@ class DataEntryController extends Controller
                                         'no_serial_qty' => $partQty, 
                                     ]);
             }
-            return '';
+           
         });
-        return redirect()->action('PartController@index');
+        return null;
+    }
+
+    public function importConsumableSheet()
+    {
+        \Excel::load('excel/SAMPLE_PRICE_JOHN_MAR12.xlsx', function($reader) {
+
+            $results = $reader->takeRows(136)->get();
+            
+            foreach ($results as $row ) {
+                $partName                   = $row->name;
+                $partCode                   = $row->code;
+                $partDescription            = $row->descriptions;
+                $compatablePrintingMachines = $row->compatable_machine;
+                $life                       = $row->life;                
+                $partPrice                  = $row->price_without;
+                
+                $part = Part::create([
+                                    'name' => $partName.'-'.$partCode, 
+                                    'code' => $partCode, 
+                                    'descriptions' => $partDescription, 
+                                    'compatable_printing_machines' => $compatablePrintingMachines, 
+                                    'life' => $life, 
+                                    'price_without_tax' => $partPrice, 
+                                    'type' => 'مستهلكات',
+                                    'is_serialized' => 1,
+                                ]);
+            }
+           
+        });
+        return null;
     }
 }

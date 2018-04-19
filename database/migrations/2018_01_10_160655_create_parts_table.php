@@ -28,7 +28,7 @@ class CreatePartsTable extends Migration
             $table->string('product_number')->nullable();
             $table->float('price_without_tax', 8, 2)->nullable()->default(0);
             $table->float('price_with_tax', 8, 2)->nullable()->default(0);
-            $table->integer('life')->nullable()->default(0);
+            $table->string('life')->nullable()->default(0);
             $table->integer('qty')->nullable()->default(0);
             $table->integer('no_serial_qty')->nullable()->default(0);
             $table->text('comments')->nullable();
