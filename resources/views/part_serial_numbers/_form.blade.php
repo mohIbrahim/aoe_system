@@ -50,6 +50,16 @@
 </div>
 
 <div class="form-group">
+    <label for="production_date"> تاريخ الإنتاج </label>
+    <input type="text" class="form-control" id="datepicker3" name="production_date"  placeholder=" اختر تاريخ الإنتاج. " value="{{$partSerialNumber->production_date or old('production_date')}}">
+</div>
+
+<div class="form-group">
+    <label for="expiry_date"> تاريخ الإنتهاء </label>
+    <input type="text" class="form-control" id="datepicker4" name="expiry_date"  placeholder=" اختر تاريخ الإنتهاء. " value="{{$partSerialNumber->expiry_date or old('expiry_date')}}">
+</div>
+
+<div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$partSerialNumber->comments or old('comments')}}</textarea>
 </div>

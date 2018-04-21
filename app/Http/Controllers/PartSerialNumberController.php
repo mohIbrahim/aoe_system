@@ -37,7 +37,7 @@ class PartSerialNumberController extends Controller
      */
     public function create()
     {
-        $parts = Part::all()->pluck('name', 'id');
+        $parts = Part::where('is_serialized', 1)->pluck('name', 'id');
         return view('part_serial_numbers.create', compact('parts'));
     }
 
@@ -75,7 +75,7 @@ class PartSerialNumberController extends Controller
     public function edit($id)
     {
         $partSerialNumber = $this->partSerialNumber->getById($id);
-        $parts = Part::all()->pluck('name', 'id');
+        $parts = Part::where('is_serialized', 1)->pluck('name', 'id');
         return view('part_serial_numbers.edit', compact('partSerialNumber', 'parts'));
     }
 

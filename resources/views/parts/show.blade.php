@@ -105,6 +105,17 @@
 									    <td>{{($part->is_serialized == '0')?($part->no_serial_qty):($part->serialNumbersCount())}}</td>
 								    </tr>
 
+									@if( $part->is_serialized == '0' )
+										<tr>
+											<th>  تاريخ الدخول  </th>
+											<td>{{$part->no_serial_date_of_entry}}</td>
+										</tr>
+										<tr>
+											<th>  تاريخ الخروج  </th>
+											<td>{{$part->no_serial_date_of_departure}}</td>
+										</tr>
+									@endif
+
 								    <tr>
 									    <th> الملاحظات </th>
 									    <td>{{$part->comments}}</td>

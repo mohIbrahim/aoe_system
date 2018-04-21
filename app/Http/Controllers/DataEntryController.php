@@ -12,12 +12,13 @@ use App\Contract;
 use App\AOE\Repositories\Contract\EloquentContract;
 use App\Employee;
 use App\Part;
+use App\Department;
 
 class DataEntryController extends Controller
 {
     public function import()
     {
-        $this->importConsumableSheet();
+        $this->importAOEData();
         return null;
     }
 
@@ -37,7 +38,7 @@ class DataEntryController extends Controller
                     if (User::where('name', 'like', $username)->get()->isEmpty()) {
                         $user = User::create([
                                             'name'=>trim($username),
-                                            'email'=>str_slug(trim($username), '-').'@aoe-system.com',
+                                            'email'=>str_slug(trim($username), '-').'@aoe-egypt.com',
                                             'password'=>str_random(8),
                                             ]);
                         $employee = $user->employee()->create(['job_title'=>'مهندس صيانة']);
@@ -203,7 +204,7 @@ class DataEntryController extends Controller
             foreach ($results as $row ) {
                 $partName                   = $row->name;
                 $partCode                   = $row->code;
-                $partDescription            = $row->descriptions;
+                $partDescription            = $row->description;
                 $compatablePrintingMachines = $row->compatable_machine;
                 $life                       = $row->life;                
                 $partPrice                  = $row->price_without;
@@ -211,8 +212,8 @@ class DataEntryController extends Controller
                 $part = Part::create([
                                     'name' => $partName.'-'.$partCode, 
                                     'code' => $partCode, 
-                                    'descriptions' => $partDescription, 
-                                    'compatable_printing_machines' => $compatablePrintingMachines, 
+                                    'descriptions' => $partDescription,
+                                    'compatible_printing_machines' => $compatablePrintingMachines, 
                                     'life' => $life, 
                                     'price_without_tax' => $partPrice, 
                                     'type' => 'مستهلكات',
@@ -222,5 +223,39 @@ class DataEntryController extends Controller
            
         });
         return null;
+    }
+
+    public function importAOEData()
+    {
+        \Excel::load('excel/aoe_data.xlsx', function($reader) {
+            $results = $reader->takeRows(24)->get();
+            Department::create(['name'=>'الادارة']);
+            Department::create(['name'=>'سكرتارية']);
+            Department::create(['name'=>'ما بعد البيع']);
+            foreach ($results as $row) {
+
+                $name = trim($row->name);
+                $jobTitle = trim($row->job_title);
+                $phone = trim($row->phone);
+                $email = trim($row->email);
+                $department = trim($row->department);
+                $password = trim($row->pass);
+
+                if (!empty($name)) {
+                    if (User::where('name', 'like', $name)->get()->isEmpty()) {
+                        $user = User::create([
+                                            'name'=>trim($name),
+                                            'email'=>((!empty($email))?($email):(str_slug(trim($name), '-').'@aoe-egypt.com')),
+                                            'password'=>$password,
+                                            ]);
+                        $departmentId = Department::where('name', $department)->get()->first()->id;
+                        $employee = $user->employee()->create([
+                                                            'job_title'=>$jobTitle, 
+                                                            'comments'=>"رقم التليفون: $phone", 'department_id'=>$departmentId
+                                                            ]);
+                    }
+                }
+            }
+        });
     }
 }

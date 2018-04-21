@@ -65,6 +65,16 @@
 									    <td>{{$partSerialNumber->date_of_departure}}</td>
 								    </tr>
 
+									<tr>
+									    <th>  تاريخ الإنتاج للقطعة  </th>
+									    <td>{{$partSerialNumber->production_date}}</td>
+								    </tr>
+
+									<tr>
+									    <th>  تاريخ الإنتهاء للقطعة  </th>
+									    <td>{{$partSerialNumber->expiry_date}}</td>
+								    </tr>
+
 								    <tr>
 									    <th> تاريخ الإنشاء </th>
 									    <td style="direction:ltr; text-align:center">{{$partSerialNumber->created_at}}</td>

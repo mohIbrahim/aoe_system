@@ -24,12 +24,14 @@ class PartserialNumberRequest extends FormRequest
     public function rules()
     {
         return [
-            'part_id'=>'required',
-            'serial_number'=>'required|unique:part_serial_numbers,serial_number,'.$this->part_serial_number,
-            'code'=>'unique:part_serial_numbers,code,'.$this->part_serial_number,
-            'date_of_entry'=>'date',
-            'date_of_departure'=>'date',
-        ];
+                    'part_id'=>'required',
+                    'serial_number'=>'required|unique:part_serial_numbers,serial_number,'.$this->part_serial_number,
+                    'code'=>'unique:part_serial_numbers,code,'.$this->part_serial_number,
+                    'date_of_entry'=>'nullable|date',
+                    'date_of_departure'=>'nullable|date',
+                    'production_date'=>'nullable|date',
+                    'expiry_date'=>'nullable|date',
+                ];
     }
 
     public function messages()
@@ -41,6 +43,8 @@ class PartserialNumberRequest extends FormRequest
                     'code.unique'=>' الكود تم إدخالة من قبل برجاء تأكد وقم بإدخالة بشكل صحيح. ',
                     'date_of_entry.date'=>'برجاء إدخال تاريخ الدخول بشكل صحيح.',
                     'date_of_departure.date'=>'برجاء إدخال تاريخ الخروج بشكل صحيح.',
+                    'production_date.date'=>'برجاء إدخال تاريخ الإنتاج بشكل صحيح.',
+                    'expiry_date.date'=>'برجاءإدخال تاريخ الإنتهاء بشكل صحيح.',
                 ];
     }
 }

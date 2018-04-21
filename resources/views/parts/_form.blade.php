@@ -39,9 +39,22 @@
     </select>
 </div>
 
-<div class="form-group" id="no-serial-qty-group" style="display: none">
-    <label for="no_serial_qty"> عدد القطع <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="no-serial-qty-input" name="no_serial_qty" placeholder=" إدخل رقم القطعة. " value="{{$part->no_serial_qty or old('no_serial_qty')}}">
+<div class="panel panel-primary" id="no-serial-group" style="display: none">
+    <div class="panel-body">       
+       <div class="form-group">
+           <label for="no_serial_qty"> عدد القطع <span style="color:red">*</span></label>
+           <input type="text" class="form-control" id="no-serial-qty-input" name="no_serial_qty" placeholder=" إدخل رقم القطعة. " value="{{$part->no_serial_qty or old('no_serial_qty')}}">
+       </div>
+       
+       <div class="form-group">
+           <label for="no_serial_date_of_entry"> تاريخ دخول المخزن </label>
+           <input type="text" class="form-control" id="datepicker3" name="no_serial_date_of_entry"  placeholder=" اختر تاريخ دخول المخزن. " value="{{$part->no_serial_date_of_entry or old('no_serial_date_of_entry')}}">
+       </div>
+       <div class="form-group">
+           <label for="no_serial_date_of_departure"> تاريخ الخروج من المخزن </label>
+           <input type="text" class="form-control" id="datepicker4" name="no_serial_date_of_departure"  placeholder=" اختر تاريخ الخروج من المخزن. " value="{{$part->no_serial_date_of_departure or old('no_serial_date_of_departure')}}">
+       </div>
+    </div>
 </div>
 
 <div class="form-group">
@@ -107,14 +120,16 @@
 <script>
     $(document).ready(function(){
         if ($('#is-serialized').val() == '0') {
-            $('#no-serial-qty-group').css('display', 'block');
+            $('#no-serial-group').css('display', 'block');
         }
         $('#is-serialized').on('change', function(){
             if ($(this).val() == '0') {
-                $('#no-serial-qty-group').fadeIn('slow');
+                $('#no-serial-group').fadeIn('slow');
             } else {
-                $('#no-serial-qty-group').css('display', 'none');
+                $('#no-serial-group').css('display', 'none');
                 $('#no-serial-qty-input').val(0);
+                $('#datepicker3').val('');
+                $('#datepicker4').val('');
             }
         });
     });

@@ -31,6 +31,8 @@ class CreatePartsTable extends Migration
             $table->string('life')->nullable()->default(0);
             $table->integer('qty')->nullable()->default(0);
             $table->integer('no_serial_qty')->nullable()->default(0);
+            $table->dateTime('no_serial_date_of_entry')->nullable();
+            $table->dateTime('no_serial_date_of_departure')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
         });

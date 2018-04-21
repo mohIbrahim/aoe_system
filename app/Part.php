@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Part extends Model
 {
     protected $table = 'parts';
-    protected $fillable = ['code', 'name', 'type', 'descriptions', 'is_serialized', 'compatible_printing_machines', 'location_in_warehouse', 'part_number', 'production_date', 'expiry_date', 'product_number', 'price_without_tax', 'price_with_tax', 'life', 'qty', 'no_serial_qty', 'comments'];
+    protected $fillable = ['code', 'name', 'type', 'descriptions', 'is_serialized', 'compatible_printing_machines', 'location_in_warehouse', 'part_number', 'production_date', 'expiry_date', 'product_number', 'price_without_tax', 'price_with_tax', 'life', 'qty', 'no_serial_qty', 'no_serial_date_of_entry',
+    'no_serial_date_of_departure', 'comments'];
 
 
-    protected $dates = ['production_date', 'expiry_date'];
+    protected $dates = ['production_date', 'expiry_date', 'no_serial_date_of_entry',
+    'no_serial_date_of_departure'];
 
     public function setProductionDateAttribute($date)
     {
@@ -38,6 +40,38 @@ class Part extends Model
     }
 
     public function getExpiryDateAttribute($date)
+    {
+        if (!empty($date)) {
+            return $this->asDateTime($date)->format('Y-m-d');
+        }
+    }
+
+    public function setNoSerialDateOfEntryAttribute($date)
+    {
+        if (!empty($date)) {
+            $this->attributes['no_serial_date_of_entry'] = $this->asDateTime($date);
+        } else {
+            $this->attributes['no_serial_date_of_entry'] = null;
+        }
+    }
+
+    public function getNoSerialDateOfEntryAttribute($date)
+    {
+        if (!empty($date)) {
+            return $this->asDateTime($date)->format('Y-m-d');
+        }
+    }
+
+    public function setNoSerialDateOfDepartureAttribute($date)
+    {
+        if (!empty($date)) {
+            $this->attributes['no_serial_date_of_departure'] = $this->asDateTime($date);
+        } else {
+            $this->attributes['no_serial_date_of_departure'] = null;
+        }
+    }
+
+    public function getNoSerialDateOfDepartureAttribute($date)
     {
         if (!empty($date)) {
             return $this->asDateTime($date)->format('Y-m-d');
