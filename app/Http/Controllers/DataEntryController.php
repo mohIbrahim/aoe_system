@@ -18,7 +18,8 @@ class DataEntryController extends Controller
 {
     public function import()
     {
-        $this->importAOEData();
+        //$this->importAOEData();
+        dd('null');
         return null;
     }
 
