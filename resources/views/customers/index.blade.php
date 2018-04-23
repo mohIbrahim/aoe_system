@@ -27,7 +27,7 @@
 								<th>#</th>
                                 <th> الاسم </th>
 			  				    <th> الكود </th>
-			  				    <th> القطاع </th>
+			  				    <th> الإدارة </th>
 			  				    <th> النوع </th>
 			  				    <th> المحافظة </th>
 			  				    <th> المنطقة </th>
@@ -47,7 +47,7 @@
                                             </a>
                                         </td>
 										<td>{{$customer->code}}</td>
-										<td>{{$customer->sector}}</td>
+										<td>{{$customer->administration}}</td>
 										<td>{{$customer->type}}</td>
 										<td>{{$customer->governorate}}</td>
 										<td>{{$customer->area}}</td>
@@ -62,11 +62,12 @@
 									<th>#</th>
 									<th> الاسم </th>
 									<th> الكود </th>
+									<th> الإدارة </th>
 									<th> النوع </th>
 									<th> المحافظة </th>
 									<th> المنطقة </th>
 									<th> التليفون </th>
-									</tr>
+								</tr>
 							</tfoot>
 			  	     </table>
 					 <div class="text-center">
