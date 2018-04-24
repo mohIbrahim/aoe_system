@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Process\Process;
+use App\Mail\SendDbBackup;
 
 class DatabaseBackup extends Command
 {
@@ -39,10 +41,20 @@ class DatabaseBackup extends Command
     {
         $dbUser = env('DB_USERNAME');
         $dbPass = env('DB_PASSWORD');
-        $dbName = env('DB_PASSWORD');
+        $dbName = env('DB_DATABASE');
         $backupName = 'backup'.now()->format('d-m-Y_h-i').'.sql';
-        $command = "mysqldump -u$dbUser --password='$dbPass' $dbName > ../$backupName";
-        return $command;
+        $command = "mysqldump --user=\"$dbUser\" --password=\"$dbPass\" $dbName > ./$backupName";
+        // logger($command);
+        // dd($dbName);
+        $process = new Process($command);
+        $process->start();
+        
+        while ($process->isRunning()) {
+            \Mail::to('moh@moh.com')->send(new SendDbBackup($backupName));
+        }
+        $process2 = new Process("rm ./$backupName");
+        $process2->start();
+        
 
         // logger($command);
     }

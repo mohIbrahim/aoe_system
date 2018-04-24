@@ -40,7 +40,7 @@ class DataEntryController extends Controller
                         $user = User::create([
                                             'name'=>trim($username),
                                             'email'=>str_slug(trim($username), '-').'@aoe-egypt.com',
-                                            'password'=>str_random(8),
+                                            'password'=>bcrypt(str_random(8)),
                                             ]);
                         $employee = $user->employee()->create(['job_title'=>'مهندس صيانة']);
                     }
@@ -247,7 +247,7 @@ class DataEntryController extends Controller
                         $user = User::create([
                                             'name'=>trim($name),
                                             'email'=>((!empty($email))?($email):(str_slug(trim($name), '-').'@aoe-egypt.com')),
-                                            'password'=>$password,
+                                            'password'=>bcrypt($password),
                                             ]);
                         $departmentId = Department::where('name', $department)->get()->first()->id;
                         $employee = $user->employee()->create([
