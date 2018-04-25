@@ -23,19 +23,24 @@ class ContractRequest extends FormRequest
      */
     public function rules()
     {
-        return
-            [
-                'type'=>'required',
-                'start'=>'required|date',
-                'end'=>'required|date|after:start',
-                'status'=>'required',
-                'price'=>'required|numeric',
-                'tax'=>'required|numeric|max:100',
-                'total_price'=>'required|numeric',
-                'payment_system'=>'required',
-                'contract_as_pdf'=>'mimes:pdf',
-				'assigned_machines_ids'=>'required',
-            ];
+        $rules =    [
+                        'type'=>'required',
+                        'start'=>'required|date',
+                        'end'=>'required|date|after:start',
+                        'status'=>'required',
+                        'price'=>'required|numeric',
+                        'tax'=>'required|numeric|max:100',
+                        'total_price'=>'required|numeric',
+                        'payment_system'=>'required',
+                        'contract_as_pdf'=>'mimes:pdf',
+                        'assigned_machines_ids'=>'required',
+                    ];
+                    
+        if( $this->payment_system != 'بدون') {
+            $rules['period_between_each_payment'] = 'required';
+        }
+
+        return $rules;
     }
 
     public function messages()
@@ -57,6 +62,7 @@ class ContractRequest extends FormRequest
                 'total_price.required'=>' برجاء إدخال القيمة الإجمالية لسعر التعاقد. ',
                 'total_price.numeric'=>' برجاء إدخال القيمة الإجمالية لسعر التعاقد بشكل صحيح. ',
                 'payment_system.required'=>' برجاء اختيار نظام السداد. ',
+                'period_between_each_payment.required'=>' برجاء اختيار المدة بين كل دفعة ',
                 'contract_as_pdf.mimes'=>' برجاء اختيار صورة العقد بأمتداد PDF.',
 				'assigned_machines_ids.required'=>' برجاء اختيار آلات التصوير المعينة لهذا العقد. ',
             ];

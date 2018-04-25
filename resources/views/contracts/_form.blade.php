@@ -157,22 +157,14 @@
          نظام السداد
         <span style="color:red">*</span>
      </label>
-    <select class="form-control" name="payment_system">
+    <select class="form-control" name="payment_system" id="payment-system">
         <?php $contractStatus = isset($contract->payment_system)? $contract->payment_system:'';?>
         <option value="">
               اختر نظام السداد.
           </option>
         <option value="مقدم" {{($contractStatus == 'مقدم')? 'selected' : ((old('payment_system')=='مقدم')?'selected':'')}}>
              مقدم
-        </option>
-
-        <option value="ربع سنوي" {{($contractStatus == 'ربع سنوي')? 'selected' : ((old('payment_system')=='ربع سنوي')?'selected':'')}}>
-             ربع سنوي
-        </option>
-
-        <option value="نصف سنوي" {{($contractStatus == 'نصف سنوي')? 'selected' : ((old('payment_system')=='نصف سنوي')?'selected':'')}}>
-             نصف سنوي
-        </option>
+        </option>     
 
         <option value="نهاية المدة" {{($contractStatus == 'نهاية المدة')? 'selected' : ((old('payment_system')=='نهاية المدة')?'selected':'')}}>
              نهاية المدة
@@ -182,6 +174,30 @@
              بدون "عقد ضمان"
         </option>
 
+    </select>
+</div>
+
+<div class="form-group" id="period-between-each-payment-group">
+    <label for="period_between_each_payment">
+         المدة بين كل دفعة بالأشهر أو إذا كانت دفعة واحدة
+        <span style="color:red">*</span>
+    </label>
+    <select id="period-between-each-payment-select" class="form-control" name="period_between_each_payment">
+        <?php $paymentPeriod = isset($contract->period_between_each_payment)? $contract->period_between_each_payment:'';?>
+        <option value="">اختر المدة.</option>
+        <option value="دفعة واحدة" {{($paymentPeriod == 'دفعة واحدة')? 'selected="selected"' : ((old('period_between_each_payment')=='دفعة واحدة')?'selected="selected"':'')}}>دفعة واحدة</option>
+        <option value="1" {{($paymentPeriod == '1')? 'selected="selected"' : ((old('period_between_each_payment')=='1')?'selected="selected"':'')}}>1</option>
+        <option value="2" {{($paymentPeriod == '2')? 'selected="selected"' : ((old('period_between_each_payment')=='2')?'selected="selected"':'')}}>2</option>
+        <option value="3" {{($paymentPeriod == '3')? 'selected="selected"' : ((old('period_between_each_payment')=='3')?'selected="selected"':'')}}>3</option>
+        <option value="4" {{($paymentPeriod == '4')? 'selected="selected"' : ((old('period_between_each_payment')=='4')?'selected="selected"':'')}}>4</option>
+        <option value="5" {{($paymentPeriod == '5')? 'selected="selected"' : ((old('period_between_each_payment')=='5')?'selected="selected"':'')}}>5</option>
+        <option value="6" {{($paymentPeriod == '6')? 'selected="selected"' : ((old('period_between_each_payment')=='6')?'selected="selected"':'')}}>6</option>
+        <option value="7" {{($paymentPeriod == '7')? 'selected="selected"' : ((old('period_between_each_payment')=='7')?'selected="selected"':'')}}>7</option>
+        <option value="8" {{($paymentPeriod == '8')? 'selected="selected"' : ((old('period_between_each_payment')=='8')?'selected="selected"':'')}}>8</option>
+        <option value="9" {{($paymentPeriod == '9')? 'selected="selected"' : ((old('period_between_each_payment')=='9')?'selected="selected"':'')}}>9</option>
+        <option value="10" {{($paymentPeriod == '10')? 'selected="selected"' : ((old('period_between_each_payment')=='10')?'selected="selected"':'')}}>10</option>
+        <option value="11" {{($paymentPeriod == '11')? 'selected="selected"' : ((old('period_between_each_payment')=='11')?'selected="selected"':'')}}>11</option>
+        <option value="12" {{($paymentPeriod == '12')? 'selected="selected"' : ((old('period_between_each_payment')=='12')?'selected="selected"':'')}}>12</option>
     </select>
 </div>
 
@@ -285,6 +301,26 @@
 {{-- bootstrap-select --}}
 @endsection
 @section('js_footer')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var paymentSystem = $("#payment-system").val();
+            if (paymentSystem == 'بدون') {
+                $("#period-between-each-payment-group").css('display', 'none');
+            } else {
+                $("#period-between-each-payment-group").css('display', 'block');
+            }
+            $("#payment-system").on('change', function(){
+                var paymentSystem = $(this).val();
+                if (paymentSystem == 'بدون') {
+                    $("#period-between-each-payment-group").css('display', 'none');
+                    $("#period-between-each-payment-select option:selected").prop('selected', false);
+                } else {
+                    $("#period-between-each-payment-group").css('display', 'block');
+                }
+            });
+           
+        });
+    </script>
 {{-- datePicker --}}
     <script src="{{asset('js/datepicker/jquery-ui.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
@@ -293,4 +329,5 @@
     <script src="{{asset('js/bootstrap-select/bootstrap-select.min.js')}}" charset="utf-8"></script>
     <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
 {{-- bootstrap-select --}}
+
 @endsection

@@ -24,6 +24,7 @@ class CreateContractsTable extends Migration
             $table->smallInteger('tax')->nullable()->default(0);
             $table->float('total_price', 12, 2)->nullable()->default(0);
             $table->string('payment_system')->nullable();
+            $table->smallInteger('period_between_each_payment')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
 

@@ -99,6 +99,7 @@ class EloquentContract implements ContractInterface
             $contractStart = $contract->start;
             $contractEnd = $contract->end;
             $contractPaymentSystem = $contract->payment_system;
+            $periodBetweenEachPayment = $contract->period_between_each_payment;
             $contractingYears = Carbon::parse($contractStart)->diffInYears(Carbon::parse($contractEnd));
             $contractingMonths = $contractingYears * 12;
             $contractTotalPrice = $contract->total_price;

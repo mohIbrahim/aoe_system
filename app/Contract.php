@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class Contract extends Model
 {
     protected $table = 'contracts';
-    protected $fillable = ['code', 'type', 'start', 'end', 'status', 'price', 'tax', 'total_price', 'payment_system', 'comments', 'employee_id_who_edits_the_contract'];
+    protected $fillable = ['code', 'type', 'start', 'end', 'status', 'price', 'tax', 'total_price', 'payment_system', 'period_between_each_payment', 'comments', 'employee_id_who_edits_the_contract'];
 
     protected $dates = ['start', 'end'];
 
