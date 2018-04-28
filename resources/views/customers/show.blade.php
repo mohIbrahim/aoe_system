@@ -340,7 +340,9 @@
                                             <tr>
                                                 <th> كود الفاتورة </th>
                                                 <th> نوع الفاتورة </th>
-                                                <th> تاريخ الفاتورة </th>
+                                                <th> تاريخ إصدار الفاتورة </th>
+                                                <th> تاريخ تحصيل الفاتورة </th>
+                                                <th> القيمة </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -348,7 +350,7 @@
                                                 <tr>
                                                     <td>
                                                         <a href="{{action('InvoiceController@show', ['id'=>$invoice->id])}}">
-                                                            {{$invoice->number}}
+                                                            {{$invoice->number or '	لم يتم تعين الرقم'}}
                                                         </a>
                                                     </td>
                                                     <td>
@@ -356,6 +358,12 @@
                                                     </td>
                                                     <td>
                                                         {{$invoice->release_date}}
+                                                    </td>
+                                                    <td>
+                                                        {{$invoice->collect_date or 'لم يتم التحصيل بعد' }}
+                                                    </td>
+                                                    <td>
+                                                        {{$invoice->total.' جنية' }}
                                                     </td>
                                                 </tr>
                                             @endforeach

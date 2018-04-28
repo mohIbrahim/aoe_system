@@ -185,19 +185,11 @@
     <select id="period-between-each-payment-select" class="form-control" name="period_between_each_payment">
         <?php $paymentPeriod = isset($contract->period_between_each_payment)? $contract->period_between_each_payment:'';?>
         <option value="">اختر المدة.</option>
-        <option value="دفعة واحدة" {{($paymentPeriod == 'دفعة واحدة')? 'selected="selected"' : ((old('period_between_each_payment')=='دفعة واحدة')?'selected="selected"':'')}}>دفعة واحدة</option>
-        <option value="1" {{($paymentPeriod == '1')? 'selected="selected"' : ((old('period_between_each_payment')=='1')?'selected="selected"':'')}}>1</option>
-        <option value="2" {{($paymentPeriod == '2')? 'selected="selected"' : ((old('period_between_each_payment')=='2')?'selected="selected"':'')}}>2</option>
-        <option value="3" {{($paymentPeriod == '3')? 'selected="selected"' : ((old('period_between_each_payment')=='3')?'selected="selected"':'')}}>3</option>
-        <option value="4" {{($paymentPeriod == '4')? 'selected="selected"' : ((old('period_between_each_payment')=='4')?'selected="selected"':'')}}>4</option>
-        <option value="5" {{($paymentPeriod == '5')? 'selected="selected"' : ((old('period_between_each_payment')=='5')?'selected="selected"':'')}}>5</option>
-        <option value="6" {{($paymentPeriod == '6')? 'selected="selected"' : ((old('period_between_each_payment')=='6')?'selected="selected"':'')}}>6</option>
-        <option value="7" {{($paymentPeriod == '7')? 'selected="selected"' : ((old('period_between_each_payment')=='7')?'selected="selected"':'')}}>7</option>
-        <option value="8" {{($paymentPeriod == '8')? 'selected="selected"' : ((old('period_between_each_payment')=='8')?'selected="selected"':'')}}>8</option>
-        <option value="9" {{($paymentPeriod == '9')? 'selected="selected"' : ((old('period_between_each_payment')=='9')?'selected="selected"':'')}}>9</option>
-        <option value="10" {{($paymentPeriod == '10')? 'selected="selected"' : ((old('period_between_each_payment')=='10')?'selected="selected"':'')}}>10</option>
-        <option value="11" {{($paymentPeriod == '11')? 'selected="selected"' : ((old('period_between_each_payment')=='11')?'selected="selected"':'')}}>11</option>
-        <option value="12" {{($paymentPeriod == '12')? 'selected="selected"' : ((old('period_between_each_payment')=='12')?'selected="selected"':'')}}>12</option>
+        <option value="1" {{($paymentPeriod == '1')? 'selected="selected"' : ((old('period_between_each_payment')=='1')?'selected="selected"':'')}}> شهري "كل شهر" </option>
+        <option value="3" {{($paymentPeriod == '3')? 'selected="selected"' : ((old('period_between_each_payment')=='3')?'selected="selected"':'')}}>ربع سنوي "كل 3 شهور"</option>
+        <option value="4" {{($paymentPeriod == '4')? 'selected="selected"' : ((old('period_between_each_payment')=='4')?'selected="selected"':'')}}>ثلث سنوي "كل 4 اشهر"</option>
+        <option value="6" {{($paymentPeriod == '6')? 'selected="selected"' : ((old('period_between_each_payment')=='6')?'selected="selected"':'')}}>نصف سنوي "كل 6 اشهر"</option>
+        <option value="13" {{($paymentPeriod == '13')? 'selected="selected"' : ((old('period_between_each_payment')=='13')?'selected="selected"':'')}}>دفعة واحدة</option>
     </select>
 </div>
 

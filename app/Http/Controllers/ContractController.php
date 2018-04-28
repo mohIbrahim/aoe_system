@@ -54,6 +54,7 @@ class ContractController extends Controller
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'contract_as_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
 
         $contract->printingMachines()->attach($request->assigned_machines_ids);
+        //create invoices
         $this->contract->createInvoicesForNewContract($contract);
         
         flash()->success('تم إنشاء العقد بنجاح. ')->important();
@@ -106,7 +107,11 @@ class ContractController extends Controller
             $isUploaded = $projectImage->receiveAndCreat($request, 'contract_as_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
         }
 
-		$contract->printingMachines()->sync($request->assigned_machines_ids);        
+        $contract->printingMachines()->sync($request->assigned_machines_ids);   
+        //Update creation of inovices
+        $contract->invoices()->delete();
+        $this->contract->createInvoicesForNewContract($contract);     
+
         flash()->success('تم تعديل العقد بنجاح. ')->important();
         return redirect()->action('ContractController@show', ['id'=>$id]);
     }

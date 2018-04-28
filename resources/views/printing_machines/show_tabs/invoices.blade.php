@@ -18,12 +18,12 @@
 						<tr>
 							<td>
 								<a href="{{action('InvoiceController@show', ['id'=>$invoice->id])}}">
-									{{$invoice->number}}
+									{{$invoice->number or '	لم يتم تعين الرقم'}}
 								</a>
 							</td>
 							<td>{{$invoice->type}}</td>
 							<td>{{$invoice->release_date}}</td>
-							<td>{{$invoice->total}}</td>
+							<td>{{$invoice->total.' جنية'}}</td>
 						</tr>
 					@endforeach
 				@endif

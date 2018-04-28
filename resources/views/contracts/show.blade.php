@@ -81,6 +81,13 @@
 								    </tr>
 
                                     <tr>
+									    <th> المدة بين كل دفعة </th>
+									    <td>
+											{{($contract->period_between_each_payment == 1)?(' شهري "كل شهر"'):(($contract->period_between_each_payment == 1)?('كل شهر'):(($contract->period_between_each_payment == 3)?(' ربع سنوي "كل 3 شهور" '):(($contract->period_between_each_payment == 4)?('ثلث سنوي "كل 4 اشهر"'):(($contract->period_between_each_payment == 6)?('نصف سنوي "كل 6 اشهر"'):(($contract->period_between_each_payment == 13)?('دفعة واحدة'):('')))))) }}
+										</td>
+								    </tr>
+
+                                    <tr>
 									    <th> اسم الموظف الذي حرر العقد </th>
 									    <td>{{$contract->employeeWhoEditedThisContract->user->name or ''}}</td>
 								    </tr>
@@ -200,6 +207,7 @@
                                                             <th> رقم الفاتورة </th>
                                                             <th> نوع الفاتورة </th>
                                                             <th> تاريخ السداد  </th>
+                                                            <th> القيمة  </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -221,6 +229,9 @@
 																</td>
 																<td>
 																		{{($invoice->collect_date)?($invoice->collect_date):('الفاتورة لم يتم سدادها بعد')}}
+																</td>
+																<td>
+																		{{($invoice->total)?($invoice->total.' جنية'):''}}
 																</td>
 																
 															</tr>															
