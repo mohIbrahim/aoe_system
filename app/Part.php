@@ -100,4 +100,11 @@ class Part extends Model
         return $this->belongsToMany('App\Indexation', 'indexation_part')->withTimestamps();
     }
 
+    public function invoices()
+    {
+        return $this->belongsToMany('App\Inovice', 'invoice_part', 'invoice_id', 'part_id')
+                    ->withPivot(['printing_machines_serial', 'price', 'part_serial_number', 'number_of_parts', 'discount_rate'])
+                    ->withTimestamps();
+    }
+
 }

@@ -61,7 +61,12 @@ class Invoices
 
 		if($request->route()->getName() == 'invoices_search'    && in_array('view_invoices', $permissions)){
             $response = $next($request);
-        }else{
+        }else
+        if($request->route()->getName() == 'invoices_form_part_search'    && in_array('create_invoices', $permissions)){
+
+            $response = $next($request);
+        }
+        else{
             abort(403);
         }
         return $response;

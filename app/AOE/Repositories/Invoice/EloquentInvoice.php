@@ -3,6 +3,7 @@
 namespace App\AOE\Repositories\Invoice;
 
 use App\Invoice;
+use App\Part;
 
 class EloquentInvoice implements InvoiceInterface
 {
@@ -60,6 +61,13 @@ class EloquentInvoice implements InvoiceInterface
                             $query->where('name', 'like', '%'.$keyword.'%');
                         })
                         ->get();
+        return $results;
+    }
+
+    public function searchFormPart($keyword)
+    {
+        $results = Part::where('name', 'like', '%'.$keyword.'%')
+                                ->get();
         return $results;
     }
 }

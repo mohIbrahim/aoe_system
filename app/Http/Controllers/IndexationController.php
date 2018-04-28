@@ -40,11 +40,11 @@ class IndexationController extends Controller
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'indexation_as_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
 
-        $partsIds = $request->parts_ids;
-        $partsPrices = $request->parts_prices;
-        $partsSerial = $request->parts_serial_numbers;
-        $partcount  = $request->parts_count;
-        $discountRate = $request->discount_rate;
+        $partsIds       = $request->parts_ids;
+        $partsPrices    = $request->parts_prices;
+        $partsSerial    = $request->parts_serial_numbers;
+        $partcount      = $request->parts_count;
+        $discountRate   = $request->discount_rate;
         for ($i=0; $i < count($partsIds); $i++) {
             $indexation->parts()->attach([
                                             $partsIds[$i]=> [
@@ -94,11 +94,11 @@ class IndexationController extends Controller
         }
 
         $indexation->parts()->detach();
-        $partsIds = $request->parts_ids;
-        $partsPrices = $request->parts_prices;
-        $partsSerial = $request->parts_serial_numbers;
-        $partcount  = $request->parts_count;
-        $discountRate = $request->discount_rate;
+        $partsIds       = $request->parts_ids;
+        $partsPrices    = $request->parts_prices;
+        $partsSerial    = $request->parts_serial_numbers;
+        $partcount      = $request->parts_count;
+        $discountRate   = $request->discount_rate;
         for ($i=0; $i < count($partsIds); $i++) {
             $indexation->parts()->attach([
                                             $partsIds[$i]=> [

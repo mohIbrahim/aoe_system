@@ -71,4 +71,11 @@ class Invoice extends Model
     {
         return $this->belongsTo('App\Customer', 'customer_id', 'id');
     }
+
+    public function partsForInvoiceTypeSellPart()
+    {
+        return $this->belongsToMany('App\Part', 'invoice_part', 'invoice_id', 'part_id')
+                    ->withPivot(['printing_machines_serial', 'price', 'part_serial_number', 'number_of_parts', 'discount_rate'])
+                    ->withTimestamps();
+    }
 }

@@ -31,6 +31,9 @@
             <option value="مقايسة" {{($selectedType == 'مقايسة')? 'selected="selected"' : ((old('type')=='مقايسة')?'selected':'')}}>
                 مقايسة
             </option>
+            <option value="بيع قطع" {{($selectedType == 'بيع قطع')? 'selected="selected"' : ((old('type')=='بيع قطع')?'selected':'')}}>
+                بـيع قطع الآلة
+            </option>
         </select>
     </div>
 
@@ -54,6 +57,125 @@
                 <option value="{{$indexationId}}" {!!($selectedIndexations == $indexationId)? 'selected="selected"' : ((old('indexation_id')==$indexationId)?'selected="selected"':'')!!}> {{$indexationCode}} </option>
             @endforeach
         </select>
+    </div>
+
+    <div class="panel panel-info" id="parts-form-wrapper" style="display:none">
+        <div class="panel-body">
+            <h2> إضافة قطع الآلة للفاتورة </h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3> البحث عن القطع </h3>
+                    <hr>
+                    <div class="form-group form-inline">
+                        <label for=""> ادخل اسم القطعة </label>
+                        <input type="text" class="form-control" id="search-input" placeholder="">
+                        <button type="button" class="btn btn-primary" id="search-button"> بحث </button>
+                    </div>
+    
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th> اسم القطعة </th>
+                                    <th> اضافة </th>
+                                </tr>
+                            </thead>
+                            <tbody id="results-table-body">
+    
+                            </tbody>
+                        </table>
+                    </div>
+    
+                </div>
+            </div>
+    
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3> القطع المختارة </h3>
+                    <hr>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th> اسم القطعة </th>
+                                    <th> الرقم المسلسل للقطعة </th>
+                                    <th> العدد </th>
+                                    <th> السعر القطعة </th>
+                                    <th> نسبة الخصم على القطعة الواحدة </th>
+                                    <th> حذف </th>
+                                </tr>
+                            </thead>
+                            <tbody id="selected-parts-table-body">
+    
+                                @if(old('parts_ids'))
+                                    @for ($i = 0; $i < count(old('parts_ids')); $i++)
+    
+                                        <tr>
+                                            <td>
+                                                {{old('parts_names')[$i]}}
+                                                <input type='hidden' name='parts_names[]' value='{{old('parts_names')[$i]}}'>
+                                            </td>
+                                            <td>
+                                                <div class='input-group'>
+                                                    <input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]' value="{{old('parts_serial_numbers')[$i]}}">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class='input-group'>
+                                                    <input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value="{{old('parts_count')[$i]}}">
+                                                    <input type='hidden' class='form-control' name='parts_ids[]' value="{{old('parts_ids')[$i]}}">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type='text' class='form-control' name='parts_prices[]' readonly value="{{old('parts_prices')[$i]}}">
+                                            </td>
+                                            <td>
+                                                <input type='text' class='form-control' name='discount_rate[]' value="{{old('discount_rate')[$i]}}" placeholder='إدخل نسبة الخصم إن وجدت'>
+                                            </td>
+                                            <td>
+                                                <button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button>
+                                            </td>
+                                        </tr>
+                                    @endfor
+                                @elseif(isset($parts))
+                                    @foreach ($parts as $i => $part)
+    
+                                        <tr>
+                                            <td>
+                                                {{$part->name}}
+                                                <input type='hidden' name='parts_names[]' value='{{$part->name}}'>
+                                            </td>
+                                            <td>
+                                                <div class='input-group'>
+                                                    <input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]' value="{{$part->pivot->serial_number or ''}}">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class='input-group'>
+                                                    <input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value="{{$part->pivot->number_of_parts or 1}}">
+                                                    <input type='hidden' class='form-control' name='parts_ids[]' value="{{$part->id or ''}}">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type='text' class='form-control' name='parts_prices[]' readonly value="{{$part->pivot->price or ''}}">
+                                            </td>
+                                            <td>
+                                                <input type='text' class='form-control' name='discount_rate[]' value="{{$part->pivot->discount_rate or ''}}" placeholder='إدخل نسبة الخصم إن وجدت'>
+                                            </td>
+                                            <td>
+                                                <button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+    
+                </div>
+            </div>
+    
+        </div>
     </div>
 </div>
 
@@ -143,7 +265,7 @@
 </div>
 
 <div class="form-group">
-    <label for="total"> إجمالي الفاتورة <span style="color:red">*</span></label>
+    <label for="total"> إجمالي الفاتورة بعد الضريبة <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="total" name="total"  placeholder=" إدخل إجمالي قيمة الفاتورة. " value="{{$invoice->total or old('total')}}">
 </div>
 
@@ -180,6 +302,9 @@ $(function(){
     if ($('#type').val() == 'مقايسة') {
         $('#group-indexation').css('display', 'block');
     }
+    if ($('#type').val() == 'بيع قطع') {
+        $('#parts-form-wrapper').css('display', 'block');
+    }
     $('#type').on('change', function(){
         if (this.value == 'تعاقد') {
             $('#group-contract').css('display', 'block');
@@ -194,7 +319,58 @@ $(function(){
         } else {
             $('#group-indexation').css('display', 'none');
         }
+
+        if (this.value == 'بيع قطع') {
+            $('#parts-form-wrapper').css('display', 'block');
+            $("#contract-id option:selected").removeAttr("selected");
+        } else {
+            $('#parts-form-wrapper').css('display', 'none');
+        }
     });
+
+
+
+
+
+    $("#search-button").on('click', function(){
+        var keyword = $('#search-input').val();
+
+        if (keyword) {
+            $.ajax({
+                type:"GET",
+                url:"{{url('invoices_form_part_search')}}/"+keyword,
+                dataType:"JSON",
+                success:function(results){
+                    if (results) {
+                        var resultTableBody = $('#results-table-body').empty();
+                        $.each(results, function(key, part){
+                            resultTableBody.append("<tr><td>"+part.name+"</td><td><button type='button' class='btn btn-success btn-xs part-add-button' data-part-id='"+part.id+"' data-part-name='"+part.name+" ' data-part-price='"+part.price_with_tax+"' '> اضف </button></td></tr>");
+                        });
+
+                        $(".part-add-button").on("click", function(){
+                            var addButton = $(this);
+                            $("#selected-parts-table-body").append("<tr><td>"+addButton.attr('data-part-name')+"<input type='hidden' name='parts_names[]' value='"+addButton.attr('data-part-name')+"'></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='"+addButton.attr('data-part-id')+"'></div></td><td><input type='text' class='form-control' name='parts_prices[]' readonly value='"+addButton.attr('data-part-price')+"'></td><td><input type='text' class='form-control' name='discount_rate[]' placeholder='إدخل نسبة الخصم إن وجدت'></td><td><button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button></td></tr>");
+                            addButton.parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
+
+
+
+
+                            $('.delete-part-button').on('click', function(){
+                                $(this).parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
+                            });
+                        });
+
+
+                    }
+                }
+            });
+        }
+    });
+    $('.delete-part-button').on('click', function(){
+        $(this).parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
+    });
+
+
 });
 </script>
 @endsection

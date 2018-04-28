@@ -40,7 +40,7 @@ class InvoiceController extends Controller
     {
         $indexationsCodes = Indexation::all()->pluck('code', 'id');
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
-        $customersIdsCodes = Customer::all()->pluck('code', 'id');
+        $customersIdsCodes = $this->mergeCustomersCodesAndNames();
         $employeesNames = Employee::all()->pluck('user.name', 'user.name');
         return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames'));
     }
@@ -81,7 +81,7 @@ class InvoiceController extends Controller
         $invoice = $this->invoice->getById($id);
         $indexationsCodes = Indexation::all()->pluck('code', 'id');
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
-        $customersIdsCodes = Customer::all()->pluck('code', 'id');
+        $customersIdsCodes = $this->mergeCustomersCodesAndNames();
         $employeesNames = Employee::all()->pluck('user.name', 'user.name');
         return view('invoices.edit', compact('invoice', 'indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames'));
     }
@@ -138,5 +138,21 @@ class InvoiceController extends Controller
     {
         $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
         return back()->withInput();
+    }
+
+    public function mergeCustomersCodesAndNames()
+    {
+        $mergedArray = array();
+        $customers = $customerIdsCodes = Customer::all();
+        foreach ($customers as $key => $customer ) {
+            $mergedArray[$customer->id] = $customer->code.'('.$customer->name.')'; 
+        }
+        return $mergedArray;
+
+    }
+
+    public function invoiceFormPartSearch($keyword)
+    {
+        return $this->invoice->searchFormPart($keyword);
     }
 }
