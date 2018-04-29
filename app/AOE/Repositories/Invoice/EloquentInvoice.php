@@ -67,6 +67,7 @@ class EloquentInvoice implements InvoiceInterface
     public function searchFormPart($keyword)
     {
         $results = Part::where('name', 'like', '%'.$keyword.'%')
+                                ->limit(15)
                                 ->get();
         return $results;
     }

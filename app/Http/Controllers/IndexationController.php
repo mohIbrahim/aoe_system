@@ -40,7 +40,7 @@ class IndexationController extends Controller
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'indexation_as_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
 
-        $partsIds       = $request->parts_ids;
+        $partsIds       = ($request->parts_ids)?($request->parts_ids):([]);
         $partsPrices    = $request->parts_prices;
         $partsSerial    = $request->parts_serial_numbers;
         $partcount      = $request->parts_count;
@@ -94,7 +94,7 @@ class IndexationController extends Controller
         }
 
         $indexation->parts()->detach();
-        $partsIds       = $request->parts_ids;
+        $partsIds       = ($request->parts_ids)?($request->parts_ids):([]);
         $partsPrices    = $request->parts_prices;
         $partsSerial    = $request->parts_serial_numbers;
         $partcount      = $request->parts_count;

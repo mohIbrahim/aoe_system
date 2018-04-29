@@ -55,6 +55,25 @@ class InvoiceController extends Controller
         $invoice = $this->invoice->create($request->all());
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'invoice_as_pdf', 'App\Invoice', $invoice->id, 'pdf', 'no_cover');
+        if($request->input('type') == 'بيع قطع') {
+            $pritingMachinesSerial  = $request->printing_machines_serial;
+            $partsIds               = ($request->parts_ids)?($request->parts_ids):([]);
+            $partsPrices            = $request->parts_prices;
+            $partsSerial            = $request->parts_serial_numbers;
+            $partcount              = $request->parts_count;
+            $discountRate           = $request->discount_rate;
+            for ($i=0; $i < count($partsIds); $i++) {
+                $invoice->partsForInvoiceTypeSellPart()->attach([
+                                                $partsIds[$i]=> [
+                                                                    'printing_machines_serial'=>$pritingMachinesSerial,
+                                                                    'price'=>$partsPrices[$i],
+                                                                    'part_serial_number'=>$partsSerial[$i],
+                                                                    'number_of_parts'=>$partcount[$i],
+                                                                    'discount_rate'=>$discountRate[$i],
+                                                                ]
+                                            ]);
+            }
+        }
 
         flash()->success(' تم إنشاء الفاتورة بنجاح. ')->important();
         return redirect()->action('InvoiceController@show', ['id'=>$invoice->id]);
@@ -83,7 +102,8 @@ class InvoiceController extends Controller
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
         $customersIdsCodes = $this->mergeCustomersCodesAndNames();
         $employeesNames = Employee::all()->pluck('user.name', 'user.name');
-        return view('invoices.edit', compact('invoice', 'indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames'));
+        $parts = $invoice->partsForInvoiceTypeSellPart;
+        return view('invoices.edit', compact('invoice', 'indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames', 'parts'));
     }
 
     /**
@@ -102,6 +122,26 @@ class InvoiceController extends Controller
                 $projectImage->deleteOneProjectImage($invoice->softCopies->first()->id);
             }
             $isUploaded = $projectImage->receiveAndCreat($request, 'invoice_as_pdf', 'App\Invoice', $invoice->id, 'pdf', 'no_cover');
+        }
+        if ($request->input('type') == 'بيع قطع') {
+            $invoice->partsForInvoiceTypeSellPart()->detach();
+            $pritingMachinesSerial  = $request->printing_machines_serial;
+            $partsIds               = ($request->parts_ids)?($request->parts_ids):([]);            
+            $partsPrices            = $request->parts_prices;
+            $partsSerial            = $request->parts_serial_numbers;
+            $partcount              = $request->parts_count;
+            $discountRate           = $request->discount_rate;
+            for ($i=0; $i < count($partsIds); $i++) {
+                $invoice->partsForInvoiceTypeSellPart()->attach([
+                                                $partsIds[$i]=> [
+                                                                    'printing_machines_serial'=>$pritingMachinesSerial,
+                                                                    'price'=>$partsPrices[$i],
+                                                                    'part_serial_number'=>$partsSerial[$i],
+                                                                    'number_of_parts'=>$partcount[$i],
+                                                                    'discount_rate'=>$discountRate[$i],
+                                                                ]
+                                            ]);
+            }
         }
 
         flash()->success(' تم تعديل الفاتورة بنجاح. ')->important();

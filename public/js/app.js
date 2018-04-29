@@ -32173,6 +32173,61 @@ $(document).ready(function () {
 });
 //End installation record add items and descriptions
 
+// Start Ajax for Invoices _form view
+$("#invoice-form-search-button").on('click', function () {
+	var keyword = $('#invoice-form-search-input').val();
+
+	if (keyword) {
+		$.ajax({
+			type: "GET",
+			url: "/invoices_form_part_search/" + keyword,
+			dataType: "JSON",
+			beforeSend: function beforeSend() {
+				$("#invoice-form-message-span").empty();
+				$("#invoice-form-message-span").text('جاري التحميل...');
+			},
+			success: function success(results) {
+
+				if (results) {
+					$("#invoice-form-message-span").empty();
+					var resultTableBody = $('#invoice-form-results-table-body').empty();
+					$.each(results, function (key, part) {
+						resultTableBody.append("<tr><td>" + part.name + "</td><td><button type='button' class='btn btn-success btn-xs invoice-form-part-add-button' data-part-id='" + part.id + "' data-part-name='" + part.name + " ' data-part-price='" + part.price_with_tax + "' '> اضف </button></td></tr>");
+					});
+
+					$(".invoice-form-part-add-button").on("click", function () {
+						var addButton = $(this);
+						$("#invoice-form-selected-parts-table-body").append("<tr><td>" + addButton.attr('data-part-name') + "<input type='hidden' name='parts_names[]' value='" + addButton.attr('data-part-name') + "'></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='" + addButton.attr('data-part-id') + "'></div></td><td><input type='text' class='form-control' name='parts_prices[]' readonly value='" + addButton.attr('data-part-price') + "'></td><td><input type='text' class='form-control' name='discount_rate[]' placeholder='إدخل نسبة الخصم إن وجدت'></td><td><button type='button' class='btn btn-danger btn-xs invoice-form-delete-part-button'> حذف </button></td></tr>");
+						addButton.parent().parent().fadeOut('500', 'linear', function () {
+							$(this).remove();
+						});
+
+						$('.invoice-form-delete-part-button').on('click', function () {
+							$(this).parent().parent().fadeOut('500', 'linear', function () {
+								$(this).remove();
+							});
+						});
+					});
+				}
+			},
+
+			error: function error() {
+				$("#invoice-form-results-table-body").empty();
+				$("#invoice-form-message-span").text('خطاء');
+			}
+
+		});
+	}
+});
+$('.invoice-form-delete-part-button').on('click', function () {
+	$(this).parent().parent().fadeOut('500', 'linear', function () {
+		$(this).remove();
+	});
+});
+
+// End Ajax for Invoices _form view
+
+
 // Start Ajax for Invoices index view
 $(document).ready(function () {
 	$('#invoices-search-button').on('click', function () {

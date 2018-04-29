@@ -18,7 +18,7 @@ class CreateInvoicePartPivotTable extends Migration
             $table->integer('part_id')->unsigned();
             $table->primary(['invoice_id', 'part_id']);
 
-            $table->text('printing_machines_serial')->nullabl();
+            $table->text('printing_machines_serial')->nullable();
             $table->float('price', 10,2)->nullable();
             $table->string('part_serial_number')->nullable();
             $table->smallInteger('number_of_parts')->nullable();
