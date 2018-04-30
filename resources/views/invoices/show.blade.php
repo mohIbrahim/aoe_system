@@ -45,14 +45,22 @@
                                         </td>
                                     </tr>
 
+									<tr>
+									    <th> نوع الفاتورة </th>
+									    <td>{{$invoice->type}} </td>
+								    </tr>
+
                                     <tr>
 									    <td colspan="2">
                                             <table class="table table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th> نوع الفاتورة </th>
-                                                        <th> الكود </th>
-                                                        <th> القيمة </th>
+                                                        <th> # </th>
+                                                        <th> البيان </th>
+                                                        <th> العدد </th>
+                                                        <th> نسبة الخصم على القطعة الوحدة </th>
+                                                        <th> سعر الوحدة </th>
+                                                        <th> الجملة </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -61,32 +69,38 @@
                                                             {{$invoice->type}}
                                                         </td>
                                                         <td>
-                                                            <a href="{{action('ContractController@show', ['id'=>(isset($invoice->contract->code)?$invoice->contract->id:'')])}}">
-                                                                {{$invoice->contract->code or ''}}
-                                                            </a>
-                                                            {{-- or --}}
-                                                            <a href="{{action('IndexationController@show', ['id'=>(isset($invoice->indexation->code)?$invoice->indexation->id:'')])}}">
-                                                               {{$invoice->indexation->code or ''}}
-                                                            </a>
+															@if($invoice == 'تعاقد')
+																<a href="{{action('ContractController@show', ['id'=>(isset($invoice->contract->code)?$invoice->contract->id:'')])}}">
+																	{{$invoice->contract->code or ''}}
+																</a>
+															@elseif($invoice == 'مقايسة')
+																<a href="{{action('IndexationController@show', ['id'=>(isset($invoice->indexation->code)?$invoice->indexation->id:'')])}}">
+																{{$invoice->indexation->code or ''}}
+																</a>
+															@elseif($invoice->type == 'بيع قطع')
+																-
+															@endif                                                            
                                                         </td>
 
 														<td>
 															@if($invoice->type == 'تعاقد')
 																{{$invoice->contract->total_price or '0'}}
-															@endif
-															{{-- or --}}
-															<?php
-																$totalPartsPrice = 0;
-																if ($invoice->indexation) {
-																	if ($invoice->indexation->parts) {
-																		foreach ($invoice->indexation->parts as $part) {
-																			$totalPartsPrice += (isset($part->pivot)?$part->pivot->price:0) * (isset($part->pivot)?$part->pivot->number_of_parts:0);
+															@elseif($invoice == 'مقايسة')
+																<?php
+																	$totalPartsPrice = 0;
+																	if ($invoice->indexation) {
+																		if ($invoice->indexation->parts) {
+																			foreach ($invoice->indexation->parts as $part) {
+																				$totalPartsPrice += (isset($part->pivot)?$part->pivot->price:0) * (isset($part->pivot)?$part->pivot->number_of_parts:0);
+																			}
 																		}
 																	}
-																}
-															?>
-															{{($invoice->type == 'مقايسة')?$totalPartsPrice:''}}
-														جنية
+																?>
+																{{($invoice->type == 'مقايسة')?$totalPartsPrice:''}}
+															@elseif($invoice->type == 'بيع قطع')
+																{{$invoice->total}}
+															@endif
+															جنية
 														</td>
 
                                                     </tr>

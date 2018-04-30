@@ -365,7 +365,7 @@ $("#invoice-form-search-button").on('click', function(){
 			dataType:"JSON",
 			beforeSend:function(){
 				$("#invoice-form-message-span").empty();
-				$("#invoice-form-message-span").text('جاري التحميل...');
+				$("#invoice-form-message-span").text('جاري البحث...');
 			},
 			success:function(results){
 				
@@ -396,6 +396,8 @@ $("#invoice-form-search-button").on('click', function(){
 		},
 
 		});
+	} else {
+		$("#invoice-form-message-span").text('برجاء إدخال الكلمة المراد بحث عنها.');
 	}
 });
 $('.invoice-form-delete-part-button').on('click', function(){

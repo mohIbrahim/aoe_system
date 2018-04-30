@@ -61,10 +61,10 @@
 
     <div class="panel panel-info" id="invoice-form-parts-form-wrapper" style="display:none">
         <div class="panel-body">            
-            <h2> إضافة قطع الآلة للفاتورة </h2>
+            <h3> إضافة قطع الآلة للفاتورة </h3>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h3> البحث عن القطع </h3>
+                    <h4> البحث عن القطع </h4>
                     <hr>
                     <div class="form-group form-inline">
                         <label for=""> ادخل اسم القطعة </label>
@@ -75,7 +75,7 @@
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
-                                <span id="invoice-form-message-span" style="color:red"></span>
+                                <div id="invoice-form-message-span" style="color:#a5a5a5"></div>
                                 <tr>
                                     <th> اسم القطعة </th>
                                     <th> اضافة </th>
@@ -177,7 +177,7 @@
     
             <div class="form-group">
                 <label for="printing_machines_serial"> الأرقام التسلسلية لآلات التصوير. </label>
-                <textarea name="printing_machines_serial" class="form-control" placeholder=" إدخل الأرقام التسلسلية لآلات التصوير. ">{{(old('printing_machines_serial'))?(old('printing_machines_serial')):(($parts->first())?(($parts->first()->pivot)?($parts->first()->pivot->printing_machines_serial):('')):(''))}}</textarea>
+                <textarea name="printing_machines_serial" class="form-control" placeholder=" إدخل الأرقام التسلسلية لآلات التصوير. ">{{(old('printing_machines_serial'))?(old('printing_machines_serial')):(isset($parts)?(($parts->first())?(($parts->first()->pivot)?($parts->first()->pivot->printing_machines_serial):('')):('')):(''))}}</textarea>
             </div>
         </div>
     </div>

@@ -42,7 +42,7 @@ class InvoiceController extends Controller
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
         $customersIdsCodes = $this->mergeCustomersCodesAndNames();
         $employeesNames = Employee::all()->pluck('user.name', 'user.name');
-        return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames'));
+        return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames', 'parts'));
     }
 
     /**
@@ -55,24 +55,9 @@ class InvoiceController extends Controller
         $invoice = $this->invoice->create($request->all());
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'invoice_as_pdf', 'App\Invoice', $invoice->id, 'pdf', 'no_cover');
+
         if($request->input('type') == 'بيع قطع') {
-            $pritingMachinesSerial  = $request->printing_machines_serial;
-            $partsIds               = ($request->parts_ids)?($request->parts_ids):([]);
-            $partsPrices            = $request->parts_prices;
-            $partsSerial            = $request->parts_serial_numbers;
-            $partcount              = $request->parts_count;
-            $discountRate           = $request->discount_rate;
-            for ($i=0; $i < count($partsIds); $i++) {
-                $invoice->partsForInvoiceTypeSellPart()->attach([
-                                                $partsIds[$i]=> [
-                                                                    'printing_machines_serial'=>$pritingMachinesSerial,
-                                                                    'price'=>$partsPrices[$i],
-                                                                    'part_serial_number'=>$partsSerial[$i],
-                                                                    'number_of_parts'=>$partcount[$i],
-                                                                    'discount_rate'=>$discountRate[$i],
-                                                                ]
-                                            ]);
-            }
+            $this->invoice->attachSellingParts($request, $invoice);
         }
 
         flash()->success(' تم إنشاء الفاتورة بنجاح. ')->important();
@@ -87,6 +72,7 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice = $this->invoice->getById($id);
+        $this->invoice->preparationInvoiceItemsForShowView($invoice);
         return view('invoices.show', compact('invoice'));
     }
 
@@ -102,7 +88,7 @@ class InvoiceController extends Controller
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
         $customersIdsCodes = $this->mergeCustomersCodesAndNames();
         $employeesNames = Employee::all()->pluck('user.name', 'user.name');
-        $parts = $invoice->partsForInvoiceTypeSellPart;
+        $parts = $invoice->sellingParts;
         return view('invoices.edit', compact('invoice', 'indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames', 'parts'));
     }
 
@@ -123,25 +109,9 @@ class InvoiceController extends Controller
             }
             $isUploaded = $projectImage->receiveAndCreat($request, 'invoice_as_pdf', 'App\Invoice', $invoice->id, 'pdf', 'no_cover');
         }
-        if ($request->input('type') == 'بيع قطع') {
-            $invoice->partsForInvoiceTypeSellPart()->detach();
-            $pritingMachinesSerial  = $request->printing_machines_serial;
-            $partsIds               = ($request->parts_ids)?($request->parts_ids):([]);            
-            $partsPrices            = $request->parts_prices;
-            $partsSerial            = $request->parts_serial_numbers;
-            $partcount              = $request->parts_count;
-            $discountRate           = $request->discount_rate;
-            for ($i=0; $i < count($partsIds); $i++) {
-                $invoice->partsForInvoiceTypeSellPart()->attach([
-                                                $partsIds[$i]=> [
-                                                                    'printing_machines_serial'=>$pritingMachinesSerial,
-                                                                    'price'=>$partsPrices[$i],
-                                                                    'part_serial_number'=>$partsSerial[$i],
-                                                                    'number_of_parts'=>$partcount[$i],
-                                                                    'discount_rate'=>$discountRate[$i],
-                                                                ]
-                                            ]);
-            }
+
+        if($request->input('type') == 'بيع قطع') {
+            $this->invoice->attachSellingParts($request, $invoice);
         }
 
         flash()->success(' تم تعديل الفاتورة بنجاح. ')->important();

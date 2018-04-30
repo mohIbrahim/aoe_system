@@ -44,6 +44,10 @@ class InvoiceRequest extends FormRequest
             $result['indexation_id']  = 'required';
         }
 
+        if ($this->type === 'بيع قطع') {
+            $result['parts_ids']  = 'required';
+        }
+
         return $result;
     }
 
@@ -62,6 +66,8 @@ class InvoiceRequest extends FormRequest
             'contract_id.required'=>' برجاء اختيار كود العقد. ',
 
             'indexation_id.required'=>' برجاء اختيار كود المقايسة. ',
+
+            'parts_ids.required'=>' برجاء اختيار قطع الآلة مراد إضافتها للفاتورة. ',
 
             'issuer.required'=>' برجاء اختيار جهة الإصدار. ',
 
