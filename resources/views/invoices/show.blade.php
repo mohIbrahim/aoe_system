@@ -64,46 +64,43 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            {{$invoice->type}}
-                                                        </td>
-                                                        <td>
-															@if($invoice == 'تعاقد')
-																<a href="{{action('ContractController@show', ['id'=>(isset($invoice->contract->code)?$invoice->contract->id:'')])}}">
-																	{{$invoice->contract->code or ''}}
-																</a>
-															@elseif($invoice == 'مقايسة')
-																<a href="{{action('IndexationController@show', ['id'=>(isset($invoice->indexation->code)?$invoice->indexation->id:'')])}}">
-																{{$invoice->indexation->code or ''}}
-																</a>
-															@elseif($invoice->type == 'بيع قطع')
-																-
-															@endif                                                            
-                                                        </td>
-
-														<td>
-															@if($invoice->type == 'تعاقد')
-																{{$invoice->contract->total_price or '0'}}
-															@elseif($invoice == 'مقايسة')
-																<?php
-																	$totalPartsPrice = 0;
-																	if ($invoice->indexation) {
-																		if ($invoice->indexation->parts) {
-																			foreach ($invoice->indexation->parts as $part) {
-																				$totalPartsPrice += (isset($part->pivot)?$part->pivot->price:0) * (isset($part->pivot)?$part->pivot->number_of_parts:0);
-																			}
-																		}
-																	}
-																?>
-																{{($invoice->type == 'مقايسة')?$totalPartsPrice:''}}
-															@elseif($invoice->type == 'بيع قطع')
-																{{$invoice->total}}
-															@endif
-															جنية
-														</td>
-
-                                                    </tr>
+													@foreach( $statements as $statement )
+														<tr>
+															<td>
+																{{$statement['rowNumber']}}
+															</td>
+															<td>
+																@if($invoice->type == 'تعاقد')
+																	<a href="{{action('ContractController@show', ['id'=>$statement['itemId']])}}">
+																		{{$statement['itemName']}}
+																	</a>
+																@elseif($invoice->type == 'مقايسة')
+																	<a href="{{action('PartController@show', ['id'=>$statement['itemId']])}}">
+																		{{$statement['itemName']}}
+																	</a> - 
+																	<a href="{{action('IndexationController@show', ['id'=>$statement['indexationId']])}}">
+																		المقايسة
+																	</a>
+																@elseif($invoice->type == 'بيع قطع')
+																	<a href="{{action('PartController@show', ['id'=>$statement['itemId']])}}">
+																		{{$statement['itemName']}}
+																	</a>
+																@endif																	
+															</td>
+															<td>
+																{{$statement['itemCount']}}
+															</td>
+															<td>
+																{{$statement['discount']}}
+															</td>
+															<td>
+																{{$statement['itemPrice']}}
+															</td>
+															<td>
+																{{$statement['totalItemsPricePerRow']}}
+															</td>
+														</tr>
+													@endforeach                                                    
                                                 </tbody>
                                             </table>
                                         </td>

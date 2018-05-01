@@ -81,46 +81,53 @@ class EloquentInvoice implements InvoiceInterface
         $partsSerial            = $request->parts_serial_numbers;
         $partcount              = $request->parts_count;
         $discountRate           = $request->discount_rate;
+        $pivotArray = [];
         for ($i=0; $i < count($partsIds); $i++) {
-            $invoice->sellingParts()->sync([
-                                            $partsIds[$i]=> [
-                                                                'printing_machines_serial'=>$pritingMachinesSerial,
-                                                                'price'=>$partsPrices[$i],
-                                                                'part_serial_number'=>$partsSerial[$i],
-                                                                'number_of_parts'=>$partcount[$i],
-                                                                'discount_rate'=>$discountRate[$i],
-                                                            ]
-                                        ]);
+            $pivotArray[$partsIds[$i]] =    [
+                                                'printing_machines_serial'=>$pritingMachinesSerial,
+                                                'price'=>$partsPrices[$i],
+                                                'part_serial_number'=>$partsSerial[$i],
+                                                'number_of_parts'=>$partcount[$i],
+                                                'discount_rate'=>$discountRate[$i],
+                                            ];
+                                    
         }
+        $invoice->sellingParts()->sync($pivotArray);
     }
 
     public function preparationInvoiceItemsForShowView(Invoice $invoice)
     {
         $results = [];
-        $type = $invoice->type;
-        $rowNumber = 1;
-        $itemName = '';
-        $itemCount = 0;
-        $itemPrice = 0;
-        $totalItemsPricePerRow = 0;
-        $discount = 0;
+        $type = $invoice->type; 
         if ($type == 'تعاقد') {
-
-            $results[] =  [
-                            'rowNumber'=>$rowNumber,
-                            'itemName'=>$invoice->contract->code,
-                            'itemCount'=>1,
-                            'itemPrice'=>$invoice->contract->price,
-                            'totalItemsPricePerRow'=>$invoice->contract->price,
-                            'discount'=>$invoice->contract->price,
-                        ];
-
+            $contract = $invoice->contract;
+            $results[] =    [   'rowNumber'=>1,
+                                'itemId'=>$contract->id,
+                                'itemName'=>'عقد '.$contract->type.' رقم: '.$contract->code,
+                                'itemCount'=>1,
+                                'itemPrice'=>$contract->price,
+                                'totalItemsPricePerRow'=>$contract->price,
+                                'discount'=>$contract->price,
+                            ];
         } else if ($type == 'مقايسة') {
             $parts = $invoice->indexation->parts->toArray();
-            // dd( $parts);
+            $indexationId = $invoice->indexation->id;
             foreach ($parts as $key=>$part) {
-                $results[] =    [
-                                    'rowNumber'=>$key+1,
+                $results[] =    [   'rowNumber'=>$key+1,
+                                    'itemId'=>$part['id'],
+                                    'itemName'=>$part['name'],
+                                    'itemCount'=>$part['pivot']['number_of_parts'],
+                                    'itemPrice'=>$part['pivot']['price'],
+                                    'totalItemsPricePerRow'=>$part['pivot']['number_of_parts']*$part['pivot']['price'],
+                                    'discount'=>$part['pivot']['discount_rate'],
+                                    'indexationId'=>$indexationId,
+                                ];
+            }
+        } else if ($type == 'بيع قطع') {
+            $parts = $invoice->sellingParts->toArray();
+            foreach ($parts as $key=>$part) {
+                $results[] =    [   'rowNumber'=>$key+1,
+                                    'itemId'=>$part['id'],
                                     'itemName'=>$part['name'],
                                     'itemCount'=>$part['pivot']['number_of_parts'],
                                     'itemPrice'=>$part['pivot']['price'],
@@ -128,44 +135,7 @@ class EloquentInvoice implements InvoiceInterface
                                     'discount'=>$part['pivot']['discount_rate'],
                                 ];
             }
-            dd($results);
-
-        } else if ($type == 'بيع قطع') {
-
         }
+        return $results;
     }
 }
-// 0 => array:23 [▼
-// "id" => 1533
-// "code" => "DX-25FT-MA"
-// "name" => "Toner -DX-25FT-MA"
-// "type" => "مستهلكات"
-// "descriptions" => "Magenta toner cartridge"
-// "is_serialized" => 1
-// "compatible_printing_machines" => "DX-2500N"
-// "location_in_warehouse" => null
-// "part_number" => null
-// "production_date" => null
-// "expiry_date" => null
-// "product_number" => null
-// "price_without_tax" => 1500.0
-// "price_with_tax" => 0.0
-// "life" => "7000"
-// "qty" => 0
-// "no_serial_qty" => 0
-// "no_serial_date_of_entry" => null
-// "no_serial_date_of_departure" => null
-// "comments" => null
-// "created_at" => "2018-04-23 09:15:03"
-// "updated_at" => "2018-04-23 09:15:03"
-// "pivot" => array:8 [▼
-//   "indexation_id" => 1
-//   "part_id" => 1533
-//   "created_at" => "2018-04-30 14:16:51"
-//   "updated_at" => "2018-04-30 14:16:51"
-//   "price" => 0.0
-//   "serial_number" => "202010"
-//   "number_of_parts" => 2
-//   "discount_rate" => 10
-// ]
-// ]

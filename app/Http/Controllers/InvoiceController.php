@@ -72,8 +72,8 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice = $this->invoice->getById($id);
-        $this->invoice->preparationInvoiceItemsForShowView($invoice);
-        return view('invoices.show', compact('invoice'));
+        $statements = $this->invoice->preparationInvoiceItemsForShowView($invoice);
+        return view('invoices.show', compact('invoice', 'statements'));
     }
 
     /**
@@ -112,6 +112,8 @@ class InvoiceController extends Controller
 
         if($request->input('type') == 'بيع قطع') {
             $this->invoice->attachSellingParts($request, $invoice);
+        }else {
+            // $invoice->sellingParts()->detach();
         }
 
         flash()->success(' تم تعديل الفاتورة بنجاح. ')->important();
