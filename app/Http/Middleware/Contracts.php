@@ -82,6 +82,9 @@ class Contracts
         if($request->route()->getName() == 'contracts_invoices_are_due_in_this_month_report'    && ( in_array('view_contracts', $permissions))){
             $response = $next($request);
         } else
+        if($request->route()->getName() == 'contracts_expire_within_next_3_monthes'    && ( in_array('view_contracts', $permissions))){
+            $response = $next($request);
+        } else
         {
             abort(403);
         }

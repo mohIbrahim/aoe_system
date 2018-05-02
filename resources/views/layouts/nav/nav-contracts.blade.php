@@ -17,6 +17,9 @@
 					<li role="separator" class="divider"></li>
 					<li class="dropdown-header">  التقارير </li>				
 					<li>
+						<a href="{{ action('ContractController@contractsThatWillExpireWithinTheNextThreeMonthes') }}">تقرير عن العقود التي سوف تنتهي خلال الثلاث شهور القادمة</a>
+					</li>
+					<li>
 						<a href="{{ action('ContractController@contractsInvoicesAreDueInThisMonthReport') }}"> تقرير عن فواتير العقود واجبة التحصيل لهذا الشهر 
 						</a>
 					</li>				

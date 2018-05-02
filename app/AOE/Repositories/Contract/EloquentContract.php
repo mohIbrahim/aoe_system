@@ -132,7 +132,7 @@ class EloquentContract implements ContractInterface
         return $this->contract->where('start', '<=', now())
                                 ->where('end', '>=', now())->get();
     }
-
+    //Reporting
     public function getContractsInvoicesAreDueInThisMonthReportData()
     {
         $paymentsIsDueInThisMonth = null;
@@ -168,5 +168,13 @@ class EloquentContract implements ContractInterface
     public function paymentArabicNames()
     {
         return [1=>'الدفعة الآولى', 2=>'الدفعة الثانية', 3=>'الدفعة الثالثة', 4=>'الدفعة الرابعة', 5=>'الدفعة الخامسة', 6=>'الدفعة السادسة', 7=>'الدفعة السابعة', 8=>'الدفعة الثامنة', 9=>'الدفعة التاسعة', 10=>'الدفعة العاشرة', 11=>'الدفعة الحادية عشرة', 12=>'الدفعة الثانية عشرة', 13=>'الدفعة الثالثة عشرة', 14=>'الدفعة الرابعة عشرة', 15=>'الدفعة الخامسة عشرة', 16=>'الدفعة السادسة عشرة', 17=>'الدفعة السابعة عشرة', 18=>'الدفعة الثامنة عشرة', 19=>'الدفعة التاسعة عشرة', 20=>'الدفعة العشرون'];
+    }
+
+    public function getContractsThatWillExpireWithinTheNextThreeMonthes()
+    {
+        $now = Carbon::now();
+        $nextThreeMonthes = Carbon::now()->addQuarter();
+        $results = $this->contract->whereBetween('end',[$now, $nextThreeMonthes])->oldest('end')->get();
+        return $results;
     }
 }

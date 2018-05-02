@@ -50,6 +50,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('contracts_pm_search/{keyword}', 'ContractController@searchingOnPrintingMachinesByCustomerName')->name('contracts_pm_search');
     Route::get('create_contract_with_printing_machine_id/{pm_id}', 'ContractController@createWithPrintingMachineId')->name('create_contract_with_printing_machine_id');
     Route::get('contracts_invoices_are_due_in_this_month_report', 'ContractController@contractsInvoicesAreDueInThisMonthReport')->name('contracts_invoices_are_due_in_this_month_report');
+    Route::get('contracts_expire_within_next_3_monthes', 'ContractController@contractsThatWillExpireWithinTheNextThreeMonthes')->name('contracts_expire_within_next_3_monthes');
 //Invoices
     Route::resource('invoices', 'InvoiceController');
     Route::get('invoices_search/{keyword}', 'InvoiceController@search')->name('invoices_search');
