@@ -113,7 +113,7 @@ class InvoiceController extends Controller
         if($request->input('type') == 'بيع قطع') {
             $this->invoice->attachSellingParts($request, $invoice);
         }else {
-            // $invoice->sellingParts()->detach();
+            $invoice->sellingParts()->detach();
         }
 
         flash()->success(' تم تعديل الفاتورة بنجاح. ')->important();
