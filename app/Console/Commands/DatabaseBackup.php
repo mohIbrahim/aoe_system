@@ -46,12 +46,9 @@ class DatabaseBackup extends Command
         $command = "mysqldump --user=\"$dbUser\" --password=\"$dbPass\" $dbName > ./$backupName";
         // logger($command);
         // dd($dbName);
-        $process = new Process($command);
-        $process->start();
-        
-        while ($process->isRunning()) {
-            \Mail::to('moh@moh.com')->send(new SendDbBackup($backupName));
-        }
+        $runMysqlCommand = new Process($command);
+        $runMysqlCommand->start();
+        \Mail::to('moh@moh.com')->send(new SendDbBackup($backupName));
         $process2 = new Process("rm ./$backupName");
         $process2->start();
         
