@@ -11,14 +11,6 @@
 |
 */
 
-$dbUser = config('database.connections.mysql.username');
-        $dbPass = config('database.connections.mysql.password');
-        $dbName = config('database.connections.mysql.database');
-        $backupName = 'backup'.now()->format('d-m-Y_h-i').'.sql';
-        $command = 'mysqldump --user="'.$dbUser.'" --password="'.$dbPass.'" '.$dbName.' > ./'.$backupName;
-        // logger($command);
-        dd($command);
-
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
