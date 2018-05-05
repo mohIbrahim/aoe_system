@@ -30,7 +30,7 @@ class SendDbBackup extends Mailable
     public function build()
     {
         $backupName = $this->backupName;
-        return $this->from('AOETec@aoetec.com')
+        return $this->from('info@aoetec.com')
                     ->view('mail.send_db_backup')
                     ->attach('./'.$backupName);
     }
