@@ -47,10 +47,10 @@ class DatabaseBackup extends Command
         // logger($command);
         // dd($dbName);
         $runMysqlCommand = new Process($command);
-        $runMysqlCommand->start();
+        $runMysqlCommand->run();
         \Mail::to('db-backup@aoetec.com')->send(new SendDbBackup($backupName));
         $process2 = new Process("rm ./$backupName");
-        $process2->start();
+        $process2->run();
         
 
         // logger($command);
