@@ -43,7 +43,7 @@ class DatabaseBackup extends Command
         $dbPass = config('database.connections.mysql.password');
         $dbName = config('database.connections.mysql.database');
         $backupName = 'backup'.now()->format('d-m-Y_h-i').'.sql';
-        $command = 'mysqldump --user="'.$dbUser.'" --password="'.$dbPass.'" '.$dbName.' > ./'.$backupName;
+        $command = 'mysqldump -u'.$dbUser.' --password="'.$dbPass.'" '.$dbName.' > ./'.$backupName;
         // logger($command);
         // dd($dbName);
         $runMysqlCommand = new Process($command);
