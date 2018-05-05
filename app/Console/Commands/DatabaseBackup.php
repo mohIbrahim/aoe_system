@@ -39,9 +39,9 @@ class DatabaseBackup extends Command
      */
     public function handle()
     {
-        $dbUser = env('DB_USERNAME');
-        $dbPass = env('DB_PASSWORD');
-        $dbName = env('DB_DATABASE');
+        $dbUser = config('database.connections.mysql.username');
+        $dbPass = config('database.connections.mysql.password');
+        $dbName = config('database.connections.mysql.database');
         $backupName = 'backup'.now()->format('d-m-Y_h-i').'.sql';
         $command = 'mysqldump --user="'.$dbUser.'" --password="'.$dbPass.'" '.$dbName.' > ./'.$backupName;
         // logger($command);
