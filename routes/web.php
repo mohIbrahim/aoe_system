@@ -26,6 +26,7 @@ Route::resource('role_user', 'RoleUserController');
 //Printing Machines
     Route::resource('printing_machines', 'PrintingMachineController');
     Route::get('printing_machines_search/{keyword}', 'PrintingMachineController@search')->name('printing_machines_search');
+    Route::get('create_printing_machine_with_customer/{customer_id}', 'PrintingMachineController@createWithCustomerId')->name('create_printing_machine_with_customer');
 //Customers
     Route::resource('customers', 'CustomerController');
     Route::get('customers_search/{keyword}', 'CustomerController@search')->name('customers_search');
@@ -56,6 +57,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('invoices_search/{keyword}', 'InvoiceController@search')->name('invoices_search');
     Route::get('remove_the_invoice_file/{project_image_id}', 'InvoiceController@removeInvoiceFile')->name('remove_the_invoice_file');
     Route::get('invoices_form_part_search/{keyword}', 'InvoiceController@invoiceFormPartSearch')->name('invoices_form_part_search');
+    Route::get('create_invoice_with_customer/{customer_id}', 'InvoiceController@createWithCustomerId')->name('create_invoice_with_customer');
 //Visits
     Route::resource('visits', 'VisitController');
     Route::get('visits_search/{keyword}', 'VisitController@search')->name('visits_search');

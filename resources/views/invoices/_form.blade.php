@@ -9,7 +9,7 @@
         <?php $selectedCustomerId = isset($invoice->customer_id)? $invoice->customer_id:'' ;?>
         <option value=" "> اختر كود العميل الذي قمت بإجراء هذة الفاتورة له.  </option>
         @foreach ($customersIdsCodes as $customerId => $customerName)
-            <option value="{{$customerId}}" {!!($selectedCustomerId == $customerId)? 'selected="selected"' : ((old('customer_id')==$customerId)?'selected="selected"':'')!!}> {{$customerName}} </option>
+            <option value="{{$customerId}}" {!!($selectedCustomerId == $customerId)? 'selected="selected"' : ((old('customer_id')==$customerId)?'selected="selected"':((isset($incommingCustomer))?(($incommingCustomer == $customerId)?('selected'):('')):('')))!!}> {{$customerName}} </option>
         @endforeach
     </select>
 </div>

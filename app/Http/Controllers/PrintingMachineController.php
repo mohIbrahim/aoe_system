@@ -37,7 +37,7 @@ class PrintingMachineController extends Controller
      */
     public function create()
     {
-        $customerIdsCodes = Customer::all()->pluck('code', 'id');
+        $customerIdsCodes = $this->mergeCustomersCodesAndNames();
 		$employeesNames = Employee::all()->pluck('user.name');
         return view('printing_machines.create', compact('customerIdsCodes', 'employeesNames'));
     }
@@ -124,4 +124,12 @@ class PrintingMachineController extends Controller
         return $mergedArray;
 
     }
+
+    public function createWithCustomerId($incommingCustomer)
+    {
+        $customerIdsCodes = $this->mergeCustomersCodesAndNames();
+		$employeesNames = Employee::all()->pluck('user.name');
+        return view('printing_machines.create', compact('customerIdsCodes', 'employeesNames', 'incommingCustomer'));
+    }
+
 }

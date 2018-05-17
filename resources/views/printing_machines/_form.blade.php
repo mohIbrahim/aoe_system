@@ -4,7 +4,7 @@
         <?php $selectedCustomerId = isset($printingMachine->customer_id)? $printingMachine->customer_id:'' ;?>
         <option value=""> اختر كود العميل.  </option>
         @foreach ($customerIdsCodes as $id => $code)
-        <option value="{{$id}}" {{($selectedCustomerId == $id)? 'selected' : ((old('customer_id')==$id)?'selected':'')}}> {{$code}} </option>
+        <option value="{{$id}}" {{($selectedCustomerId == $id)? 'selected' : ((old('customer_id')==$id)?'selected': ((isset($incommingCustomer))?(($incommingCustomer == $id)?('selected'):('')):('')) )}}> {{$code}} </option>
         @endforeach
     </select>
 </div>

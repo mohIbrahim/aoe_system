@@ -11,6 +11,16 @@
                     <h3 class="panel-title"> العميل: {{$customer->name}}</h3>
                 </div>
                 <div class="panel-body">
+                    <div class="pull-left">
+                        @if(in_array('create_printing_machines', $permissions))
+                            <a href="{{action('PrintingMachineController@createWithCustomerId', ['customer_id'=>$customer->id] )}}"><span class="glyphicon glyphicon-plus"></span> إضافة آلة للعميل </a>
+                        @endif
+                        
+                        @if(in_array('create_invoices', $permissions))                        
+                            <a href="{{action('InvoiceController@createWithCustomerId', ['customer_id'=>$customer->id] )}}"><span class="glyphicon glyphicon-plus"></span> إضافة فاتورة </a>                        
+                        @endif
+                    </div>
+                
                     <div>
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">

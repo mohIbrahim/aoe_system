@@ -42,7 +42,7 @@ class InvoiceController extends Controller
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
         $customersIdsCodes = $this->mergeCustomersCodesAndNames();
         $employeesNames = Employee::all()->pluck('user.name', 'user.name');
-        return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames', 'parts'));
+        return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames'));
     }
 
     /**
@@ -166,5 +166,14 @@ class InvoiceController extends Controller
     public function invoiceFormPartSearch($keyword)
     {
         return $this->invoice->searchFormPart($keyword);
+    }
+    
+    public function createWithCustomerId($incommingCustomer)
+    {
+        $indexationsCodes = Indexation::all()->pluck('code', 'id');
+        $contractsIdsCodes = Contract::all()->pluck('code', 'id');
+        $customersIdsCodes = $this->mergeCustomersCodesAndNames();
+        $employeesNames = Employee::all()->pluck('user.name', 'user.name');
+        return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames', 'incommingCustomer'));
     }
 }
