@@ -96,6 +96,31 @@
     </select>
 </div>
 
+<div class="form-group">
+    <label for="assigned_employees"> اسماء المواظفين المعينين على هذة الآلة </label>
+    <select class="form-control selectpicker" name="assigned_employees[]" data-live-search="true" multiple>
+        <?php $assignedEmployeesIds = ((isset($printingMachine))?(($printingMachine->assignedEmployees->isNotEmpty())?($printingMachine->assignedEmployees->pluck('id')->toArray()):([])):([]));        ?>
+        <option value=""> اختر اسماء الموظفين المعينين على هذة الآلة. </option>
+        @foreach($assignedEmployeesNamesIds as $empId=>$empName)
+            @if(old('assigned_employees'))
+                @if(in_array($empId, old('assigned_employees')))
+                    <option value="{{$empId}}" selected>{{$empName}}</option>
+                @else
+                    <option value="{{$empId}}">{{$empName}}</option>
+                @endif
+            @elseif(!empty($assignedEmployeesIds))
+                @if(in_array($empId, $assignedEmployeesIds))
+                    <option value="{{$empId}}" selected>{{$empName}}</option>
+                @else
+                    <option value="{{$empId}}">{{$empName}}</option>
+                @endif
+            @else
+                <option value="{{$empId}}">{{$empName}}</option>
+            @endif
+        @endforeach
+    </select>
+</div>
+
 <div class="jumbotron">
     <legend>فيدر</legend>
     <div class="form-group">

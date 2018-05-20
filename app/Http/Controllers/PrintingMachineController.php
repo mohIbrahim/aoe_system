@@ -38,8 +38,9 @@ class PrintingMachineController extends Controller
     public function create()
     {
         $customerIdsCodes = $this->mergeCustomersCodesAndNames();
-		$employeesNames = Employee::all()->pluck('user.name');
-        return view('printing_machines.create', compact('customerIdsCodes', 'employeesNames'));
+        $employeesNames = Employee::all()->pluck('user.name');
+        $assignedEmployeesNamesIds = Employee::all()->pluck('user.name', 'user.id');
+        return view('printing_machines.create', compact('customerIdsCodes', 'employeesNames', 'assignedEmployeesNamesIds'));
     }
 
     /**
@@ -50,7 +51,8 @@ class PrintingMachineController extends Controller
      */
     public function store(PrintingMachineRequest $request)
     {
-		$printingMachine = $this->printingMachine->create($request->all());
+        $printingMachine = $this->printingMachine->create($request->all());
+        $printingMachine->assignedEmployees()->sync($request->input('assigned_employees'));
 		flash()->success('تم إنشاء آلة جديدة بنجاح.')->important();
 		return redirect()->action('PrintingMachineController@show', ['id'=>$printingMachine->id]);
     }
@@ -77,8 +79,9 @@ class PrintingMachineController extends Controller
     {
     	$printingMachine = $this->printingMachine->getById($id);
         $customerIdsCodes = $this->mergeCustomersCodesAndNames();
-		$employeesNames = Employee::all()->pluck('user.name');
-		return view('printing_machines.edit', compact('printingMachine', 'customerIdsCodes', 'employeesNames'));
+        $employeesNames = Employee::all()->pluck('user.name');
+        $assignedEmployeesNamesIds = Employee::all()->pluck('user.name', 'user.employee.id');
+		return view('printing_machines.edit', compact('printingMachine', 'customerIdsCodes', 'employeesNames', 'assignedEmployeesNamesIds'));
     }
 
     /**
@@ -91,6 +94,7 @@ class PrintingMachineController extends Controller
     public function update(PrintingMachineRequest $request, $id)
     {
         $printingMachine = $this->printingMachine->update($id, $request->all());
+        $printingMachine->assignedEmployees()->sync($request->input('assigned_employees'));
 		flash()->success(' تم تعديل الآلة بنجاح. ')->important();
 		return redirect()->action('PrintingMachineController@show', ['id'=>$id]);
     }
