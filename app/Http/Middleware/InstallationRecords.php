@@ -66,7 +66,11 @@ class InstallationRecords
         }else
 
 		if($request->route()->getName() == 'installation_records_pm_search'   && (in_array('create_installation_records', $permissions) || in_array('update_installation_records', $permissions))){
-            $response = $next($request);       
+            $response = $next($request);
+        }else
+
+		if($request->route()->getName() == 'create_installtion_record_with_printing_machine'   && (in_array('create_installation_records', $permissions))){
+            $response = $next($request);
         }else{
             abort(403);
         }

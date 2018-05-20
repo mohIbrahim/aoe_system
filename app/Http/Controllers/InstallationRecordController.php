@@ -153,4 +153,10 @@ class InstallationRecordController extends Controller
         $abc = new EloquentPrintingMachine(new PrintingMachine());
         return $abc->searchLimitedCodeCustomer($keyword);
     }
+
+    public function createWithPrintingMachineId($printingMachineId)
+    {
+        $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
+        return view('installation_records.create', compact('employeesIdsNames', 'printingMachineId'));
+    }
 }

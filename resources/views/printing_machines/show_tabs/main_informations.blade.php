@@ -1,4 +1,11 @@
 <div class="table-responsive">
+	<!-- create installation record -->
+	<div class="pull-left">
+		@if(in_array('create_installation_records', $permissions))
+			<a href="{{action('InstallationRecordController@createWithPrintingMachineId', ['priting_machine_id'=>$printingMachine->id] )}}" target="_blank"><span class="glyphicon glyphicon-plus"></span> إضافة محضر تركيب </a>
+		@endif
+	</div><div class="clearfix"></div>
+	
 	<table class="table table-hover">
 		<thead>
 			<h3 class="text-center"> البيانات الآساسية لآلة التصوير </h3>

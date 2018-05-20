@@ -44,6 +44,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::resource('installation_records', 'InstallationRecordController');
     Route::get('remove_the_installation_record_file/{project_image_id}', 'InstallationRecordController@removeInstallationRecordFile')->name('remove_the_installation_record_file');
     Route::get('installation_records_pm_search/{keyword}', 'InstallationRecordController@searchingOnPrintingMachine')->name('installation_records_pm_search');
+    Route::get('create_installtion_record_with_printing_machine/{priting_machine_id}', 'InstallationRecordController@createWithPrintingMachineId')->name('create_installtion_record_with_printing_machine');
 //Contracts
     Route::resource('contracts', 'ContractController');
     Route::get('contracts_search/{keyword}', 'ContractController@search')->name('contracts_search');

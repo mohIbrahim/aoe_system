@@ -17,7 +17,7 @@
                             <li role="presentation" class="active">
                                 <a href="#main-information" aria-controls="main-information" role="tab" data-toggle="tab">
                                     البيانات الآساسية
-                                </a>
+                                </a>                                
                             </li>
 							<li role="presentation">
 								<a href="#visits" aria-controls="visits" role="tab" data-toggle="tab">
