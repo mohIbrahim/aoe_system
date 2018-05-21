@@ -13,6 +13,9 @@
 				@if(in_array('create_follow_up_cards', $permissions))
 					<li><a href="{{ action('FollowUpCardController@create') }}"> إنشاء بطاقة متابعة جديد </a></li>
 				@endif
+				<li role="separator" class="divider"></li>
+				<li class="dropdown-header">  تقرير </li>
+				<li><a href="{{ action('FollowUpCardController@visitsNotDoneOnTimeReport') }}"> تقرير عن الزيارات التي لم تمت خلال فترة محددة لبطاقات المتابعة </a></li>
 			@endif
 			@if(in_array('view_follow_up_card_special_reports', $permissions))
 				<li role="separator" class="divider"></li>
@@ -22,6 +25,7 @@
 					<li><a href="{{ action('FollowUpCardSpecialReportController@create') }}"> إنشاء تقرير خاص لبطاقة متابعة  </a></li>
 				@endif
 			@endif
+
 		</ul>
 	</li>
 </ul>

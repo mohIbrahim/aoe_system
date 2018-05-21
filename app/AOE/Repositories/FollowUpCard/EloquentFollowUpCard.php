@@ -68,4 +68,9 @@ class EloquentFollowUpCard implements FollowUpCardInterface
         $contracts = Contract::all()->pluck('code', 'id');
         return $contracts;
     }
+
+    public function visitsNotDoneOnTimeReport()
+    {
+        
+    }
 }

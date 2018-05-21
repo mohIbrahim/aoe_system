@@ -73,7 +73,18 @@ class FollowUpCards
 		if($request->route()->getName() == 'follow_up_cards_search'    && in_array('view_follow_up_cards', $permissions)){
 
             $response = $next($request);
-        }else{
+        }else
+
+		if($request->route()->getName() == 'visits_not_done_on_time_for_follow_up_cards_report'    && in_array('view_follow_up_cards', $permissions)){
+
+            $response = $next($request);
+        }else
+
+		if($request->route()->getName() == 'visits_not_done_on_time_for_follow_up_cards_report_search'    && in_array('view_follow_up_cards', $permissions)){
+
+            $response = $next($request);
+        }
+        else{
             abort(403);
         }
 

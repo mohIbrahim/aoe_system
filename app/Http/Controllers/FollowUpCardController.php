@@ -105,4 +105,13 @@ class FollowUpCardController extends Controller
         $abc = new EloquentPrintingMachine(new PrintingMachine());
         return $abc->searchLimitedCodeCustomer($keyword);
     }
+
+    public function visitsNotDoneOnTimeReport()
+    {        
+        return view('follow_up_cards.reports.visits_not_done_on_time');
+    }
+
+    public function visitsNotDoneOnTimeReportSearch(){
+        return 'Server Side';
+    }
 }
