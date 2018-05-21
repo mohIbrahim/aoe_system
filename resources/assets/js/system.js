@@ -594,6 +594,33 @@ $(document).ready(function(){
 });
 //End References add malunctions and works were done on it _form view
 
+// Start Ajax for Visits index view
+
+$(document).ready(function(){
+	$('#visits-index-search-button').on('click', function(){
+		var keyword = $('#visit-input-search').val();
+		var newResult = "";
+		if(keyword) {
+			$.ajax({
+				type: "GET",
+				url:"visits_search/"+keyword,
+				dataType: "json",
+				success: function(results){
+					$("#visit-index-my-table-body").fadeOut();
+					$("#visit-index-my-table-body").children().remove();
+					$.each(results, function(index, visit) {
+						newResult += "<tr><td>"+(index+1)+"</td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.id+"</a></td><td>"+visit.visit_date+"</td><td>"+visit.type+"</td><td><a href='{{url('printing_machines')}}/"+((visit.printing_machine)?visit.printing_machine.id:'')+"'>"+((visit.printing_machine)?visit.printing_machine.code:'')+"</a></td><td>"+visit.readings_of_printing_machine+"</td><td>"+((visit.the_employee_who_made_the_visit)?((visit.the_employee_who_made_the_visit.user)?visit.the_employee_who_made_the_visit.user.name:''):'')+"</td></tr>";
+					});
+					$("#visit-index-my-table-body").append(newResult);
+					$("#visit-index-my-table-body").fadeIn();
+				}
+
+			});
+		}
+	});
+});
+// End Ajax for Visits index view
+
 //Start Datatable
 $(document).ready(function() {
     if ($('.standart-datatable').DataTable) {
