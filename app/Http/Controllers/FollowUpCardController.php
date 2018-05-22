@@ -111,7 +111,23 @@ class FollowUpCardController extends Controller
         return view('follow_up_cards.reports.visits_not_done_on_time');
     }
 
-    public function visitsNotDoneOnTimeReportSearch(){
-        return 'Server Side';
+    public function visitsNotDoneOnTimeReportSearch($start, $end){
+        $start = str_replace('-', '/', $start);
+        $end = str_replace('-', '/', $end);
+        $now = \Carbon\Carbon::now();
+        $selectedContract = \App\Contract::where('start', '<=', $start)
+                                        ->where('end', '>=', $end)
+                                        ->get();
+        $intentedFollowUpCards = [];
+        foreach ($selectedContract as $contract) {
+            $followUpCard = $contract->followUpCard;
+            if ($followUpCard) {
+                $visits = $followUpCard->visits()->whereBetween('visit_date', [$start, $end])->get();
+                if ($visits->isEmpty()) {
+                    $intentedFollowUpCards[] = $followUpCard;
+                }
+            }
+        }
+        return $intentedFollowUpCards;
     }
 }

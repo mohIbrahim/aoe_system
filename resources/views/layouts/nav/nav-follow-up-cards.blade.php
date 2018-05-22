@@ -15,7 +15,7 @@
 				@endif
 				<li role="separator" class="divider"></li>
 				<li class="dropdown-header">  تقرير </li>
-				<li><a href="{{ action('FollowUpCardController@visitsNotDoneOnTimeReport') }}"> تقرير عن الزيارات التي لم تمت خلال فترة محددة لبطاقات المتابعة </a></li>
+				<li><a href="{{ action('FollowUpCardController@visitsNotDoneOnTimeReport') }}"> تقرير عن الزيارات التي لم تتم خلال فترة محددة لبطاقات المتابعة </a></li>
 			@endif
 			@if(in_array('view_follow_up_card_special_reports', $permissions))
 				<li role="separator" class="divider"></li>

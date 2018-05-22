@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-	تقرير عن الزيارات التي لم تمت خلال فترة محددة لبطاقات المتابعة
+	تقرير عن الزيارات التي لم تتم خلال فترة محددة لبطاقات المتابعة
 @endsection
 
 @section('content')
@@ -13,25 +13,25 @@
 
 
 
-				<legend> البحث عن الزيارات </legend>
+				<legend> تقرير عن الزيارات التي لم تتم خلال فترة محددة لبطاقات المتابعة </legend>
 				<div class="row">
 					<div class="col-lg-8 col-lg-offset-2">
 						<div class="form-inline">
 
 
-							<div id="message" style="display: none">
-								<div class="alert alert-danger alert-dismissible">
-									<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>				برجاء إختيار التاريخ			
+							<div id="message" style="display: none; text-align:center">
+								<div class="alert alert-danger alert-dismissible">									
+									برجاء إختيار التاريخ			
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="visit-input-search"> من </label>
-								<input type="text" class="form-control" id="datepicker" placeholder=" إدخل الكلمة المراد البحث عنها. ">
+								<input type="text" name="from" class="form-control" id="datepicker" placeholder=" برجاء إختيار تاريخ بداية المدة. ">
 							</div>
 
 							<div class="form-group">
 								<label for="visit-input-search"> إلى </label>
-								<input type="text" class="form-control" id="datepicker2" placeholder=" إدخل الكلمة المراد البحث عنها. ">
+								<input type="text" name="to" class="form-control" id="datepicker2" placeholder=" برجاء إختيار تاريخ نهاية المدة. ">
 							</div>
 	
 							<button type="button" id="follow-up-card-visits-not-done-report-search-btn" class="btn btn-primary"> بحث </button>
@@ -40,10 +40,6 @@
 						</div>
 					</div>
 				</div>
-
-
-
-
 
 				<h3 class="text-center"> عرض الزيارات </h3>
 		    </div>
@@ -120,24 +116,31 @@
 	$(function(){
 
 		$("#follow-up-card-visits-not-done-report-search-btn").on("click", function(){
-			var datepicker1 = $("#datepicker").val();
-			var datepicker2 = $("#datepicker2").val();
-			if (datepicker1 != "" && datepicker2 != "" ) {
+			var start = $("#datepicker").val();
+			start = start.replace(/\//g,"-");
+			var end = $("#datepicker2").val();
+			end = end.replace(/\//g,"-");
+			if (start != "" && end != "" ) {
 				$("#message").css("display", "none");
+
+				$.ajax({
+					type: "GET",
+					url: "/visits_not_done_on_time_for_follow_up_cards_report_search/"+start+"/"+end,
+					dataType: "json",
+					beforSend:function(){},
+					success: function(results){
+						console.log(results);
+					},
+					error: function(){},
+				});
+
+				
+
 			}else {
 				$("#message").css("display", "block");
 			}
-			$.ajax({
-				type: "GET",
-				url: "/visits_not_done_on_time_for_follow_up_cards_report_search",
-				dataType: "json",
-				beforSend:function(){},
-				success: function(results){
-					
-				},
-				error: function(){},
-			});
 		});
+
 	});
 </script>
 @endsection
