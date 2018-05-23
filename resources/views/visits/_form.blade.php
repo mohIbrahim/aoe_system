@@ -96,7 +96,7 @@
 </div>
 
 <div class="form-group">
-    <label for="representative_customer_name"> اسم الشخص المسؤول عن الآلة </label>
+    <label for="representative_customer_name"> اسم الشخص المسؤول عن الآلة لدى العميل </label>
     <input type="text" class="form-control" id="representative_customer_name" name="representative_customer_name"  placeholder=" إدخل اسم الشخص المسؤول عن الآلة . " value="{{$visit->representative_customer_name or old('representative_customer_name')}}">
 </div>
 

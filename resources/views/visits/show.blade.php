@@ -82,7 +82,7 @@
                             </tr>
 
                             <tr>
-                                <th> اسم الشخص المسؤول عن الآلة </th>
+                                <th> اسم الشخص المسؤول عن الآلة لدى العميل</th>
                                 <td>{{$visit->representative_customer_name}}</td>
                             </tr>
 

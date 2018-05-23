@@ -10,79 +10,43 @@
 	  <div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 col-lg-12 col-lg-offset-0">
 		  <div class="panel panel-default">
 		    <div class="panel-heading ">
-
-
-
 				<legend> تقرير عن الزيارات التي لم تتم خلال فترة محددة لبطاقات المتابعة </legend>
 				<div class="row">
 					<div class="col-lg-8 col-lg-offset-2">
-						<div class="form-inline">
-
-
-							<div id="message" style="display: none; text-align:center">
-								<div class="alert alert-danger alert-dismissible">									
-									برجاء إختيار التاريخ			
-								</div>
+						<div class="form-inline">							
+							<div class="alert alert-danger alert-dismissible" id="follow-up-card-visits-not-done-report-error-validator" style="display: none; text-align:center">
+								برجاء إختيار التاريخ			
 							</div>
+
 							<div class="form-group">
 								<label for="visit-input-search"> من </label>
 								<input type="text" name="from" class="form-control" id="datepicker" placeholder=" برجاء إختيار تاريخ بداية المدة. ">
 							</div>
-
 							<div class="form-group">
 								<label for="visit-input-search"> إلى </label>
 								<input type="text" name="to" class="form-control" id="datepicker2" placeholder=" برجاء إختيار تاريخ نهاية المدة. ">
-							</div>
-	
+							</div>	
 							<button type="button" id="follow-up-card-visits-not-done-report-search-btn" class="btn btn-primary"> بحث </button>
-							
-
 						</div>
 					</div>
 				</div>
-
 				<h3 class="text-center"> عرض الزيارات </h3>
 		    </div>
 		    <div class="panel-body">
 
 		  		<div class="table-responsive">
+					<div id="follow-up-card-visits-not-done-report-loading-message" class="text-center"></div>
 			  	    <table class="table table-hover standart-datatable">
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>
-                                <th> رقم الزيارة </th>
-                                <th> تاريخ الزيارة </th>
-                                <th> نوع الزيارة </th>
-                                <th> كود آلة التصوير </th>
-			  				    <th> قراءة العداد </th>
-			  				    <th> اسم المهندس الذي قام بالزيارة </th>
+                                <th> اسم العميل </th>
+                                <th> كود الآلة </th>
+                                <th> اسماء المهندسين المعينين على الآلة </th>
+                                <th> بطاقة المتابعة </th>
 			  			    </tr>
 			  		    </thead>
-			  		    <tbody id="visit-index-my-table-body">
-							<div class="">								
-								<tr>										
-									<td>											
-									</td>
-
-									<td>											
-									</td>
-
-									<td>											
-									</td>
-
-									<td>											
-									</td>
-
-									<td>											
-									</td>
-
-									<td>											
-									</td>
-
-									<td>											
-									</td>
-								</tr>
-							</div>
+			  		    <tbody id="follow-up-card-visits-not-done-report-table-body">
 			  		    </tbody>
 			  	     </table>
 				 </div>
@@ -121,23 +85,31 @@
 			var end = $("#datepicker2").val();
 			end = end.replace(/\//g,"-");
 			if (start != "" && end != "" ) {
-				$("#message").css("display", "none");
-
+				$("#follow-up-card-visits-not-done-report-error-validator").css("display", "none");
 				$.ajax({
 					type: "GET",
 					url: "/visits_not_done_on_time_for_follow_up_cards_report_search/"+start+"/"+end,
 					dataType: "json",
-					beforSend:function(){},
-					success: function(results){
-						console.log(results);
+					beforeSend: function(){
+						$("#follow-up-card-visits-not-done-report-loading-message").append("<h4 style='color: #1877a3'>جاري التحميل... </h4>");
 					},
-					error: function(){},
+					success: function(results){
+						var data = "";
+						$.each(results, function(key, value){							
+							data += "<tr><td>"+(key+1)+"</td> <td><a href='/customers/"+value.customerId+"' target='_blank'>"+value.customerName+"</a></td><td><a href='/printing_machines/"+value.printingMachineId+"' target='_blank'>"+value.printingMachineCode+"</a></td><td>"+value.assignedEmployees+"</td><td><a href='/follow_up_cards/"+value.followUpCardId+"' target='_blank'>"+value.followUpCardCode+"</a></td></tr>";
+						});
+						$("#follow-up-card-visits-not-done-report-table-body").empty().append(data);
+						$("#follow-up-card-visits-not-done-report-loading-message").empty();
+					},
+					error: function(){
+						$("#follow-up-card-visits-not-done-report-loading-message").append("<h4>خطاء في الإتصال الرجاء إعادة تحميل الصفحة</h4>");
+					},
 				});
 
 				
 
 			}else {
-				$("#message").css("display", "block");
+				$("#follow-up-card-visits-not-done-report-error-validator").css("display", "block");
 			}
 		});
 
