@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-
 	<div class="row main_arabic_font">
 	  <div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 col-lg-12 col-lg-offset-0">
 		  <div class="panel panel-default">
@@ -33,7 +32,6 @@
 				<h3 class="text-center"> عرض الزيارات </h3>
 		    </div>
 		    <div class="panel-body">
-
 		  		<div class="table-responsive">
 					<div id="follow-up-card-visits-not-done-report-loading-message" class="text-center"></div>
 			  	    <table class="table table-hover standart-datatable">
@@ -50,12 +48,10 @@
 			  		    </tbody>
 			  	     </table>
 				 </div>
-
 		    </div>
 		  </div>
 	  </div>
 	</div>
-
 @endsection
 
 @section('head')
@@ -76,43 +72,4 @@
     <script src="{{asset('js/datepicker/sys.js')}}" charset="utf-8"></script>
 {{-- datePicker --}}
 
-<script>
-	$(function(){
-
-		$("#follow-up-card-visits-not-done-report-search-btn").on("click", function(){
-			var start = $("#datepicker").val();
-			start = start.replace(/\//g,"-");
-			var end = $("#datepicker2").val();
-			end = end.replace(/\//g,"-");
-			if (start != "" && end != "" ) {
-				$("#follow-up-card-visits-not-done-report-error-validator").css("display", "none");
-				$.ajax({
-					type: "GET",
-					url: "/visits_not_done_on_time_for_follow_up_cards_report_search/"+start+"/"+end,
-					dataType: "json",
-					beforeSend: function(){
-						$("#follow-up-card-visits-not-done-report-loading-message").append("<h4 style='color: #1877a3'>جاري التحميل... </h4>");
-					},
-					success: function(results){
-						var data = "";
-						$.each(results, function(key, value){							
-							data += "<tr><td>"+(key+1)+"</td> <td><a href='/customers/"+value.customerId+"' target='_blank'>"+value.customerName+"</a></td><td><a href='/printing_machines/"+value.printingMachineId+"' target='_blank'>"+value.printingMachineCode+"</a></td><td>"+value.assignedEmployees+"</td><td><a href='/follow_up_cards/"+value.followUpCardId+"' target='_blank'>"+value.followUpCardCode+"</a></td></tr>";
-						});
-						$("#follow-up-card-visits-not-done-report-table-body").empty().append(data);
-						$("#follow-up-card-visits-not-done-report-loading-message").empty();
-					},
-					error: function(){
-						$("#follow-up-card-visits-not-done-report-loading-message").append("<h4>خطاء في الإتصال الرجاء إعادة تحميل الصفحة</h4>");
-					},
-				});
-
-				
-
-			}else {
-				$("#follow-up-card-visits-not-done-report-error-validator").css("display", "block");
-			}
-		});
-
-	});
-</script>
 @endsection

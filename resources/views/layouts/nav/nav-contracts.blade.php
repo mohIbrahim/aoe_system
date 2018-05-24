@@ -15,7 +15,7 @@
 				@endif
 				@if(in_array('view_contracts', $permissions))
 					<li role="separator" class="divider"></li>
-					<li class="dropdown-header">  التقارير </li>				
+					<li class="dropdown-header"> <i class="glyphicon glyphicon-info-sign"></i>  تقرير </li>				
 					<li>
 						<a href="{{ action('ContractController@contractsThatWillExpireWithinTheNextThreeMonthes') }}">تقرير عن العقود التي سوف تنتهي خلال الثلاث شهور القادمة</a>
 					</li>

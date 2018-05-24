@@ -62,7 +62,7 @@ class Contract extends Model
 
     public function followUpCard()
     {
-        return $this->hasOne('App\FollowUpCard');
+        return $this->hasOne('App\FollowUpCard', 'contract_id');
     }
 
     public function printingMachines()

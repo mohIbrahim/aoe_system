@@ -69,8 +69,42 @@ class EloquentFollowUpCard implements FollowUpCardInterface
         return $contracts;
     }
 
-    public function visitsNotDoneOnTimeReport()
+    public function visitsNotDoneOnTimeReport($period1, $period2)
     {
-        
+        $resultsArray = [];
+        $selectedContract = \App\Contract::with('followUpCard')
+                                        ->where('start', '<=', $period2)
+                                        ->where('end', '>=', $period1)
+                                        ->get();
+        $intentedFollowUpCards = [];
+        foreach ($selectedContract as $contract) {
+            $followUpCard = $contract->followUpCard;
+            if (isset($followUpCard)) {
+                $visits = $followUpCard->visits()->whereBetween('visit_date', [$period1, $period2])->get();
+                if ($visits->isEmpty()) {
+                    $intentedFollowUpCards[] = $followUpCard;
+                }
+            }
+        }
+
+        foreach ($intentedFollowUpCards as $followUpCardIndex=>$intentedFollowUpCard) {
+            $printingMachine = $intentedFollowUpCard->printingMachine;
+            
+            $resultsArray[$followUpCardIndex]['followUpCardId'] = $intentedFollowUpCard->id;
+            $resultsArray[$followUpCardIndex]['followUpCardCode'] = $intentedFollowUpCard->code;
+            $resultsArray[$followUpCardIndex]['printingMachineId'] = $printingMachine->id;
+            $resultsArray[$followUpCardIndex]['printingMachineCode'] = $printingMachine->code;
+            $resultsArray[$followUpCardIndex]['customerName'] = $printingMachine->customer->name;
+            $resultsArray[$followUpCardIndex]['customerId'] = $printingMachine->customer->id;
+
+            $assignedEmplyees = $printingMachine->assignedEmployees;
+            $employeesNames = '';
+            foreach ($assignedEmplyees as $employeeKey=>$employee) {
+                $employeesNames .= (($employeeKey>0)?('-'):('')).$employee->user->name;
+            }
+
+            $resultsArray[$followUpCardIndex]['assignedEmployees'] = !empty($employeesNames)?($employeesNames):('لا يوجد موظفين معينين على هذة الآلة');
+        }
+        return $resultsArray; 
     }
 }

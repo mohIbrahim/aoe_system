@@ -111,42 +111,7 @@ class FollowUpCardController extends Controller
         return view('follow_up_cards.reports.visits_not_done_on_time');
     }
 
-    public function visitsNotDoneOnTimeReportSearch($start, $end){
-        $resultsArray = [];
-        $selectedContract = \App\Contract::where('start', '<=', $start)
-                                        ->where('end', '>=', $end)
-                                        ->get();
-        $intentedFollowUpCards = [];
-        
-        foreach ($selectedContract as $contract) {
-            $followUpCard = $contract->followUpCard;
-            if ($followUpCard) {
-                $visits = $followUpCard->visits()->whereBetween('visit_date', [$start, $end])->get();
-                if ($visits->isEmpty()) {
-                    $intentedFollowUpCards[] = $followUpCard;
-                }
-            }
-        }
-
-        foreach ($intentedFollowUpCards as $followUpCardIndex=>$intentedFollowUpCard) {
-            $printingMachine = $intentedFollowUpCard->printingMachine;
-            
-            $resultsArray[$followUpCardIndex]['followUpCardId'] = $intentedFollowUpCard->id;
-            $resultsArray[$followUpCardIndex]['followUpCardCode'] = $intentedFollowUpCard->code;
-            $resultsArray[$followUpCardIndex]['printingMachineId'] = $printingMachine->id;
-            $resultsArray[$followUpCardIndex]['printingMachineCode'] = $printingMachine->code;
-            $resultsArray[$followUpCardIndex]['customerName'] = $printingMachine->customer->name;
-            $resultsArray[$followUpCardIndex]['customerId'] = $printingMachine->customer->id;
-
-            $assignedEmplyees = $printingMachine->assignedEmployees;
-            $employeesNames = '';
-            foreach ($assignedEmplyees as $employeeKey=>$employee) {
-                $employeesNames .= (($employeeKey>0)?('-'):('')).$employee->user->name;
-            }
-
-            $resultsArray[$followUpCardIndex]['assignedEmployees'] = !empty($employeesNames)?($employeesNames):('لا يوجد موظفين معينين على هذة الآلة');
-        }
-        return $resultsArray;
-        
+    public function visitsNotDoneOnTimeReportSearch($period1, $period2){
+        return $this->followUpCard->visitsNotDoneOnTimeReport($period1, $period2);
     }
 }

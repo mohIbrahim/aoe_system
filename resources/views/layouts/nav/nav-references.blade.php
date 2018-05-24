@@ -16,7 +16,7 @@
 			@endif
 			@if(in_array('view_references', $permissions))
 				<li role="separator" class="divider"></li>
-				<li class="dropdown-header">  التقارير </li>				
+				<li class="dropdown-header"> <i class="glyphicon glyphicon-info-sign"></i>  تقرير </li>				
 				<li><a href="{{ action('ReferenceController@referencesReportDuringLastTwoWorkingDays') }}"> تقرير عن الإشارات التي تم استلامها خلال آخر يومين عمل </a></li>				
 			@endif
 			

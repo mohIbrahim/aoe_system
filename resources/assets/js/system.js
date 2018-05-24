@@ -1,3 +1,39 @@
+//Start Datatable
+var standardTable;
+$(document).ready(function() {
+    if ( $('.standart-datatable').DataTable ) {
+		// Setup - add a text input to each footer cell
+		$('.standart-datatable tfoot th').each( function (i) {
+			var title = $('.standart-datatable thead th').eq( $(this).index() ).text();
+			$(this).html( '<input class="form-control" type="text" placeholder="بحث بـ'+title+'" data-index="'+i+'" style="width: 50%"/>' );
+		} );		
+		// DataTable
+		var theTable = $('.standart-datatable').DataTable(
+			{
+				
+				"searching": true,
+				"lengthChange": false,
+				// "scrollY": '500px',
+				"paging": false,
+				dom: 'Bfrtip',
+				buttons: [
+					'excel', 'print'
+				],
+				
+			});		
+		// Filter event handler
+		$( theTable.table().container() ).on( 'keyup', 'tfoot input', function () {
+			theTable
+				.column( $(this).data('index') )
+				.search( this.value )
+				.draw();
+		} );
+		$(".dataTables_filter, .dataTables_info").css('display','none');
+		standardTable = theTable;
+	}	
+});
+//End Datatable
+
 // add another item script telecom in cutomers form
 
 	$(document).ready(function() {
@@ -275,6 +311,50 @@ $(document).ready(function(){
 	});
 });
 // End Ajax for Follow Up Card index view
+
+// Start Follow up Card visits not done on time report view
+
+$(function(){
+	$("#follow-up-card-visits-not-done-report-search-btn").on("click", function(){
+		var start = $("#datepicker").val();
+		start = start.replace(/\//g,"-");
+		var end = $("#datepicker2").val();
+		end = end.replace(/\//g,"-");
+		if (start != "" && end != "" ) {
+			$("#follow-up-card-visits-not-done-report-error-validator").css("display", "none");
+			$.ajax({
+				type: "GET",
+				url: "/visits_not_done_on_time_for_follow_up_cards_report_search/"+start+"/"+end,
+				dataType: "json",
+				beforeSend: function(){
+					$("#follow-up-card-visits-not-done-report-loading-message").append("<h4 style='color: #1877a3'>جاري التحميل... </h4>");
+				},
+				success: function(results){
+					var data = "";
+					standardTable.clear();
+					$.each(results, function(key, value){
+						standardTable.row.add([
+												key+1,
+												"<a href='/customers/"+value.customerId+"' target='_blank'>"+value.customerName+"</a>",
+												"<a href='/printing_machines/"+value.printingMachineId+"' target='_blank'>"+value.printingMachineCode+"</a>",
+												value.assignedEmployees,
+												"<a href='/follow_up_cards/"+value.followUpCardId+"' target='_blank'>"+value.followUpCardCode+"</a>",
+											]);
+					});
+					$("#follow-up-card-visits-not-done-report-loading-message").empty();
+					standardTable.draw();
+				},
+				error: function(){
+					$("#follow-up-card-visits-not-done-report-loading-message").append("<h4>خطاء في الإتصال الرجاء إعادة تحميل الصفحة</h4>");
+				},
+			});
+		}else {
+			$("#follow-up-card-visits-not-done-report-error-validator").css("display", "block");
+		}
+	});
+});
+
+// End Follow up Card visits not done on time report view
 
 // Start Ajax for Indexation index view
 $(document).ready(function(){
@@ -620,43 +700,3 @@ $(document).ready(function(){
 	});
 });
 // End Ajax for Visits index view
-
-//Start Datatable
-$(document).ready(function() {
-    if ($('.standart-datatable').DataTable) {
-		
-			
-			// Setup - add a text input to each footer cell
-			$('.standart-datatable tfoot th').each( function (i) {
-				var title = $('.standart-datatable thead th').eq( $(this).index() ).text();
-				$(this).html( '<input class="form-control" type="text" placeholder="بحث بـ'+title+'" data-index="'+i+'" style="width: 50%"/>' );
-			} );
-		  
-			// DataTable
-			var theTable = $('.standart-datatable').DataTable(
-				{
-					
-					"searching": true,
-					"lengthChange": false,
-					// "scrollY": '500px',
-					"paging": false,
-					dom: 'Bfrtip',
-					buttons: [
-						'excel', 'print'
-					],
-					
-				});
-			
-		 
-			// Filter event handler
-			$( theTable.table().container() ).on( 'keyup', 'tfoot input', function () {
-				theTable
-					.column( $(this).data('index') )
-					.search( this.value )
-					.draw();
-			} );
-			$(".dataTables_filter, .dataTables_info").css('display','none');
-	}
-	
-});
-//End Datatable
