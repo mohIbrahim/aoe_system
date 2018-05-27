@@ -32398,13 +32398,12 @@ $(document).ready(function () {
 			success: function success(results) {
 				$("#my-table-body").fadeOut();
 				$("#my-table-body").children().remove();
+				standardTable.clear();
 				$.each(results, function (index, machine) {
-					if (machine.customer) {
-						newResult += "<tr> <td>" + (index + 1) + "</td><td><a href='/printing_machines/" + machine.id + "'>" + machine.folder_number + "</a></td><td>" + machine.code + "</td><td>" + machine.model_prefix + "-" + machine.model_suffix + "</td><td>" + machine.customer.name + "</td> </tr>";
-					} else {
-						newResult += "<tr> <td>" + (index + 1) + "</td><td><a href='/printing_machines/" + machine.id + "'>" + machine.folder_number + "</a></td><td>" + machine.code + "</td><td>" + machine.model_prefix + "-" + machine.model_suffix + "</td><td></td> </tr>";
-					}
+
+					standardTable.row.add([index + 1, "<a href='/printing_machines/" + machine.id + "'>" + machine.folder_number + "</a>", machine.serial_number, machine.code, machine.model_prefix + "-" + machine.model_suffix, machine.customer.name]);
 				});
+				standardTable.draw();
 				$("#my-table-body").append(newResult);
 				$("#my-table-body").fadeIn();
 			}

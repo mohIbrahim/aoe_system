@@ -21,48 +21,48 @@
 				<h3 class="text-center"> عرض الآلات التصوير </h3>
 		    </div>
 
-		    <div class="panel-body">
-		  		<div class="table-responsive" style="overflow:hidden">
-			  	    <table class="table table-hover standart-datatable" id="printing-machine-index-table">
-			  		    <thead>
-			  			    <tr>
-								<th>#</th>
-			  				    <th> رقم الملف الآلة </th>
-			  				    <th> كود الآلة </th>
-			  				    <th> الموديل </th>
-			  				    <th> اسم العميل </th>
-			  			    </tr>
-			  		    </thead>
-			  		    <tbody id="my-table-body">
-							<div class="">
-								@foreach ($printingMachines as $k => $printingMachine)
-									<tr>
-										<td>
-											{{$k+1}}
-										</td>
-										<td><a href="{{action('PrintingMachineController@show', ['id'=>$printingMachine->id])}}">{{$printingMachine->folder_number}}</a></td>
-										<td>{{$printingMachine->code}}</td>
-										<td>{{"$printingMachine->model_prefix-$printingMachine->model_suffix"}}</td>
-										<td>{{isset($printingMachine->customer)?$printingMachine->customer->name:''}}</td>
-									</tr>
-								@endforeach
-							</div>
-			  		    </tbody>
-						<tfoot>
-							<tr>
-								<th>#</th>
-			  				    <th> رقم الملف الآلة </th>
-			  				    <th> كود الآلة </th>
-			  				    <th> الموديل </th>
-			  				    <th> اسم العميل </th>
-							</tr>
-						</tfoot>
-			  	     </table>
-					 <div class="text-center">
-						 {{$printingMachines->links()}}
-					 </div>
-				 </div>
-
+		    <div class="panel-body">		  		
+				<table class="table table-hover standart-datatable" id="printing-machine-index-table">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th> رقم الملف الآلة </th>
+							<th> الرقم المسلسل </th>
+							<th> كود الآلة </th>
+							<th> الموديل </th>
+							<th> اسم العميل </th>
+						</tr>
+					</thead>
+					<tbody id="my-table-body">
+						<div class="">
+							@foreach ($printingMachines as $k => $printingMachine)
+								<tr>
+									<td>
+										{{$k+1}}
+									</td>
+									<td><a href="{{action('PrintingMachineController@show', ['id'=>$printingMachine->id])}}">{{$printingMachine->folder_number}}</a></td>
+									<td>{{$printingMachine->serial_number}}</td>
+									<td>{{$printingMachine->code}}</td>
+									<td>{{"$printingMachine->model_prefix-$printingMachine->model_suffix"}}</td>
+									<td>{{isset($printingMachine->customer)?$printingMachine->customer->name:''}}</td>
+								</tr>
+							@endforeach
+						</div>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>#</th>
+							<th> رقم الملف الآلة </th>
+							<th> الرقم المسلسل </th>
+							<th> كود الآلة </th>
+							<th> الموديل </th>
+							<th> اسم العميل </th>
+						</tr>
+					</tfoot>
+				</table>
+					<div class="text-center">
+						{{$printingMachines->links()}}
+					</div>
 		    </div>
 		  </div>
 	  </div>
