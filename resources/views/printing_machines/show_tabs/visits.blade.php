@@ -9,6 +9,7 @@
 				<th> تاريخ الزيارة </th>
 				<th> نوع الزيارة </th>
 				<th> قراءة العداد </th>
+				<th> إضافة مقايسة </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,6 +24,13 @@
 					<td>{{$visit->visit_date}}</td>
 					<td>{{$visit->type}}</td>
 					<td>{{$visit->readings_of_printing_machine}}</td>
+					@if( in_array('create_indexations', $permissions ))
+						<td>
+							<a href="{{action('IndexationController@createIndexationWithVisitId', ['visit_id'=>$visit->id])}}">
+								إضافة مقايسة لهذة الزيارة
+							</a>
+						</td>
+					@endif
 				</tr>
 			@endforeach
 		</tbody>

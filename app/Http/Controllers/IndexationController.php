@@ -144,6 +144,12 @@ class IndexationController extends Controller
     {
         $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
         return back()->withInput();
-    }    
-
+    }
+    
+    public function createIndexationWithVisitId($visitIdFromPrintingMachine)
+    {
+        $referencesIds = Reference::all()->pluck('code', 'id');
+        $visitsIds = Visit::all()->pluck('id', 'id');
+        return view('indexations.create', compact('referencesIds', 'visitsIds', 'visitIdFromPrintingMachine'));
+    }
 }

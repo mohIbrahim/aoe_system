@@ -89,6 +89,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('indexations_search/{keyword}', 'IndexationController@search')->name('indexations_search');
     Route::get('remove_the_indexation_file/{project_image_id}', 'IndexationController@removeIndexationFile')->name('remove_the_indexation_file');
     Route::get('indexation_form_part_search/{keyword}', 'IndexationController@indexationFormPartSearch')->name('indexation_form_part_search');
+    Route::get('create_indexations_with_visit_id/{visit_id}', 'IndexationController@createIndexationWithVisitId')->name('create_indexations_with_visit_id');
 //Employees
     Route::resource('employees', 'EmployeeController');
     Route::get('employees_search/{keyword}', 'EmployeeController@search')->name('employees_search');

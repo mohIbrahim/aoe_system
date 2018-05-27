@@ -49,7 +49,7 @@
         <?php $selectedVist = isset($indexation->visit_id)? $indexation->visit_id:'' ;?>
         <option value=""> اختر رقم الزيارة.  </option>
         @foreach ($visitsIds as $id => $visitIdentifier)
-            <option value="{{$id}}" {{($selectedVist == $id)? 'selected' : ((old('visit_id')==$id)?'selected':'')}}> {{$visitIdentifier}} </option>
+            <option value="{{$id}}" {{($selectedVist == $id)? 'selected' : ((old('visit_id')==$id)?'selected':( (isset($visitIdFromPrintingMachine))?(($visitIdFromPrintingMachine == $id)?('selected'):('')):('') ))}}> {{$visitIdentifier}} </option>
         @endforeach
     </select>
 </div>

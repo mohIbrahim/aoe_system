@@ -75,7 +75,13 @@ class Indexations
 
             $response = $next($request);
         }
-        else{
+        else
+        if($request->route()->getName() == 'create_indexations_with_visit_id'    && in_array('create_indexations', $permissions)){
+
+            $response = $next($request);
+        }
+        else
+        {
             abort(403);
         }
 
