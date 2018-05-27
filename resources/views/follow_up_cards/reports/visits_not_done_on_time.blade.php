@@ -32,7 +32,6 @@
 				<h3 class="text-center"> عرض الزيارات </h3>
 		    </div>
 		    <div class="panel-body">
-		  		<div class="table-responsive">
 					<div id="follow-up-card-visits-not-done-report-loading-message" class="text-center"></div>
 			  	    <table class="table table-hover standart-datatable">
 			  		    <thead>
@@ -47,7 +46,7 @@
 			  		    <tbody id="follow-up-card-visits-not-done-report-table-body">
 			  		    </tbody>
 			  	     </table>
-				 </div>
+				
 		    </div>
 		  </div>
 	  </div>

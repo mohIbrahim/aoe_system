@@ -10,10 +10,16 @@ $(document).ready(function() {
 		// DataTable
 		var theTable = $('.standart-datatable').DataTable(
 			{
-				
+				"language": {
+					"search": "بحث: ",
+					"info": "الصفحات المعروضة _PAGE_ من _PAGES_",
+					"infoEmpty": "لا توجد سجلات متاحة",
+					"zeroRecords": "نأسف لم يتم العثور على شيء",
+				  },
 				"searching": true,
 				"lengthChange": false,
-				// "scrollY": '500px',
+				// "scrollY": "1000px",
+  				// "scrollCollapse": true,
 				"paging": false,
 				dom: 'Bfrtip',
 				buttons: [
@@ -28,7 +34,7 @@ $(document).ready(function() {
 				.search( this.value )
 				.draw();
 		} );
-		$(".dataTables_filter, .dataTables_info").css('display','none');
+		$(".dataTables_filter, .dataTables_info").css({'float':'left','display':'block'});
 		standardTable = theTable;
 	}	
 });
