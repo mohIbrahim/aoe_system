@@ -18,44 +18,55 @@
 				<a href=""  class="btn btn-success"> العودة </a>
 				<h3 class="text-center"> عرض القطع القابلة للتغير من أجزاء الماكينة </h3>
 		    </div>
-		    <div class="panel-body">
-		  		<div class="table-responsive">
-			  	    <table class="table table-hover">
-			  		    <thead>
-			  			    <tr>
-								<th>#</th>
-                                <th> الاسم </th>
-			  				    <th> الكود </th>
-			  				    <th> النوع </th>
-			  				    <th> الكمية </th>
-			  			    </tr>
-			  		    </thead>
-			  		    <tbody id="my-table-body">
-							<div class="">
-								@foreach ($parts as $k => $part)
-									<tr>
-										<td>
-											{{$k+1}}
-										</td>
-										<td>
-                                            <a href="{{action('PartController@show', ['id'=>$part->id])}}" target="_blank">
-                                                {{$part->name}}
-                                            </a>
-                                        </td>
-										<td>{{$part->code}}</td>
-										<td>{{$part->type}}</td>
-										<td>{{($part->is_serialized == '0')?($part->no_serial_qty):($part->serialNumbersCount())}}</td>
-									</tr>
-								@endforeach
-							</div>
-			  		    </tbody>
-			  	     </table>
-					 <div class="text-center">
-						 {{$parts->links()}}
-					 </div>
-				 </div>
+		    <div class="panel-body">		  		
+				<table class="table table-hover standart-datatable">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th> الاسم </th>
+							<th> الكود </th>
+							<th> النوع </th>
+							<th> الكمية </th>
+							<th> متوافقة مع </th>
+						</tr>
+					</thead>
+					<tbody id="my-table-body">
+						<div class="">
+							@foreach ($parts as $k => $part)
+								<tr>
+									<td>
+										{{$k+1}}
+									</td>
+									<td>
+										<a href="{{action('PartController@show', ['id'=>$part->id])}}" target="_blank">
+											{{$part->name}}
+										</a>
+									</td>
+									<td>{{$part->code}}</td>
+									<td>{{$part->type}}</td>
+									<td>{{($part->is_serialized == '0')?($part->no_serial_qty):($part->serialNumbersCount())}}</td>
+									<td>{{$part->compatible_printing_machines}}</td>
+								</tr>
+							@endforeach
+						</div>
+					</tbody>
+					</table>
+					<div class="text-center">
+						{{$parts->links()}}
+					</div>				
 		    </div>
 		  </div>
 	  </div>
 	</div>
+@endsection
+
+@section('head')
+{{-- Datatable --}}
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-3.2.1/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/fc-3.2.4/fh-3.1.3/datatables.min.css"/>
+{{-- Datatable --}}
+@endsection
+@section('js_footer')
+{{-- Datatable --}}
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-3.2.1/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/fc-3.2.4/fh-3.1.3/datatables.min.js"></script>
+{{-- Datatable --}}
 @endsection

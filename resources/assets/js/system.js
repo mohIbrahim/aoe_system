@@ -21,6 +21,8 @@ $(document).ready(function() {
 				// "scrollY": "1000px",
   				// "scrollCollapse": true,
 				"paging": false,
+				"ordering":  true,
+				"info": false,
 				dom: 'Bfrtip',
 				buttons: [
 					'excel', 'print'
@@ -564,9 +566,18 @@ $(document).ready(function(){
 				success: function(results){
 					$("#my-table-body").fadeOut();
 					$("#my-table-body").children().remove();
+					standardTable.clear();
 					$.each(results, function(index, part) {
-						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/parts/"+part.id+"'>"+part.name+"</a></td><td>"+part.code+"</td><td>"+part.type+"</td><td>"+((part.is_serialized)?(part.qty):(part.no_serial_qty))+"</td></tr>"
+						standardTable.row.add([
+												index+1,
+												"<a href='/parts/"+part.id+"'>"+part.name+"</a>",
+												part.code,
+												part.type,
+												((part.is_serialized)?(part.qty):(part.no_serial_qty)),
+												part.compatible_printing_machines,
+											]);
 					});
+					standardTable.draw();
 					$("#my-table-body").append(newResult);
 					$("#my-table-body").fadeIn();
 				}

@@ -54,6 +54,7 @@ class EloquentPart implements PartInterface
         $results = $this->part->where('code', 'like', '%'.$keyword.'%')
                         ->orWhere('name', 'like', '%'.$keyword.'%')
                         ->orWhere('type', 'like', '%'.$keyword.'%')
+                        ->orWhere('compatible_printing_machines', 'like', '%'.$keyword.'%')
                         ->get();
         return $results;
     }
