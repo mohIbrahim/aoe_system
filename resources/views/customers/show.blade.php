@@ -275,9 +275,14 @@
                                             <th> رقم ملف الآلة </th>
                                             <th> الموديل  </th>
                                             <th> اسم الفرع  </th>
+                                            <th> الرقم المسلسل  </th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr>
+                                            <td colspan="7" class="text-center"> فرع {{$customer->name}} </td>
+                                        </tr>
+                                        
                                         @foreach ($customer->printingMachines as $key3 => $machine)
                                             <tr>
                                                 <td>
@@ -300,18 +305,17 @@
 												<td>
                                                     {{$customer->name}}
                                                 </td>
+												<td>
+                                                    {{$machine->serial_number}}
+                                                </td>
                                             </tr>
                                         @endforeach
-										@if ($customer->branches)
-											@foreach ($customer->branches as $branchesIterator => $branche)
-												<tr>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-												</tr>
+                                        @if ($customer->branches)
+                                            @foreach ($customer->branches as $branchesIterator => $branche)
+                                                <tr>
+                                                    <td colspan="7" class="text-center"> الفرع: {{$branchesIterator+1}} </td>
+                                                </tr>
+												
 												@foreach ($branche->printingMachines as $branchPMIterator => $pm)
 													<tr>
 														<td>
@@ -333,6 +337,9 @@
 														</td>
 														<td>
 		                                                    {{$branche->name}}
+		                                                </td>
+														<td>
+		                                                    {{$pm->serial_number}}
 		                                                </td>
 													</tr>
 												@endforeach

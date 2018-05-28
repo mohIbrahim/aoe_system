@@ -132,8 +132,9 @@ class PrintingMachineController extends Controller
     public function createWithCustomerId($incommingCustomer)
     {
         $customerIdsCodes = $this->mergeCustomersCodesAndNames();
-		$employeesNames = Employee::all()->pluck('user.name');
-        return view('printing_machines.create', compact('customerIdsCodes', 'employeesNames', 'incommingCustomer'));
+        $employeesNames = Employee::all()->pluck('user.name');
+        $assignedEmployeesNamesIds = Employee::all()->pluck('user.name', 'user.id');
+        return view('printing_machines.create', compact('customerIdsCodes', 'employeesNames', 'incommingCustomer', 'assignedEmployeesNamesIds'));
     }
 
 }
