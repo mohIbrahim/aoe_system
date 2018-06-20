@@ -50,6 +50,7 @@ class DataEntryController extends Controller
                 $eloquentCustomer = new EloquentCustomer(new Customer());
                 $customerBranch         = null;
                 $customerMain           = null;
+
                 $phone1                 = $row->phone1;
                 $phone2                 = $row->phone2;
                 $phone3                 = $row->phone3;
@@ -70,8 +71,16 @@ class DataEntryController extends Controller
                 $modelSuffix            = $row->model_suffix;
                 $serialNumber           = $row->serial_number;
 
-                $contractStart          = $row->warranty_start;
-                $contractEnd            = $row->warranty_end;
+                $contracType            = $row->contract_type;
+                $warrantyStart          = $row->warranty_start;
+                $warrantyEnd            = $row->warranty_end;
+                $maintenanceStart       = $row->maintenance_start;
+                $maintenanceEnd         = $row->maintenance_end;
+                $priceBeforeTax         = $row->price_before_tax;
+                $priceAfterTax          = $row->price_after_tax;
+                $paymentSystem          = $row->patyment_system;
+                $paymentCounts          = $row->payments_count;
+
                 
 
                 if (!empty($customerName)) {
