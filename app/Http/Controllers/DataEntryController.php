@@ -79,7 +79,10 @@ class DataEntryController extends Controller
                 $priceBeforeTax           = $row->price_before_tax;
                 $priceAfterTax            = $row->price_after_tax;
                 $paymentSystem            = $row->patyment_system;
-                $paymentCounts            = $row->payments_count;
+                $periodBetweenEachPayment = $row->period_between_each_payment;
+                $contractComments         = $row->contract_comments;                
+                $contractComments2        = $row->contract_comments2;
+                $contractComments3        = $row->contract_comments3;
         
                 $invoiceOneReleaseDate    = $row->invoice_1_release_date;
                 $invoiceOneNumber         = $row->invoice_1_number;
@@ -95,7 +98,8 @@ class DataEntryController extends Controller
                 
                 $invoiceFourReleaseDate   = $row->invoice_4_release_date;
                 $invoiceFourNumber        = $row->invoice_4_number;
-                $invoiceFourPrice         = $row->invoice_4_price;                
+                $invoiceFourPrice         = $row->invoice_4_price;
+
 
                 if (!empty($customerName)) {
                     $empId = User::where('name', 'like', $username )->get()->first()->employee->id;
@@ -117,33 +121,9 @@ class DataEntryController extends Controller
                                                                 'telecom'=>[$phone1, $phone2, $phone3],
                                                             ]);
                         $pm = $this->createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerMain->id);
-                        $contract = $this->createContract(  
-                                                            $contracType,
-                                                            $warrantyStart,
-                                                            $warrantyEnd,
-                                                            $maintenanceStart,
-                                                            $maintenanceEnd,
-                                                            $priceBeforeTax,
-                                                            $priceAfterTax,
-                                                            $paymentSystem,
-                                                            $paymentCounts,
-                                                        
-                                                            $invoiceOneReleaseDate,
-                                                            $invoiceOneNumber,
-                                                            $invoiceOnePrice,
-                                                        
-                                                            $invoiceTwoReleaseDate,
-                                                            $invoiceTwoNumber,
-                                                            $invoiceTwoPrice,
-                                                        
-                                                            $invoiceThreeReleaseDate,
-                                                            $invoiceThreeNumber,
-                                                            $invoiceThreePrice,
-                                                        
-                                                            $invoiceFourReleaseDate,
-                                                            $invoiceFourNumber,
-                                                            $invoiceFourPrice
-                                                        );
+
+                        $contract = $this->createContractsAndTheirOwnInvoices($contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $contractComments, $contractComments2, $contractComments3, $periodBetweenEachPayment, $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice);
+
                         $pm->contracts()->attach([$contract->id]);
                         $pm->assignedEmployees()->attach($empId);
                         
@@ -168,7 +148,9 @@ class DataEntryController extends Controller
                                                                 'telecom'=>[$phone1, $phone2, $phone3],
                                                             ]);
                             $pm = $this->createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerBranch->id);
-                            $contract = $this->createContract($contractStart, $contractEnd);
+
+                            $contract = $this->createContractsAndTheirOwnInvoices($contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $contractComments, $contractComments2, $contractComments3, $periodBetweenEachPayment, $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice);
+
                             $pm->contracts()->attach([$contract->id]);
                             $pm->assignedEmployees()->attach($empId);
                         }
@@ -199,7 +181,7 @@ class DataEntryController extends Controller
             return $printingMachine;
     }
 
-    private function createContractsAndHersContracts($contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $paymentCounts, $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice)
+    private function createContractsAndTheirOwnInvoices($contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3, $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice)
     {
         $eloquentContract = new EloquentContract(new Contract());
         if ( $contracType == 'ضمان' ) {
@@ -210,6 +192,7 @@ class DataEntryController extends Controller
                                                         'end'=>$warrantyEnd, 
                                                         'status'=>'ساري', 
                                                         'payment_system'=>'بدون',
+                                                        'comments'=>$contractComments.'&#13;&#10;'.$contractComments2.'&#13;&#10;'.$contractComments3,
                                                     ]);
             }
         } else {
@@ -220,6 +203,7 @@ class DataEntryController extends Controller
                                                         'end'=>$warrantyEnd, 
                                                         'status'=>'ساري', 
                                                         'payment_system'=>'بدون',
+                                                        'comments'=>$contractComments.'&#13;&#10;'.$contractComments2.'&#13;&#10;'.$contractComments3,
                                                     ]);
             }
             $contract = $eloquentContract->create([
@@ -230,10 +214,9 @@ class DataEntryController extends Controller
                                                     'price'=>$priceBeforeTax,
                                                     'tax'=>14,
                                                     'total_price'=>$priceAfterTax,
-                                                    'payment_system'=>,
-                                                    'period_between_each_payment'=>,
-                                                    'comments'=>,
-                                                    'employee_id_who_edits_the_contract'=>,
+                                                    'payment_system'=>$paymentSystem,
+                                                    'period_between_each_payment'=>$periodBetweenEachPayment,
+                                                    'comments'=>$contractComments.'&#13;&#10;'.$contractComments2.'&#13;&#10;'.$contractComments3,
                                                 ]);
         }
         return $contract;
