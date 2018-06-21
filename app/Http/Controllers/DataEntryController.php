@@ -47,41 +47,55 @@ class DataEntryController extends Controller
                 }
 
                 //Customer, Printing machine, Contract
-                $eloquentCustomer = new EloquentCustomer(new Customer());
-                $customerBranch         = null;
-                $customerMain           = null;
-
-                $phone1                 = $row->phone1;
-                $phone2                 = $row->phone2;
-                $phone3                 = $row->phone3;
-                $responsiblePersoneName = $row->responsible_persone_name;
-                $fax                    = $row->fax;
-                $email                  = $row->email;
-                $customerName           = $row->name;
-                $administration         = $row->administration;
-                $sector                 = $row->sector;
-                $type                   = $row->type;
-                $accountantName         = $row->accountant_name;
-                $governorate            = $row->governorate;
-                $area                   = $row->area;
-                $address                = $row->address;
-
-                $folderNumber           = $row->folder_number;
-                $modelPrefix            = $row->model_prefix;
-                $modelSuffix            = $row->model_suffix;
-                $serialNumber           = $row->serial_number;
-
-                $contracType            = $row->contract_type;
-                $warrantyStart          = $row->warranty_start;
-                $warrantyEnd            = $row->warranty_end;
-                $maintenanceStart       = $row->maintenance_start;
-                $maintenanceEnd         = $row->maintenance_end;
-                $priceBeforeTax         = $row->price_before_tax;
-                $priceAfterTax          = $row->price_after_tax;
-                $paymentSystem          = $row->patyment_system;
-                $paymentCounts          = $row->payments_count;
-
+                $eloquentCustomer         = new EloquentCustomer(new Customer());
+                $customerBranch           = null;
+                $customerMain             = null;
+        
+                $phone1                   = $row->phone1;
+                $phone2                   = $row->phone2;
+                $phone3                   = $row->phone3;
+                $responsiblePersoneName   = $row->responsible_persone_name;
+                $fax                      = $row->fax;
+                $email                    = $row->email;
+                $customerName             = $row->name;
+                $administration           = $row->administration;
+                $sector                   = $row->sector;
+                $type                     = $row->type;
+                $accountantName           = $row->accountant_name;
+                $governorate              = $row->governorate;
+                $area                     = $row->area;
+                $address                  = $row->address;
+        
+                $folderNumber             = $row->folder_number;
+                $modelPrefix              = $row->model_prefix;
+                $modelSuffix              = $row->model_suffix;
+                $serialNumber             = $row->serial_number;
+        
+                $contracType              = $row->contract_type;
+                $warrantyStart            = $row->warranty_start;
+                $warrantyEnd              = $row->warranty_end;
+                $maintenanceStart         = $row->maintenance_start;
+                $maintenanceEnd           = $row->maintenance_end;
+                $priceBeforeTax           = $row->price_before_tax;
+                $priceAfterTax            = $row->price_after_tax;
+                $paymentSystem            = $row->patyment_system;
+                $paymentCounts            = $row->payments_count;
+        
+                $invoiceOneReleaseDate    = $row->invoice_1_release_date;
+                $invoiceOneNumber         = $row->invoice_1_number;
+                $invoiceOnePrice          = $row->invoice_1_price;
+        
+                $invoiceTwoReleaseDate    = $row->invoice_2_release_date;
+                $invoiceTwoNumber         = $row->invoice_2_number;
+                $invoiceTwoPrice          = $row->invoice_2_price;
                 
+                $invoiceThreeReleaseDate  = $row->invoice_3_release_date;
+                $invoiceThreeNumber       = $row->invoice_3_number;
+                $invoiceThreePrice        = $row->invoice_3_price;
+                
+                $invoiceFourReleaseDate   = $row->invoice_4_release_date;
+                $invoiceFourNumber        = $row->invoice_4_number;
+                $invoiceFourPrice         = $row->invoice_4_price;                
 
                 if (!empty($customerName)) {
                     $empId = User::where('name', 'like', $username )->get()->first()->employee->id;
@@ -103,7 +117,33 @@ class DataEntryController extends Controller
                                                                 'telecom'=>[$phone1, $phone2, $phone3],
                                                             ]);
                         $pm = $this->createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerMain->id);
-                        $contract = $this->createContract($contractStart, $contractEnd);
+                        $contract = $this->createContract(  
+                                                            $contracType,
+                                                            $warrantyStart,
+                                                            $warrantyEnd,
+                                                            $maintenanceStart,
+                                                            $maintenanceEnd,
+                                                            $priceBeforeTax,
+                                                            $priceAfterTax,
+                                                            $paymentSystem,
+                                                            $paymentCounts,
+                                                        
+                                                            $invoiceOneReleaseDate,
+                                                            $invoiceOneNumber,
+                                                            $invoiceOnePrice,
+                                                        
+                                                            $invoiceTwoReleaseDate,
+                                                            $invoiceTwoNumber,
+                                                            $invoiceTwoPrice,
+                                                        
+                                                            $invoiceThreeReleaseDate,
+                                                            $invoiceThreeNumber,
+                                                            $invoiceThreePrice,
+                                                        
+                                                            $invoiceFourReleaseDate,
+                                                            $invoiceFourNumber,
+                                                            $invoiceFourPrice
+                                                        );
                         $pm->contracts()->attach([$contract->id]);
                         $pm->assignedEmployees()->attach($empId);
                         
@@ -159,16 +199,43 @@ class DataEntryController extends Controller
             return $printingMachine;
     }
 
-    private function createContract($start, $end)
+    private function createContractsAndHersContracts($contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $paymentCounts, $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice)
     {
         $eloquentContract = new EloquentContract(new Contract());
-        $contract = $eloquentContract->create([
-                                            'type'=>'ضمان', 
-                                            'start'=>$start, 
-                                            'end'=>$end, 
-                                            'status'=>'ساري', 
-                                            'payment_system'=>'بدون',
-                                        ]);
+        if ( $contracType == 'ضمان' ) {
+            if ( !empty($warrantyStart) && !empty($warrantyEnd) ) {
+                $contract = $eloquentContract->create([
+                                                        'type'=>'ضمان', 
+                                                        'start'=>$warrantyStart, 
+                                                        'end'=>$warrantyEnd, 
+                                                        'status'=>'ساري', 
+                                                        'payment_system'=>'بدون',
+                                                    ]);
+            }
+        } else {
+            if ( !empty($warrantyStart) && !empty($warrantyEnd) ) {
+                $contract = $eloquentContract->create([
+                                                        'type'=>'ضمان', 
+                                                        'start'=>$warrantyStart, 
+                                                        'end'=>$warrantyEnd, 
+                                                        'status'=>'ساري', 
+                                                        'payment_system'=>'بدون',
+                                                    ]);
+            }
+            $contract = $eloquentContract->create([
+                                                    'type'=>$contracType,
+                                                    'start'=>$maintenanceStart,
+                                                    'end'=>$maintenanceEnd,
+                                                    'status'=>'ساري',
+                                                    'price'=>$priceBeforeTax,
+                                                    'tax'=>14,
+                                                    'total_price'=>$priceAfterTax,
+                                                    'payment_system'=>,
+                                                    'period_between_each_payment'=>,
+                                                    'comments'=>,
+                                                    'employee_id_who_edits_the_contract'=>,
+                                                ]);
+        }
         return $contract;
     }
 
