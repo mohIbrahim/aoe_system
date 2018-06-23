@@ -95,7 +95,7 @@ class EloquentContract implements ContractInterface
 
     public function createInvoicesForNewContract($contract)
     {
-        if ((!empty($contract->start)) && (!empty($contract->end)) && (($contract->type) != 'بدون')) {
+        if ((!empty($contract->start)) && (!empty($contract->end)) && (($contract->payment_system) != 'بدون')) {
             $contractStart = $contract->start;
             $contractEnd = $contract->end;
             $contractPaymentSystem = $contract->payment_system;

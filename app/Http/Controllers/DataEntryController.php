@@ -18,14 +18,15 @@ class DataEntryController extends Controller
 {
     public function import()
     {
-        //$this->importAOEData();
-        dd('null');
+        $this->importAOEData();
+        $this->importWarrntySheet();
+        dd('Done');
         return null;
     }
 
     private function importWarrntySheet()
     {
-        \Excel::load('excel/warranty.xlsx', function($reader) {
+        \Excel::load('excel/warranty2.xlsx', function($reader) {
 
             $results = $reader->takeRows(256)->get();
             foreach ($results as $row)
@@ -36,7 +37,7 @@ class DataEntryController extends Controller
                 $user = null;
                 $employee = null;
                 if (!empty($username)) {
-                    if (User::where('name', 'like', $username)->get()->isEmpty()) {
+                    if (User::where('name', $username)->get()->isEmpty()) {
                         $user = User::create([
                                             'name'=>trim($username),
                                             'email'=>str_slug(trim($username), '-').'@aoe-egypt.com',
@@ -78,9 +79,9 @@ class DataEntryController extends Controller
                 $maintenanceEnd           = $row->maintenance_end;
                 $priceBeforeTax           = $row->price_before_tax;
                 $priceAfterTax            = $row->price_after_tax;
-                $paymentSystem            = $row->patyment_system;
+                $paymentSystem            = $row->payment_system;
                 $periodBetweenEachPayment = $row->period_between_each_payment;
-                $contractComments         = $row->contract_comments;                
+                $contractComments         = $row->contract_comments;
                 $contractComments2        = $row->contract_comments2;
                 $contractComments3        = $row->contract_comments3;
         
@@ -122,9 +123,9 @@ class DataEntryController extends Controller
                                                             ]);
                         $pm = $this->createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerMain->id);
 
-                        $contract = $this->createContractsAndTheirOwnInvoices($contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $contractComments, $contractComments2, $contractComments3, $periodBetweenEachPayment, $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice);
+                        $contract = $this->createContractsAndTheirOwnInvoices($pm->id, $serialNumber, $contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3,  $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice, $customerMain->id);
 
-                        $pm->contracts()->attach([$contract->id]);
+                        
                         $pm->assignedEmployees()->attach($empId);
                         
                     } else {
@@ -149,9 +150,9 @@ class DataEntryController extends Controller
                                                             ]);
                             $pm = $this->createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerBranch->id);
 
-                            $contract = $this->createContractsAndTheirOwnInvoices($contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $contractComments, $contractComments2, $contractComments3, $periodBetweenEachPayment, $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice);
+                            $contract = $this->createContractsAndTheirOwnInvoices($pm->id, $serialNumber, $contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3,  $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice, $customerBranch->id);
 
-                            $pm->contracts()->attach([$contract->id]);
+                            
                             $pm->assignedEmployees()->attach($empId);
                         }
                     }
@@ -181,8 +182,10 @@ class DataEntryController extends Controller
             return $printingMachine;
     }
 
-    private function createContractsAndTheirOwnInvoices($contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3, $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice)
+    private function createContractsAndTheirOwnInvoices($printingMachineId, $printingMachineSerialNumber, $contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3, $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice, $customerId)
     {
+        if($periodBetweenEachPayment == 'يوجد موافقة عقد')
+                dd($printingMachineSerialNumber);
         $eloquentContract = new EloquentContract(new Contract());
         if ( $contracType == 'ضمان' ) {
             if ( !empty($warrantyStart) && !empty($warrantyEnd) ) {
@@ -194,6 +197,7 @@ class DataEntryController extends Controller
                                                         'payment_system'=>'بدون',
                                                         'comments'=>$contractComments.'&#13;&#10;'.$contractComments2.'&#13;&#10;'.$contractComments3,
                                                     ]);
+                $contract->printingMachines()->attach($printingMachineId);
             }
         } else {
             if ( !empty($warrantyStart) && !empty($warrantyEnd) ) {
@@ -205,7 +209,8 @@ class DataEntryController extends Controller
                                                         'payment_system'=>'بدون',
                                                         'comments'=>$contractComments.'&#13;&#10;'.$contractComments2.'&#13;&#10;'.$contractComments3,
                                                     ]);
-            }
+                $contract->printingMachines()->attach($printingMachineId);
+            }            
             $contract = $eloquentContract->create([
                                                     'type'=>$contracType,
                                                     'start'=>$maintenanceStart,
@@ -218,6 +223,37 @@ class DataEntryController extends Controller
                                                     'period_between_each_payment'=>$periodBetweenEachPayment,
                                                     'comments'=>$contractComments.'&#13;&#10;'.$contractComments2.'&#13;&#10;'.$contractComments3,
                                                 ]);
+
+            $contract->printingMachines()->attach($printingMachineId);
+            $eloquentContract->createInvoicesForNewContract($contract);
+
+            $contractInvoices = $contract->invoices;
+            foreach ($contractInvoices as $invoiceKey=>$invoice) {
+                if ($invoiceKey == 0)
+                    $invoice->update(['customer_id'=>$customerId, 
+                                    'release_date'=>$invoiceOneReleaseDate,
+                                    'number'=>$invoiceOneNumber,
+                                    'total'=>$invoiceOnePrice
+                                    ]);
+                if ($invoiceKey == 1)
+                    $invoice->update(['customer_id'=>$customerId, 
+                                    'release_date'=>$invoiceTwoReleaseDate,
+                                    'number'=>$invoiceTwoNumber,
+                                    'total'=>$invoiceTwoPrice
+                                    ]);
+                if ($invoiceKey == 2)
+                    $invoice->update(['customer_id'=>$customerId, 
+                                    'release_date'=>$invoiceThreeReleaseDate,
+                                    'number'=>$invoiceThreeNumber,
+                                    'total'=>$invoiceThreePrice
+                                    ]);
+                if ($invoiceKey == 3)
+                    $invoice->update(['customer_id'=>$customerId, 
+                                    'release_date'=>$invoiceFourReleaseDate,
+                                    'number'=>$invoiceFourNumber,
+                                    'total'=>$invoiceFourPrice
+                                    ]);
+            }
         }
         return $contract;
     }
@@ -266,7 +302,7 @@ class DataEntryController extends Controller
                 $partCode                   = $row->code;
                 $partDescription            = $row->description;
                 $compatablePrintingMachines = $row->compatable_machine;
-                $life                       = $row->life;                
+                $life                       = $row->life;
                 $partPrice                  = $row->price_without;
                 
                 $part = Part::create([
