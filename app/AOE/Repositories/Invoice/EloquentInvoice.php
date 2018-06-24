@@ -107,7 +107,7 @@ class EloquentInvoice implements InvoiceInterface
                                 'itemCount'=>1,
                                 'itemPrice'=>$contract->price,
                                 'totalItemsPricePerRow'=>$contract->price,
-                                'discount'=>$contract->price,
+                                'discount'=>0,
                             ];
         } else if ($type == 'مقايسة') {
             $parts = $invoice->indexation->parts->toArray();

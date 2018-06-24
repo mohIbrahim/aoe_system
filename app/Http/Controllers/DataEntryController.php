@@ -13,22 +13,22 @@ use App\AOE\Repositories\Contract\EloquentContract;
 use App\Employee;
 use App\Part;
 use App\Department;
+use \Carbon\Carbon;
 
 class DataEntryController extends Controller
 {
     public function import()
     {
         $this->importAOEData();
-        $this->importWarrntySheet();
-        dd('Done');
+        $isDone = $this->importWarrntySheet();
+        dd($isDone);
         return null;
     }
 
     private function importWarrntySheet()
     {
         \Excel::load('excel/warranty2.xlsx', function($reader) {
-
-            $results = $reader->takeRows(256)->get();
+            $results = $reader->takeRows(30)->get();
             foreach ($results as $row)
             {
                 // dd(count($results));
@@ -161,9 +161,9 @@ class DataEntryController extends Controller
 
 
 
-            }        
+            }      
         });        
-        return null;
+        return "Done";
     }
 
     private function createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerId)
@@ -193,7 +193,7 @@ class DataEntryController extends Controller
                                                         'type'=>'ضمان', 
                                                         'start'=>$warrantyStart, 
                                                         'end'=>$warrantyEnd, 
-                                                        'status'=>'ساري', 
+                                                        'status'=>( (((new Carbon())->parse($warrantyEnd))->gte(Carbon::now()) )?('ساري'):('منتهي') ), 
                                                         'payment_system'=>'بدون',
                                                         'comments'=>$contractComments.'&#13;&#10;'.$contractComments2.'&#13;&#10;'.$contractComments3,
                                                     ]);
@@ -205,17 +205,17 @@ class DataEntryController extends Controller
                                                         'type'=>'ضمان', 
                                                         'start'=>$warrantyStart, 
                                                         'end'=>$warrantyEnd, 
-                                                        'status'=>'ساري', 
+                                                        'status'=>( (((new Carbon())->parse($warrantyEnd))->gte(Carbon::now()) )?('ساري'):('منتهي') ), 
                                                         'payment_system'=>'بدون',
                                                         'comments'=>$contractComments.'&#13;&#10;'.$contractComments2.'&#13;&#10;'.$contractComments3,
                                                     ]);
                 $contract->printingMachines()->attach($printingMachineId);
-            }            
+            }
             $contract = $eloquentContract->create([
                                                     'type'=>$contracType,
-                                                    'start'=>$maintenanceStart,
+                                                    'start'=> ((new Carbon())->parse($maintenanceEnd)->subYear()),
                                                     'end'=>$maintenanceEnd,
-                                                    'status'=>'ساري',
+                                                    'status'=>( (((new Carbon())->parse($maintenanceEnd))->gte(Carbon::now()) )?('ساري'):('منتهي') ),
                                                     'price'=>$priceBeforeTax,
                                                     'tax'=>14,
                                                     'total_price'=>$priceAfterTax,
