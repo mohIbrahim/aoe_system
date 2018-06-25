@@ -19,7 +19,7 @@ class DataEntryController extends Controller
 {
     public function import()
     {
-        $this->importAOEData();
+        //$this->importAOEData();
         $isDone = $this->importWarrntySheet();
         dd($isDone);
         return null;
@@ -28,10 +28,9 @@ class DataEntryController extends Controller
     private function importWarrntySheet()
     {
         \Excel::load('excel/warranty2.xlsx', function($reader) {
-            $results = $reader->takeRows(30)->get();
+            $results = $reader->takeRows(1741)->get();
             foreach ($results as $row)
             {
-                // dd(count($results));
                 //Employee
                 $username = $row->engineer;
                 $user = null;
