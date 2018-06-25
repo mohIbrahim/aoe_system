@@ -34,11 +34,15 @@ class EloquentCustomer implements CustomerInterface
 
 	public function create(array $attributes)
 	{
+		//remove telecom item form attributes array we had error in seeding warrantyseeder import excel file.
+		$phonesNumbers = $attributes['telecom'];
+		unset($attributes['telecom']);
+
 		$customer = $this->customer->create($attributes);
 		$code = $this->setCustomCode($attributes, $customer);
 		$customer->code = $code;
 		$customer->save();		
-		$this->addPhones($attributes['telecom'], $customer->id);
+		$this->addPhones($phonesNumbers, $customer->id);
 		return $customer;
 	}
 
