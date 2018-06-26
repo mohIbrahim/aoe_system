@@ -1,10 +1,3 @@
-
-
-<div class="form-group">
-    <label for="code"> كود المقايسة <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود المقايسة. " value="{{$indexation->code or old('code')}}">
-</div>
-
 <div class="form-group">
     <label for="the_date"> التاريخ  <span style="color:red">*</span></label>
     <input type="text" class="form-control" id="datepicker" name="the_date"  placeholder=" اختر التاريخ. " value="{{$indexation->the_date or old('the_date')}}">

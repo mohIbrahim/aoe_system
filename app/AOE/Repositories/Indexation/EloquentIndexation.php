@@ -36,12 +36,14 @@ class EloquentIndexation implements IndexationInterface
     public function create(array $attributes)
     {
         $indexation = $this->indexation->create($attributes);
+        $indexation = $this->generateIndexationCode($indexation);
         return $indexation;
     }
     public function update($id, array $attributes)
     {
         $indexation = $this->indexation->findOrFail($id);
         $indexation->update($attributes);
+        $indexation = $this->generateIndexationCode($indexation);
         return $indexation;
     }
     public function delete($id)
@@ -67,6 +69,19 @@ class EloquentIndexation implements IndexationInterface
         $results = Part::where('name', 'like', '%'.$keyword.'%')
                                 ->get();
         return $results;
+    }
+
+    /**
+     * Auto gernerate indexation code
+     */
+    private function generateIndexationCode(Indexation $indexation)
+    {
+        if ($indexation->visit_id) {
+            $printingMachineCode = \App\Visit::findOrFail($indexation->visit_id)->printingMachine->code;
+            $indexation->code = $printingMachineCode.'|'.$indexation->id;
+            $indexation->save();
+        }
+        return $indexation;
     }
 
 }

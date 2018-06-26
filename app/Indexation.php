@@ -73,7 +73,7 @@ class Indexation extends Model
     {
         return $this->belongsToMany('App\Part', 'indexation_part')->withTimestamps()->withPivot('price', 'serial_number', 'number_of_parts', 'discount_rate');
     }
-
+    //this for show view
     public function statementOfRequiredParts()
     {
         $parts = $this->parts;

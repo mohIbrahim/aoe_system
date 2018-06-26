@@ -24,8 +24,7 @@ class IndexationRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'=>'required|unique:indexations,code,'.$this->indexation,
-            'the_date'=>'required|date',            
+            'the_date'=>'required|date',
             'visit_id'=>'required|unique:indexations,visit_id,'.$this->indexation,
             'indexation_as_pdf'=>'mimes:pdf',
 
@@ -39,8 +38,6 @@ class IndexationRequest extends FormRequest
     public function messages()
     {
         return [
-            'code.required'=>' برجاء إدخال كود المقايسة. ',
-            'code.unique'=>' كود المقايسة تم إدخاله من قبل برجاء إدخال كود آخر. ',
             'the_date.required'=>' برجاء اختيار تاريخ المقايسة. ',
             'the_date.date'=>' برجاء إدخال التاريخ بشكل صحيح. ',
             'visit_id.required'=>' برجاء اختيار رقم الزيارة. ',
