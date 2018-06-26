@@ -38,7 +38,8 @@ class IndexationController extends Controller
     {
         $indexation = $this->indexation->create($request->all());
 
-        $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'indexation_as_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
+        $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'upload_files_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
+        $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'upload_files_img', 'App\Indexation', $indexation->id, 'img', 'no_cover');
 
         $partsIds       = ($request->parts_ids)?($request->parts_ids):([]);
         $partsPrices    = $request->parts_prices;
@@ -85,12 +86,20 @@ class IndexationController extends Controller
     {
         $indexation = $this->indexation->update($id, $request->all());
 
-        if ($request->hasFile('indexation_as_pdf')) {
+        if ($request->hasFile('upload_files_pdf')) {
             $projectImage = new ProjectImages();
             if (isset($indexation->softCopies) && $indexation->softCopies->isNotEmpty()) {
                 $projectImage->deleteOneProjectImage($indexation->softCopies->first()->id);
             }
-            $isUploaded = $projectImage->receiveAndCreat($request, 'indexation_as_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
+            $isUploaded = $projectImage->receiveAndCreat($request, 'upload_files_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
+        }
+
+        if ($request->hasFile('upload_files_img')) {
+            $projectImage = new ProjectImages();
+            if (isset($indexation->softCopies) && $indexation->softCopies->isNotEmpty()) {
+                $projectImage->deleteOneProjectImage($indexation->softCopies->first()->id);
+            }
+            $isUploaded = $projectImage->receiveAndCreat($request, 'upload_files_img', 'App\Indexation', $indexation->id, 'img', 'no_cover');
         }
 
         $indexation->parts()->detach();
@@ -120,8 +129,12 @@ class IndexationController extends Controller
         $indexation = $this->indexation->getById($id);
 
         if (isset($indexation->softCopies) && $indexation->softCopies->isNotEmpty()) {
+            $softCopiesIds = [];
+            foreach($indexation->softCopies as $softCopy) {
+                $softCopiesIds[] = $softCopy->id;
+            }
             $projectImage = new ProjectImages();
-            $projectImage->deleteOneProjectImage($indexation->softCopies->first()->id);
+            $projectImage->deleteMultiProjectImages($softCopiesIds);
         }
 
         $isDeleted = $this->indexation->delete($id);

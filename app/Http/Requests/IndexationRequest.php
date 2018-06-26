@@ -26,7 +26,8 @@ class IndexationRequest extends FormRequest
         return [
             'the_date'=>'required|date',
             'visit_id'=>'required|unique:indexations,visit_id,'.$this->indexation,
-            'indexation_as_pdf'=>'mimes:pdf',
+            'upload_files_pdf.*'=>'mimes:pdf',
+            'upload_files_img.*'=>'mimes:mimes:jpeg,bmp,png',
 
             'parts_prices.*'=>'nullable|numeric',
             'parts_count.*'=>'nullable|numeric',
@@ -42,7 +43,8 @@ class IndexationRequest extends FormRequest
             'the_date.date'=>' برجاء إدخال التاريخ بشكل صحيح. ',
             'visit_id.required'=>' برجاء اختيار رقم الزيارة. ',
             'visit_id.unique'=>'  رقم الزيارة تم اختياره من قبل برجاء اختيار رقم آخر. ',
-            'indexation_as_pdf.mimes'=> ' برجاء اختيار صورة المقايسة بأمتداد pdf. ',
+            'upload_files_pdf.*.mimes'=> ' برجاء اختيار ملف المقايسة بأمتداد pdf. ',
+            'upload_files_img.*.mimes'=> ' برجاء اختيار ملف المقايسة بأمتداد JPG, JPEG. ',
             
             'parts_prices.*.numeric'=>' برجاء إدخال السعر للقطع المختارة أرقام فقط. ',
             'parts_count.*.numeric'=>' برجاء إدخال العدد للقطع المختارة أرقام فقط. ',

@@ -49,12 +49,12 @@ class ProjectImages extends Model
 	}
     /**
      * Delete multi images
-     * @param  [type] $projectImagesIds [description]
-     * @return [type]                   [description]
+     * @param  [array] $projectImagesIds [description]
+     * @return [boolean]                   [description]
      */
-	public function deleteMultiProjectImages($projectImagesIds)
+	public function deleteMultiProjectImages(array $projectImagesIds)
 	{
-		$projectImages = $this::find($projectImageId);
+		$projectImages = $this::find($projectImagesIds);
 		foreach($projectImages as $key=>$projectImage)
 		{
 			$ImageName = $projectImage->name;

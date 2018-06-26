@@ -68,10 +68,10 @@
 								</td>
 							</tr>
 							<tr>
-								<th> صورة المقايسة </th>
+								<th> ملفات المقايسة pdf.</th>
 								<td>
-									@foreach ($indexation->softCopies as $key => $projectImage)
-										<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank"> صورة المقايسة </a>
+									@foreach ($indexation->softCopies as $projectImageKey => $projectImage)
+										<div><a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank">{{$projectImageKey+1}}.ملف المقايسة  </a></div>
 									@endforeach
 								</td>
 							</tr>

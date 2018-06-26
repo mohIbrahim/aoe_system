@@ -73,6 +73,66 @@ $(document).ready(function() {
 // bootstrap-select telecom in cutomers form
 
 
+// Start add another upload file fields pdf for indexation, visits, references and contracts
+
+$(document).ready(function() {
+	var upload_files_pdf_max_fields      = 10; //maximum input boxes allowed
+	var upload_files_pdf_wrapper         = $(".upload_files_pdf_input_fields_wrap_1"); //Fields wrapper
+	var upload_files_pdf_add_button      = $(".upload_files_pdf_add_field_button_1"); //Add button ID
+
+	var x = 1; //initlal text box count
+	$('input').keypress(function(event) { //prevent enter key to submit the form and coz we was have a bug when pressing enter key inside input field another telecom input added
+		if (event.keyCode == 13) {
+			event.preventDefault();
+		}
+	});
+	$(upload_files_pdf_add_button).click(function(e){ //on add input button click
+		e.preventDefault();
+		if(x < upload_files_pdf_max_fields){ //max input box allowed
+			x++; //text box increment
+			
+
+			$(upload_files_pdf_wrapper).append('<div class="form-group"><input type="file" class="form-control" id="upload_files_pdf" name="upload_files_pdf[]"><a href="#" class="upload_files_pdf_remove_field btn btn-xs btn-danger">حذف</a></div>'); //add input box
+		}
+	});
+
+	$(upload_files_pdf_wrapper).on("click",".upload_files_pdf_remove_field", function(e){ //user click on remove text
+		e.preventDefault(); $(this).parent('div').remove(); x--;
+	})
+});
+
+// End add another upload file fields pdf for indexation, visits, references and contracts
+
+// Start add another upload file fields img for indexation, visits, references and contracts
+
+$(document).ready(function() {
+	var upload_files_img_max_fields      = 10; //maximum input boxes allowed
+	var upload_files_img_wrapper         = $(".upload_files_img_input_fields_wrap_1"); //Fields wrapper
+	var upload_files_img_add_button      = $(".upload_files_img_add_field_button_1"); //Add button ID
+
+	var x = 1; //initlal text box count
+	$('input').keypress(function(event) { //prevent enter key to submit the form and coz we was have a bug when pressing enter key inside input field another telecom input added
+		if (event.keyCode == 13) {
+			event.preventDefault();
+		}
+	});
+	$(upload_files_img_add_button).click(function(e){ //on add input button click
+		e.preventDefault();
+		if(x < upload_files_img_max_fields){ //max input box allowed
+			x++; //text box increment
+			
+
+			$(upload_files_img_wrapper).append('<div class="form-group"><input type="file" class="form-control" id="upload_files_img" name="upload_files_img[]"><a href="#" class="upload_files_img_remove_field btn btn-xs btn-danger">حذف</a></div>'); //add input box
+		}
+	});
+
+	$(upload_files_img_wrapper).on("click",".upload_files_img_remove_field", function(e){ //user click on remove text
+		e.preventDefault(); $(this).parent('div').remove(); x--;
+	})
+});
+
+// End add another upload file fields img for indexation, visits, references and contracts
+
 
 
 // Start Ajax for Contracts index view

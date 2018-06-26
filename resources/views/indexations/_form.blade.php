@@ -47,18 +47,7 @@
     </select>
 </div>
 
-<div class="form-group">
-    <label for="indexation_as_pdf"> صورة المقايسة بأمتداد PDF </label>
-    <input type="file" class="form-control" id="indexation_as_pdf" name="indexation_as_pdf">
-        @if (isset($indexation->softCopies) && $indexation->softCopies->isNotEmpty())
-            <div class="breadcrumb">
-                <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small> حذف ملف المقايسة </small>
-                <a role="button" href="{{action('IndexationController@removeIndexationFile', ['id'=>$indexation->softCopies->first()->id])}}" class="btn btn-danger btn-xs">
-                    Delete
-                </a>
-            </div>
-        @endif
-</div>
+
 
 <div class="panel panel-info">
     <div class="panel-body">
@@ -182,6 +171,46 @@
 <div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$indexation->comments or old('comments')}}</textarea>
+</div>
+
+<div class="upload_files_pdf_input_fields_wrap_1 panel panel-body panel-info">
+    <div class="form-group">
+        <label for="upload_files_pdf"> رفع الملفات التي بإمتداد pdf.</label>
+        <input type="file" class="form-control" id="upload_files_pdf" name="upload_files_pdf[]">
+        <button class="upload_files_pdf_add_field_button_1 btn btn-xs btn-success" role="button"> إضافة ملف آخر </button>
+    </div>
+    @if (isset($indexation->softCopies) && $indexation->softCopies->isNotEmpty())
+        @foreach( $indexation->softCopies as $pdfKey=>$pdfFile)
+            @if($pdfFile->type == "pdf")
+                <div class="breadcrumb">
+                    <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small><a href="{{url('images/project_images/'.$pdfFile->name)}}" target="_blank">{{$pdfKey+1}}.ملف المقايسة  </a> </small>
+                    <a role="button" href="{{action('IndexationController@removeIndexationFile', ['id'=>$pdfFile->id])}}" class="btn btn-danger btn-xs">
+                        حذف ملف المقايسة من إمتداد pdf
+                    </a>
+                </div>
+            @endif
+        @endforeach
+    @endif
+</div>
+
+<div class="upload_files_img_input_fields_wrap_1 panel panel-body panel-info">
+    <div class="form-group">
+        <label for="upload_files_img"> رفع الملفات التي بإمتداد JPG, JPEG "صورة"</label>
+        <input type="file" class="form-control" id="upload_files_img" name="upload_files_img[]">
+        <button class="upload_files_img_add_field_button_1 btn btn-xs btn-success" role="button"> إضافة ملف آخر </button>
+    </div>
+    @if (isset($indexation->softCopies) && $indexation->softCopies->isNotEmpty())
+        @foreach( $indexation->softCopies as $imgKey=>$imgFile)
+            @if($imgFile->type == "img")
+                <div class="breadcrumb">
+                    <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small><a href="{{url('images/project_images/'.$imgFile->name)}}" target="_blank">{{$imgKey+1}}.ملف المقايسة  </a> </small>
+                    <a role="button" href="{{action('IndexationController@removeIndexationFile', ['id'=>$imgFile->id])}}" class="btn btn-danger btn-xs">
+                        حذف ملف المقايسة من إمتداد JPG, JPEG
+                    </a>
+                </div>
+            @endif
+        @endforeach
+    @endif
 </div>
 
 <button type="submit" class="btn btn-primary btn-lg center-block" >
