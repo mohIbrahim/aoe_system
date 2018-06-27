@@ -66,15 +66,7 @@
 										{{isset($indexation->invoice)?$indexation->invoice->number:''}}
 									</a>
 								</td>
-							</tr>
-							<tr>
-								<th> ملفات المقايسة pdf.</th>
-								<td>
-									@foreach ($indexation->softCopies as $projectImageKey => $projectImage)
-										<div><a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank">{{$projectImageKey+1}}.ملف المقايسة  </a></div>
-									@endforeach
-								</td>
-							</tr>
+							</tr>							
 
 							<tr>
 								<td colspan="2">
@@ -163,6 +155,30 @@
 							<tr>
 								<th> تاريخ التعديل </th>
 								<td style="direction:ltr; text-align:center">{{$indexation->created_at}}</td>
+							</tr>
+							<tr>
+								<th> ملفات المقايسة pdf.</th>
+								<td>
+									@foreach ($indexation->softCopies as $projectImageKey => $projectImage)
+										@if ($projectImage->type == "pdf")
+											<div><a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank">{{$projectImageKey+1}}.ملف المقايسة  </a></div>
+										@endif
+									@endforeach
+								</td>
+							</tr>
+							<tr>
+								<th> ملفات المقايسة jpg, png. "الصور"</th>
+								<td>
+									@foreach ($indexation->softCopies as $projectImageKey => $projectImage)
+										@if( $projectImage->type == "img")
+											<div>
+												<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank">
+													{{$projectImageKey+1}}.ملف المقايسة  <img src="{{url('images/project_images/'.$projectImage->name)}}" width="100px">
+												</a>
+											</div>
+										@endif
+									@endforeach
+								</td>
 							</tr>
 						</tbody>
 					</table>

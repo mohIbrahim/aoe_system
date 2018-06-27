@@ -203,9 +203,9 @@
         @foreach( $indexation->softCopies as $imgKey=>$imgFile)
             @if($imgFile->type == "img")
                 <div class="breadcrumb">
-                    <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small><a href="{{url('images/project_images/'.$imgFile->name)}}" target="_blank">{{$imgKey+1}}.ملف المقايسة  </a> </small>
+                    <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small><a href="{{url('images/project_images/'.$imgFile->name)}}" target="_blank">{{$imgKey+1}}.ملف المقايسة  <img src="{{url('images/project_images/'.$imgFile->name)}}" width="300px"></a> </small>
                     <a role="button" href="{{action('IndexationController@removeIndexationFile', ['id'=>$imgFile->id])}}" class="btn btn-danger btn-xs">
-                        حذف ملف المقايسة من إمتداد JPG, JPEG
+                        حذف الصورة
                     </a>
                 </div>
             @endif

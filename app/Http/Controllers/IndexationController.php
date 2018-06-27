@@ -38,8 +38,9 @@ class IndexationController extends Controller
     {
         $indexation = $this->indexation->create($request->all());
 
-        $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'upload_files_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
-        $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'upload_files_img', 'App\Indexation', $indexation->id, 'img', 'no_cover');
+        $projectImage = new ProjectImages();
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Indexation', $indexation->id, 'img', 'no_cover');
 
         $partsIds       = ($request->parts_ids)?($request->parts_ids):([]);
         $partsPrices    = $request->parts_prices;
@@ -86,21 +87,9 @@ class IndexationController extends Controller
     {
         $indexation = $this->indexation->update($id, $request->all());
 
-        if ($request->hasFile('upload_files_pdf')) {
-            $projectImage = new ProjectImages();
-            if (isset($indexation->softCopies) && $indexation->softCopies->isNotEmpty()) {
-                $projectImage->deleteOneProjectImage($indexation->softCopies->first()->id);
-            }
-            $isUploaded = $projectImage->receiveAndCreat($request, 'upload_files_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
-        }
-
-        if ($request->hasFile('upload_files_img')) {
-            $projectImage = new ProjectImages();
-            if (isset($indexation->softCopies) && $indexation->softCopies->isNotEmpty()) {
-                $projectImage->deleteOneProjectImage($indexation->softCopies->first()->id);
-            }
-            $isUploaded = $projectImage->receiveAndCreat($request, 'upload_files_img', 'App\Indexation', $indexation->id, 'img', 'no_cover');
-        }
+        $projectImage = new ProjectImages();
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Indexation', $indexation->id, 'img', 'no_cover');
 
         $indexation->parts()->detach();
         $partsIds       = ($request->parts_ids)?($request->parts_ids):([]);

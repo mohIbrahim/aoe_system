@@ -27,7 +27,7 @@ class IndexationRequest extends FormRequest
             'the_date'=>'required|date',
             'visit_id'=>'required|unique:indexations,visit_id,'.$this->indexation,
             'upload_files_pdf.*'=>'mimes:pdf',
-            'upload_files_img.*'=>'mimes:mimes:jpeg,bmp,png',
+            'upload_files_img.*'=>'mimes:jpeg,bmp,png',
 
             'parts_prices.*'=>'nullable|numeric',
             'parts_count.*'=>'nullable|numeric',
