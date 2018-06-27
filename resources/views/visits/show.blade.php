@@ -104,6 +104,31 @@
                             </tr>
 
                             <tr>
+								<th> ملفات الزيارة pdf.</th>
+								<td>
+									@foreach ($visit->softCopies as $projectImageKey => $projectImage)
+										@if ($projectImage->type == "pdf")
+											<div><a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank">{{$projectImageKey+1}}.ملف الزيارة  </a></div>
+										@endif
+									@endforeach
+								</td>
+							</tr>
+							<tr>
+								<th> ملفات الزيارة jpg, png. "الصور"</th>
+								<td>
+									@foreach ($visit->softCopies as $projectImageKey => $projectImage)
+										@if( $projectImage->type == "img")
+											<div>
+												<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank">
+													{{$projectImageKey+1}}.ملف الزيارة  <img src="{{url('images/project_images/'.$projectImage->name)}}" width="100px">
+												</a>
+											</div>
+										@endif
+									@endforeach
+								</td>
+							</tr>
+
+                            <tr>
                                 <th> الملاحظات </th>
                                 <td>{{$visit->comments}}</td>
                             </tr>

@@ -74,9 +74,14 @@ class Visits
             $response = $next($request);
         }else
 
+        if($request->route()->getName() == 'remove_the_visit_file'    && in_array('update_visits', $permissions)){
+
+            $response = $next($request);
+        }else
+        
 		if($request->route()->getName() == 'create_visit_with_printing_machine_id_and_follow_up_card_id'    && in_array('create_visits', $permissions) ){
             $response = $next($request);
-        }
+        }        
         else{
             abort(403);
         }

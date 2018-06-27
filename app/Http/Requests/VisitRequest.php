@@ -29,6 +29,8 @@ class VisitRequest extends FormRequest
             'visit_date'=>'required|date',
             'the_employee_who_made_the_visit_id'=>'required',
             'readings_of_printing_machine'=>'required|numeric',
+            'upload_files_pdf.*'=>'mimes:pdf',
+            'upload_files_img.*'=>'mimes:jpeg,bmp,png',
         ];
         if ($this->type == 'بطاقة المتابعة') {
             $results['follow_up_card_id'] = 'required';
@@ -55,6 +57,8 @@ class VisitRequest extends FormRequest
             'the_employee_who_made_the_visit_id.required'=>' برجاء اختار اسم المهندس الذي قام بالزيارة. ',
             'readings_of_printing_machine.required'=>' برجاء إدخال قراءة العداد. ',
             'readings_of_printing_machine.numeric'=>' برجاء إدخال قراءة العداد أرقام فقظ ',
+            'upload_files_pdf.*.mimes'=> ' برجاء اختيار ملف الزيارة بأمتداد pdf. ',
+            'upload_files_img.*.mimes'=> ' برجاء اختيار ملف الزيارة بأمتداد JPG, JPEG. ',
         ];
     }
 

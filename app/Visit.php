@@ -56,4 +56,9 @@ class Visit extends Model
     {
         return $this->belongsTo('App\Reference', 'reference_id', 'id');
     }
+
+    public function softCopies()
+    {
+        return $this->morphMany('App\ProjectImages', 'imageable');
+    } 
 }

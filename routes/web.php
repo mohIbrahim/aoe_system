@@ -65,6 +65,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('visits_pm_search/{keyword}', 'VisitController@searchingOnPrintingMachine')->name('visits_pm_search');
     Route::get('create_visit_with_printing_machine_id/{pm_id}', 'VisitController@createWithPrintingMachineId')->name('create_visit_with_printing_machine_id');
     Route::get('create_visit_with_printing_machine_id_and_follow_up_card_id/{printin_machine_id}/{follow_up_card_id}', 'VisitController@createWithPrintingMachineIdAndFollowUpCardId')->name('create_visit_with_printing_machine_id_and_follow_up_card_id');
+    Route::get('remove_the_visit_file/{project_image_id}', 'VisitController@removeVisitFile')->name('remove_the_visit_file');
 //Follow Up Cards
     Route::resource('follow_up_cards', 'FollowUpCardController');
     Route::get('follow_up_cards_search/{keyword}', 'FollowUpCardController@search')->name('follow_up_cards_search');

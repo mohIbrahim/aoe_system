@@ -9,6 +9,7 @@ use App\FollowUpCard;
 use App\Employee;
 use App\Reference;
 use \App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
+use \App\ProjectImages;
 
 class VisitController extends Controller
 {
@@ -52,6 +53,11 @@ class VisitController extends Controller
     public function store(VisitRequest $request)
     {
         $visit = $this->visit->create($request->all());
+
+        $projectImage = new ProjectImages();
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_pdf', 'App\Visit', $visit->id, 'pdf', 'no_cover');
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Visit', $visit->id, 'img', 'no_cover');
+        
         flash()->success(' تم إنشاء الزيارة بنجاح. ')->important();
         return redirect()->action('VisitController@show', ['id'=>$visit->id]);
     }
@@ -90,6 +96,11 @@ class VisitController extends Controller
     public function update(VisitRequest $request, $id)
     {
         $visit = $this->visit->update($id, $request->all());
+
+        $projectImage = new ProjectImages();
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_pdf', 'App\Visit', $visit->id, 'pdf', 'no_cover');
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Visit', $visit->id, 'img', 'no_cover');
+        
         flash()->success(' تم تعديل الزيارة بنجاح. ')->important();
         return redirect()->action('VisitController@show', ['id'=>$id]);
     }
@@ -101,6 +112,17 @@ class VisitController extends Controller
      */
     public function destroy($id)
     {
+        $visit = $this->visit->getById($id);
+
+        if (isset($visit->softCopies) && $visit->softCopies->isNotEmpty()) {
+            $softCopiesIds = [];
+            foreach($visit->softCopies as $softCopy) {
+                $softCopiesIds[] = $softCopy->id;
+            }
+            $projectImage = new ProjectImages();
+            $projectImage->deleteMultiProjectImages($softCopiesIds);
+        }
+        
         $isDeleted = $this->visit->delete($id);
         flash()->success(' تم حذف الزيارة بنجاح. ')->important();
         return redirect()->action('VisitController@index');
@@ -138,5 +160,11 @@ class VisitController extends Controller
         $type = 'بطاقة المتابعة';
 
         return view('visits.create', compact('followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes', 'printingMachineId', 'type', 'followUpCardIdFromPrintingMachineShowView'));
+    }
+
+    public function removeVisitFile($projectImageId)
+    {
+        $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
+        return back()->withInput();
     }
 }

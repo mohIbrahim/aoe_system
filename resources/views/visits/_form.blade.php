@@ -105,6 +105,46 @@
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{ $visit->comments or old('comments') }}</textarea>
 </div>
 
+<div class="upload_files_pdf_input_fields_wrap_1 panel panel-body panel-info">
+    <div class="form-group">
+        <label for="upload_files_pdf"> رفع الملفات التي بإمتداد pdf.</label>
+        <input type="file" class="form-control" id="upload_files_pdf" name="upload_files_pdf[]">
+        <button class="upload_files_pdf_add_field_button_1 btn btn-xs btn-success" role="button"> إضافة ملف آخر </button>
+    </div>
+    @if (isset($visit->softCopies) && $visit->softCopies->isNotEmpty())
+        @foreach( $visit->softCopies as $pdfKey=>$pdfFile)
+            @if($pdfFile->type == "pdf")
+                <div class="breadcrumb">
+                    <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small><a href="{{url('images/project_images/'.$pdfFile->name)}}" target="_blank">{{$pdfKey+1}}.ملف الزيارة  </a> </small>
+                    <a role="button" href="{{action('IndexationController@removeIndexationFile', ['id'=>$pdfFile->id])}}" class="btn btn-danger btn-xs">
+                        حذف ملف الزيارة من إمتداد pdf
+                    </a>
+                </div>
+            @endif
+        @endforeach
+    @endif
+</div>
+
+<div class="upload_files_img_input_fields_wrap_1 panel panel-body panel-info">
+    <div class="form-group">
+        <label for="upload_files_img"> رفع الملفات التي بإمتداد JPG, JPEG "صورة"</label>
+        <input type="file" class="form-control" id="upload_files_img" name="upload_files_img[]">
+        <button class="upload_files_img_add_field_button_1 btn btn-xs btn-success" role="button"> إضافة ملف آخر </button>
+    </div>
+    @if (isset($visit->softCopies) && $visit->softCopies->isNotEmpty())
+        @foreach( $visit->softCopies as $imgKey=>$imgFile)
+            @if($imgFile->type == "img")
+                <div class="breadcrumb">
+                    <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small><a href="{{url('images/project_images/'.$imgFile->name)}}" target="_blank">{{$imgKey+1}}.ملف الزيارة  <img src="{{url('images/project_images/'.$imgFile->name)}}" width="300px"></a> </small>
+                    <a role="button" href="{{action('IndexationController@removeIndexationFile', ['id'=>$imgFile->id])}}" class="btn btn-danger btn-xs">
+                        حذف الصورة
+                    </a>
+                </div>
+            @endif
+        @endforeach
+    @endif
+</div>
+
 <button type="submit" class="btn btn-primary btn-lg center-block" >
     حفظ
 </button>
