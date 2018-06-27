@@ -116,7 +116,7 @@
             @if($pdfFile->type == "pdf")
                 <div class="breadcrumb">
                     <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small><a href="{{url('images/project_images/'.$pdfFile->name)}}" target="_blank">{{$pdfKey+1}}.ملف الزيارة  </a> </small>
-                    <a role="button" href="{{action('IndexationController@removeIndexationFile', ['id'=>$pdfFile->id])}}" class="btn btn-danger btn-xs">
+                    <a role="button" href="{{action('VisitController@removeVisitFile', ['id'=>$pdfFile->id])}}" class="btn btn-danger btn-xs">
                         حذف ملف الزيارة من إمتداد pdf
                     </a>
                 </div>
@@ -136,9 +136,11 @@
             @if($imgFile->type == "img")
                 <div class="breadcrumb">
                     <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small><a href="{{url('images/project_images/'.$imgFile->name)}}" target="_blank">{{$imgKey+1}}.ملف الزيارة  <img src="{{url('images/project_images/'.$imgFile->name)}}" width="300px"></a> </small>
-                    <a role="button" href="{{action('IndexationController@removeIndexationFile', ['id'=>$imgFile->id])}}" class="btn btn-danger btn-xs">
-                        حذف الصورة
-                    </a>
+                    @if($imgKey !== (count($visit->softCopies)-1))
+                        <a role="button" href="{{action('VisitController@removeVisitFile', ['id'=>$imgFile->id])}}" class="btn btn-danger btn-xs">
+                            حذف الصورة
+                        </a>
+                    @endif
                 </div>
             @endif
         @endforeach

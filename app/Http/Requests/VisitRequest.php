@@ -31,12 +31,26 @@ class VisitRequest extends FormRequest
             'readings_of_printing_machine'=>'required|numeric',
             'upload_files_pdf.*'=>'mimes:pdf',
             'upload_files_img.*'=>'mimes:jpeg,bmp,png',
+            'upload_files_img'=>'required',
         ];
         if ($this->type == 'بطاقة المتابعة') {
             $results['follow_up_card_id'] = 'required';
         }
         if ($this->type == 'إشارة') {
             $results['reference_id'] = 'required';
+        }
+
+        //request CREATE or UPDATE
+        if (isset($this->upload_files_img)) {
+            unset($results['upload_files_img']);
+        }
+
+        //request UPDATE
+        if(isset($this->visit)) {
+            $visitModel = \App\Visit::findOrFail($this->visit);
+            if ($visitModel->softCopies->isNotEmpty()) {
+                unset($results['upload_files_img']);
+            }
         }
         return $results;
     }
@@ -59,6 +73,7 @@ class VisitRequest extends FormRequest
             'readings_of_printing_machine.numeric'=>' برجاء إدخال قراءة العداد أرقام فقظ ',
             'upload_files_pdf.*.mimes'=> ' برجاء اختيار ملف الزيارة بأمتداد pdf. ',
             'upload_files_img.*.mimes'=> ' برجاء اختيار ملف الزيارة بأمتداد JPG, JPEG. ',
+            'upload_files_img.required'=>'برجاء إدراج صور للزيارة',
         ];
     }
 
