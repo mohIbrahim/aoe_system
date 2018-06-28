@@ -92,14 +92,6 @@
 									    <td>{{$contract->employeeWhoEditedThisContract->user->name or ''}}</td>
 								    </tr>
 
-                                    <tr>
-									    <th> صورة العقد </th>
-									    <td>
-											@foreach ($contract->softCopies as $key => $projectImage)
-												<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank"> صورة العقد </a>
-											@endforeach
-										</td>
-								    </tr>
 									<tr>
 									    <th> بطاقة المتابعة </th>
 									    <td>
@@ -123,6 +115,31 @@
 									    <th> تاريخ التعديل </th>
 									    <td style="direction:ltr; text-align:center">{{$contract->created_at}}</td>
 								    </tr>
+
+									<tr>
+										<th> ملفات العقد pdf.</th>
+										<td>
+											@foreach ($contract->softCopies as $projectImageKey => $projectImage)
+												@if ($projectImage->type == "pdf")
+													<div><a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank">{{$projectImageKey+1}}.ملف العقد  </a></div>
+												@endif
+											@endforeach
+										</td>
+									</tr>
+									<tr>
+										<th> ملفات العقد jpg, png. "الصور"</th>
+										<td>
+											@foreach ($contract->softCopies as $projectImageKey => $projectImage)
+												@if( $projectImage->type == "img")
+													<div>
+														<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank">
+															{{$projectImageKey+1}}.ملف العقد  <img src="{{url('images/project_images/'.$projectImage->name)}}" width="100px">
+														</a>
+													</div>
+												@endif
+											@endforeach
+										</td>
+									</tr>
 
                                     <tr>
 									    <td colspan="2">

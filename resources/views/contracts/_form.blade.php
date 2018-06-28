@@ -204,19 +204,6 @@
     </select>
 </div>
 
-<div class="form-group">
-    <label for="contract_as_pdf"> صورة العقد بأمتداد PDF </label>
-    <input type="file" class="form-control" id="contract_as_pdf" name="contract_as_pdf">
-        @if (isset($contract->softCopies) && $contract->softCopies->isNotEmpty())
-            <div class="breadcrumb">
-                <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small> حذف ملف العقد </small>
-                <a role="button" href="{{action('ContractController@removeContractFile', ['id'=>$contract->softCopies->first()->id])}}" class="btn btn-danger btn-xs">
-                    Delete
-                </a>
-            </div>
-        @endif
-</div>
-
 <div class="panel panel-default">
 	<div class="panel-heading text-center">
 		<h3> بنود خاصة </h3>
@@ -279,6 +266,46 @@
 <div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$contract->comments or old('comments')}}</textarea>
+</div>
+
+<div class="upload_files_pdf_input_fields_wrap_1 panel panel-body panel-info">
+    <div class="form-group">
+        <label for="upload_files_pdf"> رفع الملفات التي بإمتداد pdf.</label>
+        <input type="file" class="form-control" id="upload_files_pdf" name="upload_files_pdf[]">
+        <button class="upload_files_pdf_add_field_button_1 btn btn-xs btn-success" role="button"> إضافة ملف آخر </button>
+    </div>
+    @if (isset($contract->softCopies) && $contract->softCopies->isNotEmpty())
+        @foreach( $contract->softCopies as $pdfKey=>$pdfFile)
+            @if($pdfFile->type == "pdf")
+                <div class="breadcrumb">
+                    <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small><a href="{{url('images/project_images/'.$pdfFile->name)}}" target="_blank">{{$pdfKey+1}}.ملف المقايسة  </a> </small>
+                    <a role="button" href="{{action('ContractController@removeContractFile', ['id'=>$pdfFile->id])}}" class="btn btn-danger btn-xs">
+                        حذف ملف المقايسة من إمتداد pdf
+                    </a>
+                </div>
+            @endif
+        @endforeach
+    @endif
+</div>
+
+<div class="upload_files_img_input_fields_wrap_1 panel panel-body panel-info">
+    <div class="form-group">
+        <label for="upload_files_img"> رفع الملفات التي بإمتداد JPG, JPEG "صورة"</label>
+        <input type="file" class="form-control" id="upload_files_img" name="upload_files_img[]">
+        <button class="upload_files_img_add_field_button_1 btn btn-xs btn-success" role="button"> إضافة ملف آخر </button>
+    </div>
+    @if (isset($contract->softCopies) && $contract->softCopies->isNotEmpty())
+        @foreach( $contract->softCopies as $imgKey=>$imgFile)
+            @if($imgFile->type == "img")
+                <div class="breadcrumb">
+                    <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small><a href="{{url('images/project_images/'.$imgFile->name)}}" target="_blank">{{$imgKey+1}}.ملف المقايسة  <img src="{{url('images/project_images/'.$imgFile->name)}}" width="300px"></a> </small>
+                    <a role="button" href="{{action('ContractController@removeContractFile', ['id'=>$imgFile->id])}}" class="btn btn-danger btn-xs">
+                        حذف الصورة
+                    </a>
+                </div>
+            @endif
+        @endforeach
+    @endif
 </div>
 
 <button type="submit" class="btn btn-primary btn-lg center-block" >

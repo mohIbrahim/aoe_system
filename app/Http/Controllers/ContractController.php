@@ -51,7 +51,9 @@ class ContractController extends Controller
     {
         $contract = $this->contract->create($request->all());
 
-        $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'contract_as_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
+        $projectImage = new ProjectImages();
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Contract', $contract->id, 'img', 'no_cover');
 
         $contract->printingMachines()->attach($request->assigned_machines_ids);
         //create invoices
@@ -70,7 +72,7 @@ class ContractController extends Controller
     public function show($id)
     {
         $contract = $this->contract->getById($id);
-        $paymentsNames = $this->contract->paymentArabicNames();        
+        $paymentsNames = $this->contract->paymentArabicNames();
         return view('contracts.show', compact('contract', 'paymentsNames', 'paymentsDates'));
     }
 
@@ -99,13 +101,9 @@ class ContractController extends Controller
         $contract = $this->contract->update($id, $request->all());
 
         //upload file
-        if ($request->hasFile('contract_as_pdf')) {
-            $projectImage = new ProjectImages();
-            if (isset($contract->softCopies) && $contract->softCopies->isNotEmpty()) {
-                $projectImage->deleteOneProjectImage($contract->softCopies->first()->id);
-            }
-            $isUploaded = $projectImage->receiveAndCreat($request, 'contract_as_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
-        }
+        $projectImage = new ProjectImages();
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_pdf', 'App\Contract', $contract->id, 'pdf', 'no_cover');
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Contract', $contract->id, 'img', 'no_cover');
 
         $contract->printingMachines()->sync($request->assigned_machines_ids);   
         //Update creation of inovices
@@ -125,10 +123,16 @@ class ContractController extends Controller
     public function destroy($id)
     {
         $contract = $this->contract->getById($id);
+
         if (isset($contract->softCopies) && $contract->softCopies->isNotEmpty()) {
+            $softCopiesIds = [];
+            foreach($contract->softCopies as $softCopy) {
+                $softCopiesIds[] = $softCopy->id;
+            }
             $projectImage = new ProjectImages();
-            $projectImage->deleteOneProjectImage($contract->softCopies->first()->id);
+            $projectImage->deleteMultiProjectImages($softCopiesIds);
         }
+
         $isDeleted = $this->contract->delete($id);
         flash()->success('تم حذف العقد بنجاح. ')->important();
         return redirect()->action('ContractController@index');
