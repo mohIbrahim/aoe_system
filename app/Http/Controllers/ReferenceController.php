@@ -38,7 +38,9 @@ class ReferenceController extends Controller
     {
         $reference = $this->reference->create($request->all());
 
-        $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'reference_as_pdf', 'App\Reference', $reference->id, 'pdf', 'no_cover');
+        $projectImage = new ProjectImages();
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_pdf', 'App\Reference', $reference->id, 'pdf', 'no_cover');
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Reference', $reference->id, 'img', 'no_cover');
 
         //ReferenceMalfunction
         if (null !== ($request->input('works_were_done')) &&  null !== ($request->input('malfunction_type'))) {
@@ -75,13 +77,9 @@ class ReferenceController extends Controller
     {
         $reference = $this->reference->update($id, $request->all());
 
-        if ($request->hasFile('reference_as_pdf')) {
-            $projectImage = new ProjectImages();
-            if (isset($reference->softCopies) && $reference->softCopies->isNotEmpty()) {
-                $projectImage->deleteOneProjectImage($reference->softCopies->first()->id);
-            }
-            $isUploaded = $projectImage->receiveAndCreat($request, 'reference_as_pdf', 'App\Reference', $reference->id, 'pdf', 'no_cover');
-        }
+        $projectImage = new ProjectImages();
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_pdf', 'App\Reference', $reference->id, 'pdf', 'no_cover');
+        $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Reference', $reference->id, 'img', 'no_cover');
 
         //ReferenceMalfunction
         $reference->malfunctions()->delete();
@@ -106,8 +104,12 @@ class ReferenceController extends Controller
         $reference = $this->reference->getById($id);
 
         if (isset($reference->softCopies) && $reference->softCopies->isNotEmpty()) {
+            $softCopiesIds = [];
+            foreach($reference->softCopies as $softCopy) {
+                $softCopiesIds[] = $softCopy->id;
+            }
             $projectImage = new ProjectImages();
-            $projectImage->deleteOneProjectImage($reference->softCopies->first()->id);
+            $projectImage->deleteMultiProjectImages($softCopiesIds);
         }
 
         $this->reference->delete($id);

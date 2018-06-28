@@ -165,18 +165,6 @@
     <input type="text" class="form-control" id="informer_phone" name="informer_phone"  placeholder=" إدخل رقم تليفون المُبلغ عن الإشارة. " value="{{$reference->informer_phone or old('informer_phone')}}">
 </div>
 
-<div class="form-group">
-    <label for="reference_as_pdf"> صورة للإشارة بأمتداد PDF </label>
-    <input type="file" class="form-control" id="reference_as_pdf" name="reference_as_pdf">
-        @if (isset($reference->softCopies) && $reference->softCopies->isNotEmpty())
-            <div class="breadcrumb">
-                <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small> حذف ملف الإشارة </small>
-                <a role="button" href="{{action('ReferenceController@removeReferenceFile', ['id'=>$reference->softCopies->first()->id])}}" class="btn btn-danger btn-xs">
-                    Delete
-                </a>
-            </div>
-        @endif
-</div>
 
 <div class="form-group">
         <label for="reviewed_by_the_chief_engineer"> هل تم المراجعة من كبير المهندسين؟ </label><br>
@@ -189,6 +177,46 @@
 <div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$reference->comments or old('comments')}}</textarea>
+</div>
+
+<div class="upload_files_pdf_input_fields_wrap_1 panel panel-body panel-info">
+    <div class="form-group">
+        <label for="upload_files_pdf"> رفع الملفات التي بإمتداد pdf.</label>
+        <input type="file" class="form-control" id="upload_files_pdf" name="upload_files_pdf[]">
+        <button class="upload_files_pdf_add_field_button_1 btn btn-xs btn-success" role="button"> إضافة ملف آخر </button>
+    </div>
+    @if (isset($reference->softCopies) && $reference->softCopies->isNotEmpty())
+        @foreach( $reference->softCopies as $pdfKey=>$pdfFile)
+            @if($pdfFile->type == "pdf")
+                <div class="breadcrumb">
+                    <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small><a href="{{url('images/project_images/'.$pdfFile->name)}}" target="_blank">{{$pdfKey+1}}.ملف الإشارة  </a> </small>
+                    <a role="button" href="{{action('ReferenceController@removeReferenceFile', ['id'=>$pdfFile->id])}}" class="btn btn-danger btn-xs">
+                        حذف ملف الإشارة من إمتداد pdf
+                    </a>
+                </div>
+            @endif
+        @endforeach
+    @endif
+</div>
+
+<div class="upload_files_img_input_fields_wrap_1 panel panel-body panel-info">
+    <div class="form-group">
+        <label for="upload_files_img"> رفع الملفات التي بإمتداد JPG, JPEG "صورة"</label>
+        <input type="file" class="form-control" id="upload_files_img" name="upload_files_img[]">
+        <button class="upload_files_img_add_field_button_1 btn btn-xs btn-success" role="button"> إضافة ملف آخر </button>
+    </div>
+    @if (isset($reference->softCopies) && $reference->softCopies->isNotEmpty())
+        @foreach( $reference->softCopies as $imgKey=>$imgFile)
+            @if($imgFile->type == "img")
+                <div class="breadcrumb">
+                    <span class="glyphicon glyphicon-file" style="color:#7E8487"></span><small><a href="{{url('images/project_images/'.$imgFile->name)}}" target="_blank">{{$imgKey+1}}.ملف الإشارة  <img src="{{url('images/project_images/'.$imgFile->name)}}" width="300px"></a> </small>
+                    <a role="button" href="{{action('ReferenceController@removeReferenceFile', ['id'=>$imgFile->id])}}" class="btn btn-danger btn-xs">
+                        حذف الصورة
+                    </a>
+                </div>
+            @endif
+        @endforeach
+    @endif
 </div>
 
 @if(isset($reference))

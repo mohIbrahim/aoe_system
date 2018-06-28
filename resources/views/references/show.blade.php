@@ -46,7 +46,7 @@
 								    <tr>
 									    <th> نوع الإشارة </th>
 									    <td>{{$reference->type}}</td>
-									</tr>									
+									</tr>
 									<tr>
 										<th> حالة الإشارة </th>
 										<td>{{$reference->status}}</td>
@@ -108,15 +108,7 @@
 								    <tr>
 									    <th> قراءة العداد </th>
 									    <td>{{$reference->readings_of_printing_machine}}</td>
-								    </tr>
-                                    <tr>
-									    <th> ملف الإشارة </th>
-									    <td>
-											@foreach ($reference->softCopies as $key => $projectImage)
-												<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank"> صورة الإشارة </a>
-											@endforeach
-										</td>
-									</tr>
+								    </tr>                                    
 									<tr>
 									    <th> اسم مُبلغ الإشارة  </th>
 									    <td>{{$reference->informer_name}}</td>
@@ -146,6 +138,31 @@
 									    <th> تاريخ التعديل </th>
 									    <td style="direction:ltr; text-align:center">{{$reference->created_at}}</td>
 								    </tr>
+									<tr>
+										<th> ملفات الإشارة pdf.</th>
+										<td>
+											@foreach ($reference->softCopies as $projectImageKey => $projectImage)
+												@if ($projectImage->type == "pdf")
+													<div><a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank">{{$projectImageKey+1}}.ملف الإشارة  </a></div>
+												@endif
+											@endforeach
+										</td>
+									</tr>
+									<tr>
+										<th> ملفات الإشارة jpg, png. "الصور"</th>
+										<td>
+											@foreach ($reference->softCopies as $projectImageKey => $projectImage)
+												@if( $projectImage->type == "img")
+													<div>
+														<a href="{{url('images/project_images/'.$projectImage->name)}}" target="_blank">
+															{{$projectImageKey+1}}.ملف الإشارة  <img src="{{url('images/project_images/'.$projectImage->name)}}" width="100px">
+														</a>
+													</div>
+												@endif
+											@endforeach
+										</td>
+									</tr>
+									
 							    </tbody>
 						     </table>
 					</div>

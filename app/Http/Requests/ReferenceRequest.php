@@ -30,7 +30,8 @@ class ReferenceRequest extends FormRequest
             'status'=>'required',
             'received_date'=>'required|date',
             'printing_machine_id'=>'required',
-            'reference_as_pdf'=>'mimes:pdf',
+            'upload_files_pdf.*'=>'mimes:pdf',
+            'upload_files_img.*'=>'mimes:jpeg,bmp,png',
         ];
     }
 
@@ -45,7 +46,8 @@ class ReferenceRequest extends FormRequest
             'received_date.required'=>' برجاء إدخال تاريخ الإشارة. ',
             'received_date.date'=>' برجاء إدخال تاريخ الإشارة بشكل صحيح. ',
             'printing_machine_id.required'=>' برجاء اختيار الآلة التصوير. ',
-            'reference_as_pdf.mimes'=>' برجاء اختيار صورة للإشارة بأمتداد PDF.',
+            'upload_files_pdf.*.mimes'=> ' برجاء اختيار ملف الإشارة بأمتداد pdf. ',
+            'upload_files_img.*.mimes'=> ' برجاء اختيار ملف الإشارة بأمتداد JPG, JPEG. ',
         ];
     }
 }
