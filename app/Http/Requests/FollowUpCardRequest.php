@@ -24,7 +24,6 @@ class FollowUpCardRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'=>'required|unique:follow_up_cards,code,'.$this->follow_up_card,
             'printing_machine_id'=>'required',
             'contract_id'=>'required|unique:follow_up_cards,contract_id,'.$this->follow_up_card,
             'follow_up_card_as_pdf'=>'mimes:pdf',
@@ -34,7 +33,6 @@ class FollowUpCardRequest extends FormRequest
     public function messages()
     {
         return [
-            'code.required'=>' برجاء إدخال كود البطاقة. ',
             'code.unique'=>' برجاء إختار كود آخر للبطاقة هذا الكود تم إدخاله من قبل. ',
             'printing_machine_id.required'=>' برجاء اختيار الآلة الخاصة بهذة البطاقة. ',
             'contract_id.required'=>' برجاء اختيار العقد. ',

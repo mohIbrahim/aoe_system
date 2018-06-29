@@ -177,4 +177,14 @@ class EloquentContract implements ContractInterface
         $results = $this->contract->whereBetween('end',[$now, $nextThreeMonthes])->oldest('end')->get();
         return $results;
     }
+
+    private function isContractAreNotExpired($contractingEndingDate)
+    {
+        $carbonDate = (new Carbon())->parse($contractingEndingDate);
+        $carbonNow = Carbon::now();
+        if (  $carbonDate->gte($carbonNow)  ) {
+            return true;
+        }
+        return false;
+    }
 }

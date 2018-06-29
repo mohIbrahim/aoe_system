@@ -1,4 +1,9 @@
 <div class="form-group">
+    <label for="code"> كود البطاقة </label>
+    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود البطاقة. " value="{{$followUpCard->code or 'يتم تعين الرقم من النظام بعد إنشاء البطاقة.'}}" readonly>
+</div>
+
+<div class="form-group">
     <label for="contract_id"> رقم العقد <span style="color:red">*</span></label>
     <select class="form-control selectpicker" name="contract_id" data-live-search="true">
         <?php $selectedContract = isset($followUpCard->contract_id)? $followUpCard->contract_id: '' ?>
@@ -36,14 +41,9 @@
             <p>
                 يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة.
             </p>
-            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id"  value="{{(isset($followUpCard->printing_machine_id))?($followUpCard->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}" readonly>
+            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id"  value="{{(isset($followUpCard->printing_machine_id))?($followUpCard->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}" placeholder="لم يتم التعين بعد." readonly>
         </div>
     </div>
-</div>
-
-<div class="form-group">
-    <label for="code"> كود البطاقة <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود البطاقة. " value="{{$followUpCard->code or old('code')}}">
 </div>
 
 <div class="form-group">

@@ -12,6 +12,7 @@ use App\Employee;
 use App\Part;
 use App\Department;
 use \Carbon\Carbon;
+use App\AOE\Repositories\FollowUpCard\EloquentFollowUpCard;
 
 class WarrantySeeder extends Seeder
 {
@@ -23,9 +24,9 @@ class WarrantySeeder extends Seeder
     public function run()
     {
         // $this->importAOEData();
-        // $this->importWarrntySheet();
-        $this->importSparePartSheet();
-        $this->importConsumableSheet();
+        // // $this->importWarrntySheet();
+        // $this->importSparePartSheet();
+        // $this->importConsumableSheet();
         return 'done';
     }
 
@@ -197,11 +198,13 @@ class WarrantySeeder extends Seeder
                                                         'type'=>'ضمان', 
                                                         'start'=>$warrantyStart, 
                                                         'end'=>$warrantyEnd, 
-                                                        'status'=>( (((new Carbon())->parse($warrantyEnd))->gte(Carbon::now()) )?('ساري'):('منتهي') ), 
+                                                        'status'=>( $this->isContractAreNotExpired($warrantyEnd) )?('ساري'):('منتهي'),
                                                         'payment_system'=>'بدون',
                                                         'comments'=>$contractComments.'&#13;&#10;'.$contractComments2.'&#13;&#10;'.$contractComments3,
                                                     ]);
                 $contract->printingMachines()->attach($printingMachineId);
+                if ($this->isContractAreNotExpired($warrantyEnd))
+                    $followUpCard = (new EloquentFollowUpCard(new \App\FollowUpCard()))->create(['contract_id'=>$contract->id, 'printing_machine_id'=>$printingMachineId]);
             }
         } else {
             if ( !empty($warrantyStart) && !empty($warrantyEnd) ) {
@@ -209,17 +212,19 @@ class WarrantySeeder extends Seeder
                                                         'type'=>'ضمان', 
                                                         'start'=>$warrantyStart, 
                                                         'end'=>$warrantyEnd, 
-                                                        'status'=>( (((new Carbon())->parse($warrantyEnd))->gte(Carbon::now()) )?('ساري'):('منتهي') ), 
+                                                        'status'=>( $this->isContractAreNotExpired($warrantyEnd) )?('ساري'):('منتهي'),
                                                         'payment_system'=>'بدون',
                                                         'comments'=>$contractComments.'&#13;&#10;'.$contractComments2.'&#13;&#10;'.$contractComments3,
                                                     ]);
                 $contract->printingMachines()->attach($printingMachineId);
+                if ($this->isContractAreNotExpired($warrantyEnd))
+                    $followUpCard = (new EloquentFollowUpCard(new \App\FollowUpCard()))->create(['contract_id'=>$contract->id, 'printing_machine_id'=>$printingMachineId]);
             }
             $contract = $eloquentContract->create([
                                                     'type'=>$contracType,
                                                     'start'=> ((new Carbon())->parse($maintenanceEnd)->subYear()),
                                                     'end'=>$maintenanceEnd,
-                                                    'status'=>( (((new Carbon())->parse($maintenanceEnd))->gte(Carbon::now()) )?('ساري'):('منتهي') ),
+                                                    'status'=>($this->isContractAreNotExpired($maintenanceEnd))?('ساري'):('منتهي'),
                                                     'price'=>$priceBeforeTax,
                                                     'tax'=>14,
                                                     'total_price'=>$priceAfterTax,
@@ -227,6 +232,8 @@ class WarrantySeeder extends Seeder
                                                     'period_between_each_payment'=>$periodBetweenEachPayment,
                                                     'comments'=>$contractComments.'&#13;&#10;'.$contractComments2.'&#13;&#10;'.$contractComments3,
                                                 ]);
+            if ($this->isContractAreNotExpired($maintenanceEnd))
+                $followUpCard = (new EloquentFollowUpCard(new \App\FollowUpCard()))->create(['contract_id'=>$contract->id, 'printing_machine_id'=>$printingMachineId]);
 
             $contract->printingMachines()->attach($printingMachineId);
             $eloquentContract->createInvoicesForNewContract($contract);
@@ -357,5 +364,15 @@ class WarrantySeeder extends Seeder
                 }
             }
         });
+    }
+
+    private function isContractAreNotExpired($contractingEndingDate)
+    {
+        $carbonDate = (new Carbon())->parse($contractingEndingDate);
+        $carbonNow = Carbon::now();
+        if (  $carbonDate->gte($carbonNow)  ) {
+            return true;
+        }
+        return false;
     }
 }

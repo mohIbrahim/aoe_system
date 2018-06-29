@@ -36,12 +36,14 @@ class EloquentFollowUpCard implements FollowUpCardInterface
     public function create(array $attributes)
     {
         $followUpCard = $this->followUpCard->create($attributes);
+        $followUpCard = $this->specifyingFollowUpCardCode($followUpCard);
         return $followUpCard;
     }
     public function update($id, array $attributes)
     {
         $followUpCard = $this->followUpCard->findOrFail($id);
         $followUpCard->update($attributes);
+        $followUpCard = $this->specifyingFollowUpCardCode($followUpCard);
         return $followUpCard;
     }
     public function delete($id)
@@ -106,5 +108,14 @@ class EloquentFollowUpCard implements FollowUpCardInterface
             $resultsArray[$followUpCardIndex]['assignedEmployees'] = !empty($employeesNames)?($employeesNames):('لا يوجد موظفين معينين على هذة الآلة');
         }
         return $resultsArray; 
+    }
+
+    private function specifyingFollowUpCardCode(FollowUpCard $followUpCard)
+    {
+        if ($followUpCard) {
+            $followUpCard->code = $followUpCard->id;
+            $followUpCard->save();
+        }
+        return $followUpCard;
     }
 }
