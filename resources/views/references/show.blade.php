@@ -86,6 +86,7 @@
                                                             <th> # </th>
                                                             <th> نوع العطل </th>
                                                             <th> الأعمال التي تم تنفيذها </th>
+                                                            <th> قطع الآلة المطلوبة </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -97,6 +98,9 @@
 																</td>
 																<td>
 																	{{$malfunction->works_were_done or ''}}
+																</td>
+																<td>
+																	{{$malfunction->required_parts or ''}}
 																</td>
 															</tr>
 														@endforeach

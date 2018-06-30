@@ -17,6 +17,7 @@ class CreateReferenceMalfunctionsTable extends Migration
             $table->increments('id');
             $table->text('malfunction_type')->nullable();
             $table->text('works_were_done')->nullable();
+            $table->text('required_parts')->nullable();
             $table->timestamps();
             
             $table->integer('reference_id')->unsigned()->nullable();

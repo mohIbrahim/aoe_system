@@ -122,6 +122,10 @@
                                 <label for='works_were_done'> الأعمال التي تم تنفيذها </label>
                                 <textarea name='works_were_done[]' class='form-control' placeholder=' إدخل الأعمال التي تم تنفيذها. '>{{old('works_were_done')[$oldMalfunctionTypeIterator]}}</textarea>
                             </div>
+                            <div class='form-group'>
+                                <label for='required_parts'> قطع الآلة المطلوبة </label>
+                                <textarea name='required_parts[]' class='form-control' placeholder=' إدخل قطع الآلة المطلوبة. '>{{old('required_parts')[$oldMalfunctionTypeIterator]}}</textarea> 
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -141,6 +145,10 @@
                             <div class='form-group'>
                                 <label for='works_were_done'> الأعمال التي تم تنفيذها </label>
                                 <textarea name='works_were_done[]' class='form-control' placeholder=' إدخل الأعمال التي تم تنفيذها. '>{{$malfunction->works_were_done}}</textarea>
+                            </div>
+                            <div class='form-group'>
+                                <label for='required_parts'> قطع الآلة المطلوبة </label>
+                                <textarea name='required_parts[]' class='form-control' placeholder=' إدخل قطع الآلة المطلوبة. '>{{$malfunction->required_parts}}</textarea> 
                             </div>
                         </div>
                     </div>

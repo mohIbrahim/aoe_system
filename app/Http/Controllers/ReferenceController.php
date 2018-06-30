@@ -38,21 +38,13 @@ class ReferenceController extends Controller
     {
         $reference = $this->reference->create($request->all());
 
+        //Reference softcopies files
         $projectImage = new ProjectImages();
         $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_pdf', 'App\Reference', $reference->id, 'pdf', 'no_cover');
         $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Reference', $reference->id, 'img', 'no_cover');
 
         //ReferenceMalfunction
-        if (null !== ($request->input('works_were_done')) &&  null !== ($request->input('malfunction_type'))) {
-            $malfunctionType = $request->input('malfunction_type');
-            $worksWereDone = $request->input('works_were_done');
-
-            if ( count($malfunctionType) == count($worksWereDone) ) {
-                foreach ($malfunctionType as $itemNameIterator => $itemName) {
-                    $reference->malfunctions()->create(['malfunction_type'=>$itemName, 'works_were_done'=>$worksWereDone[$itemNameIterator]]);
-                }
-            }
-        }
+        $this->reference->referenceMalfunctionsMaker($reference, $request, 'create');
 
         flash()->success(' تم إنشاء الإشارة بنجاح. ')->important();
         return redirect()->action('ReferenceController@show', ['id'=>$reference->id]);
@@ -77,22 +69,13 @@ class ReferenceController extends Controller
     {
         $reference = $this->reference->update($id, $request->all());
 
+        //Reference softcopies files
         $projectImage = new ProjectImages();
         $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_pdf', 'App\Reference', $reference->id, 'pdf', 'no_cover');
         $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Reference', $reference->id, 'img', 'no_cover');
 
         //ReferenceMalfunction
-        $reference->malfunctions()->delete();
-        if (null !== ($request->input('works_were_done')) &&  null !== ($request->input('malfunction_type'))) {
-            $malfunctionType = $request->input('malfunction_type');
-            $worksWereDone = $request->input('works_were_done');
-
-            if ( count($malfunctionType) == count($worksWereDone) ) {
-                foreach ($malfunctionType as $itemNameIterator => $itemName) {
-                    $reference->malfunctions()->create(['malfunction_type'=>$itemName, 'works_were_done'=>$worksWereDone[$itemNameIterator]]);
-                }
-            }
-        }
+        $this->reference->referenceMalfunctionsMaker($reference, $request, 'update');
 
         flash()->success(' تم تعديل الإشارة بنجاح. ')->important();
         return redirect()->action('ReferenceController@show', ['id'=>$id]);

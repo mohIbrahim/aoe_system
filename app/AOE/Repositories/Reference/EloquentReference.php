@@ -3,6 +3,7 @@
 namespace App\AOE\Repositories\Reference;
 
 use App\Reference;
+use App\Http\Requests\ReferenceRequest;
 
 class EloquentReference implements ReferenceInterface
 {
@@ -88,6 +89,34 @@ class EloquentReference implements ReferenceInterface
         }
         $results = $this->reference->whereBetween('received_date', [$from, $today]);
         return $results;
+    }
+
+    public function referenceMalfunctionsMaker(Reference $reference,ReferenceRequest $request,string $requestType)
+    {
+        if ($requestType=='create') {
+            if (null !== ($request->input('works_were_done')) &&  null !== ($request->input('malfunction_type')) && null !== ($request->input('required_parts')) ) {
+                $malfunctionType = $request->input('malfunction_type');
+                $worksWereDone = $request->input('works_were_done');
+                $requiredParts = $request->input('required_parts');
+                if ( count($malfunctionType) == count($worksWereDone) ) {
+                    foreach ($malfunctionType as $itemNameIterator => $itemName) {
+                        $reference->malfunctions()->create(['malfunction_type'=>$itemName, 'works_were_done'=>$worksWereDone[$itemNameIterator], 'required_parts'=>$requiredParts[$itemNameIterator]]);
+                    }
+                }
+            }
+        } else if ($requestType == 'update') {
+            $reference->malfunctions()->delete();
+            if (null !== ($request->input('works_were_done')) &&  null !== ($request->input('malfunction_type')) && null !== ($request->input('required_parts')) ) {
+                $malfunctionType = $request->input('malfunction_type');
+                $worksWereDone = $request->input('works_were_done');
+                $requiredParts = $request->input('required_parts');
+                if ( count($malfunctionType) == count($worksWereDone) ) {
+                    foreach ($malfunctionType as $itemNameIterator => $itemName) {
+                        $reference->malfunctions()->create(['malfunction_type'=>$itemName, 'works_were_done'=>$worksWereDone[$itemNameIterator], 'required_parts'=>$requiredParts[$itemNameIterator]]);
+                    }
+                }
+            }
+        }
     }
 
 }

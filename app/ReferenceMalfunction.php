@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ReferenceMalfunction extends Model
 {
     protected $table = 'reference_malfunctions';
-    protected $fillable = ['malfunction_type', 'works_were_done', 'reference_id'];
+    protected $fillable = ['malfunction_type', 'works_were_done', 'required_parts', 'reference_id'];
 
     public function reference()
     {
