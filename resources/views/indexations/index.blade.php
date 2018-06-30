@@ -37,6 +37,8 @@
                                 <th> موافقة العميل </th>
                                 <th> موافقة مدير الأقسام الفنية </th>
                                 <th> موافقة المخازن </th>
+                                <th> رقم الزيارة </th>
+                                <th> قراءة العداد </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -62,6 +64,12 @@
                                         </td>
                                         <td>
                                             {{$indexation->warehouse_approval}}
+                                        </td>
+                                        <td>
+                                            {!!($indexation->visit)?("<a href='".action('VisitController@show', ['id'=>$indexation->visit->id])."'target='_blank'>".$indexation->visit->id."</a>"):('تم حذف الزيارة الخاصة بهذة المقايسة، برجاء إنشاء وإختيار زيارة لهذة المقايسة')!!}
+                                        </td>
+                                        <td>
+                                            {{($indexation->visit)?(($indexation->visit->readingOfPrintingMachine)?($indexation->visit->readingOfPrintingMachine->value):('')):('')}}
                                         </td>
                                         <td>
 									</tr>
