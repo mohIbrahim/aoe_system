@@ -27,6 +27,7 @@ class CreateInvoicesTable extends Migration
             $table->text('comments')->nullable();
             $table->string('collect_date')->nullable();
             $table->string('collector_employee_name')->nullable();
+            $table->string('emp_name_reponsible_for_invoice')->nullable();
             $table->timestamps();
 
             $table->integer('indexation_id')->unsigned()->nullable();

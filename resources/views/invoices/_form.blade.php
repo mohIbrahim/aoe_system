@@ -233,13 +233,44 @@
     <input type="text" class="form-control" id="datepicker" name="release_date"  placeholder=" اختر تاريخ الإصدار. " value="{{$invoice->release_date or old('release_date')}}">
 </div>
 
-<div class="form-group" >
+<div class="form-group">
+    <label for="emp_name_reponsible_for_invoice"> اسم الموظف المسؤول عن الفاتورة </label>
+    <select class="form-control selectpicker" name="emp_name_reponsible_for_invoice" data-live-search="true" id="collector-employee-name">
+        <?php $selectedResponsibleEmpNameForInvoice = isset($invoice->emp_name_reponsible_for_invoice)? $invoice->emp_name_reponsible_for_invoice:'' ;$isNotSelectedYet = 1;?>
+        <option value=" "> اختر اسم الموظف المسؤول عن الفاتورة.  </option>
+        @foreach ($employeesNames as $employeeIterator => $responsibleEmpForInvoice)
+
+            @if ( (old('emp_name_reponsible_for_invoice')) == $responsibleEmpForInvoice)
+                <option value="{{$responsibleEmpForInvoice}}" selected="selected"> {{$responsibleEmpForInvoice}} </option>
+                {{$isNotSelectedYet = 0}}
+            @else
+                @if($selectedResponsibleEmpNameForInvoice == $responsibleEmpForInvoice && $isNotSelectedYet)
+                    <option value="{{$responsibleEmpForInvoice}}" selected="selected"> {{$responsibleEmpForInvoice}} </option>
+                @else
+                    <option value="{{$responsibleEmpForInvoice}}"> {{$responsibleEmpForInvoice}} </option>
+                @endif
+            @endif
+
+        @endforeach
+    </select>
+</div>
+
+<div class="form-group">
     <label for="collector_employee_name"> اسم الموظف الذي قام بالتحصيل </label>
     <select class="form-control selectpicker" name="collector_employee_name" data-live-search="true" id="collector-employee-name">
-        <?php $selectecCollectorName = isset($invoice->collector_employee_name)? $invoice->collector_employee_name:'' ;?>
+        <?php $selectedCollectorName = isset($invoice->collector_employee_name)? $invoice->collector_employee_name:'';$isNotSelectedYet2 = 1;?>
         <option value=" "> اختراسم الموظف الذي قام بالتحصيل.  </option>
         @foreach ($employeesNames as $employeeIterator => $employeeName)
-            <option value="{{$employeeName}}" {!!($selectecCollectorName == $employeeName)? 'selected="selected"' : ((old('contract_id')==$employeeName)?'selected="selected"':'')!!}> {{$employeeName}} </option>
+            @if((old('collector_employee_name'))==$employeeName)
+                <option value="{{$employeeName}}" selected="selected"> {{$employeeName}} </option>
+                {{$isNotSelectedYet2 = 0}}
+            @else
+                @if($selectedCollectorName == $employeeName && $isNotSelectedYet2)
+                    <option value="{{$employeeName}}" selected="selected"> {{$employeeName}} </option>
+                @else
+                    <option value="{{$employeeName}}"> {{$employeeName}} </option>
+                @endif
+            @endif
         @endforeach
     </select>
 </div>
