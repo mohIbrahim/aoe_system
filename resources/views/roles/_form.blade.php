@@ -1,14 +1,10 @@
-<?php
-$currentTitle='permissions';
-$bool = false;
-?>
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>
+            <th class="text-center">
                 Role Name <span style="color: red;"> +</span>
             </th>
-            <th>
+            <th class="text-center">
                 Privileges <span style="color: red;"> +</span>
             </th>
         </tr>
@@ -16,28 +12,42 @@ $bool = false;
     <tbody>
         <tr>
             <td class="col-md-2">
-                <div class="form-group">
-                    <input type="text" name="name" value="{{$role->name or ''}}" class="form-control" placeholder="Enter Role Name.">
+                <div class="form-group text-left" style="direction:ltr; text-align:left">
+                    <label for="name">Role Name</label>
+                    @if((old('name')))
+                        <input type="text" id="name" name="name" value="{{old('name')}}" class="form-control" placeholder="Enter Role Name.">
+                    @else
+                        @if($role->name)
+                            <input type="text" id="name" name="name" value="{{$role->name}}" class="form-control" placeholder="Enter Role Name.">
+                        @else
+                            <input type="text" id="name" name="name" value="" class="form-control" placeholder="Enter Role Name.">
+                        @endif
+                    @endif
                 </div>
             </td>
             <td class="col-md-2">
-                @foreach($permissions as $key=>$permission)
-                    <?php
-                    if(isset($role)){
-                        $bool = in_array($permission->name, $role->permissions->pluck('name')->toArray());
-                    }else{
-                        $bool = false;
-                    }
-                    ?>
-                    @if($currentTitle != $permission->title)
-                        <?php $currentTitle = $permission->title ?>
-                        <hr />
-                        <h3 class="text-center">{{$permission->title}}</h3>
-                    @endif
+                @foreach($permissionsGroupedByTitle as $permissionGroupByTitleKey=>$permissionGroupByTitle)
+                    
                     <div class="form-group">
-                        <input type="checkbox" name="permission[]" value="{{$permission->id or ''}}" {{($bool)? 'checked':''}} class="checkbox-inline">
-                        <label for="permission">{{ $permission->name }}</label>
+                        <h3 class="text-center">{{$permissionGroupByTitleKey}}</h3>
+                        @foreach($permissionGroupByTitle as $permissionKey=>$permission)
+
+                            <div class="form-group text-left ltr">
+                                <label for="permissions{{$permission->id}}">{{ $permission->name }}</label>
+                                @if (in_array($permission->id, (old('permissions'))?(old('permissions')):([])))
+                                    <input type="checkbox" id="permissions{{$permission->id}}" name="permissions[]" value="{{$permission->id}}" checked>
+                                @else
+                                    @if (in_array($permission->id, (isset($selectedPermissionsIds))?($selectedPermissionsIds):([])))
+                                        <input type="checkbox" id="permissions{{$permission->id}}" name="permissions[]" value="{{$permission->id}}" checked>
+                                    @else
+                                        <input type="checkbox" id="permissions{{$permission->id}}" name="permissions[]" value="{{$permission->id}}">
+                                    @endif
+                                @endif
+                            <div>
+
+                        @endforeach
                     </div>
+                    <hr>
                 @endforeach
             </td>
         </tr>

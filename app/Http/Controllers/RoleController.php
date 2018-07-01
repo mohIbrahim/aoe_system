@@ -40,8 +40,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::all();
-        return view('roles.create', compact('permissions'));
+        $permissionsGroupedByTitle = Permission::all()->groupBy('title');
+        return view('roles.create', compact('permissionsGroupedByTitle'));
     }
 
     /**
@@ -52,9 +52,8 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-
-        $role = Role::create( $request->all());
-        $role->permissions()->attach($request->get('permission'));
+        $role = Role::create( ['name'=>$request->input('name')]);
+        $role->permissions()->attach($request->input('permissions'));
         flash()->success('Role has been added successfully');
         return redirect('roles');
     }
@@ -81,8 +80,9 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        $permissions = Permission::all();
-        return view('roles.edit', compact('role','permissions'));
+        $permissionsGroupedByTitle = Permission::all()->groupBy('title');
+        $selectedPermissionsIds = $role->permissions->pluck('id')->toArray();
+        return view('roles.edit', compact('role','permissionsGroupedByTitle', 'selectedPermissionsIds'));
     }
 
     /**
@@ -95,8 +95,8 @@ class RoleController extends Controller
     public function update(RoleRequest $request, $id)
     {
         $role = Role::find($id);
-        $role->update($request->all());
-        $role->permissions()->sync($request->get('permission'));
+        $role->update(['name'=>$request->input('name')]);
+        $role->permissions()->sync($request->input('permissions'));
         flash()->success('Role has been updated successfully');
         return redirect(action('RoleController@show',[$id]));
     }
