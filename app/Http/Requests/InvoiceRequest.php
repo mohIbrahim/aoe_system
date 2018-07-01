@@ -25,7 +25,9 @@ class InvoiceRequest extends FormRequest
     {
 
         $result = [
-            'number'=>'required|max:16777215|numeric|unique:invoices,number,'.$this->invoice,
+            // If invoice fom more than customer
+            //'number'=>'required|max:16777215|numeric|unique:invoices,number,'.$this->invoice,
+            'number'=>'required|max:16777215|numeric',
             'customer_id'=>'required',
             'type'=>'required',
             'issuer'=>'required',
@@ -57,7 +59,7 @@ class InvoiceRequest extends FormRequest
             'number.required'=>' برجاء إدخال رقم الفاتورة. ',
             'number.max'=>' برجاء إدخال رقم الفاتورة لا يزيد عن 7 خانات. ',
             'number.numeric'=>' برجاء إدخال رقم الفاتور أرقم فقط. ',
-            'number.uniuqe'=>' رقم الفاتورة تم إدخاله من قبل برجاء اختيار رقم آخر. ',
+            'number.unique'=>' رقم الفاتورة تم إدخاله من قبل برجاء اختيار رقم آخر. ',
 
             'customer_id.required'=>' برجاء اختيار كود العميل. ',
 

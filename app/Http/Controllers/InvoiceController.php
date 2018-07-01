@@ -176,4 +176,10 @@ class InvoiceController extends Controller
         $employeesNames = Employee::all()->pluck('user.name', 'user.name');
         return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames', 'incommingCustomer'));
     }
+
+    public function getResponsibleEmployeesForInvoicesNotPaidReport()
+    {
+        $invoices = $this->invoice->getResponsibleEmployeesForInvoicesNotPaidReport();
+        return view('invoices.reports.responsible_employees_for_invoices_not_paid_report', compact('invoices'));
+    }
 }

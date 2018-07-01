@@ -570,7 +570,7 @@ $(document).ready(function(){
 					$("#my-table-body").fadeOut();
 					$("#my-table-body").children().remove();
 					$.each(results, function(index, invoice) {
-						newResult += "<tr><td>"+(index+1)+"</td><td><a href='/invoices/"+invoice.id+"'>"+( (invoice.number)?(invoice.number):('لم يتم تعين الرقم حتى الآن') )+"</a></td><td>"+((invoice.customer)?(invoice.customer.name):(''))+"</td><td>"+invoice.type+"</td><td>"+invoice.issuer+"</td><td>"+(invoice.order_number||'')+"</td><td>"+(invoice.delivery_permission_number||'')+"</td><td>"+(invoice.finance_check_out||'')+"</td><td>"+(invoice.total||'')+"</td><td>"+(invoice.emp_name_reponsible_for_invoice||'')+"</td><td>"+(invoice.release_date||'')+"</td><td>"+(invoice.collect_date||'')+"</td></tr>";
+						newResult += "<tr><td>"+(index+1)+"</td><td><a href='/invoices/"+invoice.id+"'>"+( (invoice.number)?(invoice.number):('لم يتم تعين الرقم حتى الآن') )+"</a></td><td>"+((invoice.customer)?(invoice.customer.name):(''))+"</td><td>"+invoice.type+"</td><td>"+(invoice.issuer||'')+"</td><td>"+(invoice.order_number||'')+"</td><td>"+(invoice.delivery_permission_number||'')+"</td><td>"+(invoice.finance_check_out||'')+"</td><td>"+(invoice.total||'')+"</td><td>"+(invoice.emp_name_reponsible_for_invoice||'')+"</td><td>"+(invoice.release_date||'')+"</td><td>"+(invoice.collect_date||'')+"</td></tr>";
 					});
 					$("#my-table-body").append(newResult);
 					$("#my-table-body").fadeIn();

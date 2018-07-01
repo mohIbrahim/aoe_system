@@ -14,6 +14,13 @@
 					<li><a href="{{ action('InvoiceController@create') }}"> إنشاء فاتورة جديدة </a></li>
 				@endif
 			@endif
+			@if(in_array('view_invoices_reports', $permissions))
+				<li role="separator" class="divider"></li>
+				<li class="dropdown-header"> <i class="glyphicon glyphicon-info-sign"></i>  تقرير </li>
+				@if(in_array('view_responsible_employees_for_invoices_not_paid_report', $permissions))
+					<li><a href="{{ action('InvoiceController@getResponsibleEmployeesForInvoicesNotPaidReport') }}">تقرير عن المواظفين المسؤولين عن الفواتير التي لم يتم تحصيلها</a></li>
+				@endif
+			@endif
 		</ul>
 	</li>
 </ul>

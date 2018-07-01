@@ -71,6 +71,14 @@ class Invoices
         if($request->route()->getName() == 'create_invoice_with_customer'    && in_array('create_invoices', $permissions)){
 
             $response = $next($request);
+        }else
+
+        if( in_array('view_invoices_reports', $permissions)){
+            if($request->route()->getName() == 'responsible_employees_for_invoices_not_paid_report'    && in_array('view_responsible_employees_for_invoices_not_paid_report', $permissions)){
+                $response = $next($request);
+            }else {
+                abort(403);
+            }
         }
         else{
             abort(403);
