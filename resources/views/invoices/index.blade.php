@@ -32,6 +32,7 @@
 			  				    <th> إذن تسليم رقم العقد </th>
 			  				    <th> إطلاع قسم الحسابات </th>
 			  				    <th> إجمالي القيمة </th>
+			  				    <th> اسم المهندس المسؤول عن الفاتورة </th>
 			  				    <th> تاريخ الإصدار </th>
 			  				    <th> تاريخ التحصيل </th>
 			  			    </tr>
@@ -55,6 +56,7 @@
 										<td>{{$invoice->delivery_permission_number}}</td>
 										<td>{{$invoice->finance_check_out}}</td>
 										<td>{{(isset($invoice->total))?($invoice->total.' جنية'):('0جنية')}} </td>
+										<td>{{$invoice->emp_name_reponsible_for_invoice}}</td>
 										<td>{{$invoice->release_date}}</td>
 										<td>{{$invoice->collect_date}}</td>
 									</tr>
