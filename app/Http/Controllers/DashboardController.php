@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Closure;
 
 class DashboardController extends Controller
 {
@@ -11,7 +12,7 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware( function($request, $next){
+        $this->middleware( function($request, Closure $next){
             $this->authenticatedUser = auth()->user();
             $this->authenticatedEmployee = $this->authenticatedUser->employee;
             return $next($request);
