@@ -7,10 +7,12 @@
 			</div>
 			<div class="panel-body">
 				@foreach($invoices as $invoiceGroupedKey=>$invoiceGrouped)
-					<div class="panel panel-danger">
-						<h3 class="">{{$invoiceGroupedKey}}</h3>
+					<div class="panel panel-default">
+					<div class="panel-body">
+						<h4 class="">{{$invoiceGroupedKey}}</h4>
+					</div>
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-hover" style="font-size:.75em">
 								<thead>
 									<tr>
 										<th>#</th>
@@ -31,10 +33,44 @@
 									@foreach($invoiceGrouped as $invoiceKey=>$invoice)
 										<tr>
 											<td>
-												{{$invoiceKey}}
+												{{($invoiceKey+1)}}
 											</td>
 											<td>
-												{{$invoice->number}}
+												<a href="{{ action('InvoiceController@show', ['id'=>$invoice->id]) }}" target="_blank">
+													{{$invoice->number}}
+												</a>
+											</td>
+											<td>
+												<a href="{{ action('CustomerController@show', ['id'=>(($invoice->customer)?($invoice->customer->id):('#'))]) }}" target="_blank">
+													{{$invoice->customer->name or ''}}
+												</a>
+											</td>
+											<td>
+												{{$invoice->type}}
+											</td>
+											<td>
+												{{$invoice->issuer}}
+											</td>
+											<td>
+												{{$invoice->order_number}}
+											</td>
+											<td>
+												{{$invoice->delivery_permission_number}}
+											</td>
+											<td>
+												{{$invoice->finance_check_out}}
+											</td>
+											<td>
+												{{$invoice->total.' جنية'}}
+											</td>
+											<td>
+												{{$invoice->emp_name_reponsible_for_invoice}}
+											</td>
+											<td>
+												{{$invoice->release_date}}
+											</td>
+											<td>
+												{{$invoice->collect_date or 'لم تحٌصل بعد'}}
 											</td>
 										</tr>
 									@endforeach

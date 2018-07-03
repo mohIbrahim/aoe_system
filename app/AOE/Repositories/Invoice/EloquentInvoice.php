@@ -142,8 +142,7 @@ class EloquentInvoice implements InvoiceInterface
 
     public function getResponsibleEmployeesForInvoicesNotPaidReport()
     {
-        $results = $this->invoice->whereNull('collect_date')->whereNotNull('emp_name_reponsible_for_invoice')->get()->groupBy('emp_name_reponsible_for_invoice');
-        // dd($results);
+        $results = $this->invoice->with('customer')->whereNull('collect_date')->whereNotNull('emp_name_reponsible_for_invoice')->get()->groupBy('emp_name_reponsible_for_invoice');
         return $results;
     }
 }
