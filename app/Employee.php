@@ -78,7 +78,7 @@ class Employee extends Model
     }
 
     /**
-     * Visits that Maintenance Engineers doing it.
+     * Visits that any employee specially maintenance employee doing it.
      */
     public function visits()
     {
@@ -91,7 +91,7 @@ class Employee extends Model
     }
 
     /**
-     * invoice that maintenance engineer responsible for it.
+     * invoice that any employee responsible for it.
      */
     public function invoicesAtHisOwnRisk()
     {
