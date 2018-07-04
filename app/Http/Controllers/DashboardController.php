@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Closure;
+use App\AOE\Repositories\Employee\EloquentEmployee;
+use App\Employee;
 
 class DashboardController extends Controller
 {
     private $authenticatedUser ;
     private $authenticatedEmployee;
+    private $eloquentEmployee;
+
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -16,7 +21,8 @@ class DashboardController extends Controller
             $this->authenticatedUser = auth()->user();
             $this->authenticatedEmployee = $this->authenticatedUser->employee;
             return $next($request);
-        });   
+        });
+        $this->eloquentEmployee = new EloquentEmployee((new Employee()));
     }
 
 
@@ -55,10 +61,8 @@ class DashboardController extends Controller
 
     public function maintenanceEngineers()
     {
-        $lastAssignedReferences =  $this->authenticatedEmployee->assignedReferences()->latest('received_date')->limit(25)->get();
-        $engineerName = $this->authenticatedUser->name;
-        $departmentName = ( $this->authenticatedEmployee)?(( $this->authenticatedEmployee->department)?( $this->authenticatedEmployee->department->name):('')):('');
-        return view('dashboard.maintenance_engineers.main', compact('lastAssignedReferences', 'engineerName', 'departmentName'));
+        $assignedReferencesForMaintenanceEngineer = $this->eloquentEmployee->getAssignedReferencesForMaintenanceEngineersDashboard($this->authenticatedUser,$this->authenticatedEmployee);
+        return view('dashboard.maintenance_engineers.main', $assignedReferencesForMaintenanceEngineer);
     }
 
     public function userWhithManyRoles()

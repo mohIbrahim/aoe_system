@@ -61,4 +61,12 @@ class EloquentEmployee implements EmployeeInterface
         return $results;
     }
 
+    public function getAssignedReferencesForMaintenanceEngineersDashboard($authenticatedUser, $authenticatedEmployee)
+    {
+        $lastAssignedReferences = $authenticatedEmployee->assignedReferences()->latest('received_date')->limit(25)->get();
+        $engineerName = $authenticatedUser->name;
+        $departmentName = ( $authenticatedEmployee)?(( $authenticatedEmployee->department)?( $authenticatedEmployee->department->name):('')):('');
+        return compact('lastAssignedReferences', 'engineerName', 'departmentName');
+    }
+
 }
