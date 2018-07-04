@@ -9,7 +9,7 @@ class Invoice extends Model
 {
     protected $table = 'invoices';
 
-    protected $fillable = ['number', 'type', 'issuer', 'order_number', 'delivery_permission_number', 'finance_check_out', 'release_date', 'descriptions', 'total', 'comments', 'collect_date', 'collector_employee_name', 'emp_name_reponsible_for_invoice', 'indexation_id', 'contract_id', 'customer_id'];
+    protected $fillable = ['number', 'type', 'issuer', 'order_number', 'delivery_permission_number', 'finance_check_out', 'release_date', 'descriptions', 'total', 'comments', 'collect_date', 'collector_employee_name', 'emp_id_reponsible_for_invoice', 'indexation_id', 'contract_id', 'customer_id'];
 
     protected $dates = ['release_date', 'collect_date'];
 
@@ -77,5 +77,10 @@ class Invoice extends Model
         return $this->belongsToMany('App\Part', 'invoice_part', 'invoice_id', 'part_id')
                     ->withPivot(['printing_machines_serial', 'price', 'part_serial_number', 'number_of_parts', 'discount_rate'])
                     ->withTimestamps();
+    }
+
+    public function employeeResponisableForThisInvoice()
+    {
+        return $this->belongsTo('App\Employee', 'emp_id_reponsible_for_invoice', 'id');
     }
 }

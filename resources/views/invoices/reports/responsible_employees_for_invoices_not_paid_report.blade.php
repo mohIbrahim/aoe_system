@@ -7,9 +7,12 @@
 			</div>
 			<div class="panel-body">
 				@foreach($invoices as $invoiceGroupedKey=>$invoiceGrouped)
+				@php
+					$i = 0;
+				@endphp
 					<div class="panel panel-default">
 					<div class="panel-body">
-						<h4 class="">{{$invoiceGroupedKey}}</h4>
+						<h4 class="">{{$invoiceGrouped[$i]->employeeResponisableForThisInvoice->user->name}}</h4>
 					</div>
 						<div class="table-responsive">
 							<table class="table table-hover" style="font-size:.75em">
@@ -64,7 +67,7 @@
 												{{$invoice->total.' جنية'}}
 											</td>
 											<td>
-												{{$invoice->emp_name_reponsible_for_invoice}}
+												{{($invoice->employeeResponisableForThisInvoice)?((($invoice->employeeResponisableForThisInvoice->user)?($invoice->employeeResponisableForThisInvoice->user->name):(''))):('')}}
 											</td>
 											<td>
 												{{$invoice->release_date}}
@@ -73,6 +76,9 @@
 												{{$invoice->collect_date or 'لم تحٌصل بعد'}}
 											</td>
 										</tr>
+										@php
+											$i++;
+										@endphp
 									@endforeach
 								</tbody>
 							</table>

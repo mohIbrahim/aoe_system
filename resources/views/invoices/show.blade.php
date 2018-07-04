@@ -139,7 +139,7 @@
                                     
                                     <tr>
                                         <th> اسم الموظف المسؤول عن الفاتورة </th>
-                                        <td>{{$invoice->emp_name_reponsible_for_invoice}}</td>
+                                        <td>{{($invoice->employeeResponisableForThisInvoice)?((($invoice->employeeResponisableForThisInvoice->user)?($invoice->employeeResponisableForThisInvoice->user->name):(''))):('')}}</td>
                                     </tr>
 
                                     <tr>

@@ -42,9 +42,21 @@ class Employee extends Model
         return $this->belongsTo('App\Department', 'managed_department_id', 'id');
     }
 
+    /**
+     * Assigned References To Maintenance Engineers
+     */
     public function assignedReferences()
     {
         return $this->hasMany('App\Reference', 'employee_id', 'id');
+    }
+
+    /**
+    * The references that received by admins
+    *
+    **/
+    public function theReferencesThatReceived()
+    {
+        return $this->hasMany('App\Reference', 'employee_id_who_receive_the_reference', 'id');
     }
 
     public function department()
@@ -57,27 +69,32 @@ class Employee extends Model
         return $this->hasMany('App\InstallationRecord', 'employee_id', 'id');
     }
 
+    /**
+     * Contracts that Salesman edits it.
+     */
     public function contracts()
     {
         return $this->hasMany('App\Contract', 'employee_id_who_edits_the_contract', 'id');
     }
 
+    /**
+     * Visits that Maintenance Engineers doing it.
+     */
     public function visits()
     {
         return $this->hasMany('App\Visit', 'the_employee_who_made_the_visit_id', 'id');
     }
 
-    /**
-    * The references that received by admins
-    *
-    **/
-    public function theReferencesThatReceived()
-    {
-        return $this->hasMany('App\Reference', 'employee_id_who_receive_the_reference', 'id');
-    }
-
     public function assignedPrintingMachines()
     {
         return $this->belongsToMany('App\PrintingMachine', 'emp_mach_assignments')->withTimestamps();
+    }
+
+    /**
+     * invoice that maintenance engineer responsible for it.
+     */
+    public function invoicesAtHisOwnRisk()
+    {
+        return $this->hasMany('App\Invoice', 'emp_id_reponsible_for_invoice', 'id');
     }
 }

@@ -56,7 +56,7 @@
 										<td>{{$invoice->delivery_permission_number}}</td>
 										<td>{{$invoice->finance_check_out}}</td>
 										<td>{{(isset($invoice->total))?($invoice->total.' جنية'):('0جنية')}} </td>
-										<td>{{$invoice->emp_name_reponsible_for_invoice}}</td>
+										<td>{{($invoice->employeeResponisableForThisInvoice)?((($invoice->employeeResponisableForThisInvoice->user)?($invoice->employeeResponisableForThisInvoice->user->name):(''))):('')}}</td>
 										<td>{{$invoice->release_date}}</td>
 										<td>{{$invoice->collect_date}}</td>
 									</tr>

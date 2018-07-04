@@ -27,7 +27,6 @@ class CreateInvoicesTable extends Migration
             $table->text('comments')->nullable();
             $table->string('collect_date')->nullable();
             $table->string('collector_employee_name')->nullable();
-            $table->string('emp_name_reponsible_for_invoice')->nullable();
             $table->timestamps();
 
             $table->integer('indexation_id')->unsigned()->nullable();
@@ -38,6 +37,9 @@ class CreateInvoicesTable extends Migration
 
             $table->integer('customer_id')->unsigned()->nullable();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('set null');
+
+            $table->integer('emp_id_reponsible_for_invoice')->unsigned()->nullable();
+            $table->foreign('emp_id_reponsible_for_invoice')->references('id')->on('employees')->onDelete('set null');
         });
     }
 

@@ -234,20 +234,20 @@
 </div>
 
 <div class="form-group">
-    <label for="emp_name_reponsible_for_invoice"> اسم الموظف المسؤول عن الفاتورة </label>
-    <select class="form-control selectpicker" name="emp_name_reponsible_for_invoice" data-live-search="true" id="collector-employee-name">
-        <?php $selectedResponsibleEmpNameForInvoice = isset($invoice->emp_name_reponsible_for_invoice)? $invoice->emp_name_reponsible_for_invoice:'' ;$isNotSelectedYet = 1;?>
+    <label for="emp_id_reponsible_for_invoice"> اسم الموظف المسؤول عن الفاتورة </label>
+    <select class="form-control selectpicker" name="emp_id_reponsible_for_invoice" data-live-search="true" id="collector-employee-name">
+        <?php $selectedResponsibleEmpIdForInvoice = isset($invoice->emp_id_reponsible_for_invoice)? $invoice->emp_id_reponsible_for_invoice:'' ;$isNotSelectedYet = 1;?>
         <option value=" "> اختر اسم الموظف المسؤول عن الفاتورة.  </option>
-        @foreach ($employeesNames as $employeeIterator => $responsibleEmpForInvoice)
+        @foreach ($employeesNamesIds as $employeeId => $responsibleEmpForInvoiceName)
 
-            @if ( (old('emp_name_reponsible_for_invoice')) == $responsibleEmpForInvoice)
-                <option value="{{$responsibleEmpForInvoice}}" selected="selected"> {{$responsibleEmpForInvoice}} </option>
+            @if ( (old('emp_id_reponsible_for_invoice')) == $employeeId)
+                <option value="{{$employeeId}}" selected="selected"> {{$responsibleEmpForInvoiceName}} </option>
                 {{$isNotSelectedYet = 0}}
             @else
-                @if($selectedResponsibleEmpNameForInvoice == $responsibleEmpForInvoice && $isNotSelectedYet)
-                    <option value="{{$responsibleEmpForInvoice}}" selected="selected"> {{$responsibleEmpForInvoice}} </option>
+                @if($selectedResponsibleEmpIdForInvoice == $employeeId && $isNotSelectedYet)
+                    <option value="{{$employeeId}}" selected="selected"> {{$responsibleEmpForInvoiceName}} </option>
                 @else
-                    <option value="{{$responsibleEmpForInvoice}}"> {{$responsibleEmpForInvoice}} </option>
+                    <option value="{{$employeeId}}"> {{$responsibleEmpForInvoiceName}} </option>
                 @endif
             @endif
 

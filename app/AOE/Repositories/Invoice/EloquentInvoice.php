@@ -54,10 +54,10 @@ class EloquentInvoice implements InvoiceInterface
 
     public function search($keyword)
     {
-        $results = $this->invoice->with('customer')->where('number', 'like', '%'.$keyword.'%')
+        $results = $this->invoice->with('customer', 'employeeResponisableForThisInvoice.user')->where('number', 'like', '%'.$keyword.'%')
                         ->orWhere('type', 'like', '%'.$keyword.'%')
                         ->orWhere('finance_check_out', 'like', '%'.$keyword.'%')
-                        ->orWhere('emp_name_reponsible_for_invoice', 'like', '%'.$keyword.'%')
+                        ->orWhere('emp_id_reponsible_for_invoice', 'like', '%'.$keyword.'%')
                         ->orWhere('release_date', 'like', '%'.$keyword.'%')
                         ->orWhereHas('customer', function($query) use($keyword){
                             $query->where('name', 'like', '%'.$keyword.'%');
@@ -140,9 +140,12 @@ class EloquentInvoice implements InvoiceInterface
         return $results;
     }
 
+    /**
+     * Report for employees that have invoices and they didn't collect it yet.
+     */
     public function getResponsibleEmployeesForInvoicesNotPaidReport()
     {
-        $results = $this->invoice->with('customer')->whereNull('collect_date')->whereNotNull('emp_name_reponsible_for_invoice')->get()->groupBy('emp_name_reponsible_for_invoice');
+        $results = $this->invoice->with('customer', 'employeeResponisableForThisInvoice.user')->whereNull('collect_date')->whereNotNull('emp_id_reponsible_for_invoice')->get()->groupBy('emp_id_reponsible_for_invoice');
         return $results;
     }
 }
