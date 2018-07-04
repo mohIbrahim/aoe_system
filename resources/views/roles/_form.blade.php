@@ -17,7 +17,7 @@
                     @if((old('name')))
                         <input type="text" id="name" name="name" value="{{old('name')}}" class="form-control" placeholder="Enter Role Name.">
                     @else
-                        @if($role->name)
+                        @if(!empty($role->name))
                             <input type="text" id="name" name="name" value="{{$role->name}}" class="form-control" placeholder="Enter Role Name.">
                         @else
                             <input type="text" id="name" name="name" value="" class="form-control" placeholder="Enter Role Name.">
