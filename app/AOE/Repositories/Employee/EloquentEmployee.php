@@ -3,6 +3,7 @@
 namespace App\AOE\Repositories\Employee;
 
 use App\Employee;
+use App\User;
 
 class EloquentEmployee implements EmployeeInterface
 {
@@ -61,12 +62,40 @@ class EloquentEmployee implements EmployeeInterface
         return $results;
     }
 
-    public function getAssignedReferencesForMaintenanceEngineersDashboard($authenticatedUser, $authenticatedEmployee)
+    public function composeDateForMaintenanceEngineerDashboard(Employee $authenticatedEmployee)
     {
-        $lastAssignedReferences = $authenticatedEmployee->assignedReferences()->latest('received_date')->limit(25)->get();
-        $engineerName = $authenticatedUser->name;
-        $departmentName = ( $authenticatedEmployee)?(( $authenticatedEmployee->department)?( $authenticatedEmployee->department->name):('')):('');
-        return compact('lastAssignedReferences', 'engineerName', 'departmentName');
+        $engineerName = $this->getEmployeeName($authenticatedEmployee);
+        $departmentName = $this->getEmployeeDepartmentName($authenticatedEmployee);
+        $lastAssignedReferences = $this->getAssignedReferencesForMaintenanceEngineersDashboard($authenticatedEmployee);
+        $assignedPrintingMachines = $this->getAssignedPrintingMachinesForMaintenanceEngineersDashBord( $authenticatedEmployee);
+        $visits = $this->getVisitsAndIndexationsForMaintenanceEngineersDashboard($authenticatedEmployee);
+        return compact('engineerName', 'departmentName', 'lastAssignedReferences', 'assignedPrintingMachines', 'visits');
     }
+
+    public function getAssignedReferencesForMaintenanceEngineersDashboard(Employee $authenticatedEmployee)
+    {
+        return $authenticatedEmployee->assignedReferences()->latest('received_date')->limit(25)->get();
+    }
+
+    public function getAssignedPrintingMachinesForMaintenanceEngineersDashBord(Employee $authenticatedEmployee)
+    {
+        return $authenticatedEmployee->assignedPrintingMachines;
+    }
+
+    public function getVisitsAndIndexationsForMaintenanceEngineersDashboard(Employee $authenticatedEmployee)
+    {
+        return $authenticatedEmployee->visits()->with('indexation')->latest('visit_date')->limit(25)->get();
+    }
+
+    public function getEmployeeName(Employee $employee)
+    {
+        return ($employee->user)?($employee->user->name):('Undefined');
+    }
+
+    public function getEmployeeDepartmentName(Employee $employee)
+    {
+        return ( $employee)?(( $employee->department)?( $employee->department->name):('')):('');
+    }
+    
 
 }

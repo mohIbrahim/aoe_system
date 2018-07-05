@@ -14,8 +14,9 @@
                     <div class="panel-body">
                         
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            @include('dashboard.maintenance_engineers.blocks.printing_machines')
                             @include('dashboard.maintenance_engineers.blocks.references')
+                            @include('dashboard.maintenance_engineers.blocks.visits')
+                            @include('dashboard.maintenance_engineers.blocks.printing_machines')
                         </div>
                     </div>
                 </div>

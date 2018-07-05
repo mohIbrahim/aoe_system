@@ -41,7 +41,7 @@
         <div class="container">
             <div class="content">
                 <h1> الشركة العربية لمهمات المكاتب </h1>
-                <div class="title"> !عفواً الموقع في حالة الصيانة سنعود في أقرب وقت </div>
+                <div class="title"> !عفوًا الموقع في حالة الصيانة سنعود في أقرب وقت </div>
             </div>
         </div>
     </body>

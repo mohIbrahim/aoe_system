@@ -61,7 +61,7 @@ class DashboardController extends Controller
 
     public function maintenanceEngineers()
     {
-        $assignedReferencesForMaintenanceEngineer = $this->eloquentEmployee->getAssignedReferencesForMaintenanceEngineersDashboard($this->authenticatedUser,$this->authenticatedEmployee);
+        $assignedReferencesForMaintenanceEngineer = $this->eloquentEmployee->composeDateForMaintenanceEngineerDashboard($this->authenticatedEmployee);
         return view('dashboard.maintenance_engineers.main', $assignedReferencesForMaintenanceEngineer);
     }
 
