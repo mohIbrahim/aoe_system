@@ -285,6 +285,21 @@ class PermissionSeeder extends Seeder
             'name'      =>'delete_contracts',
             'created_at'=>Carbon::now(),
             ]);
+        DB::table('permissions')->insert([
+            'title'      =>'contracts',
+            'name'      =>'view_contracts_reports',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'contracts',
+            'name'      =>'view_contracts_expire_within_next_3_monthes_report',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'contracts',
+            'name'      =>'view_contracts_invoices_are_due_in_this_month_report',
+            'created_at'=>Carbon::now(),
+            ]);
     }
 
     private function invoices()
@@ -366,6 +381,16 @@ class PermissionSeeder extends Seeder
             'name'      =>'delete_follow_up_cards',
             'created_at'=>Carbon::now(),
             ]);
+        DB::table('permissions')->insert([
+            'title'      =>'follow_up_cards',
+            'name'      =>'view_follow_up_cards_reports',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'follow_up_cards',
+            'name'      =>'view_visits_not_done_on_time_for_follow_up_cards_report',
+            'created_at'=>Carbon::now(),
+            ]);
     }
     private function followUpCardSpecialReports()
     {
@@ -410,6 +435,16 @@ class PermissionSeeder extends Seeder
         DB::table('permissions')->insert([
             'title'      =>'references',
             'name'      =>'delete_references',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'references',
+            'name'      =>'view_references_reports',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'references',
+            'name'      =>'view_references_during_last_two_working_days_report',
             'created_at'=>Carbon::now(),
             ]);
     }

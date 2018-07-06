@@ -180,7 +180,7 @@ class ContractController extends Controller
         return view('contracts.reports.contracts_invoices_are_due_in_this_month_report', compact('paymentsNames', 'invoices', 'contracts', 'thisYear', 'thisMonth'));
     }
 
-    public function contractsThatWillExpireWithinTheNextThreeMonthes()
+    public function contractsThatWillExpireWithinTheNextThreeMonthesReport()
     {
         $contracts = $this->contract->getContractsThatWillExpireWithinTheNextThreeMonthes();
         return view('contracts.reports.contracts_expire_within_next_3_monthes', compact('contracts'));

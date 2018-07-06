@@ -84,13 +84,13 @@ class References
             $response = $next($request);
         }
 
-        else
-        
-        if($request->route()->getName() == 'references_report_during_last_two_working_days'    && (in_array('view_references', $permissions) )){
-            $response = $next($request);
-        }
-        
-        else{
+        else if (in_array('view_references_reports', $permissions)) {
+            if($request->route()->getName() == 'references_during_last_two_working_days_report'    && (in_array('view_references_during_last_two_working_days_report', $permissions) )){
+                $response = $next($request);
+            } else {
+                abort(403);
+            }
+        } else{
             abort(403);
         }
 

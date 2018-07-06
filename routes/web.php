@@ -52,7 +52,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('contracts_pm_search/{keyword}', 'ContractController@searchingOnPrintingMachinesByCustomerName')->name('contracts_pm_search');
     Route::get('create_contract_with_printing_machine_id/{pm_id}', 'ContractController@createWithPrintingMachineId')->name('create_contract_with_printing_machine_id');
     Route::get('contracts_invoices_are_due_in_this_month_report', 'ContractController@contractsInvoicesAreDueInThisMonthReport')->name('contracts_invoices_are_due_in_this_month_report');
-    Route::get('contracts_expire_within_next_3_monthes', 'ContractController@contractsThatWillExpireWithinTheNextThreeMonthes')->name('contracts_expire_within_next_3_monthes');
+    Route::get('contracts_expire_within_next_3_monthes_report', 'ContractController@contractsThatWillExpireWithinTheNextThreeMonthesReport')->name('contracts_expire_within_next_3_monthes_report');
 //Invoices
     Route::resource('invoices', 'InvoiceController');
     Route::get('invoices_search/{keyword}', 'InvoiceController@search')->name('invoices_search');
@@ -85,7 +85,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('references_pm_search/{keyword}', 'ReferenceController@searchingOnPrintingMachine')->name('references_pm_search');
     Route::get('create_reference_with_printing_machine_id/{pm_id}', 'ReferenceController@createWithPrintingMachineId')->name('create_reference_with_printing_machine_id');
     Route::get('reference_close/{reference_id}', 'ReferenceController@closeTheReference')->name('reference_close');
-    Route::get('references_report_during_last_two_working_days','ReferenceController@referencesReportDuringLastTwoWorkingDays')->name('references_report_during_last_two_working_days');
+    Route::get('references_during_last_two_working_days_report','ReferenceController@referencesDuringLastTwoWorkingDaysReport')->name('references_during_last_two_working_days_report');
 //Indexations
     Route::resource('indexations', 'IndexationController');
     Route::get('indexations_search/{keyword}', 'IndexationController@search')->name('indexations_search');

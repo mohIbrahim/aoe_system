@@ -79,13 +79,17 @@ class Contracts
         if($request->route()->getName() == 'contracts_pm_search'    && (in_array('create_contracts', $permissions) || in_array('update_contracts', $permissions))){
             $response = $next($request);
         } else
-        if($request->route()->getName() == 'contracts_invoices_are_due_in_this_month_report'    && ( in_array('view_contracts', $permissions))){
-            $response = $next($request);
-        } else
-        if($request->route()->getName() == 'contracts_expire_within_next_3_monthes'    && ( in_array('view_contracts', $permissions))){
-            $response = $next($request);
-        } else
-        {
+
+        if( in_array('view_contracts_reports', $permissions) ){
+            if ($request->route()->getName() == 'contracts_expire_within_next_3_monthes_report' && in_array('view_contracts_expire_within_next_3_monthes_report', $permissions)) {
+                $response = $next($request);
+            } else if ($request->route()->getName() == 'contracts_invoices_are_due_in_this_month_report' && in_array('view_contracts_invoices_are_due_in_this_month_report', $permissions)) {
+                $response = $next($request);
+            } else {
+                abort(403);
+            }
+            
+        } else {
             abort(403);
         }
 

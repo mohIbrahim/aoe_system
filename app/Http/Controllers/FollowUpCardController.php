@@ -107,11 +107,12 @@ class FollowUpCardController extends Controller
     }
 
     public function visitsNotDoneOnTimeReport()
-    {        
+    {
         return view('follow_up_cards.reports.visits_not_done_on_time');
     }
 
-    public function visitsNotDoneOnTimeReportSearch($period1, $period2){
+    public function visitsNotDoneOnTimeReportSearch($period1, $period2)
+    {
         return $this->followUpCard->visitsNotDoneOnTimeReport($period1, $period2);
     }
 }

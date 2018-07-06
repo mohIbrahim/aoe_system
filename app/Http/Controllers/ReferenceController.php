@@ -132,9 +132,9 @@ class ReferenceController extends Controller
         return redirect()->action('ReferenceController@show', ['id'=>$reference->id]);
     }
 
-    public function referencesReportDuringLastTwoWorkingDays()
+    public function referencesDuringLastTwoWorkingDaysReport()
     {
-        $references = $this->reference->referencesReportDuringLastTwoWorkingDays()->paginate(15);
+        $references = $this->reference->referencesDuringLastTwoWorkingDaysReport()->paginate(15);
         return view('references.reports.references_report_during_last_two_working_days', compact('references'));
     }
 }

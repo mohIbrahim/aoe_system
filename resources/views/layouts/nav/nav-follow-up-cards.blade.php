@@ -22,10 +22,12 @@
 					<li><a href="{{ action('FollowUpCardSpecialReportController@create') }}"> إنشاء تقرير خاص لبطاقة متابعة  </a></li>
 				@endif
 			@endif
-			@if(in_array('view_follow_up_cards', $permissions))
+			@if(in_array('view_follow_up_cards_reports', $permissions))
 				<li role="separator" class="divider"></li>
 				<li class="dropdown-header"> <i class="glyphicon glyphicon-info-sign"></i> تقرير </li>
-				<li><a href="{{ action('FollowUpCardController@visitsNotDoneOnTimeReport') }}"> تقرير عن الزيارات التي لم تتم خلال فترة محددة لبطاقات المتابعة </a></li>
+				@if(in_array('view_visits_not_done_on_time_for_follow_up_cards_report', $permissions))
+					<li><a href="{{ action('FollowUpCardController@visitsNotDoneOnTimeReport') }}"> تقرير عن الزيارات التي لم تتم خلال فترة محددة لبطاقات المتابعة </a></li>
+				@endif
 			@endif
 		</ul>
 	</li>

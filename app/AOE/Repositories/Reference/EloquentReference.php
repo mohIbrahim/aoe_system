@@ -74,7 +74,7 @@ class EloquentReference implements ReferenceInterface
         return $results;
     }
 
-    public function referencesReportDuringLastTwoWorkingDays()
+    public function referencesDuringLastTwoWorkingDaysReport()
     {
         $todayOfWeek = now()->subDays(0)->format('D');
         $today = now()->toDateString();
