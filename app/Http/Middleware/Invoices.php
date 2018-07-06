@@ -31,7 +31,7 @@ class Invoices
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'invoices.show'       && in_array('view_invoices', $permissions)){
+        if($request->route()->getName() == 'invoices.show'       && in_array('view_invoice', $permissions)){
             $response = $next($request);
         }else
 

@@ -33,7 +33,7 @@ class Roles
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'roles.show'       && in_array('view_roles', $permissions)){
+        if($request->route()->getName() == 'roles.show'       && in_array('view_role', $permissions)){
 
             $response = $next($request);
         }else

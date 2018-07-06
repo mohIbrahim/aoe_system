@@ -31,7 +31,7 @@ class Indexations
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'indexations.show'       && in_array('view_indexations', $permissions)){
+        if($request->route()->getName() == 'indexations.show'       && in_array('view_indexation', $permissions)){
 
             $response = $next($request);
         }else

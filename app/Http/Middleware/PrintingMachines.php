@@ -32,7 +32,7 @@ class PrintingMachines
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'printing_machines.show'       && in_array('view_printing_machines', $permissions)){
+        if($request->route()->getName() == 'printing_machines.show'       && in_array('view_printing_machine', $permissions)){
 
             $response = $next($request);
         }else

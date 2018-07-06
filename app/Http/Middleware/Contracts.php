@@ -31,7 +31,7 @@ class Contracts
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'contracts.show'       && in_array('view_contracts', $permissions)){
+        if($request->route()->getName() == 'contracts.show'       && in_array('view_contract', $permissions)){
 
             $response = $next($request);
         }else

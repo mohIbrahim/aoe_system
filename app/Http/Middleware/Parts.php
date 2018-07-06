@@ -31,7 +31,7 @@ class Parts
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'parts.show'       && in_array('view_parts', $permissions)){
+        if($request->route()->getName() == 'parts.show'       && in_array('view_part', $permissions)){
 
             $response = $next($request);
         }else

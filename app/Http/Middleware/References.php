@@ -31,7 +31,7 @@ class References
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'references.show'       && in_array('view_references', $permissions)){
+        if($request->route()->getName() == 'references.show'       && in_array('view_reference', $permissions)){
 
             $response = $next($request);
         }else

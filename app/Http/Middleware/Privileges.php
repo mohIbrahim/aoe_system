@@ -34,7 +34,7 @@ class Privileges
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'permissions.show'       && in_array('view_permissions', $permissions)){
+        if($request->route()->getName() == 'permissions.show'       && in_array('view_permission', $permissions)){
 
             $response = $next($request);
         }else

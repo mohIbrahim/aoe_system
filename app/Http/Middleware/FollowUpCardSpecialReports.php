@@ -31,7 +31,7 @@ class FollowUpCardSpecialReports
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'follow_up_card_special_reports.show'       && in_array('view_follow_up_card_special_reports', $permissions)){
+        if($request->route()->getName() == 'follow_up_card_special_reports.show'       && in_array('view_follow_up_card_special_report', $permissions)){
 
             $response = $next($request);
         }else

@@ -31,7 +31,7 @@ class FollowUpCards
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'follow_up_cards.show'       && in_array('view_follow_up_cards', $permissions)){
+        if($request->route()->getName() == 'follow_up_cards.show'       && in_array('view_follow_up_card', $permissions)){
 
             $response = $next($request);
         }else

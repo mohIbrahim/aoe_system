@@ -31,7 +31,7 @@ class Visits
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'visits.show'       && in_array('view_visits', $permissions)){
+        if($request->route()->getName() == 'visits.show'       && in_array('view_visit', $permissions)){
 
             $response = $next($request);
         }else

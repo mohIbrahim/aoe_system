@@ -32,7 +32,7 @@ class Customers
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'customers.show'       && in_array('view_customers', $permissions)){
+        if($request->route()->getName() == 'customers.show'       && in_array('view_customer', $permissions)){
 
             $response = $next($request);
         }else

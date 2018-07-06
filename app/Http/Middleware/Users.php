@@ -33,7 +33,7 @@ class Users
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'users.show'       && in_array('view_users', $permissions)){
+        if($request->route()->getName() == 'users.show'       && in_array('view_user', $permissions)){
 
             $response = $next($request);
         }else

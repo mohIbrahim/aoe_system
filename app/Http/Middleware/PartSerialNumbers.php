@@ -33,7 +33,7 @@ class PartSerialNumbers
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'part_serial_numbers.show'       && in_array('view_part_serial_numbers', $permissions)){
+        if($request->route()->getName() == 'part_serial_numbers.show'       && in_array('view_part_serial_number', $permissions)){
 
             $response = $next($request);
         }else

@@ -31,7 +31,7 @@ class Employees
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'employees.show'       && in_array('view_employees', $permissions)){
+        if($request->route()->getName() == 'employees.show'       && in_array('view_employee', $permissions)){
 
             $response = $next($request);
         }else

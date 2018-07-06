@@ -31,7 +31,7 @@ class InstallationRecords
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'installation_records.show'       && in_array('view_installation_records', $permissions)){
+        if($request->route()->getName() == 'installation_records.show'       && in_array('view_installation_record', $permissions)){
 
             $response = $next($request);
         }else

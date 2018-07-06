@@ -32,7 +32,7 @@ class Departments
             $response = $next($request);
         }else
 
-        if($request->route()->getName() == 'departments.show'       && in_array('view_departments', $permissions)){
+        if($request->route()->getName() == 'departments.show'       && in_array('view_department', $permissions)){
 
             $response = $next($request);
         }else
