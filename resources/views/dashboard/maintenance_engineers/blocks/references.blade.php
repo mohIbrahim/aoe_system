@@ -1,5 +1,5 @@
-<h4 role="button" data-toggle="collapse" data-target="#assigned-references">آخر الإشارات المعينة إليكَ</h4>
-<div class="collapse" id="assigned-references">
+<h4  class="well well-sm" role="button" data-toggle="collapse" data-target="#assigned-references">آخر الإشارات المعينة إليكَ</h4>
+<div class="collapse table-responsive" id="assigned-references">
     <table class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
@@ -45,6 +45,6 @@
         </tbody>
     </table>
 </div>
-<button class="btn btn-xs btn-primary pull-left" data-toggle="collapse" data-target="#assigned-references">+/-</button>
+<button class="btn btn-xs btn-default pull-left" data-toggle="collapse" data-target="#assigned-references">+/-</button>
 <span class="clearfix"></span>
 <hr>

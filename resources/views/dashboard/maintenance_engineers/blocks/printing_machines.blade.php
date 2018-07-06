@@ -1,5 +1,5 @@
-<h4 role="button" data-toggle="collapse" data-target="#assigned-printing-machines"> آلات الطباعة المعينة إليكَ </h4>
-<div class="collapse" id="assigned-printing-machines">
+<h4 class="well well-sm" role="button" data-toggle="collapse" data-target="#assigned-printing-machines"> آلات الطباعة المعينة إليكَ </h4>
+<div class="collapse table-responsive" id="assigned-printing-machines">
     <table class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
@@ -37,6 +37,6 @@
         </tbody>
     </table>
 </div>
-<button class="btn btn-xs btn-primary pull-left" data-toggle="collapse" data-target="#assigned-printing-machines">+/-</button>
+<button class="btn btn-xs btn-default pull-left" data-toggle="collapse" data-target="#assigned-printing-machines">+/-</button>
 <span class="clearfix"></span>
 <hr>

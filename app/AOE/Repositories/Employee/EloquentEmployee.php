@@ -69,7 +69,8 @@ class EloquentEmployee implements EmployeeInterface
         $lastAssignedReferences = $this->getAssignedReferencesForMaintenanceEngineersDashboard($authenticatedEmployee);
         $assignedPrintingMachines = $this->getAssignedPrintingMachinesForMaintenanceEngineersDashBord( $authenticatedEmployee);
         $visits = $this->getVisitsAndIndexationsForMaintenanceEngineersDashboard($authenticatedEmployee);
-        return compact('engineerName', 'departmentName', 'lastAssignedReferences', 'assignedPrintingMachines', 'visits');
+        $invoices = $this->getInvoicesForMaintenanceEngineerDashboard($authenticatedEmployee);
+        return compact('engineerName', 'departmentName', 'lastAssignedReferences', 'assignedPrintingMachines', 'visits', 'invoices');
     }
 
     public function getAssignedReferencesForMaintenanceEngineersDashboard(Employee $authenticatedEmployee)
@@ -85,6 +86,11 @@ class EloquentEmployee implements EmployeeInterface
     public function getVisitsAndIndexationsForMaintenanceEngineersDashboard(Employee $authenticatedEmployee)
     {
         return $authenticatedEmployee->visits()->with('indexation')->latest('visit_date')->limit(25)->get();
+    }
+
+    public function getInvoicesForMaintenanceEngineerDashboard(Employee $authenticatedEmployee)
+    {
+        return ($authenticatedEmployee->invoicesAtHisOwnRisk);
     }
 
     public function getEmployeeName(Employee $employee)
