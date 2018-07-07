@@ -22,7 +22,7 @@
 		    </div>
 
 		    <div class="panel-body">		  		
-				<table class="table table-hover standart-datatable" id="printing-machine-index-table">
+				<table class="table table-hover standard-datatable" id="printing-machine-index-table">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -69,6 +69,7 @@
 	</div>
 
 @endsection
+
 @section('head')
 {{-- Datatable --}}
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-3.2.1/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/fc-3.2.4/fh-3.1.3/datatables.min.css"/>

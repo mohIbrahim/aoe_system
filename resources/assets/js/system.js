@@ -1,14 +1,14 @@
 //Start Datatable
 var standardTable;
 $(document).ready(function() {
-    if ( $('.standart-datatable').DataTable ) {
+    if ( $('.standard-datatable').DataTable ) {
 		// Setup - add a text input to each footer cell
-		$('.standart-datatable tfoot th').each( function (i) {
-			var title = $('.standart-datatable thead th').eq( $(this).index() ).text();
+		$('.standard-datatable tfoot th').each( function (i) {
+			var title = $('.standard-datatable thead th').eq( $(this).index() ).text();
 			$(this).html( '<input class="form-control" type="text" placeholder="بحث بـ'+title+'" data-index="'+i+'" style="width: 50%"/>' );
 		} );		
 		// DataTable
-		var theTable = $('.standart-datatable').DataTable(
+		var theTable = $('.standard-datatable').DataTable(
 			{
 				"language": {
 					"search": "بحث: ",
@@ -43,7 +43,6 @@ $(document).ready(function() {
 //End Datatable
 
 // add another item script telecom in cutomers form
-
 	$(document).ready(function() {
 	    var max_fields      = 10; //maximum input boxes allowed
 	    var wrapper         = $(".input_fields_wrap_1"); //Fields wrapper
@@ -69,12 +68,10 @@ $(document).ready(function() {
 	        e.preventDefault(); $(this).parent('div').remove(); x--;
 	    })
 	});
-
 // bootstrap-select telecom in cutomers form
 
 
 // Start add another upload file fields pdf for indexation, visits, references and contracts
-
 $(document).ready(function() {
 	var upload_files_pdf_max_fields      = 10; //maximum input boxes allowed
 	var upload_files_pdf_wrapper         = $(".upload_files_pdf_input_fields_wrap_1"); //Fields wrapper
@@ -100,11 +97,9 @@ $(document).ready(function() {
 		e.preventDefault(); $(this).parent('div').remove(); x--;
 	})
 });
-
 // End add another upload file fields pdf for indexation, visits, references and contracts
 
 // Start add another upload file fields img for indexation, visits, references and contracts
-
 $(document).ready(function() {
 	var upload_files_img_max_fields      = 10; //maximum input boxes allowed
 	var upload_files_img_wrapper         = $(".upload_files_img_input_fields_wrap_1"); //Fields wrapper
@@ -130,10 +125,7 @@ $(document).ready(function() {
 		e.preventDefault(); $(this).parent('div').remove(); x--;
 	})
 });
-
 // End add another upload file fields img for indexation, visits, references and contracts
-
-
 
 // Start Ajax for Contracts index view
 $(document).ready(function(){
@@ -141,51 +133,59 @@ $(document).ready(function(){
 		var keyword = $('#contract_search').val();
 		var newResult = "";
 		if (keyword) {
-
 			$.ajax({
 				type: "GET",
 				url:"/contracts_search/"+keyword,
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
-					$("#my-table-body").children().remove();
+					standardTable.clear();
 					$.each(results, function(index, contract) {
-						if (contract.printing_machines) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/contracts/"+contract.id+"'>"+contract.code+"</a></td><td>"+contract.type+"</td><td>"+contract.start+"</td><td>"+contract.end+"</td><td>"+contract.status+"</td><td>"+contract.payment_system+"</td><td>"+contract.printing_machines[0].customer.name+"</td></tr>";
-						} else {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/contracts/"+contract.id+"'>"+contract.code+"</a></td><td>"+contract.type+"</td><td>"+contract.start+"</td><td>"+contract.end+"</td><td>"+contract.status+"</td><td>"+contract.payment_system+"</td><td></td></tr>";
-						}
+						standardTable.row.add([
+												(index+1),
+												"<a href='/contracts/"+contract.id+"'>"+contract.code+"</a>",
+												contract.type,
+												contract.start,
+												contract.end,
+												contract.status,
+												contract.payment_system,
+												(contract.printing_machines[0])?((contract.printing_machines[0].customer)?(contract.printing_machines[0].customer.name):('')):(''),
+											]);
 					});
-					$("#my-table-body").append(newResult);
+					standardTable.draw();
 					$("#my-table-body").fadeIn();
 				}
-
 			});
 		}
-
 	});
 });
-
 // End Ajax for Contracts index view
 
 // Start Ajax for Customers index view
 $(document).ready(function(){
 	$('#customers-search-button').on('click', function(){
 		var keyword = $('#customer_search').val();
-		var newResult = "";
 		if (keyword) {
-
 			$.ajax({
 				type: "GET",
 				url:"/customers_search/"+keyword,
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
-					$("#my-table-body").children().remove();
+					standardTable.clear();
 					$.each(results, function(index, customer) {
-						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/customers/"+customer.id+"'>"+customer.name+"</a></td><td>"+customer.code+"</td><td>"+customer.administration+"</td><td>"+customer.type+"</td><td>"+customer.governorate+"</td><td>"+customer.area+"</td><td>"+( (customer)?((customer.telecoms[0])?(customer.telecoms[0].number):('')):('') )+"</td></tr>"
+						standardTable.row.add([
+												(index+1),
+												"<a href='/customers/"+customer.id+"'>"+customer.name+"</a>",
+												customer.code,
+												customer.administration,
+												customer.type,
+												customer.governorate,
+												customer.area,
+												( (customer)?((customer.telecoms[0])?(customer.telecoms[0].number):('')):('') ),
+											]);
 					});
-					$("#my-table-body").append(newResult);
+					standardTable.draw();
 					$("#my-table-body").fadeIn();
 				}
 
@@ -304,14 +304,21 @@ $(document).ready(function(){
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
-					$("#my-table-body").children().remove();
+					standardTable.clear();
 					$.each(results, function(index, follow_up_card_special_report) {
-						newResult += "<tr> <td>"+(index+1)+"</td><td>"+follow_up_card_special_report.id+"</td><td><a href='/follow_up_card_special_reports/"+follow_up_card_special_report.id+"'>"+follow_up_card_special_report.the_date+"</a></td><td>"+follow_up_card_special_report.readings_of_printing_machine+"</td><td>"+follow_up_card_special_report.indexation_number+"</td><td>"+follow_up_card_special_report.invoice_number+"</td><td>"+follow_up_card_special_report.the_payment+"</td></tr>"
+						standardTable.row.add([
+												(index+1),
+												follow_up_card_special_report.id,
+												"<a href='/follow_up_card_special_reports/"+follow_up_card_special_report.id+"'>"+follow_up_card_special_report.the_date+"</a>",
+												follow_up_card_special_report.readings_of_printing_machine,
+												follow_up_card_special_report.indexation_number,
+												follow_up_card_special_report.invoice_number,
+												follow_up_card_special_report.the_payment
+											]);
 					});
-					$("#my-table-body").append(newResult);
+					standardTable.draw();
 					$("#my-table-body").fadeIn();
 				}
-
 			});
 		}
 	});
@@ -361,19 +368,17 @@ $(document).ready(function(){
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
-					$("#my-table-body").children().remove();
+					standardTable.clear();
 					$.each(results, function(index, follow_up_cards) {
-						if(follow_up_cards.contract){
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/follow_up_cards/"+follow_up_cards.id+"'>"+follow_up_cards.code+"</a></td><td><a href='/contracts/"+follow_up_cards.contract.id+"'>"+follow_up_cards.contract.code+"</a></td></tr>"
-						}else{
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/follow_up_cards/"+follow_up_cards.id+"'>"+follow_up_cards.code+"</a></td></tr>"
-						}
-
+						standardTable.row.add([
+							(index+1),
+							"<a href='/follow_up_cards/"+follow_up_cards.id+"'>"+follow_up_cards.code+"</a>",
+							(follow_up_cards.contract)?("<a href='/contracts/"+follow_up_cards.contract.id+"'>"+follow_up_cards.contract.code+"</a>"):(''),
+						]);
 					});
-					$("#my-table-body").append(newResult);
+					standardTable.draw();
 					$("#my-table-body").fadeIn();
 				}
-
 			});
 		}
 	});
@@ -381,7 +386,6 @@ $(document).ready(function(){
 // End Ajax for Follow Up Card index view
 
 // Start Follow up Card visits not done on time report view
-
 $(function(){
 	$("#follow-up-card-visits-not-done-report-search-btn").on("click", function(){
 		var start = $("#datepicker").val();
@@ -421,7 +425,6 @@ $(function(){
 		}
 	});
 });
-
 // End Follow up Card visits not done on time report view
 
 // Start Ajax for Indexation index view
@@ -436,26 +439,29 @@ $(document).ready(function(){
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
-					$("#my-table-body").children().remove();
+					standardTable.clear();
 					$.each(results, function(index, indexation) {
-						if(indexation.reference) {
-
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/indexations/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td></tr>";
-						}else {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/indexations/"+indexation.id+"'>"+indexation.code+"</a></td><td>"+indexation.the_date+"</td><td>"+indexation.customer_approval+"</td><td>"+indexation.technical_manager_approval+"</td><td>"+indexation.warehouse_approval+"</td></tr>";
-						}
+						standardTable.row.add([
+												(index+1),
+												"<a href='/indexations/"+indexation.id+"'>"+indexation.code+"</a>",
+												indexation.the_date,
+												indexation.customer_approval,
+												indexation.technical_manager_approval,
+												indexation.warehouse_approval,
+												(indexation.visit)?(indexation.visit.id):(''),
+												(indexation.visit)?(indexation.visit.readings_of_printing_machine):(''),
+											]);
 					});
-					$("#my-table-body").append(newResult);
+					standardTable.draw();
 					$("#my-table-body").fadeIn();
 				}
-
 			});
 		}
 	});
 });
 // End Ajax for Indexation index view
 
-//Start Ajax for Installation Records _fom printing machine search
+//Start Ajax for Installation Records _form printing machine search
 $(document).ready(function(){
 	$("#installation-record-printing-machine-search-btn").on("click", function(){		
 		var keyword = $("#installation-record-printing_machine_search_field").val();
@@ -484,7 +490,7 @@ $(document).ready(function(){
 		}
 	});
 });
-//End Ajax for Installation Records _fom printing machine search
+//End Ajax for Installation Records _form printing machine search
 
 //Start installation record add items and descriptions
 $(document).ready(function(){
@@ -524,7 +530,7 @@ $("#invoice-form-search-button").on('click', function(){
 						resultTableBody.append("<tr><td>"+part.name+"</td><td><button type='button' class='btn btn-success btn-xs invoice-form-part-add-button' data-part-id='"+part.id+"' data-part-name='"+part.name+" ' data-part-price='"+part.price_with_tax+"' '> اضف </button></td></tr>");
 					});
 
-					$(".invoice-form-part-add-button").on("click", function(){                            
+					$(".invoice-form-part-add-button").on("click", function(){
 						var addButton = $(this);
 						$("#invoice-form-selected-parts-table-body").append("<tr><td>"+addButton.attr('data-part-name')+"<input type='hidden' name='parts_names[]' value='"+addButton.attr('data-part-name')+"'></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='"+addButton.attr('data-part-id')+"'></div></td><td><input type='text' class='form-control' name='parts_prices[]' readonly value='"+addButton.attr('data-part-price')+"'></td><td><input type='text' class='form-control' name='discount_rate[]' placeholder='إدخل نسبة الخصم إن وجدت'></td><td><button type='button' class='btn btn-danger btn-xs invoice-form-delete-part-button'> حذف </button></td></tr>");
 						addButton.parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
@@ -551,10 +557,7 @@ $("#invoice-form-search-button").on('click', function(){
 $('.invoice-form-delete-part-button').on('click', function(){
 	$(this).parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
 });
-
 // End Ajax for Invoices _form view
-
-
 
 // Start Ajax for Invoices index view
 $(document).ready(function(){
@@ -568,11 +571,24 @@ $(document).ready(function(){
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
-					$("#my-table-body").children().remove();
+					standardTable.clear();
 					$.each(results, function(index, invoice) {
-						newResult += "<tr><td>"+(index+1)+"</td><td><a href='/invoices/"+invoice.id+"'>"+( (invoice.number)?(invoice.number):('لم يتم تعين الرقم حتى الآن') )+"</a></td><td>"+((invoice.customer)?(invoice.customer.name):(''))+"</td><td>"+invoice.type+"</td><td>"+(invoice.issuer||'')+"</td><td>"+(invoice.order_number||'')+"</td><td>"+(invoice.delivery_permission_number||'')+"</td><td>"+(invoice.finance_check_out||'')+"</td><td>"+(invoice.total||'')+"</td><td>"+((invoice.employee_responisable_for_this_invoice)?((invoice.employee_responisable_for_this_invoice.user)?(invoice.employee_responisable_for_this_invoice.user.name):('')):(''))+"</td><td>"+(invoice.release_date||'')+"</td><td>"+(invoice.collect_date||'')+"</td></tr>";
+						standardTable.row.add([
+							(index+1),
+							"<a href='/invoices/"+invoice.id+"'>"+( (invoice.number)?(invoice.number):('لم يتم تعين الرقم حتى الآن') )+"</a>",
+							((invoice.customer)?(invoice.customer.name):('')),
+							invoice.type,
+							(invoice.issuer||''),
+							(invoice.order_number||''),
+							(invoice.delivery_permission_number||''),
+							(invoice.finance_check_out||''),
+							(invoice.total||''),
+							((invoice.employee_responisable_for_this_invoice)?((invoice.employee_responisable_for_this_invoice.user)?(invoice.employee_responisable_for_this_invoice.user.name):('')):('')),
+							(invoice.release_date||''),
+							(invoice.collect_date||''),
+						]);
 					});
-					$("#my-table-body").append(newResult);
+					standardTable.draw();
 					$("#my-table-body").fadeIn();
 				}
 
@@ -620,7 +636,6 @@ $(document).ready(function(){
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
-					$("#my-table-body").children().remove();
 					standardTable.clear();
 					$.each(results, function(index, part) {
 						standardTable.row.add([
@@ -633,7 +648,6 @@ $(document).ready(function(){
 											]);
 					});
 					standardTable.draw();
-					$("#my-table-body").append(newResult);
 					$("#my-table-body").fadeIn();
 				}
 
@@ -655,10 +669,8 @@ $(document).ready(function(){
 			dataType: "json",
 			success: function(results){
 				$("#my-table-body").fadeOut();
-				$("#my-table-body").children().remove();
 				standardTable.clear();
 				$.each(results, function(index, machine) {
-
 					standardTable.row.add([
 						index+1,
 						"<a href='/printing_machines/"+machine.id+"'>"+machine.folder_number+"</a>",
@@ -667,15 +679,11 @@ $(document).ready(function(){
 						machine.model_prefix+"-"+machine.model_suffix,
 						machine.customer.name,
 					]);
-					
 				});
 				standardTable.draw();
-				$("#my-table-body").append(newResult);
 				$("#my-table-body").fadeIn();
 			}
-
 		});
-
 	});
 });
 // End Ajax for printing machines index view
@@ -692,11 +700,23 @@ $(document).ready(function(){
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
-					$("#my-table-body").children().remove();
+					standardTable.clear();
 					$.each(results, function(index, reference) {
-						newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/references/"+reference.id+"'>"+reference.code+"</a></td><td>"+((reference.employee_who_receive_the_rereference)?((reference.employee_who_receive_the_rereference.user)?reference.employee_who_receive_the_rereference.user.name:''):'')+"</td><td>"+reference.type+"</td><td>"+reference.status+"</td><td>"+((reference.assigned_employee)?((reference.assigned_employee.user)?reference.assigned_employee.user.name:''):'')+"</td><td>"+reference.received_date+"</td><td><a href='/printing_machines/"+((reference.printing_machine)?reference.printing_machine.id:'')+"'>"+((reference.printing_machine)?reference.printing_machine.code:'')+"</a></td><td>"+((reference.printing_machine)?((reference.printing_machine.serial_number)?(reference.printing_machine.serial_number):('')):(''))+"</td><td>"+((reference.printing_machine)?((reference.printing_machine.customer)?((reference.printing_machine.customer.name)?(reference.printing_machine.customer.name):('')):('')):(''))+"</td><td>"+((reference.reviewed_by_the_chief_engineer)?(reference.reviewed_by_the_chief_engineer):(''))+"</td></tr>";
+						standardTable.row.add([
+												(index+1),
+												"<a href='/references/"+reference.id+"'>"+reference.code+"</a>",
+												((reference.employee_who_receive_the_rereference)?((reference.employee_who_receive_the_rereference.user)?reference.employee_who_receive_the_rereference.user.name:''):''),
+												reference.type,
+												reference.status,
+												((reference.assigned_employee)?((reference.assigned_employee.user)?reference.assigned_employee.user.name:''):''),
+												reference.received_date,
+												"<a href='/printing_machines/"+((reference.printing_machine)?reference.printing_machine.id:'')+"'>"+((reference.printing_machine)?reference.printing_machine.code:'')+"</a>",
+												((reference.printing_machine)?((reference.printing_machine.serial_number)?(reference.printing_machine.serial_number):('')):('')),
+												((reference.printing_machine)?((reference.printing_machine.customer)?((reference.printing_machine.customer.name)?(reference.printing_machine.customer.name):('')):('')):('')),
+												((reference.reviewed_by_the_chief_engineer)?(reference.reviewed_by_the_chief_engineer):('')),
+											]);
 					});
-					$("#my-table-body").append(newResult);
+					standardTable.draw();
 					$("#my-table-body").fadeIn();
 				}
 
@@ -754,7 +774,6 @@ $(document).ready(function(){
 //End References add malunctions and works were done on it _form view
 
 // Start Ajax for Visits index view
-
 $(document).ready(function(){
 	$('#visits-index-search-button').on('click', function(){
 		var keyword = $('#visit-input-search').val();
@@ -766,14 +785,21 @@ $(document).ready(function(){
 				dataType: "json",
 				success: function(results){
 					$("#visit-index-my-table-body").fadeOut();
-					$("#visit-index-my-table-body").children().remove();
+					standardTable.clear();
 					$.each(results, function(index, visit) {
-						newResult += "<tr><td>"+(index+1)+"</td><td><a href='{{url('visits')}}/"+visit.id+"'>"+visit.id+"</a></td><td>"+visit.visit_date+"</td><td>"+visit.type+"</td><td><a href='{{url('printing_machines')}}/"+((visit.printing_machine)?visit.printing_machine.id:'')+"'>"+((visit.printing_machine)?visit.printing_machine.code:'')+"</a></td><td>"+visit.readings_of_printing_machine+"</td><td>"+((visit.the_employee_who_made_the_visit)?((visit.the_employee_who_made_the_visit.user)?visit.the_employee_who_made_the_visit.user.name:''):'')+"</td></tr>";
+						standardTable.row.add([
+							(index+1),
+							"<a href='{{url('visits')}}/"+visit.id+"'>"+visit.id+"</a>",
+							visit.visit_date,
+							visit.type,
+							"<a href='{{url('printing_machines')}}/"+((visit.printing_machine)?visit.printing_machine.id:'')+"'>"+((visit.printing_machine)?visit.printing_machine.code:'')+"</a>",
+							visit.readings_of_printing_machine,
+							((visit.the_employee_who_made_the_visit)?((visit.the_employee_who_made_the_visit.user)?visit.the_employee_who_made_the_visit.user.name:''):''),
+						]);
 					});
-					$("#visit-index-my-table-body").append(newResult);
+					standardTable.draw();
 					$("#visit-index-my-table-body").fadeIn();
 				}
-
 			});
 		}
 	});

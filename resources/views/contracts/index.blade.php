@@ -31,7 +31,7 @@
 		    <div class="panel-body">
 
 		  		<div class="table-responsive">
-			  	    <table class="table table-hover">
+			  	    <table class="table table-hover standard-datatable">
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>
@@ -78,4 +78,14 @@
 	  </div>
 	</div>
 
+@endsection
+@section('head')
+{{-- Datatable --}}
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-3.2.1/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/fc-3.2.4/fh-3.1.3/datatables.min.css"/>
+{{-- Datatable --}}
+@endsection
+@section('js_footer')
+{{-- Datatable --}}
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-3.2.1/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/fc-3.2.4/fh-3.1.3/datatables.min.js"></script>
+{{-- Datatable --}}
 @endsection

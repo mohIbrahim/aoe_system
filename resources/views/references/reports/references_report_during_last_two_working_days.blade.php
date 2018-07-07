@@ -12,7 +12,7 @@
 				<h3> تقرير عن الإشارات التي تم استلامها خلال آخر يومين عمل </h3>
 			</div>	    
 		    <div class="panel-body">
-			  	    <table class="table table-hover standart-datatable">
+			  	    <table class="table table-hover standard-datatable">
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>

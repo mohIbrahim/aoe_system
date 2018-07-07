@@ -55,7 +55,7 @@ class EloquentIndexation implements IndexationInterface
 
     public function search($keyword)
     {
-        $results = $this->indexation->where('code', 'like', '%'.$keyword.'%')
+        $results = $this->indexation->with('visit')->where('code', 'like', '%'.$keyword.'%')
                                 ->orWhere('the_date', 'like', '%'.$keyword.'%')
                                 ->orWhere('customer_approval', 'like', '%'.$keyword.'%')
                                 ->orWhere('technical_manager_approval', 'like', '%'.$keyword.'%')

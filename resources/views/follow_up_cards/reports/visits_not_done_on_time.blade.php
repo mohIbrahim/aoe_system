@@ -33,7 +33,7 @@
 		    </div>
 		    <div class="panel-body">
 					<div id="follow-up-card-visits-not-done-report-loading-message" class="text-center"></div>
-			  	    <table class="table table-hover standart-datatable">
+			  	    <table class="table table-hover standard-datatable">
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>

@@ -19,7 +19,7 @@
 				<h3 class="text-center"> عرض القطع القابلة للتغير من أجزاء الماكينة </h3>
 		    </div>
 		    <div class="panel-body">		  		
-				<table class="table table-hover standart-datatable">
+				<table class="table table-hover standard-datatable">
 					<thead>
 						<tr>
 							<th>#</th>

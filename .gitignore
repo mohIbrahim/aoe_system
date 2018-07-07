@@ -12,3 +12,5 @@ yarn-error.log
 .env
 /nbproject/private/
 26122017.dia~
+/public/images/project_images/*
+!/public/images/project_images/no_image.png

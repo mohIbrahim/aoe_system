@@ -38,7 +38,7 @@
 		    <div class="panel-body">
 
 		  		<div class="table-responsive">
-			  	    <table class="table table-hover standart-datatable">
+			  	    <table class="table table-hover standard-datatable">
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>
