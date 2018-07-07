@@ -37,9 +37,13 @@
                                         </td>
 
                                         <td>
+										@if(isset($department->manager))
                                             <a href="{{action('EmployeeController@show', ['id'=>(isset($department->manager)?$department->manager->id:'')])}}" target="_blank">
-                                                {{isset($department->manager)?(isset($department->manager->user)?$department->manager->user->name:'لا يوجد'):'لا يوجد'}}
+                                                {{isset($department->manager)?(isset($department->manager->user)?$department->manager->user->name:''):''}}
                                             </a>
+										@else
+										لا يوجد
+										@endif
                                         </td>
 									</tr>
 								@endforeach

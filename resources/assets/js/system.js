@@ -270,22 +270,21 @@ $(document).ready(function(){
 				dataType: "json",
 				success: function(results){
 					$("#my-table-body").fadeOut();
-					$("#my-table-body").children().remove();
+					standardTable.clear();
 					$.each(results, function(index, employee) {
-						if (employee.department && employee.the_department_that_he_manage_it) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/employees/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td>"+employee.department.name+"</td><td>"+employee.the_department_that_he_manage_it.name+"</td><td>"+employee.date_of_hiring+"</td></tr>";
-						} else if (employee.department) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/employees/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td>"+employee.department.name+"</td><td> لا يوجد </td><td>"+employee.date_of_hiring+"</td></tr>";
-						} else if (employee.the_department_that_he_manage_it) {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/employees/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td> لا يوجد </td><td>"+employee.the_department_that_he_manage_it.name+"</td><td>"+employee.date_of_hiring+"</td></tr>";
-						} else {
-							newResult += "<tr> <td>"+(index+1)+"</td><td><a href='/employees/"+employee.id+"' target='_blank'>"+employee.user.name+"</a></td><td>"+employee.code+"</td><td>"+employee.job_title+"</td><td> لا يوجد </td><td> لا يوجد </td><td>"+employee.date_of_hiring+"</td></tr>";
-						}
+						standardTable.row.add([
+							(index+1),
+							"<a href='/employees/"+employee.id+"' target='_blank'>"+((employee.user)?(employee.user.name):(''))+"</a>",
+							employee.code,
+							employee.job_title,
+							((employee.department)?(employee.department.name):('لا يوجد')),
+							((employee.the_department_that_he_manage_it)?(employee.the_department_that_he_manage_it.name):('لا يوجد')),
+							employee.date_of_hiring,
+						]);
 					});
-					$("#my-table-body").append(newResult);
+					standardTable.draw();
 					$("#my-table-body").fadeIn();
 				}
-
 			});
 		}
 	});
@@ -609,13 +608,21 @@ $(document).ready(function(){
 				url:"/part_serial_numbers_search/"+keyword,
 				dataType: "json",
 				success: function(results){
-
 					$("#my-table-body").fadeOut();
-					$("#my-table-body").children().remove();
+					standardTable.clear();
 					$.each(results, function(index, part) {
-						newResult += "<tr><td>"+(index+1)+"</td><td>"+part.part.name+"</td><td><a href='/part_serial_numbers/"+part.id+"'>"+part.serial_number+"</a></td><td>"+part.code+"</td><td>"+part.availability+"</td><td>"+part.status+"</td><td>"+part.date_of_entry+"</td><td>"+part.date_of_departure+"</td><td></tr>"
+						standardTable.row.add([
+												(index+1),
+												((part.part)?(part.part.name):('')),
+												"<a href='/part_serial_numbers/"+part.id+"'>"+part.serial_number+"</a>",
+												part.code,
+												part.availability,
+												part.status,
+												part.date_of_entry,
+												part.date_of_departure,
+											]);
 					});
-					$("#my-table-body").append(newResult);
+					standardTable.draw();
 					$("#my-table-body").fadeIn();
 				}
 			});
@@ -650,10 +657,8 @@ $(document).ready(function(){
 					standardTable.draw();
 					$("#my-table-body").fadeIn();
 				}
-
 			});
 		}
-
 	});
 });
 // End Ajax for Parts index view
