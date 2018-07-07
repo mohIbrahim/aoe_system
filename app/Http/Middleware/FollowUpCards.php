@@ -75,6 +75,10 @@ class FollowUpCards
             $response = $next($request);
         }else
 
+        if($request->route()->getName() == 'follow_up_cards_create_from_printing_machine_show_view'    && in_array('create_follow_up_cards', $permissions)){
+            $response = $next($request);
+        }else
+
         if (in_array('view_follow_up_cards_reports', $permissions)) {
             if ($request->route()->getName() == 'visits_not_done_on_time_for_follow_up_cards_report'    && in_array('view_visits_not_done_on_time_for_follow_up_cards_report', $permissions)) {
                 $response = $next($request);

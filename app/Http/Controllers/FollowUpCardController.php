@@ -115,4 +115,11 @@ class FollowUpCardController extends Controller
     {
         return $this->followUpCard->visitsNotDoneOnTimeReport($period1, $period2);
     }
+
+    public function createFromPrintingMachineShowView($printingMachineId)
+    {
+        $contracts = $this->followUpCard->contracts();
+        $followUpCard = (object)['printing_machine_id'=>$printingMachineId];
+        return view('follow_up_cards.create', compact('followUpCard','contracts'));
+    }
 }

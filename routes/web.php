@@ -74,6 +74,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('follow_up_card_pm_search/{keyword}', 'FollowUpCardController@searchingOnPrintingMachine')->name('follow_up_card_pm_search');
     Route::get('visits_not_done_on_time_for_follow_up_cards_report', 'FollowUpCardController@visitsNotDoneOnTimeReport')->name('visits_not_done_on_time_for_follow_up_cards_report');
     Route::get('visits_not_done_on_time_for_follow_up_cards_report_search/{start}/{end}', 'FollowUpCardController@visitsNotDoneOnTimeReportSearch')->name('visits_not_done_on_time_for_follow_up_cards_report_search');
+    Route::get('follow_up_cards_create_from_printing_machine_show_view/{printing_machine_id}', 'FollowUpCardController@createFromPrintingMachineShowView')->name('follow_up_cards_create_from_printing_machine_show_view');
 //Follow Up Card special reports
     Route::resource('follow_up_card_special_reports', 'FollowUpCardSpecialReportController');
     Route::get('follow_up_card_special_reports_search/{keyword}', 'FollowUpCardSpecialReportController@search')->name('follow_up_card_special_reports_search');
