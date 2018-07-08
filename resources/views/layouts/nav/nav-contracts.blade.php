@@ -21,6 +21,7 @@
 							<a href="{{ action('ContractController@contractsThatWillExpireWithinTheNextThreeMonthesReport') }}">تقرير عن العقود التي سوف تنتهي خلال الثلاث شهور القادمة</a>
 						</li>
 					@endif
+					<li>-</li>
 					@if(in_array('view_contracts_invoices_are_due_in_this_month_report', $permissions))
 						<li>
 							<a href="{{ action('ContractController@contractsInvoicesAreDueInThisMonthReport') }}"> تقرير عن فواتير العقود واجبة التحصيل لهذا الشهر 

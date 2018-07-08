@@ -401,7 +401,7 @@ $(function(){
 					$("#follow-up-card-visits-not-done-report-loading-message").append("<h4 style='color: #1877a3'>جاري التحميل... </h4>");
 				},
 				success: function(results){
-					var data = "";
+					$("#follow-up-card-visits-not-done-report-table-body").fadeOut();
 					standardTable.clear();
 					$.each(results, function(key, value){
 						standardTable.row.add([
@@ -414,6 +414,7 @@ $(function(){
 					});
 					$("#follow-up-card-visits-not-done-report-loading-message").empty();
 					standardTable.draw();
+					$("#follow-up-card-visits-not-done-report-table-body").fadeIn();
 				},
 				error: function(){
 					$("#follow-up-card-visits-not-done-report-loading-message").append("<h4>خطاء في الإتصال الرجاء إعادة تحميل الصفحة</h4>");
@@ -573,19 +574,19 @@ $(document).ready(function(){
 					standardTable.clear();
 					$.each(results, function(index, invoice) {
 						standardTable.row.add([
-							(index+1),
-							"<a href='/invoices/"+invoice.id+"'>"+( (invoice.number)?(invoice.number):('لم يتم تعين الرقم حتى الآن') )+"</a>",
-							((invoice.customer)?(invoice.customer.name):('')),
-							invoice.type,
-							(invoice.issuer||''),
-							(invoice.order_number||''),
-							(invoice.delivery_permission_number||''),
-							(invoice.finance_check_out||''),
-							(invoice.total||''),
-							((invoice.employee_responisable_for_this_invoice)?((invoice.employee_responisable_for_this_invoice.user)?(invoice.employee_responisable_for_this_invoice.user.name):('')):('')),
-							(invoice.release_date||''),
-							(invoice.collect_date||''),
-						]);
+												(index+1),
+												"<a href='/invoices/"+invoice.id+"'>"+( (invoice.number)?(invoice.number):('لم يتم تعين الرقم حتى الآن') )+"</a>",
+												((invoice.customer)?(invoice.customer.name):('')),
+												invoice.type,
+												(invoice.issuer||''),
+												(invoice.order_number||''),
+												(invoice.delivery_permission_number||''),
+												(invoice.finance_check_out||''),
+												(invoice.total||''),
+												((invoice.employee_responisable_for_this_invoice)?((invoice.employee_responisable_for_this_invoice.user)?(invoice.employee_responisable_for_this_invoice.user.name):('')):('')),
+												(invoice.release_date||''),
+												(invoice.collect_date||''),
+											]);
 					});
 					standardTable.draw();
 					$("#my-table-body").fadeIn();
@@ -596,6 +597,56 @@ $(document).ready(function(){
 	});
 });
 // End Ajax for Invoices index view
+
+// Start Invoices released in specific period report
+$(function(){
+	$("#invices-released-in-specific-period-report-search-btn").on("click", function(){
+		var start = $("#datepicker").val();
+		start = start.replace(/\//g,"-");
+		var end = $("#datepicker2").val();
+		end = end.replace(/\//g,"-");
+		if (start != "" && end != "" ) {
+			$("#invices-released-in-specific-period-report-error-validator").css("display", "none");
+			$.ajax({
+				type: "GET",
+				url: "/invoices_released_in_specific_period_report_search/"+start+"/"+end,
+				dataType: "json",
+				beforeSend: function(){
+					$("#invices-released-in-specific-period-report-loading-message").append("<h4 style='color: #1877a3'>جاري التحميل... </h4>");
+				},
+				success: function(results){
+					$("#invices-released-in-specific-period-report-table-body").fadeOut();
+					standardTable.clear();
+					$.each(results, function(index, invoice){
+						standardTable.row.add([
+												(index+1),
+												"<a href='/invoices/"+invoice.id+"'>"+( (invoice.number)?(invoice.number):('لم يتم تعين الرقم حتى الآن') )+"</a>",
+												((invoice.customer)?(invoice.customer.name):('')),
+												invoice.type,
+												(invoice.issuer||''),
+												(invoice.order_number||''),
+												(invoice.delivery_permission_number||''),
+												(invoice.finance_check_out||''),
+												(invoice.total||''),
+												((invoice.employee_responisable_for_this_invoice)?((invoice.employee_responisable_for_this_invoice.user)?(invoice.employee_responisable_for_this_invoice.user.name):('')):('')),
+												(invoice.release_date||''),
+												(invoice.collect_date||''),
+											]);
+					});
+					$("#invices-released-in-specific-period-report-loading-message").empty();
+					standardTable.draw();
+					$("#invices-released-in-specific-period-report-table-body").fadeIn();
+				},
+				error: function(){
+					$("#invices-released-in-specific-period-report-loading-message").append("<h4>خطاء في الإتصال الرجاء إعادة تحميل الصفحة</h4>");
+				},
+			});
+		}else {
+			$("#invices-released-in-specific-period-report-error-validator").css("display", "block");
+		}
+	});
+});
+// End Invoices released in specific period report
 
 // Start Ajax for Part Serial Number index view
 $(document).ready(function(){
@@ -810,3 +861,4 @@ $(document).ready(function(){
 	});
 });
 // End Ajax for Visits index view
+

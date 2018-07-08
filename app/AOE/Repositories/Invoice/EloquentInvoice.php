@@ -148,4 +148,10 @@ class EloquentInvoice implements InvoiceInterface
         $results = $this->invoice->with('customer', 'employeeResponisableForThisInvoice.user')->whereNull('collect_date')->whereNotNull('emp_id_reponsible_for_invoice')->get()->groupBy('emp_id_reponsible_for_invoice');
         return $results;
     }
+
+    public function invoicesReleasedInSpecificPeriodReportSearch($from, $to)
+    {
+        $results = $this->invoice->with('customer', 'employeeResponisableForThisInvoice.user')->whereNotNull('number')->whereBetween('release_date', [$from, $to])->get();
+        return $results;
+    }
 }

@@ -380,13 +380,18 @@ class PermissionSeeder extends Seeder
             'created_at'=>Carbon::now(),
             ]);
         DB::table('permissions')->insert([
-            'title'      =>'visits',
+            'title'      =>'invoices',
             'name'      =>'view_invoices_reports',
             'created_at'=>Carbon::now(),
             ]);
         DB::table('permissions')->insert([
-            'title'      =>'visits',
+            'title'      =>'invoices',
             'name'      =>'view_responsible_employees_for_invoices_not_paid_report',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'invoices',
+            'name'      =>'view_invoices_released_in_specific_period_report',
             'created_at'=>Carbon::now(),
             ]);
     }

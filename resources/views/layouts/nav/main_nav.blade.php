@@ -10,7 +10,7 @@
             </button>
             <!-- Branding Image -->
 			<h4>
-				<a class="navbar-brand main_arabic_font" href="{{ url('/') }}">
+				<a class="navbar-brand main_arabic_font" href="{{ route('dashboard') }}">
 					{{-- <img src="{{asset('images/helper_images/branding_image.png')}}" class="navbar-left" alt="الشركة العربية لمهمات المكاتب" width="30px"> --}}
 					الشركــة العـــربيـــة لمهمـات المكاتـب
 				</a>

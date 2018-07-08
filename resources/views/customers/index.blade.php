@@ -18,9 +18,10 @@
 				<button type="button" id="customers-search-button" class="btn btn-primary"> بحث </button>
 				<a href=""  class="btn btn-success"> العودة </a>
 				<h3 class="text-center"> عرض العملاء </h3>
+				<h5 class="text-left"> إجمالي عدد العملاء: {{$customers->total()}} </h5>
 		    </div>
 		    <div class="panel-body">
-		  		<div class="table-responsive">
+		  		<div class="table-responsive" style="overflow-y:hidden">
 			  	    <table class="table table-hover standard-datatable">
 			  		    <thead>
 			  			    <tr>
@@ -71,7 +72,7 @@
 							</tfoot>
 			  	     </table>
 					 <div class="text-center">
-						 {{$customers->links()}}
+						 {{$customers->links()}} 
 					 </div>
 				 </div>
 

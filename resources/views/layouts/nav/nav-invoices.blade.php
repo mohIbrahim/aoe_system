@@ -20,6 +20,10 @@
 				@if(in_array('view_responsible_employees_for_invoices_not_paid_report', $permissions))
 					<li><a href="{{ action('InvoiceController@getResponsibleEmployeesForInvoicesNotPaidReport') }}">تقرير عن المواظفين المسؤولين عن الفواتير التي لم يتم تحصيلها</a></li>
 				@endif
+				<li>-</li>
+				@if(in_array('view_invoices_released_in_specific_period_report', $permissions))
+					<li><a href="{{ action('InvoiceController@getInvoicesReleasedInSpecificPeriodReport') }}">تقرير عن الفواتير المصدرة خلال فترة معينة</a></li>
+				@endif
 			@endif
 		</ul>
 	</li>
