@@ -19,7 +19,7 @@ class EloquentPrintingMachine implements PrintingMachineInterface
 
 	public function latest()
 	{
-		return $this->printingMachine->latest();
+		return $this->printingMachine->with('assignedEmployees.user')->latest();
 	}
 
 	public function oldest()

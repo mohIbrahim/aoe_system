@@ -31,6 +31,7 @@
 							<th> كود الآلة </th>
 							<th> الموديل </th>
 							<th> اسم العميل </th>
+							<th> الموظفين المسؤولين عن الآلة </th>
 						</tr>
 					</thead>
 					<tbody id="my-table-body">
@@ -45,6 +46,13 @@
 									<td>{{$printingMachine->code}}</td>
 									<td>{{"$printingMachine->model_prefix-$printingMachine->model_suffix"}}</td>
 									<td>{{isset($printingMachine->customer)?$printingMachine->customer->name:''}}</td>
+									<td>
+										@if(!empty($printingMachine->assignedEmployees))
+											@foreach($printingMachine->assignedEmployees as $assignedEmployee)
+												<div>{{$assignedEmployee->user->name}}</div> &nbsp &nbsp
+											@endforeach
+										@endif
+									</td>
 								</tr>
 							@endforeach
 						</div>

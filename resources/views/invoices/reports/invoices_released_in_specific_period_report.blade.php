@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-	تقرير عن الفواتير المصدرة خلال فترة معينة
+	تقرير عن الفواتير الصادرة خلال فترة معينة
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@
 	  <div class="col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 col-lg-12 col-lg-offset-0">
 		  <div class="panel panel-default">
 		    <div class="panel-heading ">
-				<legend> تقرير عن الفواتير المصدرة خلال فترة معينة </legend>
+				<legend> تقرير عن الفواتير الصادرة خلال فترة معينة </legend>
 				<div class="row">
 					<div class="col-lg-8 col-lg-offset-2">
 						<div class="form-inline">							
@@ -29,7 +29,7 @@
 						</div>
 					</div>
 				</div>
-				<h3 class="text-center"> عرض الزيارات </h3>
+				<h3 class="text-center"> عرض الفواتير </h3>
 		    </div>
 		    <div class="panel-body">
 					<div id="invices-released-in-specific-period-report-loading-message" class="text-center"></div>
