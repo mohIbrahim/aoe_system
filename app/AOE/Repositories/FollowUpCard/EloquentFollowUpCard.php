@@ -20,7 +20,7 @@ class EloquentFollowUpCard implements FollowUpCardInterface
     }
     public function latest()
     {
-        $followUpCards = $this->followUpCard->latest();
+        $followUpCards = $this->followUpCard->with('printingMachine.customer')->latest();
         return $followUpCards;
     }
     public function oldest()

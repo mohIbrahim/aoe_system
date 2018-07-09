@@ -21,13 +21,16 @@
 		    </div>
 		    <div class="panel-body">
 
-		  		<div class="table-responsive">
-			  	    <table class="table table-hover standard-datatable">
+		  		<div class="table-responsive" style="overflow-y: hidden;">
+			  	    <table class="table table-hover standard-datatable" >
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>
                                 <th> كود البطاقة </th>
+                                <th> اسم العميل </th>
                                 <th> كود العقد </th>
+                                <th> الرقم المسلسل لآلة الطباعة </th>
+                                <th> تاريخ التعديل </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -44,10 +47,22 @@
                                         </td>
 
 										<td>
+											{{$followUpCard->printingMachine->customer->name}}
+										</td>
+
+										<td>
                                             <a href="{{action('ContractController@show', ['id'=>(isset($followUpCard->contract)?$followUpCard->contract->id:'')])}}" target="_blank">
                                                 {{(isset($followUpCard->contract)?$followUpCard->contract->code:'')}}
                                             </a>
                                         </td>
+
+										<td>
+											{{$followUpCard->printingMachine->serial_number}}
+										</td>
+
+										<td>
+											{{$followUpCard->updated_at->format('d-m-Y')}}
+										</td>
 									</tr>
 								@endforeach
 
