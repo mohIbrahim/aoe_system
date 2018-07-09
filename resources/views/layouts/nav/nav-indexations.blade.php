@@ -14,6 +14,13 @@
 					<li><a href="{{ action('IndexationController@create') }}"> إنشاء مقايسة جديد </a></li>
 				@endif
 			@endif
+			@if(in_array('view_indexations_reports', $permissions))
+				<li role="separator" class="divider"></li>
+				<li class="dropdown-header"> <i class="glyphicon glyphicon-info-sign"></i>  تقرير </li>
+				@if(in_array('view_indexations_released_in_specific_period_report', $permissions))
+					<li><a href="{{ action('IndexationController@getIndexationsReleasedInSpecificPeriodReport') }}"> تقرير عن المقايسات المصدرة خلال مدة معينة </a></li>
+				@endif
+			@endif
 		</ul>
 	</li>
 </ul>
