@@ -154,4 +154,15 @@ class IndexationController extends Controller
         $visitsIds = Visit::all()->pluck('id', 'id');
         return view('indexations.create', compact('referencesIds', 'visitsIds', 'visitIdFromPrintingMachine'));
     }
+
+    public function getIndexationsReleasedInSpecificPeriodReport()
+    {
+        return view('indexations.reports.indexations_released_in_specific_period_report');
+    }
+    
+    public function IndexationsReleasedInSpecificPeriodReportSearch($from, $to)
+    {
+        $results = $this->indexation->indexationsReleasedInSpecificPeriodReportSearch($from, $to);
+        return $results;
+    }
 }

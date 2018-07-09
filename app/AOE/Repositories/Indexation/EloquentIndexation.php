@@ -84,4 +84,10 @@ class EloquentIndexation implements IndexationInterface
         return $indexation;
     }
 
+    public function indexationsReleasedInSpecificPeriodReportSearch($from, $to)
+    {
+        $results = $this->indexation->with('visit')->whereBetween('the_date', [$from, $to])->get();
+        return $results;
+    }
+
 }

@@ -555,6 +555,16 @@ class PermissionSeeder extends Seeder
             'name'      =>'delete_indexations',
             'created_at'=>Carbon::now(),
             ]);
+        DB::table('permissions')->insert([
+            'title'      =>'indexations',
+            'name'      =>'view_indexations_reports',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'indexations',
+            'name'      =>'view_indexations_released_in_specific_period_report',
+            'created_at'=>Carbon::now(),
+            ]);
     }
 
     private function employees()

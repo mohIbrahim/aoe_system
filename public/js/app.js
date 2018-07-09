@@ -32233,6 +32233,43 @@ $(document).ready(function () {
 });
 // End Ajax for Indexation index view
 
+// Start Indexations released in specific period report
+$(function () {
+	$("#indexations-released-in-specific-period-report-search-btn").on("click", function () {
+		var start = $("#datepicker").val();
+		start = start.replace(/\//g, "-");
+		var end = $("#datepicker2").val();
+		end = end.replace(/\//g, "-");
+		if (start != "" && end != "") {
+			$("#indexations-released-in-specific-period-report-error-validator").css("display", "none");
+			$.ajax({
+				type: "GET",
+				url: "/indexations_released_in_specific_period_report_search/" + start + "/" + end,
+				dataType: "json",
+				beforeSend: function beforeSend() {
+					$("#indexations-released-in-specific-period-report-loading-message").append("<h4 style='color: #1877a3'>جاري التحميل... </h4>");
+				},
+				success: function success(results) {
+					$("#indexations-released-in-specific-period-report-table-body").fadeOut();
+					standardTable.clear();
+					$.each(results, function (index, indexation) {
+						standardTable.row.add([index + 1, "<a href='/indexations/" + indexation.id + "'>" + indexation.code + "</a>", indexation.the_date, indexation.customer_approval, indexation.technical_manager_approval, indexation.warehouse_approval, indexation.visit ? indexation.visit.id : '', indexation.visit ? indexation.visit.readings_of_printing_machine : '']);
+					});
+					$("#indexations-released-in-specific-period-report-loading-message").empty();
+					standardTable.draw();
+					$("#indexations-released-in-specific-period-report-table-body").fadeIn();
+				},
+				error: function error() {
+					$("#indexations-released-in-specific-period-report-loading-message").append("<h4>خطاء في الإتصال الرجاء إعادة تحميل الصفحة</h4>");
+				}
+			});
+		} else {
+			$("#indexations-released-in-specific-period-report-error-validator").css("display", "block");
+		}
+	});
+});
+// End Indexations released in specific period report
+
 //Start Ajax for Installation Records _form printing machine search
 $(document).ready(function () {
 	$("#installation-record-printing-machine-search-btn").on("click", function () {

@@ -109,6 +109,8 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('remove_the_indexation_file/{project_image_id}', 'IndexationController@removeIndexationFile')->name('remove_the_indexation_file');
     Route::get('indexation_form_part_search/{keyword}', 'IndexationController@indexationFormPartSearch')->name('indexation_form_part_search');
     Route::get('create_indexations_with_visit_id/{visit_id}', 'IndexationController@createIndexationWithVisitId')->name('create_indexations_with_visit_id');
+    Route::get('get_indexations_released_in_specific_period_report', 'IndexationController@getIndexationsReleasedInSpecificPeriodReport')->name('get_indexation_released_in_specific_period_report');
+    Route::get('indexations_released_in_specific_period_report_search/{from}/{to}', 'IndexationController@indexationsReleasedInSpecificPeriodReportSearch')->name('indexation_released_in_specific_period_report_search');
     
 //Employees
     Route::resource('employees', 'EmployeeController');
