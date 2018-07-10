@@ -55,7 +55,7 @@ class EloquentFollowUpCard implements FollowUpCardInterface
 
     public function search($keyword)
     {
-        $results = $this->followUpCard->with('contract')->where('code', 'like', '%'.$keyword.'%')
+        $results = $this->followUpCard->with('printingMachine.customer', 'contract')->where('code', 'like', '%'.$keyword.'%')
                         ->OrWhereHas('contract', function($query) use($keyword)
                                                     {
                                                         $query->where('code', 'like', '%'.$keyword.'%');

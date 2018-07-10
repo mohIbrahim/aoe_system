@@ -368,11 +368,14 @@ $(document).ready(function(){
 				success: function(results){
 					$("#my-table-body").fadeOut();
 					standardTable.clear();
-					$.each(results, function(index, follow_up_cards) {
+					$.each(results, function(index, follow_up_card) {
 						standardTable.row.add([
 							(index+1),
-							"<a href='/follow_up_cards/"+follow_up_cards.id+"'>"+follow_up_cards.code+"</a>",
-							(follow_up_cards.contract)?("<a href='/contracts/"+follow_up_cards.contract.id+"'>"+follow_up_cards.contract.code+"</a>"):(''),
+							"<a href='/follow_up_cards/"+follow_up_card.id+"'>"+follow_up_card.code+"</a>",
+							(follow_up_card.printing_machine !== null)?((follow_up_card.printing_machine.customer !== null)?(follow_up_card.printing_machine.customer.name):('')):(''),
+							(follow_up_card.contract)?("<a href='/contracts/"+follow_up_card.contract.id+"'>"+follow_up_card.contract.code+"</a>"):(''),
+							(follow_up_card.printing_machine !== null)?(follow_up_card.printing_machine.serial_number):(''),
+							(formatDate(follow_up_card.updated_at) || ''),
 						]);
 					});
 					standardTable.draw();
@@ -907,4 +910,22 @@ $(document).ready(function(){
 	});
 });
 // End Ajax for Visits index view
+
+//Start format date function
+function formatDate(date) {
+	date = new Date(date);
+    var monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+  
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+  
+    return day + '-' + monthIndex + '-' + year;
+  }
+//End format date function
 
