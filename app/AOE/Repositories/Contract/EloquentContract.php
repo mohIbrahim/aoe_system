@@ -121,11 +121,11 @@ class EloquentContract implements ContractInterface
                     $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractEnd)->addMonths(1)->format('Y-m-d')), 'total'=>$contractTotalPrice, 'customer_id'=>$customerId]);
                 } else {
                     for ($i = 1 ; $i <= $contractingMonths ; $i+=$periodBetweenEachPayment) {
-                        $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractStart)->addMonths(($i))->format('Y-m-d')), 'total'=>(($contractTotalPrice)/($contractingMonths/$periodBetweenEachPayment )), 'customer_id'=>$customerId]);
+                        $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractStart)->addMonths(($i+$periodBetweenEachPayment-1))->format('Y-m-d')), 'total'=>(($contractTotalPrice)/($contractingMonths/$periodBetweenEachPayment )), 'customer_id'=>$customerId]);
                     }
                 }
-            }            
-        }       
+            }
+        }
     }
 
     public function validContracts(){
