@@ -130,4 +130,9 @@ class EloquentCustomer implements CustomerInterface
 			}
 		}
 	}
+
+	public function getCountOfMainBraches()
+	{
+		return $count = Customer::whereNull('main_branch_id')->count();
+	}
 }

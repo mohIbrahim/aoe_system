@@ -31,7 +31,8 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = $this->customer->latest()->paginate(25);
-        return view('customers.index', compact('customers'));
+        $countOfMainBranches = $this->customer->getCountOfMainBraches();
+        return view('customers.index', compact('customers', 'countOfMainBranches'));
     }
 
     /**
