@@ -75,6 +75,18 @@
 
 							</div>
 			  		    </tbody>
+						<tfoot>
+			  			    <tr>
+								<th>#</th>
+                                <th> القطعة الرئيسية </th>
+                                <th> الرقم المسلسل </th>
+                                <th> كود </th>
+                                <th> التوافر </th>
+                                <th> الحالة </th>
+                                <th> تاريخ الدخول </th>
+                                <th> تاريخ الخروج </th>
+			  			    </tr>
+			  		    </tfoot>
 			  	     </table>
 					 <div class="text-center">
 						 {{$partSerialNumbers->links()}}

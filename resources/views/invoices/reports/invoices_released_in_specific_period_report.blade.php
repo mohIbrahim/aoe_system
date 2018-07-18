@@ -52,6 +52,22 @@
 			  		    </thead>
 			  		    <tbody id="invices-released-in-specific-period-report-table-body">
 			  		    </tbody>
+						<tfoot>
+			  			    <tr>
+								<th>#</th>
+                                <th> رقم الفاتورة </th>
+                                <th> اسم العميل </th>
+                                <th> نوع الفاتورة </th>
+                                <th> جهة الإصدار </th>
+			  				    <th> أمر توريد رقم</th>
+			  				    <th> إذن تسليم رقم العقد </th>
+			  				    <th> إطلاع قسم الحسابات </th>
+			  				    <th> إجمالي القيمة </th>
+			  				    <th> اسم المهندس المسؤول عن الفاتورة </th>
+			  				    <th> تاريخ الإصدار </th>
+			  				    <th> تاريخ التحصيل </th>
+			  			    </tr>
+			  		    </tfoot>
 			  	     </table>
 				
 		    </div>

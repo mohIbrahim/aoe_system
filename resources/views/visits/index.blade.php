@@ -78,6 +78,17 @@
 
 							</div>
 			  		    </tbody>
+			  		    <tfoot>
+			  			    <tr>
+								<th>#</th>
+                                <th> رقم الزيارة </th>
+                                <th> تاريخ الزيارة </th>
+                                <th> نوع الزيارة </th>
+                                <th> كود آلة التصوير </th>
+			  				    <th> قراءة العداد </th>
+			  				    <th> اسم المهندس الذي قام بالزيارة </th>
+			  			    </tr>
+			  		    </tfoot>
 			  	     </table>
 					 <div class="text-center">
 						 {{$visits->links()}}

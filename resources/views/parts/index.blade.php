@@ -18,7 +18,7 @@
 				<a href=""  class="btn btn-success"> العودة </a>
 				<h3 class="text-center"> عرض القطع القابلة للتغير من أجزاء الماكينة </h3>
 		    </div>
-		    <div class="panel-body">		  		
+		    <div class="panel-body">
 				<table class="table table-hover standard-datatable">
 					<thead>
 						<tr>
@@ -50,6 +50,16 @@
 							@endforeach
 						</div>
 					</tbody>
+					<tfoot>
+						<tr>
+							<th>#</th>
+							<th> الاسم </th>
+							<th> الكود </th>
+							<th> النوع </th>
+							<th> الكمية </th>
+							<th> متوافقة مع </th>
+						</tr>
+					</tfoot>
 					</table>
 					<div class="text-center">
 						{{$parts->links()}}

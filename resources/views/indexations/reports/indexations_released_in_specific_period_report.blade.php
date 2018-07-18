@@ -48,6 +48,18 @@
 			  		    </thead>
                         <tbody id="indexations-released-in-specific-period-report-table-body">
                         </tbody>
+                        <tfoot>
+			  			    <tr>
+								<th>#</th>
+                                <th> كود المقايسة </th>
+                                <th>  التاريخ  </th>
+                                <th> موافقة العميل </th>
+                                <th> موافقة مدير الأقسام الفنية </th>
+                                <th> موافقة المخازن </th>
+                                <th> رقم الزيارة </th>
+                                <th> قراءة العداد </th>
+			  			    </tr>
+			  		    </tfoot>
                      </table>
                 
             </div>

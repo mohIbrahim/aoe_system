@@ -60,6 +60,17 @@
 								@endforeach
 							</div>
 			  		    </tbody>
+			  		    <tfoot>
+			  			    <tr>
+								<th>#</th>
+                                <th> اسم العميل </th>
+                                <th> كود العقد </th>
+                                <th> ترتيب الدفعة </th>
+                                <th> رقم الفاتورة </th>
+                                <th> تاريخ وجوب السداد </th>
+                                <th> تاريخ التحصيل </th>
+			  			    </tr>
+			  		    </tfoot>
 			  	     </table>
 				 </div>
 		    </div>

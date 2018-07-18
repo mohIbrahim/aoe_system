@@ -19,7 +19,7 @@
 				<h3 class="text-center"> عرض الفواتير </h3>
 		    </div>
 		    <div class="panel-body">
-		  		<div class="table-responsive">
+		  		<div class="table-responsive" style="overflow-y:hidden">
 			  	    <table class="table table-hover standard-datatable">
 			  		    <thead>
 			  			    <tr>
@@ -64,6 +64,22 @@
 
 							</div>
 			  		    </tbody>
+						<tfoot>
+			  			    <tr>
+								<th>#</th>
+                                <th> رقم الفاتورة </th>
+                                <th> اسم العميل </th>
+                                <th> نوع الفاتورة </th>
+                                <th> جهة الإصدار </th>
+			  				    <th> أمر توريد رقم</th>
+			  				    <th> إذن تسليم رقم العقد </th>
+			  				    <th> إطلاع قسم الحسابات </th>
+			  				    <th> إجمالي القيمة </th>
+			  				    <th> اسم المهندس المسؤول عن الفاتورة </th>
+			  				    <th> تاريخ الإصدار </th>
+			  				    <th> تاريخ التحصيل </th>
+			  			    </tr>
+			  		    </tfoot>
 			  	     </table>
 					 <div class="text-center">
 						 {{$invoices->links()}}

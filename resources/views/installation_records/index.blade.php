@@ -48,6 +48,15 @@
 							@endforeach
 						</div>
 					</tbody>
+					<tfoot>
+						<tr>
+							<th> # </th>
+							<th> كود الآلة التصوير </th>
+							<th>  اسم الموظف المسؤول </th>
+							<th> اسم العميل الذي تدرب </th>
+							<th> تاريخ التركيب </th>
+						</tr>
+					</tfoot>
 					</table>
 					<div class="text-center">
 						{{$installationRecords->links()}}

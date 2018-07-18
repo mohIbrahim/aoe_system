@@ -20,7 +20,7 @@
 		    </div>
 		    <div class="panel-body">
 
-		  		<div class="table-responsive">
+		  		<div class="table-responsive" style="overflow-y:hidden">
 			  	    <table class="table table-hover standard-datatable">
 			  		    <thead>
 			  			    <tr>
@@ -65,6 +65,17 @@
 
 							</div>
 			  		    </tbody>
+						<tfoot>
+			  			    <tr>
+								<th>#</th>
+                                <th> اسم الموظف </th>
+                                <th> كود الموظف </th>
+                                <th> المسمى الوظيفي </th>
+                                <th> القسم  </th>
+                                <th> القسم الذي يرأسه </th>
+                                <th>  تاريخ التعيين  </th>
+			  			    </tr>
+			  		    </tfoot>
 			  	     </table>
 					 <div class="text-center">
 						 {{$employees->links()}}
