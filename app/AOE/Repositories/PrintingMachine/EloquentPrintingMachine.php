@@ -57,7 +57,7 @@ class EloquentPrintingMachine implements PrintingMachineInterface
 
     public function search($keyword)
     {
-        $results = $this->printingMachine->with('customer')
+        $results = $this->printingMachine->with('customer', 'assignedEmployees.user')
                             ->where('serial_number', 'like', "%$keyword%")
                             ->OrWhere('folder_number', 'like', "%$keyword%")
                             ->orWhere('code', 'like', "%$keyword%")

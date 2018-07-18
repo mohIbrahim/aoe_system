@@ -32498,7 +32498,17 @@ $(document).ready(function () {
 				$("#my-table-body").fadeOut();
 				standardTable.clear();
 				$.each(results, function (index, machine) {
-					standardTable.row.add([index + 1, "<a href='/printing_machines/" + machine.id + "'>" + machine.folder_number + "</a>", machine.serial_number, machine.code, machine.model_prefix + "-" + machine.model_suffix, machine.customer.name]);
+
+					//preparing assigned employee
+					assignedEmployeesRow = '';
+					if (machine.assigned_employees) {
+						$.each(machine.assigned_employees, function (key, value) {
+							if (value.user) {
+								assignedEmployeesRow += '<div>' + value.user.name + '</div> &nbsp &nbsp';
+							}
+						});
+					}
+					standardTable.row.add([index + 1, "<a href='/printing_machines/" + machine.id + "'>" + machine.folder_number + "</a>", machine.serial_number, machine.code, machine.model_prefix + "-" + machine.model_suffix, machine.customer.name, assignedEmployeesRow]);
 				});
 				standardTable.draw();
 				$("#my-table-body").fadeIn();
