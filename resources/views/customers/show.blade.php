@@ -227,6 +227,7 @@
                                             <th> المحافظة </th>
                                             <th> المدينة </th>
                                             <th> المنطقة </th>
+                                            <th> الإدارة </th>
                                             <th> الحي </th>
                                             <th> ارقام التليفون </th>
                                         </tr>
@@ -249,7 +250,10 @@
                                                     {{$branch->area}}
                                                 </td>
                                                 <td>
-                                                    {{$branch->district}}
+                                                    {{$branch->administration}}
+                                                </td>
+                                                <td>
+                                                    {{$branch->department}}
                                                 </td>
                                                 <td>
                                                     @foreach ($branch->telecoms as $key2 => $phone)
