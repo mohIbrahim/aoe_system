@@ -66,6 +66,11 @@ class EloquentPrintingMachine implements PrintingMachineInterface
                             ->orWhereHas('customer', function($query) use($keyword){
                                 $query->where('name', 'like', '%'.$keyword.'%');
                             })
+                            ->orWhereHas('assignedEmployees', function($query2)use($keyword){
+                                $query2->whereHas('user', function($query3)use($keyword){
+                                    $query3->where('name', 'like', '%'.$keyword.'%');
+                                });
+                            })
                             ->get();
         return $results;
     }
