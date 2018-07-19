@@ -793,6 +793,7 @@ $(document).ready(function(){
 						machine.code,
 						machine.model_prefix+"-"+machine.model_suffix,
 						machine.customer.name,
+						((machine.customer.administration !== null)?(machine.customer.administration):('')),
 						assignedEmployeesRow,
 					]);
 				});

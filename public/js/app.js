@@ -32508,7 +32508,7 @@ $(document).ready(function () {
 							}
 						});
 					}
-					standardTable.row.add([index + 1, "<a href='/printing_machines/" + machine.id + "'>" + machine.folder_number + "</a>", machine.serial_number, machine.code, machine.model_prefix + "-" + machine.model_suffix, machine.customer.name, assignedEmployeesRow]);
+					standardTable.row.add([index + 1, "<a href='/printing_machines/" + machine.id + "'>" + machine.folder_number + "</a>", machine.serial_number, machine.code, machine.model_prefix + "-" + machine.model_suffix, machine.customer.name, machine.customer.administration !== null ? machine.customer.administration : '', assignedEmployeesRow]);
 				});
 				standardTable.draw();
 				$("#my-table-body").fadeIn();

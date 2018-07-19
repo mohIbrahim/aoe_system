@@ -32,6 +32,7 @@
 							<th> كود الآلة </th>
 							<th> الموديل </th>
 							<th> اسم العميل </th>
+							<th> الإدارة </th>
 							<th> الموظفين المسؤولين عن الآلة </th>
 						</tr>
 					</thead>
@@ -47,6 +48,9 @@
 									<td>{{$printingMachine->code}}</td>
 									<td>{{"$printingMachine->model_prefix-$printingMachine->model_suffix"}}</td>
 									<td>{{isset($printingMachine->customer)?$printingMachine->customer->name:''}}</td>
+									<td>
+										{{(isset($printingMachine->customer))?($printingMachine->customer->administration):('')}}
+									</td>
 									<td>
 										@if(!empty($printingMachine->assignedEmployees))
 											@foreach($printingMachine->assignedEmployees as $assignedEmployee)
