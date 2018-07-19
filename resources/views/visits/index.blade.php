@@ -16,7 +16,7 @@
 				<legend> البحث عن الزيارات </legend>
 
 				<div class="form-group">
-					<label for="visit-input-search"> البحث بـ رقم وتاريخ ونوع الزيارة. </label>
+					<label for="visit-input-search"> البحث بـ رقم وتاريخ ونوع الزيارة - كود الآلة سيريل الآلة - اسم المهندس المسؤول. </label>
                     <p>
                         <small> البحث بالتاريخ يتم كتابة السنة ثم الشهر ثم اليوم </small>
                     </p>
@@ -46,6 +46,7 @@
                                 <th> تاريخ الزيارة </th>
                                 <th> نوع الزيارة </th>
                                 <th> كود آلة التصوير </th>
+                                <th> سيريل آلة التصوير </th>
 			  				    <th> قراءة العداد </th>
 			  				    <th> اسم المهندس الذي قام بالزيارة </th>
 			  			    </tr>
@@ -71,6 +72,7 @@
                                                 {{isset($visit->printingMachine)?$visit->printingMachine->code:''}}
                                             </a>
                                         </td>
+										<td>{{(isset($visit->printingMachine)?($visit->printingMachine->serial_number):(''))}}</td>
 										<td>{{$visit->readings_of_printing_machine}}</td>
 										<td>{{$visit->theEmployeeWhoMadeTheVisit->user->name or ''}}</td>
 									</tr>

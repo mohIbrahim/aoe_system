@@ -910,6 +910,7 @@ $(document).ready(function(){
 							visit.visit_date,
 							visit.type,
 							"<a href='{{url('printing_machines')}}/"+((visit.printing_machine)?visit.printing_machine.id:'')+"'>"+((visit.printing_machine)?visit.printing_machine.code:'')+"</a>",
+							((visit.printing_machine !== null)?(visit.printing_machine.serial_number):('')),
 							visit.readings_of_printing_machine,
 							((visit.the_employee_who_made_the_visit)?((visit.the_employee_who_made_the_visit.user)?visit.the_employee_who_made_the_visit.user.name:''):''),
 						]);

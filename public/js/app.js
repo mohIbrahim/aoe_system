@@ -32605,7 +32605,7 @@ $(document).ready(function () {
 					$("#visit-index-my-table-body").fadeOut();
 					standardTable.clear();
 					$.each(results, function (index, visit) {
-						standardTable.row.add([index + 1, "<a href='{{url('visits')}}/" + visit.id + "'>" + visit.id + "</a>", visit.visit_date, visit.type, "<a href='{{url('printing_machines')}}/" + (visit.printing_machine ? visit.printing_machine.id : '') + "'>" + (visit.printing_machine ? visit.printing_machine.code : '') + "</a>", visit.readings_of_printing_machine, visit.the_employee_who_made_the_visit ? visit.the_employee_who_made_the_visit.user ? visit.the_employee_who_made_the_visit.user.name : '' : '']);
+						standardTable.row.add([index + 1, "<a href='{{url('visits')}}/" + visit.id + "'>" + visit.id + "</a>", visit.visit_date, visit.type, "<a href='{{url('printing_machines')}}/" + (visit.printing_machine ? visit.printing_machine.id : '') + "'>" + (visit.printing_machine ? visit.printing_machine.code : '') + "</a>", visit.printing_machine !== null ? visit.printing_machine.serial_number : '', visit.readings_of_printing_machine, visit.the_employee_who_made_the_visit ? visit.the_employee_who_made_the_visit.user ? visit.the_employee_who_made_the_visit.user.name : '' : '']);
 					});
 					standardTable.draw();
 					$("#visit-index-my-table-body").fadeIn();

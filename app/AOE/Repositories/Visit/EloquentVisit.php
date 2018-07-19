@@ -70,6 +70,10 @@ class EloquentVisit implements VisitInterface
         $results = $this->visit->with('printingMachine', 'theEmployeeWhoMadeTheVisit.user')->where('visit_date', 'like', '%'.$keyword.'%')
                         ->orWhere('id', 'like', '%'.$keyword.'%')
                         ->orWhere('type', 'like', '%'.$keyword.'%')
+                        ->orWhereHas('printingMachine', function($query)use($keyword){
+                            $query->where('code', 'like', '%'.$keyword.'%')
+                            ->orWhere('serial_number', 'like', '%'.$keyword.'%');
+                        })
                         ->orWhereHas('theEmployeeWhoMadeTheVisit', function($query) use($keyword){
                             $query->whereHas('user', function($query2) use($keyword){
                                 $query2->where('name', 'like', '%'.$keyword.'%');
