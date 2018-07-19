@@ -19,9 +19,10 @@
 				<button type="button" id="printing-machine-search-button" class="btn btn-primary"> بحث </button>
 				<a href=""  class="btn btn-success"> العودة </a>
 				<h3 class="text-center"> عرض الآلات التصوير </h3>
+			<h5 class="text-left"> إجمالي عدد الآلات: {{$printingMachines->total()}} </h5>
 		    </div>
 
-		    <div class="panel-body">		  		
+		    <div class="panel-body">
 				<table class="table table-hover standard-datatable" id="printing-machine-index-table">
 					<thead>
 						<tr>

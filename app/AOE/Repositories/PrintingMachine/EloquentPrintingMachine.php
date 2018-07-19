@@ -95,7 +95,7 @@ class EloquentPrintingMachine implements PrintingMachineInterface
 
     private function setCustomCode(PrintingMachine $printingMachine)
     {
-        if ( isset($printingMachine->customer) && !empty($printingMachine->customer->code) ) {            
+        if ( isset($printingMachine->customer) && !empty($printingMachine->customer->code) ) {
             $customerCode = $printingMachine->customer->code;
             $customerCode .= '-'.$printingMachine->id;
             return $customerCode;
