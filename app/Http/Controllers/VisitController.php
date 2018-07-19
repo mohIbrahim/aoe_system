@@ -167,4 +167,14 @@ class VisitController extends Controller
         $isUploaded = (new ProjectImages())->deleteOneProjectImage($projectImageId);
         return back()->withInput();
     }
+
+    public function indexVisitsInSpecificPeriodReport()
+    {
+        return view('visits.reports.visits_in_specific_period');
+    }
+    
+    public function getVisitsInSpecificPeriodReport($from, $to)
+    {
+        return $this->visit->getVisitsInSpecificPeriodReport($from, $to);
+    }
 }

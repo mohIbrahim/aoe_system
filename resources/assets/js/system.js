@@ -401,7 +401,7 @@ $(function(){
 				url: "/visits_not_done_on_time_for_follow_up_cards_report_search/"+start+"/"+end,
 				dataType: "json",
 				beforeSend: function(){
-					$("#follow-up-card-visits-not-done-report-loading-message").append("<h4 style='color: #1877a3'>جاري التحميل... </h4>");
+					$("#follow-up-card-visits-not-done-report-loading-message").append("<h4 style='color: #1877a3'>جاري البحث... </h4>");
 				},
 				success: function(results){
 					$("#follow-up-card-visits-not-done-report-table-body").fadeOut();
@@ -478,7 +478,7 @@ $(function(){
 				url: "/indexations_released_in_specific_period_report_search/"+start+"/"+end,
 				dataType: "json",
 				beforeSend: function(){
-					$("#indexations-released-in-specific-period-report-loading-message").append("<h4 style='color: #1877a3'>جاري التحميل... </h4>");
+					$("#indexations-released-in-specific-period-report-loading-message").append("<h4 style='color: #1877a3'>جاري البحث... </h4>");
 				},
 				success: function(results){
 					$("#indexations-released-in-specific-period-report-table-body").fadeOut();
@@ -661,7 +661,7 @@ $(function(){
 				url: "/invoices_released_in_specific_period_report_search/"+start+"/"+end,
 				dataType: "json",
 				beforeSend: function(){
-					$("#invices-released-in-specific-period-report-loading-message").append("<h4 style='color: #1877a3'>جاري التحميل... </h4>");
+					$("#invices-released-in-specific-period-report-loading-message").append("<h4 style='color: #1877a3'>جاري البحث... </h4>");
 				},
 				success: function(results){
 					$("#invices-released-in-specific-period-report-table-body").fadeOut();
@@ -922,6 +922,51 @@ $(document).ready(function(){
 	});
 });
 // End Ajax for Visits index view
+
+// Start visits done on specific period of time report view
+$(function(){
+	$("#visits-in-specific-period-report-search-btn").on("click", function(){
+		var start = $("#datepicker").val();
+		start = start.replace(/\//g,"-");
+		var end = $("#datepicker2").val();
+		end = end.replace(/\//g,"-");
+		if (start != "" && end != "" ) {
+			$("#visits-in-specific-period-report-error-validator").css("display", "none");
+			$.ajax({
+				type: "GET",
+				url: "/get_visits_in_specific_period_report/"+start+"/"+end,
+				dataType: "json",
+				beforeSend: function(){
+					$("#visits-in-specific-period-report-loading-message").append("<h4 style='color: #1877a3'>جاري البحث... </h4>");
+				},
+				success: function(results){
+					$("#visits-in-specific-period-report-table-body").fadeOut();
+					standardTable.clear();
+					$.each(results, function(key, visit){
+						standardTable.row.add([
+												key+1,
+												"<a href='/visits/"+visit.id+"' target='_blank'>"+visit.id+"</a>",
+												visit.visit_date,
+												visit.type,
+												((visit.printing_machine !== null)?( "<a href='/printing_machines/"+visit.printing_machine.id+"' target='_blank'>"+visit.printing_machine.code+"</a>"):('')),
+												visit.readings_of_printing_machine,
+												((visit.the_employee_who_made_the_visit.user !== null )?( visit.the_employee_who_made_the_visit.user.name):('')),
+											]);
+					});
+					$("#visits-in-specific-period-report-loading-message").empty();
+					standardTable.draw();
+					$("#visits-in-specific-period-report-table-body").fadeIn();
+				},
+				error: function(){
+					$("#visits-in-specific-period-report-loading-message").append("<h4>خطاء في الإتصال الرجاء إعادة تحميل الصفحة</h4>");
+				},
+			});
+		}else {
+			$("#visits-in-specific-period-report-error-validator").css("display", "block");
+		}
+	});
+});
+// Start visits done on specific period of time report view
 
 //Start format date function
 function formatDate(date) {

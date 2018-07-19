@@ -14,6 +14,13 @@
 					<li><a href="{{ action('VisitController@create') }}"> إنشاء زيارة جديدة </a></li>
 				@endif
 			@endif
+			@if(in_array('view_visits_reports', $permissions))
+				<li role="separator" class="divider"></li>
+				<li class="dropdown-header"> <i class="glyphicon glyphicon-info-sign"></i> تقرير </li>
+				@if(in_array('view_visits_in_specific_period_report', $permissions))
+					<li><a href="{{ action('VisitController@indexVisitsInSpecificPeriodReport') }}"> تقرير عن الزيارات التي تمت في فترة محددة </a></li>
+				@endif
+			@endif
 		</ul>
 	</li>
 </ul>

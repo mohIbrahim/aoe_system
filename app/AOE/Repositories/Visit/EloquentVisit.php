@@ -78,4 +78,9 @@ class EloquentVisit implements VisitInterface
                         ->get();
         return $results;
     }
+
+    public function getVisitsInSpecificPeriodReport($from, $to)
+    {
+        return $this->visit->with('printingMachine', 'theEmployeeWhoMadeTheVisit.user')->whereBetween('visit_date', [$from, $to])->get();
+    }
 }

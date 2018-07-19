@@ -423,6 +423,16 @@ class PermissionSeeder extends Seeder
             'name'      =>'delete_visits',
             'created_at'=>Carbon::now(),
             ]);
+        DB::table('permissions')->insert([
+            'title'      =>'visits',
+            'name'      =>'view_visits_reports',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'visits',
+            'name'      =>'view_visits_in_specific_period_report',
+            'created_at'=>Carbon::now(),
+            ]);
     }
     private function followUpCards()
     {

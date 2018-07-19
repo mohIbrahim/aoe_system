@@ -81,7 +81,18 @@ class Visits
         
 		if($request->route()->getName() == 'create_visit_with_printing_machine_id_and_follow_up_card_id'    && in_array('create_visits', $permissions) ){
             $response = $next($request);
-        }        
+        }
+        elseif(in_array('view_visits_reports', $permissions)) {
+            
+            if($request->route()->getName() == 'index_visits_in_specific_period_report' && in_array('view_visits_in_specific_period_report', $permissions)){
+                $response = $next($request);
+            } elseif($request->route()->getName() == 'get_visits_in_specific_period_report' && in_array('view_visits_in_specific_period_report', $permissions)) {
+                $response = $next($request);
+            } else {
+                abort(403);
+            }
+            
+        }
         else{
             abort(403);
         }
