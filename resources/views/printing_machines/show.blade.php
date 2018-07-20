@@ -17,38 +17,50 @@
                             <li role="presentation" class="active">
                                 <a href="#main-information" aria-controls="main-information" role="tab" data-toggle="tab">
                                     البيانات الآساسية
-                                </a>                                
-                            </li>
-							<li role="presentation">
-								<a href="#visits" aria-controls="visits" role="tab" data-toggle="tab">
-									الزيارات
-								</a>
-							</li>
-                            <li role="presentation">
-                                <a href="#readings-of-printing-machine" aria-controls="readings-of-printing-machine" role="tab" data-toggle="tab">
-                                     قراءات العداد
                                 </a>
                             </li>
-                            <li role="presentation">
-                                <a href="#contracts" aria-controls="contracts" role="tab" data-toggle="tab">
-                                     العقود
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#references" aria-controls="references" role="tab" data-toggle="tab">
-                                     الإشارات
-                                </a>
-                            </li>
-							<li role="presentation">
-                                <a href="#invoices" aria-controls="invoices" role="tab" data-toggle="tab">
-                                     الفواتير
-                                </a>
-                            </li>
-							<li role="presentation">
-                                <a href="#indexations" aria-controls="indexations" role="tab" data-toggle="tab">
-                                     المقايسات
-                                </a>
-                            </li>
+                            @if(in_array('view_visits', $permissions))
+                                <li role="presentation">
+                                    <a href="#visits" aria-controls="visits" role="tab" data-toggle="tab">
+                                        الزيارات
+                                    </a>
+                                </li>
+                            @endif
+                            @if(in_array('view_visits', $permissions))
+                                <li role="presentation">
+                                    <a href="#readings-of-printing-machine" aria-controls="readings-of-printing-machine" role="tab" data-toggle="tab">
+                                        قراءات العداد
+                                    </a>
+                                </li>
+                            @endif
+                            @if(in_array('view_contracts', $permissions))
+                                <li role="presentation">
+                                    <a href="#contracts" aria-controls="contracts" role="tab" data-toggle="tab">
+                                        العقود
+                                    </a>
+                                </li>
+                            @endif
+                            @if(in_array('view_references', $permissions))
+                                <li role="presentation">
+                                    <a href="#references" aria-controls="references" role="tab" data-toggle="tab">
+                                        الإشارات
+                                    </a>
+                                </li>
+                            @endif
+                            @if(in_array('view_invoices', $permissions))
+                                <li role="presentation">
+                                    <a href="#invoices" aria-controls="invoices" role="tab" data-toggle="tab">
+                                        الفواتير
+                                    </a>
+                                </li>
+                            @endif
+                            @if(in_array('view_indexations', $permissions))
+                                <li role="presentation">
+                                    <a href="#indexations" aria-controls="indexations" role="tab" data-toggle="tab">
+                                        المقايسات
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">

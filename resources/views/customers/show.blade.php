@@ -36,21 +36,27 @@
                                     </a>
                                 </li>
                             @endif
-                            <li role="presentation">
-                                <a href="#machines" aria-controls="machines" role="tab" data-toggle="tab">
-                                    الآلات
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#contracts" aria-controls="contracts" role="tab" data-toggle="tab">
-                                    العقود
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#invoices" aria-controls="contracts" role="tab" data-toggle="tab">
-                                    الفواتير
-                                </a>
-                            </li>
+                            @if(in_array('view_printing_machines', $permissions))
+                                <li role="presentation">
+                                    <a href="#machines" aria-controls="machines" role="tab" data-toggle="tab">
+                                        الآلات
+                                    </a>
+                                </li>
+                            @endif
+                            @if(in_array('view_contracts', $permissions))
+                                <li role="presentation">
+                                    <a href="#contracts" aria-controls="contracts" role="tab" data-toggle="tab">
+                                        العقود
+                                    </a>
+                                </li>
+                            @endif
+                            @if(in_array('view_invoices', $permissions))
+                                <li role="presentation">
+                                    <a href="#invoices" aria-controls="contracts" role="tab" data-toggle="tab">
+                                        الفواتير
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
 
                         <!-- Tab panes -->
