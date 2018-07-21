@@ -16,6 +16,7 @@ class CreateIndexationsTable extends Migration
         Schema::create('indexations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code')->nullable();
+            $table->string('type')->nullable();
             $table->dateTime('the_date')->nullable();
             $table->string('customer_approval')->nullable();
             $table->string('technical_manager_approval')->nullable();
@@ -25,6 +26,9 @@ class CreateIndexationsTable extends Migration
 
             $table->integer('visit_id')->unsigned()->nullable();
             $table->foreign('visit_id')->references('id')->on('visits')->onDelete('set null');
+
+            $table->integer('printing_machine_id')->unsigned()->nullable();
+            $table->foreign('printing_machine_id')->references('id')->on('printing_machines')->onDelete('cascade');
         });
     }
 

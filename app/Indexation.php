@@ -7,7 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Indexation extends Model
 {
     protected $table = 'indexations';
-    protected $fillable = ['code', 'the_date', 'customer_approval', 'technical_manager_approval', 'warehouse_approval', 'comments', 'visit_id'];
+    protected $fillable =   [
+                                'code',
+                                'type',
+                                'the_date',
+                                'customer_approval',
+                                'technical_manager_approval',
+                                'warehouse_approval',
+                                'comments',
+                                'visit_id',
+                                'printing_machine_id'
+                            ];
 
     protected $dates = ['the_date'];
 
@@ -73,6 +83,13 @@ class Indexation extends Model
     {
         return $this->belongsToMany('App\Part', 'indexation_part')->withTimestamps()->withPivot('price', 'serial_number', 'number_of_parts', 'discount_rate');
     }
+
+    public function printingMachine()
+    {
+        return $this->belongsTo('App\PrintingMachine', 'printing_machine_id', 'id');
+    }
+
+    
     //this for show view
     public function statementOfRequiredParts()
     {
