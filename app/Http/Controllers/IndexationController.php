@@ -7,6 +7,8 @@ use App\Http\Requests\IndexationRequest;
 use App\Reference;
 use App\Visit;
 use App\ProjectImages;
+use App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
+use App\PrintingMachine;
 
 
 class IndexationController extends Controller
@@ -152,7 +154,8 @@ class IndexationController extends Controller
     {
         $referencesIds = Reference::all()->pluck('code', 'id');
         $visitsIds = Visit::all()->pluck('id', 'id');
-        return view('indexations.create', compact('referencesIds', 'visitsIds', 'visitIdFromPrintingMachine'));
+        $indexation = (object)['type'=>"زيارة"];
+        return view('indexations.create', compact('referencesIds', 'visitsIds', 'visitIdFromPrintingMachine', 'indexation'));
     }
 
     public function getIndexationsReleasedInSpecificPeriodReport()
@@ -164,5 +167,11 @@ class IndexationController extends Controller
     {
         $results = $this->indexation->indexationsReleasedInSpecificPeriodReportSearch($from, $to);
         return $results;
+    }
+
+    public function ajaxSearchingOnPrintingMachine($keyword)
+    {
+        $abc = new EloquentPrintingMachine(new PrintingMachine());
+        return $abc->searchLimitedCodeCustomer($keyword);
     }
 }

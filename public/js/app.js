@@ -32222,7 +32222,7 @@ $(document).ready(function () {
 					$("#my-table-body").fadeOut();
 					standardTable.clear();
 					$.each(results, function (index, indexation) {
-						standardTable.row.add([index + 1, "<a href='/indexations/" + indexation.id + "'>" + indexation.code + "</a>", indexation.the_date, indexation.customer_approval, indexation.technical_manager_approval, indexation.warehouse_approval, indexation.visit ? indexation.visit.id : '', indexation.visit ? indexation.visit.readings_of_printing_machine : '']);
+						standardTable.row.add([index + 1, "<a href='/indexations/" + indexation.id + "'>" + indexation.code + "</a>", indexation.the_date, indexation.customer_approval, indexation.technical_manager_approval, indexation.warehouse_approval, indexation.type, indexation.visit ? indexation.visit.id : '', indexation.visit ? indexation.visit.readings_of_printing_machine : '']);
 					});
 					standardTable.draw();
 					$("#my-table-body").fadeIn();

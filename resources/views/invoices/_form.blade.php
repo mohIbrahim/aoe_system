@@ -343,21 +343,26 @@ $(function(){
     $('#type').on('change', function(){
         if (this.value == 'تعاقد') {
             $('#group-contract').css('display', 'block');
-            $("#indexation-id option:selected").removeAttr("selected");
+            $("#indexation-id option:selected").prop("selected", false);
+            $("#indexation-id").selectpicker("refresh");
         } else {
             $('#group-contract').css('display', 'none');
         }
 
         if (this.value == 'مقايسة') {
             $('#group-indexation').css('display', 'block');
-            $("#contract-id option:selected").removeAttr("selected");
+            $("#contract-id option:selected").prop("selected", false);
+            $("#contract-id").selectpicker("refresh");
         } else {
             $('#group-indexation').css('display', 'none');
         }
 
         if (this.value == 'بيع قطع') {
             $('#invoice-form-parts-form-wrapper').css('display', 'block');
-            $("#contract-id option:selected").removeAttr("selected");
+            $("#indexation-id option:selected").prop("selected", false);
+            $("#indexation-id").selectpicker("refresh");
+            $("#contract-id option:selected").prop("selected", false);
+            $("#contract-id").selectpicker("refresh");
         } else {
             $('#invoice-form-parts-form-wrapper').css('display', 'none');
             $('#invoice-form-selected-parts-table-body').empty();

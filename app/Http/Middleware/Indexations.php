@@ -49,6 +49,8 @@ class Indexations
             $response = $next($request);
         } elseif ($request->route()->getName() == 'create_indexations_with_visit_id' && in_array('create_indexations', $permissions)) {
             $response = $next($request);
+        } elseif($request->route()->getName() == 'indexation_pm_ajax_search' && in_array('create_indexations', $permissions)){
+            $response = $next($request);
         } elseif (in_array('view_indexations_reports', $permissions)) {
             if ($request->route()->getName('get_indexation_released_in_specific_period_report') && in_array('view_indexations_released_in_specific_period_report', $permissions)) {
                 $response = $next($request);

@@ -451,6 +451,7 @@ $(document).ready(function(){
 												indexation.customer_approval,
 												indexation.technical_manager_approval,
 												indexation.warehouse_approval,
+												indexation.type,
 												(indexation.visit)?(indexation.visit.id):(''),
 												(indexation.visit)?(indexation.visit.readings_of_printing_machine):(''),
 											]);

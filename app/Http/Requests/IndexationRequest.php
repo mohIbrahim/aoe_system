@@ -23,16 +23,24 @@ class IndexationRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'the_date'=>'required|date',
-            'visit_id'=>'required|unique:indexations,visit_id,'.$this->indexation,
-            'upload_files_pdf.*'=>'mimes:pdf',
-            'upload_files_img.*'=>'mimes:jpeg,bmp,png',
+        
+        $results =  [
+                        'the_date'=>'required|date',
+                        'type'=>'required',
+                        'upload_files_pdf.*'=>'mimes:pdf',
+                        'upload_files_img.*'=>'mimes:jpeg,bmp,png',
 
-            'parts_prices.*'=>'nullable|numeric',
-            'parts_count.*'=>'nullable|numeric',
-            'discount_rate.*'=>'nullable|numeric|min:0|max:100',
-        ];
+                        'parts_prices.*'=>'nullable|numeric',
+                        'parts_count.*'=>'nullable|numeric',
+                        'discount_rate.*'=>'nullable|numeric|min:0|max:100',
+                    ];
+        if ($this->input('type') == 'تليفونية') {
+            $results['printing_machine_id'] ='required';
+        } elseif ($this->input('type') == 'زيارة') {
+            $results['visit_id'] = 'required|unique:indexations,visit_id,'.$this->indexation;
+        }
+        
+        return $results;
     }
 
 
@@ -42,7 +50,9 @@ class IndexationRequest extends FormRequest
             'the_date.required'=>' برجاء اختيار تاريخ المقايسة. ',
             'the_date.date'=>' برجاء إدخال التاريخ بشكل صحيح. ',
             'visit_id.required'=>' برجاء اختيار رقم الزيارة. ',
+            'type.required'=>' برجاء إختيار نوع المقايسة ',
             'visit_id.unique'=>'  رقم الزيارة تم اختياره من قبل برجاء اختيار رقم آخر. ',
+            'printing_machine_id.required'=>'  برجاء إختيار الآلة. ',
             'upload_files_pdf.*.mimes'=> ' برجاء اختيار ملف المقايسة بأمتداد pdf. ',
             'upload_files_img.*.mimes'=> ' برجاء اختيار ملف المقايسة بأمتداد JPG, JPEG. ',
             

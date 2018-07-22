@@ -79,10 +79,10 @@ class EloquentPrintingMachine implements PrintingMachineInterface
     {
         $results = $this->printingMachine->with('customer', 'assignedEmployees.user')
 							->where('code', 'like', "%$keyword%")
+							->orWhere('serial_number', 'like', "%$keyword%")
                             ->orWhereHas('customer', function($query) use($keyword){
                                 $query->where('name', 'like', '%'.$keyword.'%');
                             })
-                            ->limit(50)
                             ->get();
         return $results;
     }

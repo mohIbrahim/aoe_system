@@ -76,8 +76,12 @@ class EloquentIndexation implements IndexationInterface
      */
     private function generateIndexationCode(Indexation $indexation)
     {
-        if ($indexation->visit_id) {
+        if (!empty($indexation->visit_id)) {
             $printingMachineCode = \App\Visit::findOrFail($indexation->visit_id)->printingMachine->code;
+            $indexation->code = $printingMachineCode.'|indexation-'.$indexation->id;
+            $indexation->save();
+        } elseif (!empty($indexation->printing_machine_id)) {
+            $printingMachineCode = $indexation->printingMachine->code;
             $indexation->code = $printingMachineCode.'|indexation-'.$indexation->id;
             $indexation->save();
         }

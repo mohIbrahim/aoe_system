@@ -40,10 +40,24 @@ class InvoiceRequest extends FormRequest
 
         if ($this->type === 'تعاقد') {
             $result['contract_id']  = 'required';
+            $cusomerOfContract = null;
+            if (\App\Contract::findOrFail($this->input('contract_id')))
+                $cusomerOfContract = (\App\Contract::findOrFail($this->input('contract_id')))->printingMachines->first()->customer->id;
+            if($this->input('customer_id') != $cusomerOfContract)
+                $result['restrictNotSameFormCustomerAndContractCustomer'] = 'required';
         }
-
+        
         if ($this->type === 'مقايسة') {
             $result['indexation_id']  = 'required';
+
+            $customerOfindexation = null;
+            if ((\App\Indexation::findOrFail($this->input('indexation_id')))->type == 'تليفونية')
+                $customerOfindexation = (\App\Indexation::findOrFail($this->input('indexation_id')))->printingMachine->customer->id;
+            if ((\App\Indexation::findOrFail($this->input('indexation_id')))->type == 'زيارة')
+                $customerOfindexation = (\App\Indexation::findOrFail($this->input('indexation_id')))->visit->printingMachine->customer->id;
+            
+            if($this->input('customer_id') != $customerOfindexation)
+                $result['restrictNotSameFormCustomerAndIndexationCustomer'] = 'required';
         }
 
         if ($this->type === 'بيع قطع') {
@@ -62,6 +76,8 @@ class InvoiceRequest extends FormRequest
             'number.unique'=>' رقم الفاتورة تم إدخاله من قبل برجاء اختيار رقم آخر. ',
 
             'customer_id.required'=>' برجاء اختيار كود العميل. ',
+            'restrictNotSameFormCustomerAndIndexationCustomer.required'=>'كود المقايسة لا يناسب العميل الذي تم إختيارة برجاء التأكد من البيانات المدخله',
+            'restrictNotSameFormCustomerAndContractCustomer.required'=>'كود العقد لا يناسب العميل الذي تم إختيارة برجاء التأكد من البيانات المدخله',
 
             'type.required'=>' برجاء اختيار نوع الفاتورة. ',
 

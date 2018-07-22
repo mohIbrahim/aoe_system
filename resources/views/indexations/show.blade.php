@@ -52,6 +52,24 @@
 								<td>{{$indexation->warehouse_approval}}</td>
 							</tr>
 							<tr>
+								<th> نوع المقايسة </th>
+								<td>{{$indexation->type}}</td>
+							</tr>
+							<tr>
+								<th> سريل الآلة </th>
+								<td>
+									@if(!empty($indexation->printingMachine))
+										<a href="{{action('PrintingMachineController@show', ['id'=>$indexation->printingMachine->id])}}" target="_blank">
+											{{$indexation->printingMachine->serial_number}}
+										</a>
+									@elseif (!empty($indexation->visit->printingMachine))
+										<a href="{{action('PrintingMachineController@show', ['id'=>$indexation->visit->printingMachine->id])}}" target="_blank">
+											{{$indexation->visit->printingMachine->serial_number}}
+										</a>
+									@endif
+								</td>
+							</tr>
+							<tr>
 								<th> رقم الزيـارة </th>
 								<td>
 									<a href="{{action('VisitController@show', ['id'=>(isset($indexation->visit)?$indexation->visit->id:'')])}}" target="_blank">
@@ -81,21 +99,41 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>
-													{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?$indexation->visit->printingMachine->model_prefix:''):'')}} -
-													{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?$indexation->visit->printingMachine->model_suffix:''):'')}}
-												</td>
-												<td>
-													{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?$indexation->visit->printingMachine->code:''):'')}}
-												</td>
-												<td>
-													{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?(isset($indexation->visit->printingMachine->customer)?$indexation->visit->printingMachine->customer->name:''):''):'')}}
-												</td>
-												<td>
-													{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?(isset($indexation->visit->printingMachine->customer)?$indexation->visit->printingMachine->customer->administration:''):''):'')}}
-												</td>
-											</tr>
+											@if($indexation->type == 'تليفونية')
+
+												<tr>
+													<td>
+														{{(isset($indexation)?(isset($indexation->printingMachine)?$indexation->printingMachine->model_prefix:''):'')}} -
+														{{(isset($indexation)?(isset($indexation->printingMachine)?$indexation->printingMachine->model_suffix:''):'')}}
+													</td>
+													<td>
+														{{(isset($indexation)?(isset($indexation->printingMachine)?$indexation->printingMachine->code:''):'')}}
+													</td>
+													<td>
+														{{(isset($indexation)?(isset($indexation->printingMachine)?(isset($indexation->printingMachine->customer)?$indexation->printingMachine->customer->name:''):''):'')}}
+													</td>
+													<td>
+														{{(isset($indexation)?(isset($indexation->printingMachine)?(isset($indexation->printingMachine->customer)?$indexation->printingMachine->customer->administration:''):''):'')}}
+													</td>
+												</tr>
+
+											@elseif ($indexation->type == 'زيارة')
+												<tr>
+													<td>
+														{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?$indexation->visit->printingMachine->model_prefix:''):'')}} -
+														{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?$indexation->visit->printingMachine->model_suffix:''):'')}}
+													</td>
+													<td>
+														{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?$indexation->visit->printingMachine->code:''):'')}}
+													</td>
+													<td>
+														{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?(isset($indexation->visit->printingMachine->customer)?$indexation->visit->printingMachine->customer->name:''):''):'')}}
+													</td>
+													<td>
+														{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?(isset($indexation->visit->printingMachine->customer)?$indexation->visit->printingMachine->customer->administration:''):''):'')}}
+													</td>
+												</tr>
+											@endif
 										</tbody>
 									</table>
 								</td>

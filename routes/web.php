@@ -113,6 +113,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('create_indexations_with_visit_id/{visit_id}', 'IndexationController@createIndexationWithVisitId')->name('create_indexations_with_visit_id');
     Route::get('get_indexations_released_in_specific_period_report', 'IndexationController@getIndexationsReleasedInSpecificPeriodReport')->name('get_indexation_released_in_specific_period_report');
     Route::get('indexations_released_in_specific_period_report_search/{from}/{to}', 'IndexationController@indexationsReleasedInSpecificPeriodReportSearch')->name('indexation_released_in_specific_period_report_search');
+    Route::get('indexation_pm_ajax_search/{keyword}', 'IndexationController@ajaxSearchingOnPrintingMachine')->name('indexation_pm_ajax_search');
     
 //Employees
     Route::resource('employees', 'EmployeeController');

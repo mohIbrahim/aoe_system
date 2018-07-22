@@ -58,8 +58,8 @@
     </div>
 
     <div class="form-group" id="indexation-_form-form-group-visit-id">
-        <label for="visit_id"> رقم الزيارة <span style="color:red">*</span></label>
-        <select class="form-control" id="indexation-_form-select-visit-id" name="visit_id" data-live-search="true">
+        <label for="indexation-_form-select-visit-id"> رقم الزيارة <span style="color:red">*</span></label>
+        <select class="form-control selectpicker" name="visit_id" data-live-search="true" id="indexation-_form-select-visit-id">
             <?php $selectedVist = isset($indexation->visit_id)? $indexation->visit_id:'' ;?>
             <option value=""> اختر رقم الزيارة.  </option>
             @foreach ($visitsIds as $id => $visitIdentifier)
@@ -71,15 +71,15 @@
 
     <div class="form-gruop" id="indexation-_form-form-group-printing-machine-id">
         <label for="">
-            اختيار الآلة التصوير الخاصة بهذا الزيارة<span style="color:red">*</span>
+            اختيار الآلة التصوير الخاصة بهذة المقايسة<span style="color:red">*</span>
         </label>
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="form-group form-inline">
-                    <label for="printing-machine-search-field">  البحث عن الآلة التصوير:  </label>
-                    <input type="text" class="form-control" id="printing-machine-search-field" name="printing_machine_search_field" placeholder=" إدخل الكلمة المراد البحث عنها. " value="{{isset($visit->printingMachine)? isset($visit->printingMachine->customer)?$visit->printingMachine->customer->name:'':'' }}">
-                    <button type="button" class="btn btn-default" id="printing-machine-search-btn"> ابحث </button>
-                    <spna id="printing-machine-search-p">  </spna>
+                    <label for="indexation-_form-printing-machine-search-field">  البحث عن الآلة التصوير:  </label>
+                    <input type="text" class="form-control" id="indexation-_form-printing-machine-search-field" name="printing_machine_search_field" placeholder=" إدخل الكلمة المراد البحث عنها. " value="{{isset($indexation->printingMachine)? isset($indexation->printingMachine->customer)?$indexation->printingMachine->customer->name:'':'' }}">
+                    <button type="button" class="btn btn-default" id="indexation-_form-printing-machine-search-btn"> ابحث </button>
+                    <spna id="indexation-_form-printing-machine-search-p">  </spna>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -88,7 +88,7 @@
                                 <th> اختيار </th>
                             </tr>
                         </thead>
-                        <tbody  id="results-table-body">
+                        <tbody  id="indexation-_form-select-pm-results-table-body">
                         </tbody>
                     </table>
                 </div>
@@ -97,34 +97,14 @@
                     <p>
                         يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة.
                     </p>
-                    <input type="text" class="form-control" id="indexation-_form-input-printing-machine-id" name="printing_machine_id"  value="{{(isset($visit->printing_machine_id))?($visit->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}" readonly>
+                    <input type="text" class="form-control" id="indexation-_form-input-printing-machine-id" name="printing_machine_id"  value="{{(isset($indexation->printing_machine_id))?($indexation->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}" readonly>
                 </div>
             </div>
         </div>
     </div>
-        
-
-
-
-
-
-
-
     
 </div>
 
-
-
-<div class="form-group">
-    <label for="visit_id"> رقم الزيارة <span style="color:red">*</span></label>
-    <select class="form-control selectpicker" name="visit_id" data-live-search="true">
-        <?php $selectedVist = isset($indexation->visit_id)? $indexation->visit_id:'' ;?>
-        <option value=""> اختر رقم الزيارة.  </option>
-        @foreach ($visitsIds as $id => $visitIdentifier)
-            <option value="{{$id}}" {{($selectedVist == $id)? 'selected' : ((old('visit_id')==$id)?'selected':( (isset($visitIdFromPrintingMachine))?(($visitIdFromPrintingMachine == $id)?('selected'):('')):('') ))}}> {{$visitIdentifier}} </option>
-        @endforeach
-    </select>
-</div>
 
 
 
@@ -314,7 +294,7 @@
 {{-- bootstrap-select --}}
 
 
-
+ <!-- changing between type -->
 <script type="text/javascript">
 $(function(){
     //type
@@ -325,55 +305,57 @@ $(function(){
     //printing machine
     indexationFormFormGroupPrintingMachineId = $("#indexation-_form-form-group-printing-machine-id");
     indexationFormInputPrintingMachineId = $("#indexation-_form-input-printing-machine-id");
+    
 
-
-
-    // // for update view
-    // if (indexationFormSelectType.val() == 'تليفونية') {
-    //     indexationFormFormGroupPrintingMachineId.css('display', 'block');
-    //     indexationFormInputPrintingMachineId.val("");
-    // }
-    // // for update view
-    // if ($('#type').val() == 'زيارة') {
-    //     indexationFormFormGroupVisitId.css('display', 'block');
-    //     $(indexationFormSelectVisitId, "option:selected").removeAttr("selected");
-    // }
+    if (indexationFormSelectType.val() == 'تليفونية') {
+        indexationFormFormGroupPrintingMachineId.css('display', 'block');
+        $("#indexation-_form-select-visit-id option:selected").prop("selected", false);
+        $("#indexation-_form-select-visit-id").selectpicker("refresh");
+        indexationFormFormGroupVisitId.css('display', 'none');
+    } else if (indexationFormSelectType.val() == 'زيارة'){
+        indexationFormFormGroupPrintingMachineId.css('display', 'none');
+        indexationFormFormGroupVisitId.css('display', 'block');
+        indexationFormInputPrintingMachineId.val("");
+    } else{
+        indexationFormFormGroupPrintingMachineId.css('display', 'none');
+        indexationFormFormGroupVisitId.css('display', 'none');
+        
+    }
+        
     indexationFormSelectType.on('change', function(){
 
         if (this.value == 'تليفونية') {
             indexationFormFormGroupPrintingMachineId.css('display', 'block');
             $("#indexation-_form-select-visit-id option:selected").prop("selected", false);
+            $("#indexation-_form-select-visit-id").selectpicker("refresh");
             indexationFormFormGroupVisitId.css('display', 'none');
         } else if (this.value == 'زيارة'){
             indexationFormFormGroupPrintingMachineId.css('display', 'none');
             indexationFormFormGroupVisitId.css('display', 'block');
             indexationFormInputPrintingMachineId.val("");
-        } else {
-            indexationFormFormGroupPrintingMachineId.css('display', 'none');
-            indexationFormFormGroupVisitId.css('display', 'none');
         }
     });
 });
 </script>
-
+<!-- selecting printing machine ajax -->
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#printing-machine-search-btn").on("click", function(){
-            var keyword = $("#printing-machine-search-field").val();
-            $("#printing-machine-search-p").text("");
-            $("#results-table-body ").children().remove();
+        $("#indexation-_form-printing-machine-search-btn").on("click", function(){
+            var keyword = $("#indexation-_form-printing-machine-search-field").val();
+            $("#indexation-_form-printing-machine-search-p").text("");
+            $("#indexation-_form-select-pm-results-table-body ").children().remove();
             var resultsTableBody = '';
             if(keyword){
                 $.ajax({
                     type:"GET",
-                    url:"{{url('visits_pm_search')}}/"+keyword,
+                    url:"/indexation_pm_ajax_search/"+keyword,
                     dataType:"json",
                     success:function(results){
                         $.each(results, function(key, machine){
-                            resultsTableBody += "<tr><td>"+machine.code+"</td><td>"+((machine.customer)?machine.customer.name:'')+"</td><td><button type='button' class='btn btn-success btn-xs select-printing-machine' data-printing-machine-id='"+machine.id+"' data-printing-machine-code='"+machine.code+"'> اختيار هذة الآلة </button></td></tr>";
+                            resultsTableBody += "<tr><td>"+machine.code+"</td><td>"+((machine.customer)?machine.customer.name:'')+"</td><td><button type='button' class='btn btn-success btn-xs indexation-_form-select-printing-machine' data-printing-machine-id='"+machine.id+"' data-printing-machine-code='"+machine.code+"'> اختيار هذة الآلة </button></td></tr>";
                         });
-                        $("#results-table-body").append(resultsTableBody);
-                        $(".select-printing-machine").on("click", function(){
+                        $("#indexation-_form-select-pm-results-table-body").append(resultsTableBody);
+                        $(".indexation-_form-select-printing-machine").on("click", function(){
                             printingMachineCode = $(this).attr('data-printing-machine-code');
                             printingMachineId = $(this).attr('data-printing-machine-id');
                             $("#indexation-_form-input-printing-machine-id").val(printingMachineId);
@@ -381,20 +363,16 @@ $(function(){
                     },
                 });
             }else{
-                $("#printing-machine-search-p").text(" برجاء إدخال قيمة ").css('color','red');
+                $("#indexation-_form-printing-machine-search-p").text(" برجاء إدخال قيمة ").css('color','red');
             }
         });
     });
 </script>
 
 
-
+<!-- parts statement ajax -->
 <script type="text/javascript">
     $(document).ready(function(){
-
-        
-
-
 
         $("#search-button").on('click', function(){
             var keyword = $('#search-input').val();

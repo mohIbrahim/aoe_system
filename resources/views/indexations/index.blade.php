@@ -37,6 +37,7 @@
                                 <th> موافقة العميل </th>
                                 <th> موافقة مدير الأقسام الفنية </th>
                                 <th> موافقة المخازن </th>
+                                <th> النوع </th>
                                 <th> رقم الزيارة </th>
                                 <th> قراءة العداد </th>
 			  			    </tr>
@@ -66,7 +67,10 @@
                                             {{$indexation->warehouse_approval}}
                                         </td>
                                         <td>
-                                            {!!($indexation->visit)?("<a href='".action('VisitController@show', ['id'=>$indexation->visit->id])."'target='_blank'>".$indexation->visit->id."</a>"):('تم حذف الزيارة الخاصة بهذة المقايسة، برجاء إنشاء وإختيار زيارة لهذة المقايسة')!!}
+                                            {{$indexation->type}}
+                                        </td>
+                                        <td>
+                                            {!!($indexation->visit)?("<a href='".action('VisitController@show', ['id'=>$indexation->visit->id])."'target='_blank'>".$indexation->visit->id."</a>"):('')!!}
                                         </td>
                                         <td>
                                             {{($indexation->visit)?(($indexation->visit->readingOfPrintingMachine)?($indexation->visit->readingOfPrintingMachine->value):('')):('')}}
@@ -84,6 +88,7 @@
                                 <th> موافقة العميل </th>
                                 <th> موافقة مدير الأقسام الفنية </th>
                                 <th> موافقة المخازن </th>
+                                <th> النوع </th>
                                 <th> رقم الزيارة </th>
                                 <th> قراءة العداد </th>
 			  			    </tr>
