@@ -40,6 +40,12 @@ class CreateInvoicesTable extends Migration
 
             $table->integer('emp_id_reponsible_for_invoice')->unsigned()->nullable();
             $table->foreign('emp_id_reponsible_for_invoice')->references('id')->on('employees')->onDelete('set null');
+
+            $table->integer('creator_id')->unsigned()->nullable();
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('set null');
+
+            $table->integer('updater_id')->unsigned()->nullable();
+            $table->foreign('updater_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

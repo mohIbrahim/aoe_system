@@ -14,12 +14,17 @@ class InvoiceController extends Controller
 {
 
     private $invoice;
+    private $authenticatedUser;
 
     public function __construct(InvoiceInterface $invoice)
     {
         $this->invoice = $invoice;
         $this->middleware('auth');
         $this->middleware('invoices');
+        $this->middleware(function( $request, $next){
+            $this->authenticatedUser = $request->user();
+            return $next($request);
+        });
     }
     /**
      * Display a listing of the resource.
@@ -53,7 +58,7 @@ class InvoiceController extends Controller
      */
     public function store(InvoiceRequest $request)
     {
-        $invoice = $this->invoice->create($request->all());
+        $invoice = $this->invoice->create(array_merge($request->all(), ['creator_id'=>$this->authenticatedUser->id]));
 
         $isUploaded = (new ProjectImages())->receiveAndCreat($request, 'invoice_as_pdf', 'App\Invoice', $invoice->id, 'pdf', 'no_cover');
 
@@ -102,7 +107,7 @@ class InvoiceController extends Controller
      */
     public function update(InvoiceRequest $request, $id)
     {
-        $invoice = $this->invoice->update($id, $request->all());
+        $invoice = $this->invoice->update($id, array_merge($request->all(), ['updater_id'=>$this->authenticatedUser->id]));
 
         if ($request->hasFile('invoice_as_pdf')) {
             $projectImage = new ProjectImages();

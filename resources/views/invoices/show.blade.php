@@ -165,19 +165,30 @@
                                             @endforeach
                                         </td>
                                     </tr>
+
                                     <tr>
                                         <th> الملاحظات </th>
                                         <td>{{$invoice->comments}}</td>
                                     </tr>
+                                    
+                                    <tr>
+                                        <th> اسم المستخدم مدخل الفاتورة </th>
+                                        <td>{{($invoice->userWhoHasCreatedTheInvoice)?($invoice->userWhoHasCreatedTheInvoice->name):('')}}</td>
+                                    </tr>
 
                                     <tr>
                                         <th> تاريخ الإنشاء </th>
-                                        <td style="direction:ltr; text-align:center">{{$invoice->created_at}}</td>
+                                        <td style="direction:ltr; text-align:right">{{$invoice->created_at}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th> اسم أخر مستخدام قام بتعديل الفاتورة </th>
+                                        <td>{{($invoice->userWhoHasUpdateTheInvoice)?($invoice->userWhoHasUpdateTheInvoice->name):('')}}</td>
                                     </tr>
 
                                     <tr>
                                         <th> تاريخ التعديل </th>
-                                        <td style="direction:ltr; text-align:center">{{$invoice->created_at}}</td>
+                                        <td style="direction:ltr; text-align:right">{{$invoice->created_at}}</td>
                                     </tr>
 
                                 </tbody>

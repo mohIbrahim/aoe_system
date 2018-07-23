@@ -25,7 +25,9 @@ class Invoice extends Model
                                         'emp_id_reponsible_for_invoice',
                                          'indexation_id',
                                           'contract_id',
-                                           'customer_id'
+                                           'customer_id',
+                                            'creator_id',
+                                             'updater_id',
                         ];
 
     protected $dates = ['release_date', 'collect_date'];
@@ -99,5 +101,15 @@ class Invoice extends Model
     public function employeeResponisableForThisInvoice()
     {
         return $this->belongsTo('App\Employee', 'emp_id_reponsible_for_invoice', 'id');
+    }
+
+    public function userWhoHasCreatedTheInvoice()
+    {
+        return $this->belongsTo('App\User', 'creator_id', 'id');
+    }
+
+    public function userWhoHasUpdateTheInvoice()
+    {
+        return $this->belongsTo('App\User', 'updater_id', 'id');
     }
 }

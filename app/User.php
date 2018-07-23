@@ -46,4 +46,14 @@ class User extends Authenticatable
     public function employee() {
         return $this->hasOne('App\Employee');
     }
+
+    public function invoicesThatIHaveCreated()
+    {
+        return $this->hasMany('App\Invoice', 'creator_id', 'id');
+    }
+
+    public function invoicesThatIHaveUpdated()
+    {
+        return $this->hasMany('App\Invoice', 'updater_id', 'id');
+    }
 }
