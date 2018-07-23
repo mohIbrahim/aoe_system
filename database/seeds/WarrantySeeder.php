@@ -23,8 +23,8 @@ class WarrantySeeder extends Seeder
      */
     public function run()
     {
-        // $this->importAOEData();
-        // // $this->importWarrntySheet();
+        $this->importAOEData();
+        $this->importWarrntySheet();
         // $this->importSparePartSheet();
         // $this->importConsumableSheet();
         return 'done';
@@ -33,8 +33,8 @@ class WarrantySeeder extends Seeder
 
     private function importWarrntySheet()
     {
-        \Excel::load('/public/excel/warranty2.xlsx', function($reader) {
-            $results = $reader->takeRows(1741)->get();
+        \Excel::load('/public/excel/aoe_comprehensive.xlsx', function($reader) {
+            $results = $reader->takeRows(1478)->get();
             foreach ($results as $row)
             {
                 //Employee
@@ -53,7 +53,8 @@ class WarrantySeeder extends Seeder
                 }
 
                 //Customer, Printing machine, Contract
-                $eloquentCustomer         = new EloquentCustomer(new Customer());
+                $eloquentCustomerMainBranch         = new EloquentCustomer(new Customer());
+                $eloquentCustomerBranch         = new EloquentCustomer(new Customer());
                 $customerBranch           = null;
                 $customerMain             = null;
         
@@ -109,50 +110,66 @@ class WarrantySeeder extends Seeder
 
                 if (!empty($customerName)) {
                     $empId = User::where('name', 'like', $username )->get()->first()->employee->id;
-                    if (Customer::where('name', 'like', $customerName)->get()->isEmpty()) {
+                    if (Customer::where('name', 'like', $customerName.'-الفرع الرئيسي')->get()->isEmpty()) {
                         //main
-                        $customerMain =   $eloquentCustomer->create([
-                                                                'sector'=> $sector,
-                                                                'name' => $customerName,
-                                                                'type' => $type,
-                                                                'email' => $email,
-                                                                'responsible_person_name' => $responsiblePersoneName,
-                                                                'address' => $address,
-                                                                'area' => $area,
-                                                                'city' => $governorate,
-                                                                'governorate' => $governorate,
-                                                                'administration' => $administration,
-                                                                'comments' => 'رقم الفكس: '.$fax,
-                                                                'accounts_dep_emp_name' => $accountantName,
-                                                                'telecom'=>[$phone1, $phone2, $phone3],
-                                                            ]);
-                        $pm = $this->createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerMain->id);
+                        $customerMain =   $eloquentCustomerMainBranch->create([
+                                                                                'sector'=> '',
+                                                                                'name' => $customerName.'-الفرع الرئيسي',
+                                                                                'type' => '',
+                                                                                'email' => '',
+                                                                                'responsible_person_name' => '',
+                                                                                'address' => '',
+                                                                                'area' => '',
+                                                                                'city' => '',
+                                                                                'governorate' => '',
+                                                                                'administration' => '',
+                                                                                'comments' => '',
+                                                                                'accounts_dep_emp_name' => '',
+                                                                                'telecom'=>[''],
+                                                                            ]);
+                        $customerFirstBranch =  $eloquentCustomerBranch->create([
+                                                                                        'sector'=> $sector,
+                                                                                        'name' => $customerName.'-'.$area.'-'.$administration,
+                                                                                        'type' => $type,
+                                                                                        'email' => $email,
+                                                                                        'responsible_person_name' => $responsiblePersoneName,
+                                                                                        'address' => $address,
+                                                                                        'area' => $area,
+                                                                                        'city' => $governorate,
+                                                                                        'governorate' => $governorate,
+                                                                                        'administration' => $administration,
+                                                                                        'comments' => 'رقم الفكس: '.$fax,
+                                                                                        'main_branch_id' =>$customerMain->id,
+                                                                                        'accounts_dep_emp_name' => $accountantName,
+                                                                                        'telecom'=>[$phone1, $phone2, $phone3],
+                                                                                    ]);
+                        $pm = $this->createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerFirstBranch->id);
 
-                        $contract = $this->createContractsAndTheirOwnInvoices($pm->id, $serialNumber, $contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3,  $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice, $customerMain->id);
+                        $contract = $this->createContractsAndTheirOwnInvoices($pm->id, $serialNumber, $contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3,  $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice, $customerFirstBranch->id);
 
                         
                         $pm->assignedEmployees()->attach($empId);
                         
                     } else {
                         //brach
-                        $main = Customer::where('name', 'like', $customerName)->where('main_branch_id', null)->get()->first();
+                        $main = Customer::where('name', 'like', $customerName.'-الفرع الرئيسي')->where('main_branch_id', null)->get()->first();
                         if (!empty($main->id)) {
-                            $customerBranch =   $eloquentCustomer->create([
-                                                                'sector'=> $sector,
-                                                                'name' => $customerName.'-'.$governorate.'-'.$area,
-                                                                'type' => $type,
-                                                                'email' => $email,
-                                                                'responsible_person_name' => $responsiblePersoneName,
-                                                                'address' => $address,
-                                                                'area' => $area,
-                                                                'city' => $governorate,
-                                                                'governorate' => $governorate,
-                                                                'administration' => $administration,
-                                                                'comments' => 'رقم الفكس: '.$fax,
-                                                                'main_branch_id' =>$main->id,
-                                                                'accounts_dep_emp_name' => $accountantName,
-                                                                'telecom'=>[$phone1, $phone2, $phone3],
-                                                            ]);
+                            $customerBranch =   $eloquentCustomerBranch->create([
+                                                                                    'sector'=> $sector,
+                                                                                    'name' => $customerName.'-'.$area.'-'.$administration,
+                                                                                    'type' => $type,
+                                                                                    'email' => $email,
+                                                                                    'responsible_person_name' => $responsiblePersoneName,
+                                                                                    'address' => $address,
+                                                                                    'area' => $area,
+                                                                                    'city' => $governorate,
+                                                                                    'governorate' => $governorate,
+                                                                                    'administration' => $administration,
+                                                                                    'comments' => 'رقم الفكس: '.$fax,
+                                                                                    'main_branch_id' =>$main->id,
+                                                                                    'accounts_dep_emp_name' => $accountantName,
+                                                                                    'telecom'=>[$phone1, $phone2, $phone3],
+                                                                                ]);
                             $pm = $this->createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerBranch->id);
 
                             $contract = $this->createContractsAndTheirOwnInvoices($pm->id, $serialNumber, $contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3,  $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice, $customerBranch->id);
@@ -174,16 +191,16 @@ class WarrantySeeder extends Seeder
     private function createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerId)
     {
         $eloquentPrintingMachine = new EloquentPrintingMachine(new PrintingMachine());
-        $printingMachine = $eloquentPrintingMachine->create([            
-                                                        'folder_number'=>$folderNumber,
-                                                        'status'=>'فعالة',
-                                                        'the_manufacture_company'=>'Sharp',
-                                                        'model_prefix'=>$modelPrefix,
-                                                        'model_suffix'=>$modelSuffix,
-                                                        'serial_number'=>$serialNumber,
-                                                        'is_sold_by_aoe'=>1,
-                                                        'customer_id'=>$customerId,
-                                                    ]);
+        $printingMachine = $eloquentPrintingMachine->create([
+                                                                'folder_number'=>$folderNumber,
+                                                                'status'=>'فعالة',
+                                                                'the_manufacture_company'=>'Sharp',
+                                                                'model_prefix'=>$modelPrefix,
+                                                                'model_suffix'=>$modelSuffix,
+                                                                'serial_number'=>$serialNumber,
+                                                                'is_sold_by_aoe'=>1,
+                                                                'customer_id'=>$customerId,
+                                                            ]);
             return $printingMachine;
     }
 

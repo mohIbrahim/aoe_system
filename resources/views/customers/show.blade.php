@@ -348,7 +348,7 @@
 															{{$pm->folder_number}}
 														</td>
 														<td>
-															{{$pm->model_prefix.'-'.$machine->model_suffix}}
+															{{$pm->model_prefix.'-'.$pm->model_suffix}}
 														</td>
 														<td>
 		                                                    {{$branche->name}}
