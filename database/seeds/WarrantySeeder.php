@@ -107,6 +107,8 @@ class WarrantySeeder extends Seeder
                 $invoiceFourNumber        = $row->invoice_4_number;
                 $invoiceFourPrice         = $row->invoice_4_price;
 
+                $linkCode                 = $row->link_code;
+
 
                 if (!empty($customerName)) {
                     $empId = User::where('name', 'like', $username )->get()->first()->employee->id;
@@ -145,7 +147,7 @@ class WarrantySeeder extends Seeder
                                                                                     ]);
                         $pm = $this->createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerFirstBranch->id);
 
-                        $contract = $this->createContractsAndTheirOwnInvoices($pm->id, $serialNumber, $contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3,  $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice, $customerFirstBranch->id);
+                        $contract = $this->createContractsAndTheirOwnInvoices($pm->id, $serialNumber, $contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3,  $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice, $customerFirstBranch->id, $linkCode);
 
                         
                         $pm->assignedEmployees()->attach($empId);
@@ -172,7 +174,7 @@ class WarrantySeeder extends Seeder
                                                                                 ]);
                             $pm = $this->createPrintingMachine($folderNumber, $modelPrefix, $modelSuffix, $serialNumber, $customerBranch->id);
 
-                            $contract = $this->createContractsAndTheirOwnInvoices($pm->id, $serialNumber, $contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3,  $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice, $customerBranch->id);
+                            $contract = $this->createContractsAndTheirOwnInvoices($pm->id, $serialNumber, $contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3,  $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice, $customerBranch->id, $linkCode);
 
                             
                             $pm->assignedEmployees()->attach($empId);
@@ -204,11 +206,11 @@ class WarrantySeeder extends Seeder
             return $printingMachine;
     }
 
-    private function createContractsAndTheirOwnInvoices($printingMachineId, $printingMachineSerialNumber, $contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3, $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice, $customerId)
+    private function createContractsAndTheirOwnInvoices($printingMachineId, $printingMachineSerialNumber, $contracType, $warrantyStart, $warrantyEnd, $maintenanceStart, $maintenanceEnd, $priceBeforeTax, $priceAfterTax, $paymentSystem, $periodBetweenEachPayment, $contractComments, $contractComments2, $contractComments3, $invoiceOneReleaseDate, $invoiceOneNumber, $invoiceOnePrice, $invoiceTwoReleaseDate, $invoiceTwoNumber, $invoiceTwoPrice,  $invoiceThreeReleaseDate, $invoiceThreeNumber, $invoiceThreePrice, $invoiceFourReleaseDate, $invoiceFourNumber, $invoiceFourPrice, $customerId, $linkCode)
     {
-        if($periodBetweenEachPayment == 'يوجد موافقة عقد')
-                dd($printingMachineSerialNumber);
+        
         $eloquentContract = new EloquentContract(new Contract());
+
         if ( $contracType == 'ضمان' ) {
             if ( !empty($warrantyStart) && !empty($warrantyEnd) ) {
                 $contract = $eloquentContract->create([
@@ -224,7 +226,9 @@ class WarrantySeeder extends Seeder
                     $followUpCard = (new EloquentFollowUpCard(new \App\FollowUpCard()))->create(['contract_id'=>$contract->id, 'printing_machine_id'=>$printingMachineId]);
             }
         } else {
+
             if ( !empty($warrantyStart) && !empty($warrantyEnd) ) {
+
                 $contract = $eloquentContract->create([
                                                         'type'=>'ضمان', 
                                                         'start'=>$warrantyStart, 
@@ -237,51 +241,66 @@ class WarrantySeeder extends Seeder
                 if ($this->isContractAreNotExpired($warrantyEnd))
                     $followUpCard = (new EloquentFollowUpCard(new \App\FollowUpCard()))->create(['contract_id'=>$contract->id, 'printing_machine_id'=>$printingMachineId]);
             }
-            $contract = $eloquentContract->create([
-                                                    'type'=>$contracType,
-                                                    'start'=> ((new Carbon())->parse($maintenanceEnd)->subYear()),
-                                                    'end'=>$maintenanceEnd,
-                                                    'status'=>($this->isContractAreNotExpired($maintenanceEnd))?('ساري'):('منتهي'),
-                                                    'price'=>$priceBeforeTax,
-                                                    'tax'=>14,
-                                                    'total_price'=>$priceAfterTax,
-                                                    'payment_system'=>$paymentSystem,
-                                                    'period_between_each_payment'=>$periodBetweenEachPayment,
-                                                    'comments'=>$contractComments.'&#13;&#10;'.$contractComments2.'&#13;&#10;'.$contractComments3,
-                                                ]);
-            if ($this->isContractAreNotExpired($maintenanceEnd))
-                $followUpCard = (new EloquentFollowUpCard(new \App\FollowUpCard()))->create(['contract_id'=>$contract->id, 'printing_machine_id'=>$printingMachineId]);
 
-            $contract->printingMachines()->attach($printingMachineId);
-            $eloquentContract->createInvoicesForNewContract($contract);
+            if (Contract::whereNull('link_code', $linkCode)->get()->isEmpty()) {
+                $contract = $eloquentContract->create([
+                                                        'type'=>$contracType,
+                                                        'start'=> ((new Carbon())->parse($maintenanceEnd)->subYear()),
+                                                        'end'=>$maintenanceEnd,
+                                                        'status'=>($this->isContractAreNotExpired($maintenanceEnd))?('ساري'):('منتهي'),
+                                                        'price'=>$priceBeforeTax,
+                                                        'tax'=>14,
+                                                        'total_price'=>$priceAfterTax,
+                                                        'payment_system'=>$paymentSystem,
+                                                        'period_between_each_payment'=>$periodBetweenEachPayment,
+                                                        'comments'=>$contractComments.'&#13;&#10;'.$contractComments2.'&#13;&#10;'.$contractComments3,
+                                                        'link_code'=>$linkCode,
+                                                    ]);
+                if ($this->isContractAreNotExpired($maintenanceEnd))
+                    $followUpCard = (new EloquentFollowUpCard(new \App\FollowUpCard()))->create(['contract_id'=>$contract->id, 'printing_machine_id'=>$printingMachineId]);
 
-            $contractInvoices = $contract->invoices;
-            foreach ($contractInvoices as $invoiceKey=>$invoice) {
-                if ($invoiceKey == 0)
+                $contract->printingMachines()->attach($printingMachineId);
+                $eloquentContract->createInvoicesForNewContract($contract);
+
+                $contractInvoices = $contract->invoices;
+                foreach ($contractInvoices as $invoiceKey=>$invoice) {
+                    if ($invoiceKey == 0)
                     $invoice->update(['customer_id'=>$customerId, 
-                                    'release_date'=>$invoiceOneReleaseDate,
-                                    'number'=>$invoiceOneNumber,
-                                    'total'=>$invoiceOnePrice
-                                    ]);
-                if ($invoiceKey == 1)
+                        'release_date'=>$invoiceOneReleaseDate,
+                        'number'=>$invoiceOneNumber,
+                        'total'=>$invoiceOnePrice
+                        ]);
+                    if ($invoiceKey == 1)
                     $invoice->update(['customer_id'=>$customerId, 
-                                    'release_date'=>$invoiceTwoReleaseDate,
-                                    'number'=>$invoiceTwoNumber,
-                                    'total'=>$invoiceTwoPrice
-                                    ]);
-                if ($invoiceKey == 2)
+                        'release_date'=>$invoiceTwoReleaseDate,
+                        'number'=>$invoiceTwoNumber,
+                        'total'=>$invoiceTwoPrice
+                        ]);
+                    if ($invoiceKey == 2)
                     $invoice->update(['customer_id'=>$customerId, 
-                                    'release_date'=>$invoiceThreeReleaseDate,
-                                    'number'=>$invoiceThreeNumber,
-                                    'total'=>$invoiceThreePrice
-                                    ]);
-                if ($invoiceKey == 3)
+                        'release_date'=>$invoiceThreeReleaseDate,
+                        'number'=>$invoiceThreeNumber,
+                        'total'=>$invoiceThreePrice
+                        ]);
+                    if ($invoiceKey == 3)
                     $invoice->update(['customer_id'=>$customerId, 
-                                    'release_date'=>$invoiceFourReleaseDate,
-                                    'number'=>$invoiceFourNumber,
-                                    'total'=>$invoiceFourPrice
-                                    ]);
+                        'release_date'=>$invoiceFourReleaseDate,
+                        'number'=>$invoiceFourNumber,
+                        'total'=>$invoiceFourPrice
+                        ]);
+                }
+            } else {
+                
+                if (!empty($linkCode)) {
+                    $contract  = Contract::where('link_code', $linkCode)->first();
+                    
+                    if ($this->isContractAreNotExpired($maintenanceEnd)) {
+                        $followUpCard = (new EloquentFollowUpCard(new \App\FollowUpCard()))->create(['contract_id'=>$contract->id, 'printing_machine_id'=>$printingMachineId]);
+                    }
+                    $contract->printingMachines()->attach($printingMachineId);
+                }
             }
+            
         }
         return $contract;
     }

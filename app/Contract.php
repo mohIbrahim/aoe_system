@@ -20,7 +20,8 @@ class Contract extends Model
                                     'payment_system',
                                      'period_between_each_payment',
                                       'comments',
-                                       'employee_id_who_edits_the_contract'
+                                       'employee_id_who_edits_the_contract',
+                                        'link_code',
                             ];
 
 

@@ -150,6 +150,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th> كود الآلة </th>
+                                                            <th> الرقم المسلسل </th>
                                                             <th> موديل الآلة </th>
                                                         </tr>
                                                     </thead>
@@ -160,6 +161,9 @@
 																	<a href="{{action('PrintingMachineController@show', ['id'=>(isset($printingMachine)?$printingMachine->id:'')])}}">
 																		{{isset($printingMachine)?$printingMachine->code:''}}
 																	</a>
+																</td>
+																<td>
+																	{{$printingMachine->serial_number}}
 																</td>
 																<td>
 																	{{ isset($printingMachine)?$printingMachine->model_prefix:''}}

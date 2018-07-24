@@ -26,6 +26,7 @@ class CreateContractsTable extends Migration
             $table->string('payment_system')->nullable();
             $table->smallInteger('period_between_each_payment')->nullable();
             $table->text('comments')->nullable();
+            $table->string('link_code')->nullable();//only for uploading excell sheet
             $table->timestamps();
 
             $table->integer('employee_id_who_edits_the_contract')->unsigned()->nullable();
