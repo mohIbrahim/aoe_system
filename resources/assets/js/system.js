@@ -196,7 +196,7 @@ $(document).ready(function(){
 });
 // End Ajax for Customers index view
 
-//Start Ajax for contract _fom printing machine search
+//Start Ajax for contract _form printing machine search
 $(document).ready(function () {
 	$("#contract-form-printing-machine-search-button").on("click", function(){
 		var keyword = $("#printing-machine-search-field").val();
@@ -211,14 +211,15 @@ $(document).ready(function () {
 				dataType:"json",
 				success:function(results){
 					$.each(results, function(key, printingMachine){
-						resultsTableBody += "<tr><td>"+((printingMachine.customer)?printingMachine.customer.name:'')+"</td><td>"+printingMachine.code+"</td><td><button type='button' class='btn btn-success btn-xs printing-machine-select-button' data-priting-machine-id='"+printingMachine.id+"' data-customer-name='"+((printingMachine.customer)?printingMachine.customer.name:'')+"' data-printing-machine-code='"+printingMachine.code+"'> اختيار الآلة </button></td></tr>";
+						resultsTableBody += "<tr><td>"+((printingMachine.customer)?printingMachine.customer.name:'')+"</td><td>"+printingMachine.code+"</td><td>"+printingMachine.serial_number+"</td><td><button type='button' class='btn btn-success btn-xs printing-machine-select-button' data-priting-machine-id='"+printingMachine.id+"' data-customer-name='"+((printingMachine.customer)?printingMachine.customer.name:'')+"' data-printing-machine-code='"+printingMachine.code+"' data-printing-machine-serial_number='"+printingMachine.serial_number+"'> اختيار الآلة </button></td></tr>";
 					});
 					$("#printing-machine-search-results-table-body").append(resultsTableBody);
 					$(".printing-machine-select-button").on("click", function(){
 						pMId = $(this).attr("data-priting-machine-id");
 						pMCode = $(this).attr("data-printing-machine-code");
+						pMSerialNumber = $(this).attr("data-printing-machine-serial_number");
 						customerName = $(this).attr("data-customer-name");
-						$("#printing-machine-selected-results-table-body").append("<tr><td>"+customerName+"</td><td>"+pMCode+"</td><td><button type='button' class='btn btn-danger btn-xs printing-machine-delete-button'> حذف الآلة </button><input type='hidden' name='assigned_machines_ids[]' value='"+pMId+"'></td></tr>");
+						$("#printing-machine-selected-results-table-body").append("<tr><td>"+customerName+"</td><td>"+pMCode+"</td><td>"+pMSerialNumber+"</td><td><button type='button' class='btn btn-danger btn-xs printing-machine-delete-button'> حذف الآلة </button><input type='hidden' name='assigned_machines_ids[]' value='"+pMId+"'></td></tr>");
 						$(this).parent().parent().fadeOut('500', function(){
 							$(this).remove();
 						});
