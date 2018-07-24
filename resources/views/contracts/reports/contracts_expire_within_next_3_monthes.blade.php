@@ -23,6 +23,7 @@
 			  				    <th> تاريخ نهاية العقد </th>
 			  				    <th> حالة التعاقد </th>
 			  				    <th> نظام السداد </th>
+			  				    <th> عدد الدفعات </th>
 			  				    <th> اسم العميل </th>
 			  			    </tr>
 			  		    </thead>
@@ -43,6 +44,7 @@
 										<td>{{$contract->end}}</td>
 										<td>{{$contract->status}}</td>
 										<td>{{$contract->payment_system}}</td>
+										<td>{{ (!empty($contract->period_between_each_payment)?(($contract->period_between_each_payment == 13)?( 12 ):(12/($contract->period_between_each_payment))):('بدون')) }}</td>
 										<td>{{isset($contract->printingMachines()->first()->customer->name)?$contract->printingMachines()->first()->customer->name:''}}</td>
 									</tr>
 								@endforeach
