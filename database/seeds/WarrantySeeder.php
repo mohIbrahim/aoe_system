@@ -23,10 +23,10 @@ class WarrantySeeder extends Seeder
      */
     public function run()
     {
-        $this->importAOEData();
-        $this->importWarrntySheet();
-        // $this->importSparePartSheet();
-        // $this->importConsumableSheet();
+        // $this->importAOEData();
+        // $this->importWarrntySheet();
+        $this->importSparePartSheet();
+        $this->importConsumableSheet();
         return 'done';
     }
 
@@ -210,7 +210,7 @@ class WarrantySeeder extends Seeder
     {
         
         $eloquentContract = new EloquentContract(new Contract());
-
+        $contract = null;
         if ( $contracType == 'ضمان' ) {
             if ( !empty($warrantyStart) && !empty($warrantyEnd) ) {
                 $contract = $eloquentContract->create([
@@ -242,7 +242,7 @@ class WarrantySeeder extends Seeder
                     $followUpCard = (new EloquentFollowUpCard(new \App\FollowUpCard()))->create(['contract_id'=>$contract->id, 'printing_machine_id'=>$printingMachineId]);
             }
 
-            if (Contract::whereNull('link_code', $linkCode)->get()->isEmpty()) {
+            if (Contract::where('link_code', $linkCode)->get()->isEmpty()) {
                 $contract = $eloquentContract->create([
                                                         'type'=>$contracType,
                                                         'start'=> ((new Carbon())->parse($maintenanceEnd)->subYear()),
@@ -291,7 +291,7 @@ class WarrantySeeder extends Seeder
                 }
             } else {
                 
-                if (!empty($linkCode)) {
+                if (isset($linkCode)) {
                     $contract  = Contract::where('link_code', $linkCode)->first();
                     
                     if ($this->isContractAreNotExpired($maintenanceEnd)) {
@@ -371,7 +371,7 @@ class WarrantySeeder extends Seeder
     public function importAOEData()
     {
         \Excel::load('/public/excel/aoe_data.xlsx', function($reader) {
-            $results = $reader->takeRows(24)->get();
+            $results = $reader->takeRows(29)->get();
             Department::create(['name'=>'الادارة']);
             Department::create(['name'=>'سكرتارية']);
             Department::create(['name'=>'ما بعد البيع']);
