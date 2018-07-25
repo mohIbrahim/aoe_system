@@ -242,7 +242,7 @@ class WarrantySeeder extends Seeder
                     $followUpCard = (new EloquentFollowUpCard(new \App\FollowUpCard()))->create(['contract_id'=>$contract->id, 'printing_machine_id'=>$printingMachineId]);
             }
 
-            if (Contract::where('link_code', $linkCode)->get()->isEmpty()) {
+            if (Contract::where('link_code', $linkCode)->get()->isEmpty() || !isset($linkCode)) {
                 $contract = $eloquentContract->create([
                                                         'type'=>$contracType,
                                                         'start'=> ((new Carbon())->parse($maintenanceEnd)->subYear()),
