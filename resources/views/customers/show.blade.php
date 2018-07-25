@@ -439,26 +439,30 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($customer->invoices as $key4 => $invoice)
-                                                <tr>
-                                                    <td>
-                                                        <a href="{{action('InvoiceController@show', ['id'=>$invoice->id])}}">
-                                                            {{$invoice->number or '	لم يتم تعين الرقم'}}
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        {{$invoice->type}}
-                                                    </td>
-                                                    <td>
-                                                        {{$invoice->release_date}}
-                                                    </td>
-                                                    <td>
-                                                        {{$invoice->collect_date or 'لم يتم التحصيل بعد' }}
-                                                    </td>
-                                                    <td>
-                                                        {{$invoice->total.' جنية' }}
-                                                    </td>
-                                                </tr>
+                                            @foreach ($customer->printingMachines as $customerPrintingMachine)
+                                                @foreach($customerPrintingMachine->contracts as $cutomerPrintingMachineContract)
+                                                    @foreach($cutomerPrintingMachineContract->invoices as $cutomerPrintingMachineContractInvoice)
+                                                        <tr>
+                                                            <td>
+                                                                <a href="{{action('InvoiceController@show', ['id'=>$cutomerPrintingMachineContractInvoice->id])}}">
+                                                                    {{$cutomerPrintingMachineContractInvoice->number or '	لم يتم تعين الرقم'}}
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                {{$cutomerPrintingMachineContractInvoice->type}}
+                                                            </td>
+                                                            <td>
+                                                                {{$cutomerPrintingMachineContractInvoice->release_date}}
+                                                            </td>
+                                                            <td>
+                                                                {{$cutomerPrintingMachineContractInvoice->collect_date or 'لم يتم التحصيل بعد' }}
+                                                            </td>
+                                                            <td>
+                                                                {{$cutomerPrintingMachineContractInvoice->total.' جنية' }}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endforeach
                                             @endforeach
                                         </tbody>
                                     </table>

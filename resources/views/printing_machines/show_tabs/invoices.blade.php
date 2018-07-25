@@ -12,9 +12,10 @@
 			</tr>
 		</thead>
 		<tbody>
-			@if ($printingMachine->customer)
-				@if ($printingMachine->customer->invoices)
-					@foreach ($printingMachine->customer->invoices as $invoiceIterator => $invoice)
+			@if ($printingMachine->contracts->isNotEmpty())
+				
+				@foreach ($printingMachine->contracts as $contractIterator => $contract)
+					@foreach ($contract->invoices as $invoiceIterator => $invoice)
 						<tr>
 							<td>
 								<a href="{{action('InvoiceController@show', ['id'=>$invoice->id])}}">
@@ -26,7 +27,8 @@
 							<td>{{$invoice->total.' جنية'}}</td>
 						</tr>
 					@endforeach
-				@endif
+				@endforeach
+			
 			@endif
 		</tbody>
 	</table>
