@@ -67,6 +67,11 @@ class PrintingMachines
             $response = $next($request);
         }else
 
+        if($request->route()->getName() == 'printing_machines_as_excel'    && in_array('view_printing_machines_excel', $permissions)){
+
+            $response = $next($request);
+        }else
+
 		if($request->route()->getName() == 'create_printing_machine_with_customer'    && in_array('create_printing_machines', $permissions)){
 
             $response = $next($request);

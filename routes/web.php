@@ -28,6 +28,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::resource('printing_machines', 'PrintingMachineController');
     Route::get('printing_machines_search/{keyword}', 'PrintingMachineController@search')->name('printing_machines_search');
     Route::get('create_printing_machine_with_customer/{customer_id}', 'PrintingMachineController@createWithCustomerId')->name('create_printing_machine_with_customer');
+    Route::get('printing_machines_as_excel', 'PrintingMachineController@getAllPrintingMachinesAsExcel')->name('printing_machines_as_excel');
     
 //Customers
     Route::resource('customers', 'CustomerController');

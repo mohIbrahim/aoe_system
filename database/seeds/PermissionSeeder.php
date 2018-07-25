@@ -144,6 +144,11 @@ class PermissionSeeder extends Seeder
             ]);
         DB::table('permissions')->insert([
             'title'      =>'printing_machines',
+            'name'      =>'view_printing_machines_excel',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'printing_machines',
             'name'      =>'view_printing_machine',
             'created_at'=>Carbon::now(),
             ]);
@@ -169,6 +174,11 @@ class PermissionSeeder extends Seeder
         DB::table('permissions')->insert([
             'title'      =>'customers',
             'name'      =>'view_customers',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'customers',
+            'name'      =>'view_customers_excel',
             'created_at'=>Carbon::now(),
             ]);
         DB::table('permissions')->insert([

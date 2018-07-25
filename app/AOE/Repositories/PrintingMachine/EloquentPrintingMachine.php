@@ -107,4 +107,33 @@ class EloquentPrintingMachine implements PrintingMachineInterface
         }
     }
 
+    public function getAllPrintingMachinesAsExcel()
+    {
+        $printingMachines = $this->printingMachine->with('customer','assignedEmployees.user')->get();
+        foreach($printingMachines as $pm) {
+
+            $manipulate[] = [
+                            'رقم ملف الآلة'=>$pm->folder_number,
+                            'الرقم المسلسل' =>$pm->serial_number,
+                            'كود الآلة' =>$pm->code,
+                            'الموديل' =>$pm->model_prefix.$pm->model_suffix,
+                            'اسم العميل' => isset($pm->customer)?($pm->customer->name):(''),
+                            'الإدارة' => isset($pm->customer)?($pm->customer->administration):(''),
+                        ];
+        }
+       
+
+        // ['code', 'folder_number','status','the_manufacture_company','model_prefix','model_suffix','serial_number']
+        
+        \Excel::create('كل الآلات - '.now(), function($excel) use($manipulate) {
+
+            $excel->sheet('كل الآلات', function($sheet) use($manipulate) {
+        
+                $sheet->fromArray($manipulate);
+        
+            });
+        
+        })->download('xls');
+    }
+
 }

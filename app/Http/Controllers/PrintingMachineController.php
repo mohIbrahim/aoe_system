@@ -137,4 +137,9 @@ class PrintingMachineController extends Controller
         return view('printing_machines.create', compact('customerIdsCodes', 'employeesNames', 'incommingCustomer', 'assignedEmployeesNamesIds'));
     }
 
+    public function getAllPrintingMachinesAsExcel()
+    {
+        $this->printingMachine->getAllPrintingMachinesAsExcel();
+    }
+
 }

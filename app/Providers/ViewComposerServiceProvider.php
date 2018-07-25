@@ -35,6 +35,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                     'permissions.show',
                     'role_user._form',
     				'printing_machines.show',
+    				'printing_machines.index',
                     'customers.show',
                     'departments.show',
                     'parts.show',

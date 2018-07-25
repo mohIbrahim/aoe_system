@@ -18,6 +18,9 @@
 				</div>
 				<button type="button" id="printing-machine-search-button" class="btn btn-primary"> بحث </button>
 				<a href=""  class="btn btn-success"> العودة </a>
+				@if(in_array('view_printing_machines_excel', $permissions))
+					<a href="{{ action('PrintingMachineController@getAllPrintingMachinesAsExcel') }}"  class="btn btn-info"> الكل Excel </a>
+				@endif
 				<h3 class="text-center"> عرض الآلات التصوير </h3>
 			<h5 class="text-left"> إجمالي عدد الآلات: {{$printingMachines->total()}} </h5>
 		    </div>
