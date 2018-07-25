@@ -44,7 +44,7 @@
 										<td>{{$contract->end}}</td>
 										<td>{{$contract->status}}</td>
 										<td>{{$contract->payment_system}}</td>
-										<td>{{ (!empty($contract->period_between_each_payment)?(($contract->period_between_each_payment == 13)?( 12 ):(12/($contract->period_between_each_payment))):('بدون')) }}</td>
+										<td>{{ (!empty($contract->period_between_each_payment)?(($contract->period_between_each_payment == 13)?( 'دفعة واحدة' ):(12/($contract->period_between_each_payment))):('بدون')) }}</td>
 										<td>{{isset($contract->printingMachines()->first()->customer->name)?$contract->printingMachines()->first()->customer->name:''}}</td>
 									</tr>
 								@endforeach
