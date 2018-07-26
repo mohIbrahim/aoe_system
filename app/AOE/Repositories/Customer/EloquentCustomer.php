@@ -135,4 +135,31 @@ class EloquentCustomer implements CustomerInterface
 	{
 		return $count = Customer::whereNull('main_branch_id')->count();
 	}
+
+	public function getCustomersAsExcel()
+	{
+		$customers = $this->customer->with('telecoms')->get();
+        foreach($customers as $customer) {
+
+            $manipulate[] = [
+                            'اسم العميل'=>$customer->name,
+                            'الكود' =>$customer->code,
+                            'الإدارة' => $customer->administration,
+							'النوع'=>$customer->type,
+							'المحافظة'=>$customer->governorate,
+							'المنطقة'=>$customer->area,
+							'التليفون'=>isset($customer->telecoms)?((!empty($customer->telecoms->first()))?($customer->telecoms->first()->number):('')):(''),
+                        ];
+        }
+        
+        \Excel::create('كل العملاء - '.now(), function($excel) use($manipulate) {
+
+            $excel->sheet('كل العملاء', function($sheet) use($manipulate) {
+        
+                $sheet->fromArray($manipulate);
+        
+            });
+        
+        })->download('xls');
+	}
 }

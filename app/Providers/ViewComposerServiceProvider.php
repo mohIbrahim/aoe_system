@@ -37,6 +37,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     				'printing_machines.show',
     				'printing_machines.index',
                     'customers.show',
+                    'customers.index',
                     'departments.show',
                     'parts.show',
                     'part_serial_numbers.show',

@@ -122,9 +122,6 @@ class EloquentPrintingMachine implements PrintingMachineInterface
                         ];
         }
        
-
-        // ['code', 'folder_number','status','the_manufacture_company','model_prefix','model_suffix','serial_number']
-        
         \Excel::create('كل الآلات - '.now(), function($excel) use($manipulate) {
 
             $excel->sheet('كل الآلات', function($sheet) use($manipulate) {

@@ -122,4 +122,10 @@ class CustomerController extends Controller
     {
         return $this->customer->search($keyword);
     }
+
+
+    public function getCustomersAsExcel()
+    {
+        return $this->customer->getCustomersAsExcel();
+    }
 }

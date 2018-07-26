@@ -62,6 +62,10 @@ class Customers
             $response = $next($request);
         }else
 
+        if($request->route()->getName() == 'customers_as_excel'    && in_array('view_customers_excel', $permissions)){
+            $response = $next($request);
+        }else
+        
 		if($request->route()->getName() == 'customers_search'    && in_array('view_customers', $permissions)){
 
             $response = $next($request);

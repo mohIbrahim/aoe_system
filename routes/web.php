@@ -33,6 +33,7 @@ Route::resource('role_user', 'RoleUserController');
 //Customers
     Route::resource('customers', 'CustomerController');
     Route::get('customers_search/{keyword}', 'CustomerController@search')->name('customers_search');
+    Route::get('customers_as_excel', 'CustomerController@getCustomersAsExcel')->name('customers_as_excel');
     
 //Reading of Printing Machines
     Route::resource('readings_of_printing_machine', 'ReadingOfPrintingMachineController');

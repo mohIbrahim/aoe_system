@@ -17,6 +17,9 @@
 				</div>
 				<button type="button" id="customers-search-button" class="btn btn-primary"> بحث </button>
 				<a href=""  class="btn btn-success"> العودة </a>
+				@if(in_array('view_customers_excel', $permissions))
+					<a href="{{ action('CustomerController@getCustomersAsExcel') }}"  class="btn btn-info"> الكل Excel </a>
+				@endif
 				<h3 class="text-center"> عرض العملاء </h3>
 				<h5 class="text-left"> إجمالي عدد العملاء: {{$countOfMainBranches}} </h5>
 		    </div>
