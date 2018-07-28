@@ -10,6 +10,7 @@
 				<th> نوع الإشارة </th>
 				<th> تاريخ الاستلام </th>
 				<th> المهندس المعين </th>
+				<th> إضافة زيارة </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,6 +26,12 @@
 					<td>{{$reference->type}}</td>
 					<td>{{$reference->received_date}}</td>
 					<td>{{$reference->assignedEmployee->user->name or ''}}</td>
+					<td>
+						<a href="{{ action('VisitController@createWithPrintingMachineIdAndReferenceId', ['pm_id'=>(($reference->printingMachine)?(($reference->printingMachine->id)?($reference->printingMachine->id):('')):('')), 'refernce_id'=>$reference->id]) }}" target="_blank">
+                        <span class="glyphicon glyphicon-plus"></span>
+                            إضافة زيارة
+                        </a>
+					</td>
 				</tr>
 			@endforeach
 		</tbody>

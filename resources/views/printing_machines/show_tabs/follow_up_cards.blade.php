@@ -13,6 +13,7 @@
                 <th> كود العقد </th>
                 <th> الرقم المسلسل لآلة الطباعة </th>
                 <th> تاريخ التعديل </th>
+                <th> إضافة زيارة </th>
             </tr>
         </thead>
 		<tbody>
@@ -45,6 +46,13 @@
 
                     <td>
                         {{$followUpCard->updated_at->format('d-m-Y')}}
+                    </td>
+
+                    <td>
+                        <a href="{{action('VisitController@createWithPrintingMachineIdAndFollowUpCardId', ['printing_machine_id'=> $followUpCard->printingMachine->id,'follow_up_card_id'=>$followUpCard->id])}}" target="_blank">
+                            <span class="glyphicon glyphicon-plus"></span>
+								 إضافة زيارة إلى البطاقة رقم {{$followUpCard->code}} 
+							</a>
                     </td>
                 </tr>
             @endforeach
