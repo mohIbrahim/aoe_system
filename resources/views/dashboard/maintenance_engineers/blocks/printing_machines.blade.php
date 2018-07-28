@@ -1,4 +1,4 @@
-<h4 class="well well-sm" role="button" data-toggle="collapse" data-target="#assigned-printing-machines"> آلات الطباعة المعينة إليكَ </h4>
+<h4 class="well well-sm" role="button" data-toggle="collapse" data-target="#assigned-printing-machines"> آلات الطباعة المعينة إليكَ.</h4>
 <div class="collapse table-responsive" id="assigned-printing-machines">
     <table class="table table-striped table-hover table-bordered">
         <thead>
@@ -10,6 +10,7 @@
                 <th> الموديل </th>
                 <th> اسم العميل </th>
                 <th> آخر بطاقة متابعة للآلة </th>
+                <th> إضافة زيارة إلى آخر بطاقة متابعة </th>
             </tr>
         </thead>
         <tbody id="my-table-body">
@@ -37,6 +38,14 @@
                                 <a href="{{ action('FollowUpCardController@show', ['id'=>$printingMachine->followUpCards->last()->id]) }}" target="_blank">
                                     {{$printingMachine->followUpCards->last()->code}}
                                 </a>
+                            @endif
+                        </td>
+                        <td>
+                            @if(!empty($printingMachine->followUpCards->last()))
+							<a href="{{action('VisitController@createWithPrintingMachineIdAndFollowUpCardId', ['printing_machine_id'=> $printingMachine->id,'follow_up_card_id'=>$printingMachine->followUpCards->last()->id])}}" target="_blank">
+                            <span class="glyphicon glyphicon-plus"></span>
+								 إضافة زيارة إلى البطاقة رقم {{$printingMachine->followUpCards->last()->code}} 
+							</a>
                             @endif
                         </td>
                     </tr>

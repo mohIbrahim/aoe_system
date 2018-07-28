@@ -1,4 +1,4 @@
-<h4  class="well well-sm" role="button" data-toggle="collapse" data-target="#assigned-references">آخر الإشارات المعينة إليكَ</h4>
+<h4  class="well well-sm" role="button" data-toggle="collapse" data-target="#assigned-references">آخر الإشارات المعينة إليكَ.</h4>
 <div class="collapse table-responsive" id="assigned-references">
     <table class="table table-striped table-hover table-bordered">
         <thead>
@@ -10,14 +10,14 @@
                 <th>المنطقة</th>
                 <th>تاريخ الإشارة</th>
                 <th>كود الآلة</th>
-                <th>إنشاء زيارة</th>
+                <th>إضافة زيارة</th>
             </tr>
         </thead>
         <tbody>
             @foreach($lastAssignedReferences as $referenceKey => $reference)
                 <tr>
                     <td>
-                        <a href="{{action('ReferenceController@show', ['id'=>$reference->id])}}">
+                        <a href="{{action('ReferenceController@show', ['id'=>$reference->id])}}" target="_blank">
                             {{ $reference->code }}
                         </a>
                     </td>
@@ -36,8 +36,9 @@
                         </a>
                     </td>
                     <td>
-                        <a href="{{ action('VisitController@createWithPrintingMachineId', ['pm_id'=>(($reference->printingMachine)?(($reference->printingMachine->id)?($reference->printingMachine->id):('')):(''))]) }}">
-                            إنشاء زيارة جديدة
+                        <a href="{{ action('VisitController@createWithPrintingMachineIdAndReferenceId', ['pm_id'=>(($reference->printingMachine)?(($reference->printingMachine->id)?($reference->printingMachine->id):('')):('')), 'refernce_id'=>$reference->id]) }}" target="_blank">
+                        <span class="glyphicon glyphicon-plus"></span>
+                            إضافة زيارة
                         </a>
                     </td>
                 </tr>

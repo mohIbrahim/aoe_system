@@ -1,4 +1,4 @@
-<h4 class="well well-sm" role="button" data-toggle="collapse" data-target="#invoices"> الفواتير التي في مسؤوليتك </h4>
+<h4 class="well well-sm" role="button" data-toggle="collapse" data-target="#invoices"> الفواتير التي في مسؤوليتك.</h4>
 <div class="collapse table-responsive" id="invoices">
     <table class="table table-striped table-hover table-bordered">
         <thead>

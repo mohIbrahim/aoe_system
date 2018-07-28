@@ -152,14 +152,25 @@ class VisitController extends Controller
         return view('visits.create', compact('followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes', 'printingMachineId'));
     }
 
-    public function createWithPrintingMachineIdAndFollowUpCardId($printingMachineId, $followUpCardIdFromPrintingMachineShowView)
+    public function createWithPrintingMachineIdAndFollowUpCardId($printingMachineId, $followUpCardId)
     {
         $followUpCardsIdsCodes = FollowUpCard::all()->pluck('code', 'id');
         $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
         $referencesIdsCodes = Reference::all()->pluck('code', 'id');
         $type = 'بطاقة المتابعة';
+        $visit = (object)['printing_machine_id'=>$printingMachineId, 'follow_up_card_id'=>$followUpCardId, 'type'=>$type];
 
-        return view('visits.create', compact('followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes', 'printingMachineId', 'type', 'followUpCardIdFromPrintingMachineShowView'));
+        return view('visits.create', compact('followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes', 'visit'));
+    }
+
+    public function createWithPrintingMachineIdAndReferenceId($printingMachineId, $referenceId)
+    {
+        $followUpCardsIdsCodes = FollowUpCard::all()->pluck('code', 'id');
+        $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
+        $referencesIdsCodes = Reference::all()->pluck('code', 'id');
+        $type = 'إشارة';
+        $visit = (object)['printing_machine_id'=>$printingMachineId, 'reference_id'=>$referenceId, 'type'=>$type];
+        return view('visits.create', compact('followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes', 'visit'));
     }
 
     public function removeVisitFile($projectImageId)

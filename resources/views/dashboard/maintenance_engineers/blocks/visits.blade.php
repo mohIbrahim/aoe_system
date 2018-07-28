@@ -1,4 +1,4 @@
-<h4 class="well well-sm" role="button" data-toggle="collapse" data-target="#visits"> الزيارات والمقايسات التي قمت بها </h4>
+<h4 class="well well-sm" role="button" data-toggle="collapse" data-target="#visits"> الزيارات والمقايسات التي قمت بها.</h4>
 <div class="collapse table-responsive" id="visits">
     <table class="table table-striped table-hover table-bordered">
         <thead>
