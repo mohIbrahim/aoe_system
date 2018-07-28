@@ -20,7 +20,7 @@
 		    </div>
 		    <div class="panel-body">
 
-		  		<div class="table-responsive" style="overflow-y:hidden">
+		  		<div class="table-responsive">
 			  	    <table class="table table-hover standard-datatable">
 			  		    <thead>
 			  			    <tr>

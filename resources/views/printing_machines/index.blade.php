@@ -26,59 +26,61 @@
 		    </div>
 
 		    <div class="panel-body">
-				<table class="table table-hover standard-datatable" id="printing-machine-index-table">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th> رقم الملف الآلة </th>
-							<th> الرقم المسلسل </th>
-							<th> كود الآلة </th>
-							<th> الموديل </th>
-							<th> اسم العميل </th>
-							<th> الإدارة </th>
-							<th> الموظفين المسؤولين عن الآلة </th>
-						</tr>
-					</thead>
-					<tbody id="my-table-body">
-						<div class="">
-							@foreach ($printingMachines as $k => $printingMachine)
-								<tr>
-									<td>
-										{{$k+1}}
-									</td>
-									<td><a href="{{action('PrintingMachineController@show', ['id'=>$printingMachine->id])}}">{{$printingMachine->folder_number}}</a></td>
-									<td>{{$printingMachine->serial_number}}</td>
-									<td>{{$printingMachine->code}}</td>
-									<td>{{"$printingMachine->model_prefix-$printingMachine->model_suffix"}}</td>
-									<td>{{isset($printingMachine->customer)?$printingMachine->customer->name:''}}</td>
-									<td>
-										{{(isset($printingMachine->customer))?($printingMachine->customer->administration):('')}}
-									</td>
-									<td>
-										@if(!empty($printingMachine->assignedEmployees))
-											@foreach($printingMachine->assignedEmployees as $assignedEmployee)
-												<div>{{$assignedEmployee->user->name}}</div> &nbsp &nbsp
-											@endforeach
-										@endif
-									</td>
-								</tr>
-							@endforeach
-						</div>
-					</tbody>
-					<tfoot>
-						<tr>
-							<th>#</th>
-							<th> رقم الملف الآلة </th>
-							<th> الرقم المسلسل </th>
-							<th> كود الآلة </th>
-							<th> الموديل </th>
-							<th> اسم العميل </th>
-						</tr>
-					</tfoot>
-				</table>
-					<div class="text-center">
-						{{$printingMachines->links()}}
-					</div>
+				<div class="table-responsive">
+					<table class="table table-hover standard-datatable" id="printing-machine-index-table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th> رقم الملف الآلة </th>
+								<th> الرقم المسلسل </th>
+								<th> كود الآلة </th>
+								<th> الموديل </th>
+								<th> اسم العميل </th>
+								<th> الإدارة </th>
+								<th> الموظفين المسؤولين عن الآلة </th>
+							</tr>
+						</thead>
+						<tbody id="my-table-body">
+							<div class="">
+								@foreach ($printingMachines as $k => $printingMachine)
+									<tr>
+										<td>
+											{{$k+1}}
+										</td>
+										<td><a href="{{action('PrintingMachineController@show', ['id'=>$printingMachine->id])}}">{{$printingMachine->folder_number}}</a></td>
+										<td>{{$printingMachine->serial_number}}</td>
+										<td>{{$printingMachine->code}}</td>
+										<td>{{"$printingMachine->model_prefix-$printingMachine->model_suffix"}}</td>
+										<td>{{isset($printingMachine->customer)?$printingMachine->customer->name:''}}</td>
+										<td>
+											{{(isset($printingMachine->customer))?($printingMachine->customer->administration):('')}}
+										</td>
+										<td>
+											@if(!empty($printingMachine->assignedEmployees))
+												@foreach($printingMachine->assignedEmployees as $assignedEmployee)
+													<div>{{$assignedEmployee->user->name}}</div> &nbsp &nbsp
+												@endforeach
+											@endif
+										</td>
+									</tr>
+								@endforeach
+							</div>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>#</th>
+								<th> رقم الملف الآلة </th>
+								<th> الرقم المسلسل </th>
+								<th> كود الآلة </th>
+								<th> الموديل </th>
+								<th> اسم العميل </th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<div class="text-center">
+					{{$printingMachines->links()}}
+				</div>
 		    </div>
 		  </div>
 	  </div>

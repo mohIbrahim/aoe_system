@@ -19,3 +19,20 @@
     font-family: 'Amiri', serif;
 	font-size: 1.2em;
 }
+
+.table-responsive{
+    overflow-y: hidden;
+}
+
+//Start datatable for arbic
+div.dataTables_wrapper {
+    direction: rtl;
+}
+
+/* Ensure that the demo table scrolls */
+th, td { white-space: nowrap; }
+div.dataTables_wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+//End datatable for arbic
