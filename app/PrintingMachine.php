@@ -67,8 +67,16 @@ class PrintingMachine extends Model
         return $this->hasOne('App\InstallationRecord', 'printing_machine_id', 'id');
     }
 
-    public function followUpCard()
+    public function followUpCards()
     {
         return $this->hasMany('App\FollowUpCard', 'printing_machine_id', 'id');
+    }
+
+    /**
+     * Get follow up card for specific contract.
+     */
+    public function getFollowUpCardForSpecificContract($contractId)
+    {
+        return $this->followUpCards()->where('contract_id', $contractId)->get()->first();
     }
 }

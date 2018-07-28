@@ -70,6 +70,7 @@ class EloquentEmployee implements EmployeeInterface
         $assignedPrintingMachines = $this->getAssignedPrintingMachinesForMaintenanceEngineersDashBord( $authenticatedEmployee);
         $visits = $this->getVisitsAndIndexationsForMaintenanceEngineersDashboard($authenticatedEmployee);
         $invoices = $this->getInvoicesForMaintenanceEngineerDashboard($authenticatedEmployee);
+        // dd($assignedPrintingMachines);
         return compact('engineerName', 'departmentName', 'lastAssignedReferences', 'assignedPrintingMachines', 'visits', 'invoices');
     }
 
@@ -80,7 +81,7 @@ class EloquentEmployee implements EmployeeInterface
 
     public function getAssignedPrintingMachinesForMaintenanceEngineersDashBord(Employee $authenticatedEmployee)
     {
-        return $authenticatedEmployee->assignedPrintingMachines;
+        return $authenticatedEmployee->assignedPrintingMachines->load('followUpCards');
     }
 
     public function getVisitsAndIndexationsForMaintenanceEngineersDashboard(Employee $authenticatedEmployee)

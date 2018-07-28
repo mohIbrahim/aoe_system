@@ -60,7 +60,7 @@
 						</div>
 					</div>
 
-					@if (in_array('view_customers', $permissions))
+					@if (in_array('view_customer', $permissions))
 
 						<div class="panel panel-info">
 							<div class="panel-body">
@@ -103,7 +103,7 @@
 						</div>
 					@endif
 
-					@if (in_array('view_printing_machines', $permissions))
+					@if (in_array('view_printing_machine', $permissions))
 						<div class="panel panel-info">
 							<div class="panel-body">
 								<h3 class=" text-center"> بيانات الآلة </h3>
@@ -141,7 +141,7 @@
 						</div>
 					@endif
 
-					@if (in_array('view_contracts', $permissions))
+					@if (in_array('view_contract', $permissions))
 						<div class="panel panel-info">
 							<div class="panel-body">
 								<h3 class=" text-center"> بيانات العقد </h3>

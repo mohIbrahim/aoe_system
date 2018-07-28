@@ -40,6 +40,13 @@
                                     </a>
                                 </li>
                             @endif
+                            @if(in_array('view_follow_up_cards', $permissions))
+                                <li role="presentation">
+                                    <a href="#follow-up-cards" aria-controls="follow-up-cards" role="tab" data-toggle="tab">
+                                        بطاقات المتابعة
+                                    </a>
+                                </li>
+                            @endif
                             @if(in_array('view_references', $permissions))
                                 <li role="presentation">
                                     <a href="#references" aria-controls="references" role="tab" data-toggle="tab">
@@ -75,6 +82,9 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="contracts">
                                 @include('printing_machines.show_tabs.contracts')
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="follow-up-cards">
+                                @include('printing_machines.show_tabs.follow_up_cards')
                             </div>
                             <div role="tabpanel" class="tab-pane" id="references">
                                 @include('printing_machines.show_tabs.references')

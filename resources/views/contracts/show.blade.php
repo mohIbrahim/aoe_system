@@ -152,6 +152,7 @@
                                                             <th> كود الآلة </th>
                                                             <th> الرقم المسلسل </th>
                                                             <th> موديل الآلة </th>
+                                                            <th> بطاقة المتابعة </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -169,6 +170,13 @@
 																	{{ isset($printingMachine)?$printingMachine->model_prefix:''}}
 																	-
 																	{{ isset($printingMachine)?$printingMachine->model_suffix:''}}
+																</td>
+																<td>
+																	@if(!empty($printingMachine->getFollowUpCardForSpecificContract($contract->id)))
+																		<a href="{{ action('FollowUpCardController@show', ['id'=>$printingMachine->getFollowUpCardForSpecificContract($contract->id)->code]) }}" target="_blank">
+																			{{ $printingMachine->getFollowUpCardForSpecificContract($contract->id)->code}}
+																		</a>
+																	@endif
 																</td>
 															</tr>
 														@endforeach

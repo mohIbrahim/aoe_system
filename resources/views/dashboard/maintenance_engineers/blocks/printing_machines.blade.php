@@ -9,6 +9,7 @@
                 <th> كود الآلة </th>
                 <th> الموديل </th>
                 <th> اسم العميل </th>
+                <th> آخر بطاقة متابعة للآلة </th>
             </tr>
         </thead>
         <tbody id="my-table-body">
@@ -30,6 +31,13 @@
                             <a href="{{action('CustomerController@show', ['id'=>(isset($printingMachine->customer)?$printingMachine->customer->id:'')])}}" target="_blank">
                                 {{isset($printingMachine->customer)?$printingMachine->customer->name:''}}
                             </a>
+                        </td>
+                        <td>
+                            @if(!empty($printingMachine->followUpCards->last()))
+                                <a href="{{ action('FollowUpCardController@show', ['id'=>$printingMachine->followUpCards->last()->id]) }}" target="_blank">
+                                    {{$printingMachine->followUpCards->last()->code}}
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
