@@ -73,6 +73,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('responsible_employees_for_invoices_not_paid_report', 'InvoiceController@getResponsibleEmployeesForInvoicesNotPaidReport')->name('responsible_employees_for_invoices_not_paid_report');
     Route::get('get_invoices_released_in_specific_period_report', 'InvoiceController@getInvoicesReleasedInSpecificPeriodReport')->name('get_invoices_released_in_specific_period_report');
     Route::get('invoices_released_in_specific_period_report_search/{from}/{to}', 'InvoiceController@invoicesReleasedInSpecificPeriodReportSearch')->name('invoices_released_in_specific_period_report_search');
+    Route::get('invoices_form_customer_search/{keyword}', 'InvoiceController@invoiceFormCustomerSearch')->name('invoices_form_customer_search');
 
 //Visits
     Route::resource('visits', 'VisitController');

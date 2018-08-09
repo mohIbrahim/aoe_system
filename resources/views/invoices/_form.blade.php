@@ -3,6 +3,73 @@
     <input type="text" class="form-control" id="number" name="number"  placeholder=" إدخل رقم الفاتورة. " value="{{$invoice->number or old('number')}}">
 </div>
 
+
+
+
+
+
+
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+       <label for="invoices-_form-customer-search-input">البحث عن عميل</label>
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" class="form-control" id="invoices-_form-customer-search-input" placeholder="إدخل اسم العميل المراد البحث عنه.">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-info" id="search-button">بحث!</button>
+                </span>
+            </div>
+        </div>
+        
+        <div class="panel panel-default">
+            <div class="panel-body">
+               <div class="form-group">
+                   <table class="table table-condensed table-hover" id="invoices-_form-cutomer-search-table-results">
+                       <thead>
+                           <tr>
+                               <th>اسم العميل</th>
+                               <th>رقم العميل</th>
+                               <th>أختار</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <tr>
+                               <td></td>
+                               <td></td>
+                               <td>
+                                   <button type="button" class="btn btn-danger btn-xs select-cutomer-button" data-selected-customer-id="" data-selected-customer-name="">إختيار</button>
+                               </td>
+                           </tr>
+                       </tbody>
+                   </table>
+                   
+               </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="invoices-_form-customer-id-input">العميل الذي تم إختياره<span style="color:red">*</span></label>
+            <input type="text" name="customer_id" class="form-control" id="invoices-_form-customer-id-input" readonly>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="form-group">
     <label for="customer_id"> كود العميل <span style="color:red">*</span></label>
     <select class="form-control selectpicker" name="customer_id" data-live-search="true" id="customer_id">
@@ -368,6 +435,124 @@ $(function(){
             $('#invoice-form-selected-parts-table-body').empty();
         }
     });
+
+
+    //Start choose customer model with ajax reqeust
+        var customerSearch =function(){
+            //Cache Dom
+            $inputSearch = $("#invoices-_form-customer-search-input");
+            $searchButton = $("#search-button");
+            $tableBoadyResults = $("#invoices-_form-cutomer-search-table-results tbody");
+            $customerIdInput = $("#invoices-_form-customer-id-input");
+            //Bind Event
+            $searchButton.on('click', getKeyword );
+            
+            function render(results)
+            {
+                $tableBoadyResults.fadeOut();
+                $tableBoadyResults.empty();
+                rows = "";
+                $.each(results, function(index, item){
+                    rows += addRow([
+                        item.name,
+                        item.code,
+                        '<button type="button" class="btn btn-danger btn-xs select-cutomer-button" data-selected-customer-id="'+item.id+'" data-selected-customer-name="'+item.name+'">إختيار</button>',
+                    ]);
+                    
+                });
+                
+                $tableBoadyResults.append(rows);
+                $tableBoadyResults.fadeIn();
+                
+                $buttonDataCarrior = $(".select-cutomer-button");
+                $buttonDataCarrior.on("click", );
+
+            }
+
+            function getKeyword()
+            {
+                keyword = $inputSearch.val();
+                callServerSide(keyword);
+            }
+            
+            function callServerSide(keyword)
+            {
+                $.ajax({
+                    method:"GET",
+                    url:"/invoices_form_customer_search/"+keyword,
+                    type:"json",
+                    success:ajaxSuccess
+                });
+            }
+
+            function ajaxSuccess(results)
+            {
+                render(results);
+            }            
+
+            function addRow(array)
+            {
+                row = "<tr>";
+                $.each(array, function(index, item){
+                    row += "<td>"+item+"</td>";
+                });
+                row +="</tr>";
+                return row;
+            }
+
+            function selectCustomer()
+            {
+                
+                alert();
+            }
+            
+            
+            
+        };
+        customerSearch();
+        
+        // {
+        //     init:function(){
+        //         this.cacheDom();
+        //         this.bindEvents();
+        //     },
+        //     cacheDom:function(){
+        //         this.$inputSearch = $("#invoices-_form-customer-search-input");
+        //         this.$searchButton = $("#search-button");
+        //         this.$tableResults = $("#invoices-_form-cutomer-search-table-results");
+        //         this.$buttonDataCarrior = $(".select-cutomer-button");
+        //         this.$customerIdInput = $("#invoices-_form-cutomer-search-table-results");
+        //     },
+        //     bindEvents:function(){
+        //         this.$searchButton.on('click', this.getKeyword.bind(this) );
+        //     },
+        //     render: function(){
+
+        //     },
+        //     getKeyword:function(){
+        //         keyword = this.$inputSearch.val();
+        //         this.callServerSide(keyword);
+        //     },
+        //     callServerSide:function(keyword){
+        //         $.ajax({
+        //             method:"GET",
+        //             url:"/invoices_form_customer_search/"+keyword,
+        //             type:"json",
+        //             success:this.ajaxSuccess
+        //         });
+        //     },
+        //     ajaxSuccess: function(results){
+        //         alert(results);
+        //     }
+
+        // }
+        // customerSearch.init();
+    //End choose customer model with ajax reqeust
+
+
+
+
+
 });
 </script>
 @endsection

@@ -68,6 +68,11 @@ class Invoices
             $response = $next($request);
         }else
 
+        if($request->route()->getName() == 'invoices_form_customer_search'    && in_array('create_invoices', $permissions)){
+
+            $response = $next($request);
+        }else
+
         if($request->route()->getName() == 'create_invoice_with_customer'    && in_array('create_invoices', $permissions)){
 
             $response = $next($request);

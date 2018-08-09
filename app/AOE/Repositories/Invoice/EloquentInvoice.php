@@ -5,6 +5,7 @@ namespace App\AOE\Repositories\Invoice;
 use App\Invoice;
 use App\Part;
 use App\Http\Requests\InvoiceRequest;
+use App\Customer;
 
 class EloquentInvoice implements InvoiceInterface
 {
@@ -71,6 +72,12 @@ class EloquentInvoice implements InvoiceInterface
         $results = Part::where('name', 'like', '%'.$keyword.'%')
                                 ->limit(15)
                                 ->get();
+        return $results;
+    }
+
+    public function invoiceFormCustomerSearch($keyword)
+    {
+        $results = Customer::where('name', 'like', '%'.$keyword.'%')->get(['id', 'name', 'code']);
         return $results;
     }
 

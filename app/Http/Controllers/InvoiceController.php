@@ -174,6 +174,11 @@ class InvoiceController extends Controller
     {
         return $this->invoice->searchFormPart($keyword);
     }
+
+    public function invoiceFormCustomerSearch($keyword)
+    {
+        return $this->invoice->invoiceFormCustomerSearch($keyword);
+    }
     
     public function createWithCustomerId($incommingCustomer)
     {
