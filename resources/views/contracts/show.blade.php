@@ -231,6 +231,7 @@
                                                 <table class="table table-hover">
                                                     <thead>
                                                         <tr>
+                                                            <th> اسم العميل </th>
                                                             <th> رقم الدفعة </th>
                                                             <th> تاريخ الإستحقاق </th>
                                                             <th> رقم الفاتورة </th>
@@ -243,7 +244,30 @@
 														@foreach ($contract->invoices as $invoiceKey => $invoice)
 															<tr>
 																<td>
-																	{{ $paymentsNames[($invoiceKey+1)] }}
+																	@if(isset($invoice->customer))
+																		<a href="{{ action('CustomerController@show', ['id'=>$invoice->customer->id]) }}">
+																			{{ $invoice->customer->name }}
+																		</a>
+																	@endif
+																</td>
+																@php
+																	$customerName;
+																	$counter;
+
+																	if($invoiceKey == 0){
+																		$customerName = $invoice->customer->name;
+																		$counter = 1;
+																	}
+
+																	if($customerName == $invoice->customer->name && $invoiceKey != 0) {
+																		$counter++;
+																	}elseif ($customerName != $invoice->customer->name) {
+																		$customerName = $invoice->customer->name;
+																		$counter = 1;
+																	}
+																@endphp
+																<td>
+																	{{ $paymentsNames[$counter] }}
 																</td>
 																<td>
 																	{{$invoice->release_date}}
@@ -263,7 +287,7 @@
 																		{{($invoice->total)?($invoice->total.' جنية'):''}}
 																</td>
 																
-															</tr>															
+															</tr>
 														@endforeach
                                                     </tbody>
                                                 </table>

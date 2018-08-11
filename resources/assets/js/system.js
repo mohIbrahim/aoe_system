@@ -610,6 +610,101 @@ $('.invoice-form-delete-part-button').on('click', function(){
 });
 // End Ajax for Invoices _form view
 
+//Start choose a customer ajaxly for _form view
+window.invoiceFormViewChooseACustomer = function() {
+	//Cache Dom
+	var $inputSearch = $("#invoices-_form-customer-search-input");
+	var $searchButton = $("#search-button");
+	var $tableBoadyResults = $("#invoices-_form-cutomer-search-table-results tbody");
+	var $customerNameInput = $("#invoices-_form-customer-id-input");
+	var $customerIdInput = $("[name='customer_id']");
+	var $progress = $(".progress");
+	var $progressBar = $(".progress-bar");
+	//Bind Event
+	$searchButton.on('click', getKeyword );
+
+	function getKeyword()
+	{
+		keyword = $inputSearch.val();
+		callServerSide(keyword);
+	}
+	function callServerSide(keyword)
+	{
+		$.ajax({
+			method:"GET",
+			url:"/invoices_form_customer_search/"+keyword,
+			type:"json",
+			beforeSend:beforeSend,
+			success:ajaxSuccess,
+		});
+	}
+	function beforeSend()
+	{
+		$progressBar.animate({width:'70%'}, 0 );
+	}
+	function ajaxSuccess(results)
+	{
+		renderSearchResults(results);
+		cacheAndBindEventForTableResults();
+	}
+	function renderSearchResults(results)
+	{
+		if (results) {
+			$progress.show("fast", function(){
+				$progressBar.animate({width:'100%'}, 0);
+			});
+
+			$tableBoadyResults.fadeOut();
+			$tableBoadyResults.empty();
+			rows = "";
+			$.each(results, function(index, item){
+				rows += addRow([
+					(index+1),
+					item.name,
+					item.code,
+					'<button type="button" class="btn btn-danger btn-xs select-cutomer-button" data-selected-customer-id="'+item.id+'" data-selected-customer-name="'+item.name+'">إختيار</button>',
+				]);
+			});
+			
+			$tableBoadyResults.append(rows);
+			$tableBoadyResults.fadeIn("fast", function(){
+				$progress.hide();
+			});
+		}
+	}
+	function addRow(array)
+	{
+		row = "<tr>";
+		$.each(array, function(index, item){
+			row += "<td>"+item+"</td>";
+		});
+		row +="</tr>";
+		return row;
+	}
+	function cacheAndBindEventForTableResults()
+	{
+		$buttonDataCarrior = $(".select-cutomer-button");
+		$buttonDataCarrior.on("click", selectCustomer);
+	}
+	function selectCustomer()
+	{
+		id = $(this).data("selected-customer-id"),
+		name = $(this).data("selected-customer-name");
+		customer =  {
+						name:name,
+						id:id,
+					}
+		setSelectedCustomer(customer);
+	}
+	function setSelectedCustomer(customer)
+	{
+		$customerNameInput.val(customer.name);
+		$customerIdInput.val(customer.id);
+	}
+};
+
+//Start choose a customer ajaxly for _form view
+
 // Start Ajax for Invoices index view
 $(document).ready(function(){
 	$('#invoices-search-button').on('click', function(){

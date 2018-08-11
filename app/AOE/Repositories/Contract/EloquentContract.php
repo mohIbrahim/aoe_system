@@ -96,32 +96,74 @@ class EloquentContract implements ContractInterface
     public function createInvoicesForNewContract($contract)
     {
         if ((!empty($contract->start)) && (!empty($contract->end)) && (($contract->payment_system) != 'بدون')) {
-            $contractStart = $contract->start;
-            $contractEnd = $contract->end;
-            $contractPaymentSystem = $contract->payment_system;
-            $periodBetweenEachPayment = $contract->period_between_each_payment;
+            $contractStart              = $contract->start;
+            $contractEnd                = $contract->end;
+            $contractPaymentSystem      = $contract->payment_system;
+            $periodBetweenEachPayment   = $contract->period_between_each_payment;
 
-            $contractingYears = Carbon::parse($contractStart)->diffInYears(Carbon::parse($contractEnd));
-            $contractingYears = ($contractingYears < 1)?(1):($contractingYears);
+            $contractingYears           = Carbon::parse($contractStart)->diffInYears(Carbon::parse($contractEnd));
+            $contractingYears           = ($contractingYears < 1)?(1):($contractingYears);
 
-            $contractingMonths = $contractingYears * 12;
-            $contractTotalPrice = $contract->total_price;
-            $customerId = $contract->printingMachines()->first()->customer->id;
+            $contractingMonths          = $contractingYears * 12;
+            $contractTotalPrice         = $contract->total_price;
 
-            if ( $contractPaymentSystem == 'مقدم' ) {
-                if ( $periodBetweenEachPayment == 13 ) {
-                    $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>$contractStart, 'total'=>$contractTotalPrice, 'customer_id'=>$customerId]);
-                } else {
-                    for ($i = 1 ; $i <= $contractingMonths ; $i+=$periodBetweenEachPayment) {
-                        $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractStart)->addMonths(($i-1))->format('Y-m-d')), 'total'=>(($contractTotalPrice)/($contractingMonths/$periodBetweenEachPayment )), 'customer_id'=>$customerId]);
+            $customerAndMaybeHisBranches     = [];
+            $isAllSameCustomer          = true;
+            //get all customers id for this machines
+            foreach($contract->printingMachines as $printingMachine) {
+                $customerAndMaybeHisBranches[] = $printingMachine->customer;
+            }
+            //check all printing machiens for same customer.
+            foreach($customerAndMaybeHisBranches as $customer) {
+                if (($customerAndMaybeHisBranches[0])->id !== $customer->id) {
+                    $isAllSameCustomer = false;
+                    break;
+                }
+            }
+            
+            $customerId                 = ($isAllSameCustomer)?($contract->printingMachines()->first()->customer->id):(null);
+
+            // If the contract is for one customer and his printing machines
+            if ($isAllSameCustomer) {
+                if ( $contractPaymentSystem == 'مقدم' ) {
+                    if ( $periodBetweenEachPayment == 13 ) {// دفعة واحدة
+                        $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>$contractStart, 'total'=>$contractTotalPrice, 'customer_id'=>$customerId]);
+                    } else { 
+                        for ($i = 1 ; $i <= $contractingMonths ; $i+=$periodBetweenEachPayment) {
+                            $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractStart)->addMonths(($i-1))->format('Y-m-d')), 'total'=>(($contractTotalPrice)/($contractingMonths/$periodBetweenEachPayment )), 'customer_id'=>$customerId]);
+                        }
+                    }
+                } else if ( $contractPaymentSystem == 'نهاية المدة' ) {
+                    if ( $periodBetweenEachPayment == 13 ) { // دفعة وحدة
+                        $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractEnd)->addMonths(1)->format('Y-m-d')), 'total'=>$contractTotalPrice, 'customer_id'=>$customerId]);
+                    } else {
+                        for ($i = 1 ; $i <= $contractingMonths ; $i+=$periodBetweenEachPayment) {
+                            $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractStart)->addMonths(($i+$periodBetweenEachPayment-1))->format('Y-m-d')), 'total'=>(($contractTotalPrice)/($contractingMonths/$periodBetweenEachPayment )), 'customer_id'=>$customerId]);
+                        }
                     }
                 }
-            } else if ( $contractPaymentSystem == 'نهاية المدة' ) {
-                if ( $periodBetweenEachPayment == 13 ) {
-                    $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractEnd)->addMonths(1)->format('Y-m-d')), 'total'=>$contractTotalPrice, 'customer_id'=>$customerId]);
-                } else {
-                    for ($i = 1 ; $i <= $contractingMonths ; $i+=$periodBetweenEachPayment) {
-                        $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractStart)->addMonths(($i+$periodBetweenEachPayment-1))->format('Y-m-d')), 'total'=>(($contractTotalPrice)/($contractingMonths/$periodBetweenEachPayment )), 'customer_id'=>$customerId]);
+            } else { //If the contract is for one customer and some of his branches and their printing machines
+                $custoemrBranches = [];
+                if (!$isAllSameCustomer) {
+                    $custoemrBranches = array_unique($customerAndMaybeHisBranches, SORT_REGULAR);
+                }
+                foreach ($custoemrBranches as $customerBranch) {
+                    if ( $contractPaymentSystem == 'مقدم' ) {
+                        if ( $periodBetweenEachPayment == 13 ) {// دفعة واحدة
+                            $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>$contractStart, 'customer_id'=>$customerBranch->id]);
+                        } else { 
+                            for ($i = 1 ; $i <= $contractingMonths ; $i+=$periodBetweenEachPayment) {
+                                $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractStart)->addMonths(($i-1))->format('Y-m-d')), 'customer_id'=>$customerBranch->id]);
+                            }
+                        }
+                    } else if ( $contractPaymentSystem == 'نهاية المدة' ) {
+                        if ( $periodBetweenEachPayment == 13 ) { // دفعة وحدة
+                            $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractEnd)->addMonths(1)->format('Y-m-d')), 'customer_id'=>$customerBranch->id]);
+                        } else {
+                            for ($i = 1 ; $i <= $contractingMonths ; $i+=$periodBetweenEachPayment) {
+                                $contract->invoices()->create(['type'=>'تعاقد', 'release_date'=>(Carbon::parse($contractStart)->addMonths(($i+$periodBetweenEachPayment-1))->format('Y-m-d')), 'customer_id'=>$customerBranch->id]);
+                            }
+                        }
                     }
                 }
             }
@@ -149,19 +191,17 @@ class EloquentContract implements ContractInterface
         $validContracts = $this->validContracts();
         $selectedContracts = [];
         $selectedInvoices = [];
-        $selectePaymentsNames = [];
+        
         foreach ($validContracts as $contractKey => $contract) {
-            foreach ($contract->invoices as $invoiceKey => $invoice ) {
-                if ( (Carbon::parse($invoice->release_date)->gte($dateOfFistDayInThisMonthCarbon)) && 
-                     (Carbon::parse($invoice->release_date)->lte($dateOfLastDayInThisMonthCarbon))
-                    ) {
-                        $selectedContracts[] = $contract;
-                        $selectedInvoices[] = $invoice;
-                        $selectePaymentsNames[] = $this->paymentArabicNames()[($invoiceKey+1)];
+            // foreach ($contract->invoices as $invoiceKey => $invoice ) {
+            foreach ($contract->invoices()->whereNotNull('release_date')->get() as $invoiceKey => $invoice ) {
+                if (Carbon::parse($invoice->release_date)->isSameMonth(now())) {
+                    $selectedContracts[] = $contract;
+                    $selectedInvoices[] = $invoice;
                 }
             }
         }
-        $paymentsIsDueInThisMonth = [$selectePaymentsNames, $selectedInvoices, $selectedContracts, $thisMonth, $thisYear];
+        $paymentsIsDueInThisMonth = [$selectedInvoices, $selectedContracts, $thisMonth, $thisYear];
         return $paymentsIsDueInThisMonth;
     }
 

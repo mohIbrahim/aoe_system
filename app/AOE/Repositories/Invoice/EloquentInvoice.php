@@ -77,7 +77,7 @@ class EloquentInvoice implements InvoiceInterface
 
     public function invoiceFormCustomerSearch($keyword)
     {
-        $results = Customer::where('name', 'like', '%'.$keyword.'%')->get(['id', 'name', 'code']);
+        $results = Customer::where('name', 'like', '%'.$keyword.'%')->limit(30)->get(['id', 'name', 'code']);
         return $results;
     }
 

@@ -51,6 +51,7 @@
                                 <tr>
                                     <td>{{isset($printingMachine->customer)?$printingMachine->customer->name:''}}</td>
                                     <td>{{$printingMachine->code}}</td>
+                                    <td>{{$printingMachine->serial_number}}</td>
                                     <td>
                                         <button type='button' class='btn btn-danger btn-xs printing-machine-delete-button'> حذف الآلة </button>
                                         <input type='hidden' name='assigned_machines_ids[]' value='{{$printingMachine->id}}'>
@@ -351,4 +352,14 @@
     <script src="{{asset('js/bootstrap-select/sys.js')}}" charset="utf-8"></script>
 {{-- bootstrap-select --}}
 
+
+<script type="text/javascript">
+    //Calculate total price
+    $(function(){
+       $("[name='tax']").on('blur', function(){
+            var taxValue = $(this).val();
+            $("[name='total_price']").val(parseFloat((taxValue*($("[name='price']").val()))/100) + parseFloat($("[name='price']").val()));
+       });
+    });
+</script>
 @endsection

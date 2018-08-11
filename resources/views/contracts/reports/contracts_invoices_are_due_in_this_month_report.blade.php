@@ -19,7 +19,6 @@
 								<th>#</th>
                                 <th> اسم العميل </th>
                                 <th> كود العقد </th>
-                                <th> ترتيب الدفعة </th>
                                 <th> رقم الفاتورة </th>
                                 <th> تاريخ وجوب السداد </th>
                                 <th> تاريخ التحصيل </th>
@@ -33,17 +32,16 @@
 											{{$contractKey+1}}
 										</td>
 										<td>
-											<a href="{{action('CustomerController@show',['id'=>(($contract->printingMachines)?(($contract->printingMachines()->first())?(($contract->printingMachines()->first()->customer)?($contract->printingMachines()->first()->customer->id):('')):('')):(''))])}}">
-													{{(($contract->printingMachines)?(($contract->printingMachines()->first())?(($contract->printingMachines()->first()->customer)?($contract->printingMachines()->first()->customer->name):('')):('')):(''))}}
-											</a>
+											@if(isset($invoices[$contractKey]->customer))
+												<a href="{{ action('CustomerController@show',['id'=>$invoices[$contractKey]->customer->id]) }}">
+													{{$invoices[$contractKey]->customer->name}}
+												</a>
+											@endif
 										</td>
 										<td>
 											<a href="{{action('ContractController@show', ['id'=>(($contract->id)?($contract->id):(''))])}}">
 												{{ ($contract->code)?($contract->code):('') }}
 											</a>
-										</td>
-										<td>
-											{{ $paymentsNames[$contractKey] }}
 										</td>
 										<td>
 											<a href="{{action('InvoiceController@show', ['id'=>(($invoices[$contractKey]->id)?($invoices[$contractKey]->id):(''))])}}">
@@ -64,8 +62,7 @@
 			  			    <tr>
 								<th>#</th>
                                 <th> اسم العميل </th>
-                                <th> كود العقد </th>
-                                <th> ترتيب الدفعة </th>
+								<th> كود العقد </th>
                                 <th> رقم الفاتورة </th>
                                 <th> تاريخ وجوب السداد </th>
                                 <th> تاريخ التحصيل </th>

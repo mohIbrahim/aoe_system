@@ -73,7 +73,7 @@ class ContractController extends Controller
     {
         $contract = $this->contract->getById($id);
         $paymentsNames = $this->contract->paymentArabicNames();
-        return view('contracts.show', compact('contract', 'paymentsNames', 'paymentsDates'));
+        return view('contracts.show', compact('contract', 'paymentsNames'));
     }
 
     /**
@@ -169,12 +169,12 @@ class ContractController extends Controller
     public function contractsInvoicesAreDueInThisMonthReport()
     {
         $data = $this->contract->getContractsInvoicesAreDueInThisMonthReportData();
-        $paymentsNames  = $data[0];
-        $invoices       = $data[1];
-        $contracts      = $data[2];
-        $thisYear       = $data[3];
-        $thisMonth      = $data[4];
-        return view('contracts.reports.contracts_invoices_are_due_in_this_month_report', compact('paymentsNames', 'invoices', 'contracts', 'thisYear', 'thisMonth'));
+        
+        $invoices       = $data[0];
+        $contracts      = $data[1];
+        $thisYear       = $data[2];
+        $thisMonth      = $data[3];
+        return view('contracts.reports.contracts_invoices_are_due_in_this_month_report', compact('invoices', 'contracts', 'thisYear', 'thisMonth'));
     }
 
     public function contractsThatWillExpireWithinTheNextThreeMonthesReport()
