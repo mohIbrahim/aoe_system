@@ -578,7 +578,7 @@ $("#invoice-form-search-button").on('click', function(){
 					$("#invoice-form-message-span").empty();
 					var resultTableBody = $('#invoice-form-results-table-body').empty();
 					$.each(results, function(key, part){
-						resultTableBody.append("<tr><td>"+part.name+"</td><td><button type='button' class='btn btn-success btn-xs invoice-form-part-add-button' data-part-id='"+part.id+"' data-part-name='"+part.name+" ' data-part-price='"+part.price_with_tax+"' '> اضف </button></td></tr>");
+						resultTableBody.append("<tr><td>"+part.name+"</td><td><button type='button' class='btn btn-success btn-xs invoice-form-part-add-button' data-part-id='"+part.id+"' data-part-name='"+part.name+" ' data-part-price='"+part.price_without_tax+"' '> اضف </button></td></tr>");
 					});
 
 					$(".invoice-form-part-add-button").on("click", function(){

@@ -149,7 +149,7 @@
                                 <th> اسم القطعة </th>
                                 <th> الرقم المسلسل للقطعة </th>
                                 <th> العدد </th>
-                                <th> السعر القطعة </th>
+                                <th> السعر القطعة بدون الضريبة </th>
                                 <th> نسبة الخصم على القطعة الواحدة </th>
                                 <th> حذف </th>
                             </tr>
@@ -386,7 +386,7 @@ $(function(){
                         if (results) {
                             var resultTableBody = $('#results-table-body').empty();
                             $.each(results, function(key, part){
-                                resultTableBody.append("<tr><td>"+part.name+"</td><td><button type='button' class='btn btn-success btn-xs part-add-button' data-part-id='"+part.id+"' data-part-name='"+part.name+" ' data-part-price='"+part.price_with_tax+"' '> اضف </button></td></tr>");
+                                resultTableBody.append("<tr><td>"+part.name+"</td><td><button type='button' class='btn btn-success btn-xs part-add-button' data-part-id='"+part.id+"' data-part-name='"+part.name+" ' data-part-price='"+part.price_without_tax+"' '> اضف </button></td></tr>");
                             });
 
                             $(".part-add-button").on("click", function(){

@@ -16,16 +16,18 @@
 				
 				@foreach ($printingMachine->contracts as $contractIterator => $contract)
 					@foreach ($contract->invoices as $invoiceIterator => $invoice)
-						<tr>
-							<td>
-								<a href="{{action('InvoiceController@show', ['id'=>$invoice->id])}}">
-									{{$invoice->number or '	لم يتم تعين الرقم'}}
-								</a>
-							</td>
-							<td>{{$invoice->type}}</td>
-							<td>{{$invoice->release_date}}</td>
-							<td>{{$invoice->total.' جنية'}}</td>
-						</tr>
+						@if($printingMachine->customer->id == $invoice->customer->id)
+							<tr>
+								<td>
+									<a href="{{action('InvoiceController@show', ['id'=>$invoice->id])}}">
+										{{$invoice->number or '	لم يتم تعين الرقم'}}
+									</a>
+								</td>
+								<td>{{$invoice->type}}</td>
+								<td>{{$invoice->release_date}}</td>
+								<td>{{$invoice->total.' جنية'}}</td>
+							</tr>
+						@endif
 					@endforeach
 				@endforeach
 			

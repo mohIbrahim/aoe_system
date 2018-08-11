@@ -32,6 +32,7 @@
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>
+                                <th> اسم العميل </th>
                                 <th> كود المقايسة </th>
                                 <th>  التاريخ  </th>
                                 <th> موافقة العميل </th>
@@ -40,6 +41,7 @@
                                 <th> النوع </th>
                                 <th> رقم الزيارة </th>
                                 <th> قراءة العداد </th>
+                                <th> إجمالي السعر </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -48,6 +50,13 @@
 									<tr>
 										<td>
 											{{$k+1}}
+										</td>
+										<td>
+											@if(isset($indexation->printingMachine) && isset($indexation->printingMachine->customer))
+												<a href="{{ action('CustomerController@show', ['id'=>$indexation->printingMachine->customer->id]) }}" target="_blank">
+													{{$indexation->printingMachine->customer->name}}
+												</a>
+											@endif
 										</td>
 										<td>
                                             <a href="{{action('IndexationController@show', ['id'=>$indexation->id])}}" target="_blank">
@@ -75,6 +84,9 @@
                                         <td>
                                             {{($indexation->visit)?(($indexation->visit->readingOfPrintingMachine)?($indexation->visit->readingOfPrintingMachine->value):('')):('')}}
                                         </td>
+										<td>
+											{{$indexation->statementOfRequiredParts()[1].' جنية '}}
+										</td>
 									</tr>
 								@endforeach
 
@@ -83,6 +95,7 @@
 						<tfoot>
 			  			    <tr>
 								<th>#</th>
+                                <th> اسم العميل </th>
                                 <th> كود المقايسة </th>
                                 <th>  التاريخ  </th>
                                 <th> موافقة العميل </th>
@@ -91,6 +104,7 @@
                                 <th> النوع </th>
                                 <th> رقم الزيارة </th>
                                 <th> قراءة العداد </th>
+								<th> إجمالي السعر </th>
 			  			    </tr>
 			  		    </tfoot>
 			  	     </table>
