@@ -21,6 +21,7 @@
         <option value="قطعة غيار" {{($partType == 'قطعة غيار')? 'selected' : ((old('type')=='قطعة غيار')?'selected':'')}}> قطعة غيار </option>
         <option value="مستهلكات" {{($partType == 'مستهلكات')? 'selected' : ((old('type')=='مستهلكات')?'selected':'')}}> مستهلكات </option>
         <option value="ملحقات" {{($partType == 'ملحقات')? 'selected' : ((old('type')=='ملحقات')?'selected':'')}}> ملحقات </option>
+        <option value="إضافات آخرى" {{($partType == 'إضافات آخرى')? 'selected' : ((old('type')=='إضافات آخرى')?'selected':'')}}> إضافات آخرى </option>
     </select>
 </div>
 
