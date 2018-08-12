@@ -42,6 +42,7 @@
 			  				    <th> حالة التعاقد </th>
 			  				    <th> نظام السداد </th>
 			  				    <th> اسم العميل </th>
+			  				    <th> سعر التعاقد بدون الضريبة </th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -62,6 +63,7 @@
 										<td>{{$contract->status}}</td>
 										<td>{{$contract->payment_system}}</td>
 										<td>{{isset($contract->printingMachines()->first()->customer->name)?$contract->printingMachines()->first()->customer->name:''}}</td>
+										<td>{{$contract->price}}</td>
 									</tr>
 								@endforeach
 
@@ -77,6 +79,7 @@
 			  				    <th> حالة التعاقد </th>
 			  				    <th> نظام السداد </th>
 			  				    <th> اسم العميل </th>
+			  				    <th> سعر التعاقد بدون الضريبة </th>
 			  			    </tr>
 			  		    </tfoot>
 			  	     </table>

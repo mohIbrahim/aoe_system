@@ -70,6 +70,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('remove_the_invoice_file/{project_image_id}', 'InvoiceController@removeInvoiceFile')->name('remove_the_invoice_file');
     Route::get('invoices_form_part_search/{keyword}', 'InvoiceController@invoiceFormPartSearch')->name('invoices_form_part_search');
     Route::get('create_invoice_with_customer/{customer_id}', 'InvoiceController@createWithCustomerId')->name('create_invoice_with_customer');
+    Route::get('create_invoice_with_customer_and_indexation/{customer_id}/{indexation_id}', 'InvoiceController@createWithCustomerIdAndIndexationId')->name('create_invoice_with_customer_and_indexation');
     Route::get('responsible_employees_for_invoices_not_paid_report', 'InvoiceController@getResponsibleEmployeesForInvoicesNotPaidReport')->name('responsible_employees_for_invoices_not_paid_report');
     Route::get('get_invoices_released_in_specific_period_report', 'InvoiceController@getInvoicesReleasedInSpecificPeriodReport')->name('get_invoices_released_in_specific_period_report');
     Route::get('invoices_released_in_specific_period_report_search/{from}/{to}', 'InvoiceController@invoicesReleasedInSpecificPeriodReportSearch')->name('invoices_released_in_specific_period_report_search');

@@ -150,6 +150,7 @@ $(document).ready(function(){
 												contract.status,
 												contract.payment_system,
 												(contract.printing_machines[0])?((contract.printing_machines[0].customer)?(contract.printing_machines[0].customer.name):('')):(''),
+												contract.price,
 											]);
 					});
 					standardTable.draw();

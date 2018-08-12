@@ -11,6 +11,35 @@
 					<h3 class="panel-title"> المقايسة: {{$indexation->code}}</h3>
 				</div>
 				<div class="panel-body">
+
+				
+					@if(
+							in_array('create_invoices', $permissions) 
+							&&
+							(
+								isset($indexation) &&
+								isset($indexation->printingMachine) &&
+								isset($indexation->printingMachine->customer)
+							) 
+							
+						)
+						<a href="{{action('InvoiceController@createWithCustomerIdAndIndexationId', ['customer_id'=>$indexation->printingMachine->customer->id, 'indexation_id'=>$indexation->id] )}}" class="pull-left"><span class="glyphicon glyphicon-plus"></span> إضافة فاتورة </a>
+					@elseif(
+							in_array('create_invoices', $permissions)
+							&&
+							
+							(
+								isset($indexation) &&
+								isset($indexation->visit) &&
+								isset($indexation->visit->printingMachine) &&
+								isset($indexation->visit->printingMachine->customer)
+							)
+						)
+						<a href="{{action('InvoiceController@createWithCustomerIdAndIndexationId', ['customer_id'=>$indexation->visit->printingMachine->customer->id, 'indexation_id'=>$indexation->id] )}}" class="pull-left"><span class="glyphicon glyphicon-plus"></span> إضافة فاتورة </a>
+					@endif
+
+					
+					<span class="clearfix"></span>
 					<div class="table-responsive">
 						<table class="table table-hover">
 							<thead>

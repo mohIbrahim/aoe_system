@@ -45,10 +45,9 @@ class InvoiceController extends Controller
     {
         $indexationsCodes = Indexation::all()->pluck('code', 'id');
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
-        $customersIdsCodes = $this->mergeCustomersCodesAndNames();
         $employeesNames = Employee::all()->pluck('user.name', 'user.name');
         $employeesNamesIds = Employee::all()->pluck('user.name', 'id');
-        return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames', 'employeesNamesIds'));
+        return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes', 'employeesNames', 'employeesNamesIds'));
     }
 
     /**
@@ -92,11 +91,10 @@ class InvoiceController extends Controller
         $invoice = $this->invoice->getById($id);
         $indexationsCodes = Indexation::all()->pluck('code', 'id');
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
-        $customersIdsCodes = $this->mergeCustomersCodesAndNames();
         $employeesNames = Employee::all()->pluck('user.name', 'user.name');
         $employeesNamesIds = Employee::all()->pluck('user.name', 'id');
         $parts = $invoice->sellingParts;
-        return view('invoices.edit', compact('invoice', 'indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames', 'parts', 'employeesNamesIds'));
+        return view('invoices.edit', compact('invoice', 'indexationsCodes', 'contractsIdsCodes', 'employeesNames', 'parts', 'employeesNamesIds'));
     }
 
     /**
@@ -180,14 +178,27 @@ class InvoiceController extends Controller
         return $this->invoice->invoiceFormCustomerSearch($keyword);
     }
     
-    public function createWithCustomerId($incommingCustomer)
+    public function createWithCustomerId($customerId)
     {
+        $invoice = (object)['customer'=>(Customer::findOrFail($customerId))];
         $indexationsCodes = Indexation::all()->pluck('code', 'id');
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
-        $customersIdsCodes = $this->mergeCustomersCodesAndNames();
         $employeesNames = Employee::all()->pluck('user.name', 'user.name');
         $employeesNamesIds = Employee::all()->pluck('user.name', 'id');
-        return view('invoices.create', compact('indexationsCodes', 'contractsIdsCodes', 'customersIdsCodes', 'employeesNames', 'incommingCustomer', 'employeesNamesIds'));
+        return view('invoices.create', compact('invoice', 'indexationsCodes', 'contractsIdsCodes', 'employeesNames', 'employeesNamesIds'));
+    }
+
+    public function createWithCustomerIdAndIndexationId($customerId, $indexationId)
+    {
+        $invoice = (object)['customer'=>(Customer::findOrFail($customerId))];
+        $invoice->type = 'مقايسة';
+        $invoice->indexation_id = $indexationId;
+        
+        $indexationsCodes = Indexation::all()->pluck('code', 'id');
+        $contractsIdsCodes = Contract::all()->pluck('code', 'id');
+        $employeesNames = Employee::all()->pluck('user.name', 'user.name');
+        $employeesNamesIds = Employee::all()->pluck('user.name', 'id');
+        return view('invoices.create', compact('invoice', 'indexationsCodes', 'contractsIdsCodes', 'employeesNames', 'employeesNamesIds'));
     }
 
     public function getResponsibleEmployeesForInvoicesNotPaidReport()
