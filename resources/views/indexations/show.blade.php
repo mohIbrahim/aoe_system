@@ -55,20 +55,7 @@
 								<th> نوع المقايسة </th>
 								<td>{{$indexation->type}}</td>
 							</tr>
-							<tr>
-								<th> سريل الآلة </th>
-								<td>
-									@if(!empty($indexation->printingMachine))
-										<a href="{{action('PrintingMachineController@show', ['id'=>$indexation->printingMachine->id])}}" target="_blank">
-											{{$indexation->printingMachine->serial_number}}
-										</a>
-									@elseif (!empty($indexation->visit->printingMachine))
-										<a href="{{action('PrintingMachineController@show', ['id'=>$indexation->visit->printingMachine->id])}}" target="_blank">
-											{{$indexation->visit->printingMachine->serial_number}}
-										</a>
-									@endif
-								</td>
-							</tr>
+							
 							<tr>
 								<th> رقم الزيـارة </th>
 								<td>
@@ -86,102 +73,10 @@
 								</td>
 							</tr>							
 
-							<tr>
-								<td colspan="2">
-									<table class="table table-hover">
-										<h3 class="text-center"> بيانات الآلة </h3>
-										<thead>
-											<tr>
-												<th> موديل </th>
-												<th> كود الآلة </th>
-												<th> اسم العميل </th>
-												<th> الادارة </th>
-											</tr>
-										</thead>
-										<tbody>
-											@if($indexation->type == 'تليفونية')
+							@include('indexations.show_sections.printing_machine')
+							@include('indexations.show_sections.parts')
 
-												<tr>
-													<td>
-														{{(isset($indexation)?(isset($indexation->printingMachine)?$indexation->printingMachine->model_prefix:''):'')}} -
-														{{(isset($indexation)?(isset($indexation->printingMachine)?$indexation->printingMachine->model_suffix:''):'')}}
-													</td>
-													<td>
-														{{(isset($indexation)?(isset($indexation->printingMachine)?$indexation->printingMachine->code:''):'')}}
-													</td>
-													<td>
-														{{(isset($indexation)?(isset($indexation->printingMachine)?(isset($indexation->printingMachine->customer)?$indexation->printingMachine->customer->name:''):''):'')}}
-													</td>
-													<td>
-														{{(isset($indexation)?(isset($indexation->printingMachine)?(isset($indexation->printingMachine->customer)?$indexation->printingMachine->customer->administration:''):''):'')}}
-													</td>
-												</tr>
-
-											@elseif ($indexation->type == 'زيارة')
-												<tr>
-													<td>
-														{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?$indexation->visit->printingMachine->model_prefix:''):'')}} -
-														{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?$indexation->visit->printingMachine->model_suffix:''):'')}}
-													</td>
-													<td>
-														{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?$indexation->visit->printingMachine->code:''):'')}}
-													</td>
-													<td>
-														{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?(isset($indexation->visit->printingMachine->customer)?$indexation->visit->printingMachine->customer->name:''):''):'')}}
-													</td>
-													<td>
-														{{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?(isset($indexation->visit->printingMachine->customer)?$indexation->visit->printingMachine->customer->administration:''):''):'')}}
-													</td>
-												</tr>
-											@endif
-										</tbody>
-									</table>
-								</td>
-							</tr>
-
-							<tr>
-								<td colspan="2">
-									<table class="table table-hover">
-										<?php $total = 0;?>
-										<h3 class="text-center"> بيان للقطع المطلوبة </h3>
-										<thead>
-											<tr>
-												<th> اسم القطعة </th>
-												<th> الرقم المسلسل </th>
-												<th> العدد </th>
-												<th> سعر القطعة بدون الضريبة </th>
-												<th> تسبة الخصم على القطعة الوحدة </th>
-												<th> إجمالي الصنف الواحد </th>
-											</tr>
-										</thead>
-										<tbody>
-											@foreach ($statementOfRequiredParts as $rowKey => $row)
-												<tr>
-													<td>{{$row['name']}}</td>
-													<td>{{$row['serialNumber']}}</td>
-													<td>{{$row['numberOfParts']}}</td>
-													<td>{{$row['partPrice']}}</td>
-													<td>{{$row['discount']}}%</td>
-													<td>{{$row['rowPrice']}}</td>
-												</tr>
-											@endforeach
-											<tr>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<th>
-													<span style="color:3d3d3d;border-top:1px solid #3d3d3d;padding:5px">
-														 الإجمالــي: {{$totalPrice}} جنية بدون الضريبة
-													 </span>
-												 </th>
-											</tr>
-										</tbody>
-									</table>
-								</td>
-							</tr>
-
+							
 							<tr>
 								<th> الملاحظات </th>
 								<td>{{$indexation->comments}}</td>
@@ -229,5 +124,5 @@
 
 @include('partial.deleteConfirm',['name'=>$indexation->code,
 'id'=> $indexation->id,
-'message'=>' هل أنت متأكد؟ هل تريد حذف ',
+'message'=>' هل أنت متأكد؟ هل تريد حذف هذة المقايسة',
 'route'=>'IndexationController@destroy'])

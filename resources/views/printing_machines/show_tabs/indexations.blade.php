@@ -15,11 +15,18 @@
 			</tr>
 		</thead>
 		<tbody>
+			<tr>
+				<td colspan="7" class="text-center">
+					<h4>المقايسات بالزيارة</h4>
+				</td>
+			</tr>
 
 			@foreach ($printingMachine->visits as $visitsIterator => $visit)
 				@if($visit->indexation)
 					<tr>
-						<td>{{$visitsIterator+1}}</td>
+						<td>
+							{{$visitsIterator+1}}
+						</td>
 						<td>
 							<a href="{{action('IndexationController@show', ['id'=>(($visit->indexation)?($visit->indexation->id):(''))])}}">
 								{{$visit->indexation->code or ''}}
@@ -37,6 +44,34 @@
 					</tr>
 				@endif
 			@endforeach
+			<tr>
+				<td colspan="7" class="text-center">
+					<h4>المقايسات التليفونية</h4>
+				</td>
+			</tr>
+			@foreach ($printingMachine->phoneIndexations as $indexationKey => $indexation)
+				
+					<tr>
+						<td>
+							{{$indexationKey+1}}
+						</td>
+						<td>
+							<a href="{{action('IndexationController@show', ['id'=>(($indexation)?($indexation->id):(''))])}}" target="_blank">
+								{{$indexation->code or ''}}
+							</a>
+						</td>
+						<td>{{$indexation->the_date or ''}}</td>
+						<td>{{$indexation->customer_approval or ''}}</td>
+						<td>{{$indexation->technical_manager_approval or ''}}</td>
+						<td>{{$indexation->warehouse_approval or ''}}</td>
+						<td>
+							-
+						</td>
+					</tr>
+				
+			@endforeach
 		</tbody>
 	</table>
 </div>
+
+

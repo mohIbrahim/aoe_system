@@ -55,12 +55,17 @@ class EloquentIndexation implements IndexationInterface
 
     public function search($keyword)
     {
-        $results = $this->indexation->with('visit')->where('code', 'like', '%'.$keyword.'%')
-                                ->orWhere('the_date', 'like', '%'.$keyword.'%')
-                                ->orWhere('customer_approval', 'like', '%'.$keyword.'%')
-                                ->orWhere('technical_manager_approval', 'like', '%'.$keyword.'%')
-                                ->orWhere('warehouse_approval', 'like', '%'.$keyword.'%')
-                                ->get();
+        $results = $this->indexation->with('visit.printingMachine.customer', 'printingMachine.customer')->where('code', 'like', '%'.$keyword.'%')
+                                    ->orWhere('the_date', 'like', '%'.$keyword.'%')
+                                    ->orWhere('customer_approval', 'like', '%'.$keyword.'%')
+                                    ->orWhere('technical_manager_approval', 'like', '%'.$keyword.'%')
+                                    ->orWhere('warehouse_approval', 'like', '%'.$keyword.'%')
+                                    ->get();
+        
+        foreach($results as $indexation) {
+            $indexation->totalPrice = ($indexation->statementOfRequiredParts()[1]);
+        }
+
         return $results;
     }
 

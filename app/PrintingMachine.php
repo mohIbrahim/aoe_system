@@ -72,6 +72,11 @@ class PrintingMachine extends Model
         return $this->hasMany('App\FollowUpCard', 'printing_machine_id', 'id');
     }
 
+    public function phoneIndexations()
+    {
+        return $this->hasMany(Indexation::class, 'printing_machine_id', 'id');
+    }
+
     /**
      * Get follow up card for specific contract.
      */

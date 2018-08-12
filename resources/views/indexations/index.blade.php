@@ -32,8 +32,8 @@
 			  		    <thead>
 			  			    <tr>
 								<th>#</th>
-                                <th> اسم العميل </th>
                                 <th> كود المقايسة </th>
+                                <th> اسم العميل </th>
                                 <th>  التاريخ  </th>
                                 <th> موافقة العميل </th>
                                 <th> موافقة مدير الأقسام الفنية </th>
@@ -41,7 +41,7 @@
                                 <th> النوع </th>
                                 <th> رقم الزيارة </th>
                                 <th> قراءة العداد </th>
-                                <th> إجمالي السعر </th>
+                                <th> إجمالي السعر بدون الضريبة</th>
 			  			    </tr>
 			  		    </thead>
 			  		    <tbody id="my-table-body">
@@ -52,17 +52,24 @@
 											{{$k+1}}
 										</td>
 										<td>
-											@if(isset($indexation->printingMachine) && isset($indexation->printingMachine->customer))
-												<a href="{{ action('CustomerController@show', ['id'=>$indexation->printingMachine->customer->id]) }}" target="_blank">
-													{{$indexation->printingMachine->customer->name}}
-												</a>
-											@endif
-										</td>
-										<td>
                                             <a href="{{action('IndexationController@show', ['id'=>$indexation->id])}}" target="_blank">
                                                 {{$indexation->code}}
                                             </a>
                                         </td>
+										<td>
+											@if(isset($indexation->printingMachine) && 
+												isset($indexation->printingMachine->customer))
+												<a href="{{ action('CustomerController@show', ['id'=>$indexation->printingMachine->customer->id]) }}" target="_blank">
+													{{$indexation->printingMachine->customer->name}}
+												</a>
+											@elseif(isset($indexation->visit) &&
+													isset($indexation->visit->printingMachine) &&
+													isset($indexation->visit->printingMachine->customer))
+													<a href="{{ action('CustomerController@show', ['id'=>$indexation->visit->printingMachine->customer->id]) }}" target="_blank">
+													{{$indexation->visit->printingMachine->customer->name}}
+												</a>
+											@endif
+										</td>
                                         <td>
                                             {{$indexation->the_date}}
                                         </td>

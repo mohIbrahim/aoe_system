@@ -448,6 +448,9 @@ $(document).ready(function(){
 						standardTable.row.add([
 												(index+1),
 												"<a href='/indexations/"+indexation.id+"'>"+indexation.code+"</a>",
+												
+												((indexation.printing_machine)?((indexation.printing_machine.customer)?((indexation.printing_machine.customer)?("<a href='/customers/"+indexation.printing_machine.customer.id+"'>"+indexation.printing_machine.customer.name+"</a>"):('')):('')):((indexation.visit)?((indexation.visit.printing_machine)?((indexation.visit.printing_machine.customer)?(("<a href='/customers/"+indexation.visit.printing_machine.customer.id+"'>"+indexation.visit.printing_machine.customer.name+"</a>")):('')):('')):(''))),
+
 												indexation.the_date,
 												indexation.customer_approval,
 												indexation.technical_manager_approval,
@@ -455,6 +458,7 @@ $(document).ready(function(){
 												indexation.type,
 												(indexation.visit)?(indexation.visit.id):(''),
 												(indexation.visit)?(indexation.visit.readings_of_printing_machine):(''),
+												indexation.totalPrice,
 											]);
 					});
 					standardTable.draw();
