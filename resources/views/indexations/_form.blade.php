@@ -36,196 +36,9 @@
     </select>
 </div>
 
-<div class="jumbotron">
-    <div class="form-group">
-            <label for="type">
-                نوع المقايسة
-                <span style="color:red">*</span>
-            </label>
-        <select class="form-control" name="type" id="indexation-_form-select-type">
-            <?php $indexationType = isset($indexation->type)? $indexation->type:'';?>
-            <option value="">
-                اختر نوع المقايسة
-            </option>
-            <option value="تليفونية" {{($indexationType == 'تليفونية')? 'selected' : ((old('type')=='تليفونية')?'selected':'')}}>
-                تليفونية
-            </option>
+@include('indexations.form_sections.type')
 
-            <option value="زيارة" {{(($indexationType == 'زيارة')?('selected'):((old('type')=='زيارة')?('selected'):((isset($type))?(($type =='زيارة')?('selected'):('')):(''))))}}>
-                زيارة
-            </option>
-        </select>
-    </div>
-
-    <div class="form-group" id="indexation-_form-form-group-visit-id">
-        <label for="indexation-_form-select-visit-id"> رقم الزيارة <span style="color:red">*</span></label>
-        <select class="form-control selectpicker" name="visit_id" data-live-search="true" id="indexation-_form-select-visit-id">
-            <?php $selectedVist = isset($indexation->visit_id)? $indexation->visit_id:'' ;?>
-            <option value=""> اختر رقم الزيارة.  </option>
-            @foreach ($visitsIds as $id => $visitIdentifier)
-                <option value="{{$id}}" {{($selectedVist == $id)? 'selected' : ((old('visit_id')==$id)?'selected':( (isset($visitIdFromPrintingMachine))?(($visitIdFromPrintingMachine == $id)?('selected'):('')):('') ))}}> {{$visitIdentifier}} </option>
-            @endforeach
-        </select>
-    </div>
-
-
-    <div class="form-gruop" id="indexation-_form-form-group-printing-machine-id">
-        <label for="">
-            اختيار الآلة التصوير الخاصة بهذة المقايسة<span style="color:red">*</span>
-        </label>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="form-group form-inline">
-                    <label for="indexation-_form-printing-machine-search-field">  البحث عن الآلة التصوير:  </label>
-                    <input type="text" class="form-control" id="indexation-_form-printing-machine-search-field" name="printing_machine_search_field" placeholder=" إدخل الكلمة المراد البحث عنها. " value="{{isset($indexation->printingMachine)? isset($indexation->printingMachine->customer)?$indexation->printingMachine->customer->name:'':'' }}">
-                    <button type="button" class="btn btn-default" id="indexation-_form-printing-machine-search-btn"> ابحث </button>
-                    <spna id="indexation-_form-printing-machine-search-p">  </spna>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th> كود الآلة </th>
-                                <th> اسم العميل </th>
-                                <th> اختيار </th>
-                            </tr>
-                        </thead>
-                        <tbody  id="indexation-_form-select-pm-results-table-body">
-                        </tbody>
-                    </table>
-                </div>
-                <div class="form-group">
-                    <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير:  </label>
-                    <p>
-                        يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة.
-                    </p>
-                    <input type="text" class="form-control" id="indexation-_form-input-printing-machine-id" name="printing_machine_id"  value="{{(isset($indexation->printing_machine_id))?($indexation->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}" readonly>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-</div>
-
-
-
-
-<div class="panel panel-info">
-    <div class="panel-body">
-        <h2> إضافة قطع الآلة للمقايسة </h2>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h3> البحث عن القطع </h3>
-                <hr>
-                <div class="form-group form-inline">
-                    <label for=""> ادخل اسم القطعة </label>
-                    <input type="text" class="form-control" id="search-input" placeholder="">
-                    <button type="button" class="btn btn-primary" id="search-button"> بحث </button>
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th> اسم القطعة </th>
-                                <th> اضافة </th>
-                            </tr>
-                        </thead>
-                        <tbody id="results-table-body">
-
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h3> القطع المختارة </h3>
-                <hr>
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th> اسم القطعة </th>
-                                <th> الرقم المسلسل للقطعة </th>
-                                <th> العدد </th>
-                                <th> السعر القطعة بدون الضريبة </th>
-                                <th> نسبة الخصم على القطعة الواحدة </th>
-                                <th> حذف </th>
-                            </tr>
-                        </thead>
-                        <tbody id="selected-parts-table-body">
-
-                            @if(old('parts_ids'))
-                                @for ($i = 0; $i < count(old('parts_ids')); $i++)
-
-                                    <tr>
-                                        <td>
-                                            {{old('parts_names')[$i]}}
-                                            <input type='hidden' name='parts_names[]' value='{{old('parts_names')[$i]}}'>
-                                        </td>
-                                        <td>
-                                            <div class='input-group'>
-                                                <input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]' value="{{old('parts_serial_numbers')[$i]}}">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class='input-group'>
-                                                <input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value="{{old('parts_count')[$i]}}">
-                                                <input type='hidden' class='form-control' name='parts_ids[]' value="{{old('parts_ids')[$i]}}">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <input type='text' class='form-control' name='parts_prices[]' value="{{old('parts_prices')[$i]}}">
-                                        </td>
-                                        <td>
-                                            <input type='text' class='form-control' name='discount_rate[]' value="{{old('discount_rate')[$i]}}" placeholder='إدخل نسبة الخصم إن وجدت'>
-                                        </td>
-                                        <td>
-                                            <button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button>
-                                        </td>
-                                    </tr>
-                                @endfor
-                            @elseif(isset($parts))
-                                @foreach ($parts as $i => $part)
-
-                                    <tr>
-                                        <td>
-                                            {{$part->name}}
-                                            <input type='hidden' name='parts_names[]' value='{{$part->name}}'>
-                                        </td>
-                                        <td>
-                                            <div class='input-group'>
-                                                <input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]' value="{{$part->pivot->serial_number or ''}}">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class='input-group'>
-                                                <input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value="{{$part->pivot->number_of_parts or 1}}">
-                                                <input type='hidden' class='form-control' name='parts_ids[]' value="{{$part->id or ''}}">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <input type='text' class='form-control' name='parts_prices[]' value="{{$part->pivot->price or ''}}">
-                                        </td>
-                                        <td>
-                                            <input type='text' class='form-control' name='discount_rate[]' value="{{$part->pivot->discount_rate or ''}}" placeholder='إدخل نسبة الخصم إن وجدت'>
-                                        </td>
-                                        <td>
-                                            <button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-</div>
+@include('indexations.form_sections.parts')
 
 <div class="form-group">
     <label for="comments"> الملاحظات </label>
@@ -386,12 +199,12 @@ $(function(){
                         if (results) {
                             var resultTableBody = $('#results-table-body').empty();
                             $.each(results, function(key, part){
-                                resultTableBody.append("<tr><td>"+part.name+"</td><td><button type='button' class='btn btn-success btn-xs part-add-button' data-part-id='"+part.id+"' data-part-name='"+part.name+" ' data-part-price='"+part.price_without_tax+"' '> اضف </button></td></tr>");
+                                resultTableBody.append("<tr><td>"+part.name+"</td><td>"+part.descriptions+"</td><td><button type='button' class='btn btn-success btn-xs part-add-button' data-part-id='"+part.id+"' data-part-name='"+part.name+"' data-part-price-without-tax='"+part.price_without_tax+"' data-part-price-with-tax='"+part.price_with_tax+"'> اضف </button></td></tr>");
                             });
 
                             $(".part-add-button").on("click", function(){
                                 var addButton = $(this);
-                                $("#selected-parts-table-body").append("<tr><td>"+addButton.attr('data-part-name')+"<input type='hidden' name='parts_names[]' value='"+addButton.attr('data-part-name')+"'></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='"+addButton.attr('data-part-id')+"'></div></td><td><input type='text' class='form-control' name='parts_prices[]' value='"+addButton.attr('data-part-price')+"'></td><td><input type='text' class='form-control' name='discount_rate[]' placeholder='إدخل نسبة الخصم إن وجدت'></td><td><button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button></td></tr>");
+                                $("#selected-parts-table-body").append("<tr><td>"+addButton.attr('data-part-name')+"<input type='hidden' name='parts_names[]' value='"+addButton.attr('data-part-name')+"'></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل الرقم المسلسل للقطعة ' name='parts_serial_numbers[]'></div></td><td><div class='input-group'><input type='text' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value='1'><input type='hidden' class='form-control' name='parts_ids[]' value='"+addButton.attr('data-part-id')+"'></div></td><td><input type='text' class='form-control' placeholder='ادخل سعر القطعة بدون الضريبة' name='parts_prices_without_tax[]' value='"+addButton.attr('data-part-price-without-tax')+"'></td><td><input type='text' class='form-control' placeholder='ادخل سعر القطعة بالضريبة' name='parts_prices[]' value='"+addButton.attr('data-part-price-with-tax')+"'></td><td><input type='text' class='form-control' name='discount_rate[]' placeholder='إدخل نسبة الخصم إن وجدت'></td><td><button type='button' class='btn btn-danger btn-xs delete-part-button'> حذف </button></td></tr>");
                                 addButton.parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
 
 

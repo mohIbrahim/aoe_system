@@ -10,6 +10,7 @@
                     <th> الرقم المسلسل </th>
                     <th> العدد </th>
                     <th> سعر القطعة بدون الضريبة </th>
+                    <th> سعر القطعة بالضريبة </th>
                     <th> تسبة الخصم على القطعة الوحدة </th>
                     <th> إجمالي الصنف الواحد </th>
                 </tr>
@@ -22,9 +23,10 @@
                                 {{$row['name']}}
                             </a>
                         </td>
-                        <td>{{$row['descriptions']}}</td>
+                        <td style="white-space:pre-line">{{$row['descriptions']}}</td>
                         <td>{{$row['serialNumber']}}</td>
                         <td>{{$row['numberOfParts']}}</td>
+                        <td>{{$row['partPriceWithoutTax']}}</td>
                         <td>{{$row['partPrice']}}</td>
                         <td>{{$row['discount']}}%</td>
                         <td>{{$row['rowPrice']}}</td>
@@ -32,9 +34,9 @@
                 @endforeach
                 <tr>
                     
-                    <th colspan="7">
+                    <th colspan="8">
                         <span class="pull-left"style="color:3d3d3d;border-top:1px solid #3d3d3d;padding:5px">
-                            الإجمالــي: {{$totalPrice}} جنية بدون الضريبة
+                            الإجمالــي: {{$totalPrice}} جنية بالضريبة
                         </span>
                     </th>
                 </tr>

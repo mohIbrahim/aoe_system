@@ -44,14 +44,16 @@ class IndexationController extends Controller
         $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
         $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Indexation', $indexation->id, 'img', 'no_cover');
 
-        $partsIds       = ($request->parts_ids)?($request->parts_ids):([]);
-        $partsPrices    = $request->parts_prices;
-        $partsSerial    = $request->parts_serial_numbers;
-        $partcount      = $request->parts_count;
-        $discountRate   = $request->discount_rate;
+        $partsIds                   = ($request->parts_ids)?($request->parts_ids):([]);
+        $partsPricesWithoutTax      = $request->parts_prices_without_tax;
+        $partsPrices                = $request->parts_prices;
+        $partsSerial                = $request->parts_serial_numbers;
+        $partcount                  = $request->parts_count;
+        $discountRate               = $request->discount_rate;
         for ($i=0; $i < count($partsIds); $i++) {
             $indexation->parts()->attach([
                                             $partsIds[$i]=> [
+                                                                'price_without_tax'=>$partsPricesWithoutTax[$i],
                                                                 'price'=>$partsPrices[$i],
                                                                 'serial_number'=>$partsSerial[$i],
                                                                 'number_of_parts'=>$partcount[$i],
@@ -94,14 +96,16 @@ class IndexationController extends Controller
         $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Indexation', $indexation->id, 'img', 'no_cover');
 
         $indexation->parts()->detach();
-        $partsIds       = ($request->parts_ids)?($request->parts_ids):([]);
-        $partsPrices    = $request->parts_prices;
-        $partsSerial    = $request->parts_serial_numbers;
-        $partcount      = $request->parts_count;
-        $discountRate   = $request->discount_rate;
+        $partsIds                   = ($request->parts_ids)?($request->parts_ids):([]);
+        $partsPricesWithoutTax      = $request->parts_prices_without_tax;
+        $partsPrices                = $request->parts_prices;
+        $partsSerial                = $request->parts_serial_numbers;
+        $partcount                  = $request->parts_count;
+        $discountRate               = $request->discount_rate;
         for ($i=0; $i < count($partsIds); $i++) {
             $indexation->parts()->attach([
                                             $partsIds[$i]=> [
+                                                                'price_without_tax'=>$partsPricesWithoutTax[$i],
                                                                 'price'=>$partsPrices[$i],
                                                                 'serial_number'=>$partsSerial[$i],
                                                                 'number_of_parts'=>$partcount[$i],

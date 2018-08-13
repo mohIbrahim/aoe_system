@@ -17,6 +17,7 @@ class CreateIndexationPartPivotTable extends Migration
             $table->increments('id');
             $table->integer('indexation_id')->unsigned()->index();
             $table->integer('part_id')->unsigned()->index();
+            $table->float('price_without_tax', 10, 2)->nullable();
             $table->float('price', 10, 2)->nullable();
             $table->string('serial_number')->nullable();
             $table->integer('number_of_parts')->nullable();

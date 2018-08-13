@@ -35,6 +35,7 @@
 								<th> الرقم المسلسل </th>
 								<th> كود الآلة </th>
 								<th> الموديل </th>
+								<th> الحالة </th>
 								<th> اسم العميل </th>
 								<th> الإدارة </th>
 								<th> الموظفين المسؤولين عن الآلة </th>
@@ -51,6 +52,7 @@
 										<td>{{$printingMachine->serial_number}}</td>
 										<td>{{$printingMachine->code}}</td>
 										<td>{{"$printingMachine->model_prefix-$printingMachine->model_suffix"}}</td>
+										<td>{{$printingMachine->status}}</td>
 										<td>{{isset($printingMachine->customer)?$printingMachine->customer->name:''}}</td>
 										<td>
 											{{(isset($printingMachine->customer))?($printingMachine->customer->administration):('')}}
@@ -73,6 +75,7 @@
 								<th> الرقم المسلسل </th>
 								<th> كود الآلة </th>
 								<th> الموديل </th>
+								<th> الحالة </th>
 								<th> اسم العميل </th>
 								<th> الإدارة </th>
 								<th> الموظفين المسؤولين عن الآلة </th>

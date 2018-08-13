@@ -81,7 +81,7 @@ class Indexation extends Model
 
     public function parts()
     {
-        return $this->belongsToMany('App\Part', 'indexation_part')->withTimestamps()->withPivot('price', 'serial_number', 'number_of_parts', 'discount_rate');
+        return $this->belongsToMany('App\Part', 'indexation_part')->withTimestamps()->withPivot('price_without_tax', 'price', 'serial_number', 'number_of_parts', 'discount_rate');
     }
     //when the indexation done by telephone
     public function printingMachine()
@@ -98,15 +98,16 @@ class Indexation extends Model
         $row        = [];
         $totalPrice = 0;
         foreach ($parts as $part) {
-            $id             = $part->id;
-            $name           = $part->name;
-            $descriptions   = $part->descriptions;
-            $serialNumber   = $part->pivot->serial_number;
-            $partPrice      = $part->pivot->price;
-            $numberOfParts  = $part->pivot->number_of_parts;
-            $discount       = $part->pivot->discount_rate;
+            $id                         = $part->id;
+            $name                       = $part->name;
+            $descriptions               = $part->descriptions;
+            $serialNumber               = $part->pivot->serial_number;
+            $partPriceWithoutTax        = $part->pivot->price_without_tax;
+            $partPrice                  = $part->pivot->price;
+            $numberOfParts              = $part->pivot->number_of_parts;
+            $discount                   = $part->pivot->discount_rate;
             $rowPrice = (($partPrice - (($partPrice*$discount)/100))*$numberOfParts);
-            $row = ['id'=>$id, 'name'=>$name, 'descriptions'=>$descriptions, 'serialNumber'=>$serialNumber, 'numberOfParts'=>$numberOfParts, 'partPrice'=>$partPrice, 'discount'=>$discount, 'rowPrice'=>$rowPrice];
+            $row = ['id'=>$id, 'name'=>$name, 'descriptions'=>$descriptions, 'serialNumber'=>$serialNumber, 'numberOfParts'=>$numberOfParts, 'partPrice'=>$partPrice, 'partPriceWithoutTax'=>$partPriceWithoutTax, 'discount'=>$discount, 'rowPrice'=>$rowPrice];
             $statement[] = $row;
             $totalPrice += $rowPrice;
         }
