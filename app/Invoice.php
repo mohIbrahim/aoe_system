@@ -94,7 +94,7 @@ class Invoice extends Model
     public function sellingParts()
     {
         return $this->belongsToMany('App\Part', 'invoice_part', 'invoice_id', 'part_id')
-                    ->withPivot(['printing_machines_serial', 'price', 'part_serial_number', 'number_of_parts', 'discount_rate'])
+                    ->withPivot(['printing_machines_serial', 'price', 'price_without_tax', 'part_serial_number', 'number_of_parts', 'discount_rate'])
                     ->withTimestamps();
     }
 

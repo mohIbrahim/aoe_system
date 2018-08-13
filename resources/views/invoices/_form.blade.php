@@ -116,6 +116,7 @@
                                 <div id="invoice-form-message-span" style="color:#a5a5a5"></div>
                                 <tr>
                                     <th> اسم القطعة </th>
+                                    <th> وصف القطعة </th>
                                     <th> اضافة </th>
                                 </tr>
                             </thead>
@@ -140,6 +141,7 @@
                                     <th> الرقم المسلسل للقطعة </th>
                                     <th> العدد </th>
                                     <th> السعر القطعة بدون الضريبة </th>
+                                    <th> السعر القطعة بالضريبة </th>
                                     <th> نسبة الخصم على القطعة الواحدة </th>
                                     <th> حذف </th>
                                 </tr>
@@ -165,7 +167,10 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <input type='text' class='form-control' name='parts_prices[]' readonly value="{{old('parts_prices')[$i]}}">
+                                                <input type='text' class='form-control' placeholder='ادخل سعر القطعة بدون الضريبة' name='parts_prices_without_tax[]' value="{{old('parts_prices_without_tax')[$i]}}">
+                                            </td>
+                                            <td>
+                                                <input type='text' class='form-control' placeholder='ادخل سعر القطعة بالضريبة' name='parts_prices[]' value="{{old('parts_prices')[$i]}}">
                                             </td>
                                             <td>
                                                 <input type='text' class='form-control' name='discount_rate[]' value="{{old('discount_rate')[$i]}}" placeholder='إدخل نسبة الخصم إن وجدت'>
@@ -195,7 +200,10 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <input type='text' class='form-control' name='parts_prices[]' readonly value="{{$part->pivot->price or ''}}">
+                                                <input type='text' class='form-control' placeholder='ادخل سعر القطعة بدون الضريبة' name='parts_prices_without_tax[]' value="{{$part->pivot->price_without_tax or ''}}">
+                                            </td>
+                                            <td>
+                                                <input type='text' class='form-control' placeholder='ادخل سعر القطعة بالضريبة' name='parts_prices[]' value="{{$part->pivot->price or ''}}">
                                             </td>
                                             <td>
                                                 <input type='text' class='form-control' name='discount_rate[]' value="{{$part->pivot->discount_rate or ''}}" placeholder='إدخل نسبة الخصم إن وجدت'>

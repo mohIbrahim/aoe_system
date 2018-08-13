@@ -85,6 +85,7 @@ class EloquentInvoice implements InvoiceInterface
     {
         $pritingMachinesSerial  = $request->printing_machines_serial;
         $partsIds               = ($request->parts_ids)?($request->parts_ids):([]);
+        $partsPricesWithoutTax      = $request->parts_prices_without_tax;
         $partsPrices            = $request->parts_prices;
         $partsSerial            = $request->parts_serial_numbers;
         $partcount              = $request->parts_count;
@@ -92,6 +93,7 @@ class EloquentInvoice implements InvoiceInterface
         $pivotArray = [];
         for ($i=0; $i < count($partsIds); $i++) {
             $pivotArray[$partsIds[$i]] =    [
+                                                'price_without_tax'=>$partsPricesWithoutTax[$i],
                                                 'printing_machines_serial'=>$pritingMachinesSerial,
                                                 'price'=>$partsPrices[$i],
                                                 'part_serial_number'=>$partsSerial[$i],
@@ -139,7 +141,7 @@ class EloquentInvoice implements InvoiceInterface
                                     'itemName'=>$part['name'],
                                     'itemCount'=>$part['pivot']['number_of_parts'],
                                     'itemPrice'=>$part['pivot']['price'],
-                                    'totalItemsPricePerRow'=>$part['pivot']['number_of_parts']*$part['pivot']['price'],
+                                    'totalItemsPricePerRow'=>($part['pivot']['number_of_parts']*$part['pivot']['price'])-((($part['pivot']['number_of_parts']*$part['pivot']['price'])*$part['pivot']['discount_rate'])/100),
                                     'discount'=>$part['pivot']['discount_rate'],
                                 ];
             }

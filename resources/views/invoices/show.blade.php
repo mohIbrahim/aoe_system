@@ -59,8 +59,8 @@
                                                         <th> البيان </th>
                                                         <th> العدد </th>
                                                         <th> نسبة الخصم على القطعة الوحدة </th>
-                                                        <th> سعر الوحدة {{($invoice->type == 'بيع قطع')?(' بدون ضريبة'):('')}}</th>
-                                                        <th> الجملة  {{($invoice->type == 'بيع قطع')?(' بدون ضريبة'):('')}}</th>
+                                                        <th> سعر الوحدة {{($invoice->type == 'بيع قطع')?(' بالضريبة'):('')}}</th>
+                                                        <th> الجملة  {{($invoice->type == 'بيع قطع')?(' بالضريبة'):('')}}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -91,13 +91,13 @@
                                                                 {{$statement['itemCount']}}
                                                             </td>
                                                             <td>
-                                                                {{$statement['discount']}}
+                                                                {{$statement['discount']}} %
                                                             </td>
                                                             <td>
-                                                                {{$statement['itemPrice']}}
+                                                                {{$statement['itemPrice']}} جنية
                                                             </td>
                                                             <td>
-                                                                {{$statement['totalItemsPricePerRow']}}
+                                                                {{$statement['totalItemsPricePerRow']}} جنية
                                                             </td>
                                                         </tr>
                                                     @endforeach
