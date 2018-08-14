@@ -61,7 +61,9 @@
                                                             <th> وصف القطعة </th>
                                                         @endif
                                                         <th> العدد </th>
-                                                        <th> الرقم المسلسل للقطعة </th>
+                                                        @if($invoice->type == 'بيع قطع' || $invoice->type == 'مقايسة')
+                                                            <th> الرقم المسلسل للقطعة </th>
+                                                        @endif
                                                         <th> نسبة الخصم على القطعة الوحدة </th>
                                                         <th> سعر الوحدة بالضريبة</th>
                                                         <th> الجملة بالضريبة </th>
@@ -102,9 +104,11 @@
                                                             <td>
                                                                 {{$statement['itemCount']}}
                                                             </td>
-                                                            <td>
-                                                                {{$statement['partSerialNumber']}}
-                                                            </td>
+                                                            @if($invoice->type == 'بيع قطع' || $invoice->type == 'مقايسة')
+                                                                <td>
+                                                                        {{$statement['partSerialNumber']}}
+                                                                </td>
+                                                            @endif
                                                             <td>
                                                                 {{$statement['discount']}} %
                                                             </td>
