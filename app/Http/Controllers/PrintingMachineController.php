@@ -39,7 +39,7 @@ class PrintingMachineController extends Controller
     {
         $customerIdsCodes = $this->mergeCustomersCodesAndNames();
         $employeesNames = Employee::all()->pluck('user.name');
-        $assignedEmployeesNamesIds = Employee::all()->pluck('user.name', 'user.employee.id');
+        $assignedEmployeesNamesIds = Employee::all()->pluck('user.name', 'id');
         return view('printing_machines.create', compact('customerIdsCodes', 'employeesNames', 'assignedEmployeesNamesIds'));
     }
 
@@ -80,7 +80,7 @@ class PrintingMachineController extends Controller
     	$printingMachine = $this->printingMachine->getById($id);
         $customerIdsCodes = $this->mergeCustomersCodesAndNames();
         $employeesNames = Employee::all()->pluck('user.name');
-        $assignedEmployeesNamesIds = Employee::all()->pluck('user.name', 'user.employee.id');
+        $assignedEmployeesNamesIds = Employee::all()->pluck('user.name', 'id');
 		return view('printing_machines.edit', compact('printingMachine', 'customerIdsCodes', 'employeesNames', 'assignedEmployeesNamesIds'));
     }
 
@@ -133,7 +133,7 @@ class PrintingMachineController extends Controller
     {
         $customerIdsCodes = $this->mergeCustomersCodesAndNames();
         $employeesNames = Employee::all()->pluck('user.name');
-        $assignedEmployeesNamesIds = Employee::all()->pluck('user.name', 'user.id');
+        $assignedEmployeesNamesIds = Employee::all()->pluck('user.name', 'id');
         return view('printing_machines.create', compact('customerIdsCodes', 'employeesNames', 'incommingCustomer', 'assignedEmployeesNamesIds'));
     }
 

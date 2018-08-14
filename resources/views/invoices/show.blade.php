@@ -57,10 +57,17 @@
                                                     <tr>
                                                         <th> # </th>
                                                         <th> البيان </th>
+                                                        @if($invoice->type == 'بيع قطع' || $invoice->type == 'مقايسة')
+                                                            <th> وصف القطعة </th>
+                                                        @endif
                                                         <th> العدد </th>
+                                                        <th> الرقم المسلسل للقطعة </th>
                                                         <th> نسبة الخصم على القطعة الوحدة </th>
-                                                        <th> سعر الوحدة {{($invoice->type == 'بيع قطع')?(' بالضريبة'):('')}}</th>
-                                                        <th> الجملة  {{($invoice->type == 'بيع قطع')?(' بالضريبة'):('')}}</th>
+                                                        <th> سعر الوحدة بالضريبة</th>
+                                                        <th> الجملة بالضريبة </th>
+                                                        @if($invoice->type == 'بيع قطع')
+                                                            <th> الارقم السلسة للآلات </th>
+                                                        @endif
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -87,8 +94,16 @@
                                                                     </a>
                                                                 @endif
                                                             </td>
+                                                            @if($invoice->type == 'بيع قطع' || $invoice->type == 'مقايسة')
+                                                                <td style="white-space:pre-line">
+                                                                    {{$statement['descriptions']}}
+                                                                </td>
+                                                            @endif
                                                             <td>
                                                                 {{$statement['itemCount']}}
+                                                            </td>
+                                                            <td>
+                                                                {{$statement['partSerialNumber']}}
                                                             </td>
                                                             <td>
                                                                 {{$statement['discount']}} %
@@ -99,8 +114,15 @@
                                                             <td>
                                                                 {{$statement['totalItemsPricePerRow']}} جنية
                                                             </td>
+                                                            @if($invoice->type == 'بيع قطع')
+                                                                <td>
+                                                                    {{$statement['printingMachinesSerial']}}
+                                                                </td>
+                                                            @endif
                                                         </tr>
                                                     @endforeach
+                                                    <tr>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </td>

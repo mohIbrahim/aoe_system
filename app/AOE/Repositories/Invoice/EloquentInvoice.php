@@ -126,11 +126,14 @@ class EloquentInvoice implements InvoiceInterface
                 $results[] =    [   'rowNumber'=>$key+1,
                                     'itemId'=>$part['id'],
                                     'itemName'=>$part['name'],
+                                    'descriptions'=>$part['descriptions'],
                                     'itemCount'=>$part['pivot']['number_of_parts'],
                                     'itemPrice'=>$part['pivot']['price'],
-                                    'totalItemsPricePerRow'=>$part['pivot']['number_of_parts']*$part['pivot']['price'],
+                                    'totalItemsPricePerRow'=>($part['pivot']['number_of_parts']*$part['pivot']['price'])-((($part['pivot']['number_of_parts']*$part['pivot']['price'])*$part['pivot']['discount_rate'])/100),
                                     'discount'=>$part['pivot']['discount_rate'],
                                     'indexationId'=>$indexationId,
+                                    'partSerialNumber'=>$part['pivot']['serial_number'],
+                                    
                                 ];
             }
         } else if ($type == 'بيع قطع') {
@@ -139,10 +142,13 @@ class EloquentInvoice implements InvoiceInterface
                 $results[] =    [   'rowNumber'=>$key+1,
                                     'itemId'=>$part['id'],
                                     'itemName'=>$part['name'],
+                                    'descriptions'=>$part['descriptions'],
                                     'itemCount'=>$part['pivot']['number_of_parts'],
                                     'itemPrice'=>$part['pivot']['price'],
                                     'totalItemsPricePerRow'=>($part['pivot']['number_of_parts']*$part['pivot']['price'])-((($part['pivot']['number_of_parts']*$part['pivot']['price'])*$part['pivot']['discount_rate'])/100),
                                     'discount'=>$part['pivot']['discount_rate'],
+                                    'printingMachinesSerial'=>$part['pivot']['printing_machines_serial'],
+                                    'partSerialNumber'=>$part['pivot']['part_serial_number'],
                                 ];
             }
         }
