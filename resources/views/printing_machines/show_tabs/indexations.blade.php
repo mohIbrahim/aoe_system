@@ -1,5 +1,7 @@
 <h3 class="text-center"> المقايسات </h3>
-<a href="{{action('IndexationController@create')}}"><span class="glyphicon glyphicon-plus"></span> إنشاء مقايسة جديدة </a>
+@if(in_array('create_indexations', $permissions))
+	<a href="{{action('IndexationController@create')}}"><span class="glyphicon glyphicon-plus"></span> إنشاء مقايسة جديدة </a>
+@endif
 <hr />
 <div class="table-responsive">
 	<table class="table table-hover">
