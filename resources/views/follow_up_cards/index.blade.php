@@ -25,7 +25,8 @@
 								<th> اسم العميل </th>
 								<th> كود العقد </th>
 								<th> الرقم المسلسل لآلة الطباعة </th>
-								<th> تاريخ التعديل </th>
+								<th> اسم الموظف المعين على الآلة </th>
+								<th> تاريخ الإنشاء </th>
 							</tr>
 						</thead>
 						<tbody id="my-table-body">
@@ -60,7 +61,19 @@
 									</td>
 
 									<td>
-										{{$followUpCard->updated_at->format('d-m-Y')}}
+										@if(isset($followUpCard->printingMachine) &&
+											isset($followUpCard->printingMachine->assignedEmployees) &&
+											$followUpCard->printingMachine->assignedEmployees->isNotEmpty() )
+											@foreach ($followUpCard->printingMachine->assignedEmployees as $employee)
+												@if(isset($employee->user) )
+													{{$employee->user->name}}
+												@endif
+											@endforeach
+										@endif
+									</td>
+
+									<td>
+										{{$followUpCard->created_at->format('d-m-Y')}}
 									</td>
 								</tr>
 								@endforeach
@@ -75,7 +88,8 @@
 								<th> اسم العميل </th>
 								<th> كود العقد </th>
 								<th> الرقم المسلسل لآلة الطباعة </th>
-								<th> تاريخ التعديل </th>
+								<th> اسم الموظف المعين على الآلة </th>
+								<th> تاريخ الإنشاء </th>
 							</tr>
 						</tfoot>
 					</table>
