@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class FollowUpCard extends Model
 {
     protected $table = 'follow_up_cards';
-    protected $fillable = ['code', 'comments', 'contract_id', 'printing_machine_id'];
+    protected $fillable = ['code', 'old_code', 'comments', 'contract_id', 'printing_machine_id'];
 
     public function contract()
     {

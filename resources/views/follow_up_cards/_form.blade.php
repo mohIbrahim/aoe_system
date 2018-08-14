@@ -2,6 +2,10 @@
     <label for="code"> كود البطاقة </label>
     <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود البطاقة. " value="{{$followUpCard->code or 'يتم تعين الرقم من النظام بعد إنشاء البطاقة.'}}" readonly>
 </div>
+<div class="form-group">
+    <label for="old-code"> رقم البطاقة الورقي </label>
+    <input type="text" class="form-control" id="old-code" name="old_code"  placeholder=" إدخل رقم البطاقة الورقي السابق. " value="{{(old('old_code'))?(old('old_code')):((isset($followUpCard->old_code))?($followUpCard->old_code):(''))}}">
+</div>
 
 <div class="form-group">
     <label for="contract_id"> رقم العقد <span style="color:red">*</span></label>

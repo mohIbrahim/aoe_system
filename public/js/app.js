@@ -31825,6 +31825,7 @@ $(document).ready(function () {
 		// Setup - add a text input to each footer cell
 		$('.standard-datatable tfoot th').each(function (i) {
 			var title = $('.standard-datatable thead th').eq($(this).index()).text();
+			$(this).css('max-width', '60px');
 			$(this).html('<input class="form-control" type="text" placeholder="بحث بـ' + title + '" data-index="' + i + '" style="width: 50%"/>');
 		});
 		// DataTable

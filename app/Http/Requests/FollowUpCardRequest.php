@@ -31,10 +31,12 @@ class FollowUpCardRequest extends FormRequest
                     ];
 
         $contractId = $this->input('contract_id');
-        $printingMachineId = $this->input('printing_machine_id');
-        $relatedPrintingMachinesIds = $this->getRelatedPrintingMachinesIdsToTheContract($contractId);
-        if (!in_array($printingMachineId, $relatedPrintingMachinesIds)) {
-            $results['printingMachineNotBelongsToTheContract'] = 'required';
+        if (isset($contractId)) {
+            $printingMachineId = $this->input('printing_machine_id');
+            $relatedPrintingMachinesIds = $this->getRelatedPrintingMachinesIdsToTheContract($contractId);
+            if (!in_array($printingMachineId, $relatedPrintingMachinesIds)) {
+                $results['printingMachineNotBelongsToTheContract'] = 'required';
+            }
         }
         return $results;
     }

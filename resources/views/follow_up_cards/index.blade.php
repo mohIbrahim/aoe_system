@@ -21,6 +21,7 @@
 							<tr>
 								<th>#</th>
 								<th> كود البطاقة </th>
+								<th> رقم البطاقة الورقي </th>
 								<th> اسم العميل </th>
 								<th> كود العقد </th>
 								<th> الرقم المسلسل لآلة الطباعة </th>
@@ -38,6 +39,9 @@
 										<a href="{{action('FollowUpCardController@show', ['id'=>$followUpCard->id])}}" target="_blank">
 											{{$followUpCard->code}}
 										</a>
+									</td>
+									<td>
+										{{$followUpCard->old_code}}
 									</td>
 
 									<td>
@@ -67,6 +71,7 @@
 							<tr>
 								<th>#</th>
 								<th> كود البطاقة </th>
+								<th> رقم البطاقة الورقي </th>
 								<th> اسم العميل </th>
 								<th> كود العقد </th>
 								<th> الرقم المسلسل لآلة الطباعة </th>
@@ -87,4 +92,9 @@
 @endsection @section('head') {{-- Datatable --}}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-3.2.1/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/fc-3.2.4/fh-3.1.3/datatables.min.css"
 /> {{-- Datatable --}} @endsection @section('js_footer') {{-- Datatable --}}
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-3.2.1/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/fc-3.2.4/fh-3.1.3/datatables.min.js"></script> {{-- Datatable --}} @endsection
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-3.2.1/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/fc-3.2.4/fh-3.1.3/datatables.min.js"></script> {{-- Datatable --}}
+<style>
+	tfoot tr th {
+	}
+</style>
+ @endsection

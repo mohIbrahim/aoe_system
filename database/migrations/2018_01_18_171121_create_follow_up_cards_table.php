@@ -16,6 +16,7 @@ class CreateFollowUpCardsTable extends Migration
         Schema::create('follow_up_cards', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code')->nullable();
+            $table->string('old_code')->nullable();
             $table->text('comments')->nullable();
             $table->timestamps();
 

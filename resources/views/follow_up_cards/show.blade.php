@@ -34,6 +34,10 @@
 											<th> كود البطاقة </th>
 											<td>{{$followUpCard->code}}</td>
 										</tr>
+										<tr>
+											<th> رقم البطاقة الورقي </th>
+											<td>{{$followUpCard->old_code}}</td>
+										</tr>
                                         <tr>
     									    <th> صورة بطاقة المتابعة </th>
     									    <td>

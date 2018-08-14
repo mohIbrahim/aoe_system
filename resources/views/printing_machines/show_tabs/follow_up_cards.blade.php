@@ -9,6 +9,7 @@
             <tr>
                 <th>#</th>
                 <th> كود البطاقة </th>
+                <th> رقم البطاقة الورقي </th>
                 <th> اسم العميل </th>
                 <th> كود العقد </th>
                 <th> الرقم المسلسل لآلة الطباعة </th>
@@ -27,6 +28,10 @@
                         <a href="{{action('FollowUpCardController@show', ['id'=>$followUpCard->id])}}" target="_blank">
                             {{$followUpCard->code}}
                         </a>
+                    </td>
+
+                    <td>
+                        {{$followUpCard->old_code}}
                     </td>
 
                     <td>
