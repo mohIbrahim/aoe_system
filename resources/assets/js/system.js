@@ -895,6 +895,7 @@ $(document).ready(function(){
 						machine.serial_number,
 						machine.code,
 						machine.model_prefix+"-"+machine.model_suffix,
+						machine.status,
 						machine.customer.name,
 						((machine.customer.administration !== null)?(machine.customer.administration):('')),
 						assignedEmployeesRow,
