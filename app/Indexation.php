@@ -81,7 +81,7 @@ class Indexation extends Model
 
     public function parts()
     {
-        return $this->belongsToMany('App\Part', 'indexation_part')->withTimestamps()->withPivot('price_without_tax', 'price', 'serial_number', 'number_of_parts', 'discount_rate');
+        return $this->belongsToMany('App\Part', 'indexation_part')->withTimestamps()->withPivot('price_without_tax', 'price', 'serial_number', 'number_of_parts', 'discount_rate', 'part_description');
     }
     //when the indexation done by telephone
     public function printingMachine()
@@ -100,7 +100,7 @@ class Indexation extends Model
         foreach ($parts as $part) {
             $id                         = $part->id;
             $name                       = $part->name;
-            $descriptions               = $part->descriptions;
+            $descriptions               = $part->pivot->part_description;
             $serialNumber               = $part->pivot->serial_number;
             $partPriceWithoutTax        = $part->pivot->price_without_tax;
             $partPrice                  = $part->pivot->price;

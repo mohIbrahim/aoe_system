@@ -22,6 +22,7 @@ class CreateIndexationPartPivotTable extends Migration
             $table->string('serial_number')->nullable();
             $table->integer('number_of_parts')->nullable();
             $table->integer('discount_rate')->nullable();
+            $table->text('part_description')->nullable();
             $table->timestamps();
             
             $table->foreign('indexation_id')->references('id')->on('indexations')->onDelete('cascade');
