@@ -31844,7 +31844,7 @@ $(document).ready(function () {
 				"zeroRecords": "نأسف لم يتم العثور على شيء",
 				"infoFiltered": "(تمت تصفيته من إجمالي _MAX_ من السجلات)"
 			},
-			dom: 'Bfrtip',
+			dom: 'iBfrtip',
 			buttons: ['excel', 'print']
 
 		});

@@ -16,7 +16,7 @@
 				<legend> البحث عن العقود </legend>
 
 				<div class="form-group">
-					<label for=""> البحث بـ كود، حالة، نوع العقد أو اسم العميل. </label>
+					<label for=""> البحث بـ كود العقد، نوع العقد، تاريخ بداية العقد، تاريخ نهاية العقد، حالة العقد، نظام السداد، اسم العميل، سعر التعاقد بدون الضريبة . </label>
 					<input type="text" class="form-control" id="contract_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
