@@ -63,6 +63,8 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('create_contract_with_printing_machine_id/{pm_id}', 'ContractController@createWithPrintingMachineId')->name('create_contract_with_printing_machine_id');
     Route::get('contracts_invoices_are_due_in_this_month_report', 'ContractController@contractsInvoicesAreDueInThisMonthReport')->name('contracts_invoices_are_due_in_this_month_report');
     Route::get('contracts_expire_within_next_3_monthes_report', 'ContractController@contractsThatWillExpireWithinTheNextThreeMonthesReport')->name('contracts_expire_within_next_3_monthes_report');
+    Route::get('contracts_released_or_end_during_a_certain_period_report', 'ContractController@getContractsReleasedOrEndDuringACertainPeriodReportView')->name('contracts_released_or_end_during_a_certain_period_report');
+    Route::get('contracts_released_or_end_during_a_certain_period_search/{from}/{to}/{isEndDate}', 'ContractController@getContractsReleasedOrEndDuringACertainPeriodReportSearch')->name('contracts_released_or_end_during_a_certain_period_search');
 
 //Invoices
     Route::resource('invoices', 'InvoiceController');

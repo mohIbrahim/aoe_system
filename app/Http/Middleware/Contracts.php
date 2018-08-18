@@ -85,6 +85,10 @@ class Contracts
                 $response = $next($request);
             } else if ($request->route()->getName() == 'contracts_invoices_are_due_in_this_month_report' && in_array('view_contracts_invoices_are_due_in_this_month_report', $permissions)) {
                 $response = $next($request);
+            } else if ($request->route()->getName() == 'contracts_released_or_end_during_a_certain_period_report' && in_array('view_contracts_released_or_end_during_a_certain_period_report', $permissions)) {
+                $response = $next($request);
+            } else if ($request->route()->getName() == 'contracts_released_or_end_during_a_certain_period_search' && in_array('view_contracts_released_or_end_during_a_certain_period_report', $permissions)) {
+                $response = $next($request);
             } else {
                 abort(403);
             }

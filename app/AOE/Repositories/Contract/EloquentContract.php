@@ -227,4 +227,11 @@ class EloquentContract implements ContractInterface
         }
         return false;
     }
+
+    public function getContractsReleasedOrEndDuringACertainPeriodReportSearch($from, $to, $isEndDate)
+    {
+        $startOrEnd = ($isEndDate == "true")?('end'):('start');
+        $results = Contract::with('printingMachines.customer')->whereBetween($startOrEnd, [$from, $to])->get();
+        return $results;
+    }
 }

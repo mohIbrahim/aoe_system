@@ -23,10 +23,17 @@
 							<a href="{{ action('ContractController@contractsThatWillExpireWithinTheNextThreeMonthesReport') }}">تقرير عن العقود التي سوف تنتهي خلال الثلاث شهور القادمة</a>
 						</li>
 					@endif
-					<li>-</li>
 					@if(in_array('view_contracts_invoices_are_due_in_this_month_report', $permissions))
+						<li>---</li>
 						<li>
 							<a href="{{ action('ContractController@contractsInvoicesAreDueInThisMonthReport') }}"> تقرير عن فواتير العقود واجبة التحصيل لهذا الشهر 
+							</a>
+						</li>
+					@endif
+					@if(in_array('view_contracts_released_or_end_during_a_certain_period_report', $permissions))
+						<li>---</li>
+						<li>
+							<a href="{{ action('ContractController@getContractsReleasedOrEndDuringACertainPeriodReportView') }}"> تقرير عن العقود الصادرة أو المنتهية خلال فترة معينة 
 							</a>
 						</li>
 					@endif

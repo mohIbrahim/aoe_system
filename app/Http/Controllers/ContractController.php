@@ -182,4 +182,14 @@ class ContractController extends Controller
         $contracts = $this->contract->getContractsThatWillExpireWithinTheNextThreeMonthes();
         return view('contracts.reports.contracts_expire_within_next_3_monthes', compact('contracts'));
     }
+
+    public function getContractsReleasedOrEndDuringACertainPeriodReportView()
+    {
+        return view('contracts.reports.contracts_released_or_end_during_a_certain_period_report');
+    }
+
+    public function getContractsReleasedOrEndDuringACertainPeriodReportSearch($form, $to, $isEndDate)
+    {
+        return $this->contract->getContractsReleasedOrEndDuringACertainPeriodReportSearch($form, $to, $isEndDate);
+    }
 }

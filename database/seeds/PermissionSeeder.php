@@ -360,6 +360,11 @@ class PermissionSeeder extends Seeder
             'name'      =>'view_contracts_invoices_are_due_in_this_month_report',
             'created_at'=>Carbon::now(),
             ]);
+        DB::table('permissions')->insert([
+            'title'      =>'contracts',
+            'name'      =>'view_contracts_released_or_end_during_a_certain_period_report',
+            'created_at'=>Carbon::now(),
+            ]);
     }
 
     private function invoices()

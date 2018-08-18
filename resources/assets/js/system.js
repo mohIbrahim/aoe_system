@@ -71,7 +71,6 @@ $(document).ready(function() {
 	});
 // bootstrap-select telecom in cutomers form
 
-
 // Start add another upload file fields pdf for indexation, visits, references and contracts
 $(document).ready(function() {
 	var upload_files_pdf_max_fields      = 10; //maximum input boxes allowed
@@ -128,6 +127,12 @@ $(document).ready(function() {
 });
 // End add another upload file fields img for indexation, visits, references and contracts
 
+/**
+ * /////////////////////
+ * ///// CONTRACTS /////
+ * /////////////////////
+ */
+
 // Start Ajax for Contracts index view
 $(document).ready(function(){
 	$('#contract-search-button').on('click', function(){
@@ -162,41 +167,6 @@ $(document).ready(function(){
 	});
 });
 // End Ajax for Contracts index view
-
-// Start Ajax for Customers index view
-$(document).ready(function(){
-	$('#customers-search-button').on('click', function(){
-		var keyword = $('#customer_search').val();
-		if (keyword) {
-			$.ajax({
-				type: "GET",
-				url:"/customers_search/"+keyword,
-				dataType: "json",
-				success: function(results){
-					$("#my-table-body").fadeOut();
-					standardTable.clear();
-					$.each(results, function(index, customer) {
-						standardTable.row.add([
-												(index+1),
-												"<a href='/customers/"+customer.id+"'>"+customer.name+"</a>",
-												customer.code,
-												customer.administration,
-												customer.type,
-												customer.governorate,
-												customer.area,
-												( (customer)?((customer.telecoms[0])?(customer.telecoms[0].number):('')):('') ),
-											]);
-					});
-					standardTable.draw();
-					$("#my-table-body").fadeIn();
-				}
-
-			});
-		}
-
-	});
-});
-// End Ajax for Customers index view
 
 //Start Ajax for contract _form printing machine search
 $(document).ready(function () {
@@ -261,6 +231,108 @@ $(document).ready(function(){
 });
 //End contract add items and descriptions _form view
 
+// Start Contract released or end during a certain period report.
+$(function(){
+	$("#contract-released-or-end-during-a-certain-period-search-btn").on("click", function(){
+		var start = $("#datepicker").val();
+		start = start.replace(/\//g,"-");
+		var end = $("#datepicker2").val();
+		end = end.replace(/\//g,"-");
+		var isEndDate = $("#is-end-date").prop('checked');
+		if (start != "" && end != "" ) {
+			$("#contract-released-or-end-during-a-certain-period-error-validator").css("display", "none");
+			$.ajax({
+				type: "GET",
+				url: "/contracts_released_or_end_during_a_certain_period_search/"+start+"/"+end+"/"+isEndDate,
+				dataType: "json",
+				beforeSend: function(){
+					$("#contract-released-or-end-during-a-certain-period-loading-message").append("<h4 style='color: #1877a3'>جاري البحث... </h4>");
+				},
+				success: function(results){
+					$("#contract-released-or-end-during-a-certain-period-table-body").fadeOut();
+					standardTable.clear();
+					$.each(results, function(index, contract){
+						standardTable.row.add([
+												(index+1),
+												"<a href='/contracts/"+contract.id+"'>"+contract.code+"</a>",
+												contract.type,
+												contract.start,
+												contract.end,
+												contract.status,
+												contract.payment_system,
+												((contract.printing_machines)
+												?((contract.printing_machines[0])
+													?((contract.printing_machines[0].customer)
+														?(contract.printing_machines[0].customer.name)
+														:(''))
+													:(''))
+												:('')),
+												contract.price,
+												
+											]);
+					});
+					$("#contract-released-or-end-during-a-certain-period-loading-message").empty();
+					standardTable.draw();
+					$("#contract-released-or-end-during-a-certain-period-table-body").fadeIn();
+				},
+				error: function(){
+					$("#contract-released-or-end-during-a-certain-period-loading-message").append("<h4>خطاء في الإتصال الرجاء إعادة تحميل الصفحة</h4>");
+				},
+			});
+		}else {
+			$("#contract-released-or-end-during-a-certain-period-error-validator").css("display", "block");
+		}
+	});
+});
+// End Contract released or end during a certain period report.
+
+/**
+ * /////////////////////
+ * ///// CUSTOMERS /////
+ * /////////////////////
+ */
+
+// Start Ajax for Customers index view
+$(document).ready(function(){
+	$('#customers-search-button').on('click', function(){
+		var keyword = $('#customer_search').val();
+		if (keyword) {
+			$.ajax({
+				type: "GET",
+				url:"/customers_search/"+keyword,
+				dataType: "json",
+				success: function(results){
+					$("#my-table-body").fadeOut();
+					standardTable.clear();
+					$.each(results, function(index, customer) {
+						standardTable.row.add([
+												(index+1),
+												"<a href='/customers/"+customer.id+"'>"+customer.name+"</a>",
+												customer.code,
+												customer.administration,
+												customer.type,
+												customer.governorate,
+												customer.area,
+												( (customer)?((customer.telecoms[0])?(customer.telecoms[0].number):('')):('') ),
+											]);
+					});
+					standardTable.draw();
+					$("#my-table-body").fadeIn();
+				}
+
+			});
+		}
+
+	});
+});
+// End Ajax for Customers index view
+
+/**
+ * /////////////////////
+ * ///// EMPLOYEES /////
+ * /////////////////////
+ */
+
 // Start Ajax for Employees index view
 $(document).ready(function(){
 	$('#employees-search-button').on('click', function(){
@@ -294,6 +366,12 @@ $(document).ready(function(){
 });
 // End Ajax for Employees index view
 
+/**
+ * //////////////////////////////////////////
+ * ///// FOLLOW UP CARDS SPECIAL REPORT /////
+ * //////////////////////////////////////////
+ */
+
 // Start Ajax for Follow Up Card Special Report index view
 $(document).ready(function(){
 	$('#follow-up-card-special-report-search-button').on('click', function(){
@@ -326,6 +404,12 @@ $(document).ready(function(){
 	});
 });
 // End Ajax for Follow Up Card Special Report index view
+
+/**
+ * ///////////////////////////
+ * ///// FOLLOW UP CARDS /////
+ * ///////////////////////////
+ */
 
 // Start Ajax for Follow Up Card _form view
 $(document).ready(function(){
@@ -433,6 +517,11 @@ $(function(){
 });
 // End Follow up Card visits not done on time report view
 
+/**
+ * ///////////////////////
+ * ///// INDEXATIONS /////
+ * ///////////////////////
+ */
 // Start Ajax for Indexation index view
 $(document).ready(function(){
 	$('#indexatoin-search-button').on('click', function(){
@@ -518,6 +607,11 @@ $(function(){
 });
 // End Indexations released in specific period report
 
+/**
+ * ////////////////////////////////
+ * ///// INSTALLATION RECORDS /////
+ * ////////////////////////////////
+ */
 //Start Ajax for Installation Records _form printing machine search
 $(document).ready(function(){
 	$("#installation-record-printing-machine-search-btn").on("click", function(){		
@@ -565,6 +659,11 @@ $(document).ready(function(){
 });
 //End installation record add items and descriptions
 
+/**
+ * ////////////////////
+ * ///// INVOICES /////
+ * ////////////////////
+ */
 // Start Ajax for Invoices _form view
 $("#invoice-form-search-button").on('click', function(){
 	var keyword = $('#invoice-form-search-input').val();
@@ -801,6 +900,11 @@ $(function(){
 });
 // End Invoices released in specific period report
 
+/**
+ * ////////////////////////////////
+ * ///// PARTS SERIAL NUMBERS /////
+ * ////////////////////////////////
+ */
 // Start Ajax for Part Serial Number index view
 $(document).ready(function(){
 	$('#part-serial-number-search-button').on('click', function(){
@@ -835,6 +939,11 @@ $(document).ready(function(){
 });
 // End Ajax for Part Serial Number index view
 
+/**
+ * /////////////////
+ * ///// PARTS /////
+ * /////////////////
+ */
 // Start Ajax for Parts index view
 $(document).ready(function(){
 	$('#parts-search-button').on('click', function(){
@@ -909,6 +1018,12 @@ $(document).ready(function(){
 	});
 });
 // End Ajax for printing machines index view
+
+/**
+ * ///////////////////////
+ * ///// REFERENCES //////
+ * ///////////////////////
+ */
 
 // Start Ajax for References index view
 $(document).ready(function(){
@@ -995,6 +1110,11 @@ $(document).ready(function(){
 });
 //End References add malunctions and works were done on it _form view
 
+/**
+ * //////////////////
+ * ///// VISITS /////
+ * //////////////////
+ */
 // Start Ajax for Visits index view
 $(document).ready(function(){
 	$('#visits-index-search-button').on('click', function(){
@@ -1073,6 +1193,12 @@ $(function(){
 	});
 });
 // Start visits done on specific period of time report view
+
+/**
+ * /////////////////////////
+ * ///// MISCELLANEOUS /////
+ * /////////////////////////
+ */
 
 //Start format date function
 function formatDate(date) {
