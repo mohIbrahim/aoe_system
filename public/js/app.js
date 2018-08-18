@@ -31830,19 +31830,20 @@ $(document).ready(function () {
 		});
 		// DataTable
 		var theTable = $('.standard-datatable').DataTable({
-			"language": {
-				"search": "بحث: ",
-				"info": "الصفحات المعروضة _PAGE_ من _PAGES_",
-				"infoEmpty": "لا توجد سجلات متاحة",
-				"zeroRecords": "نأسف لم يتم العثور على شيء"
-			},
 			"searching": true,
-			"lengthChange": false,
+			"lengthChange": true,
 			// "scrollY": "1000px",
 			// "scrollCollapse": true,
 			"paging": false,
 			"ordering": true,
-			"info": false,
+			"info": true,
+			"language": {
+				"search": "بحث: ",
+				"info": "المعروض _START_ إلى _END_ ",
+				"infoEmpty": "لا توجد سجلات متاحة",
+				"zeroRecords": "نأسف لم يتم العثور على شيء",
+				"infoFiltered": "(تمت تصفيته من إجمالي _MAX_ من السجلات)"
+			},
 			dom: 'Bfrtip',
 			buttons: ['excel', 'print']
 

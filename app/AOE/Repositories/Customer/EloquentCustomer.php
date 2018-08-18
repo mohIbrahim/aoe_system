@@ -92,7 +92,14 @@ class EloquentCustomer implements CustomerInterface
     public function search($keyword)
     {
         $results = $this->customer->with('telecoms')->where('name', 'like', "%$keyword%")
-                                    ->orWhere('code', 'like', "%$keyword%")
+									->orWhere('code', 'like', "%$keyword%")
+									->orWhere('administration', 'like', "%$keyword%")
+									->orWhere('type', 'like', "%$keyword%")
+									->orWhere('governorate', 'like', "%$keyword%")
+									->orWhere('area', 'like', "%$keyword%")
+									->orWhereHas('telecoms', function($query) use($keyword){
+										$query->where('number', 'like', "%$keyword%");
+									})
                                     ->get();
         return $results;
 	}

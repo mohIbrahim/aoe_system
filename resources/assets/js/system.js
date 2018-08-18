@@ -10,20 +10,21 @@ $(document).ready(function() {
 		} );		
 		// DataTable
 		var theTable = $('.standard-datatable').DataTable(
-			{
+			{	
+				"searching": true,
+				"lengthChange": true,
+				// "scrollY": "1000px",
+				// "scrollCollapse": true,
+				"paging": false,
+				"ordering": true,
+				"info": true,
 				"language": {
 					"search": "بحث: ",
-					"info": "الصفحات المعروضة _PAGE_ من _PAGES_",
+					"info": "المعروض _START_ إلى _END_ ",
 					"infoEmpty": "لا توجد سجلات متاحة",
 					"zeroRecords": "نأسف لم يتم العثور على شيء",
-				  },
-				"searching": true,
-				"lengthChange": false,
-				// "scrollY": "1000px",
-  				// "scrollCollapse": true,
-				"paging": false,
-				"ordering":  true,
-				"info": false,
+					"infoFiltered": "(تمت تصفيته من إجمالي _MAX_ من السجلات)",
+					},
 				dom: 'Bfrtip',
 				buttons: [
 					'excel', 'print'

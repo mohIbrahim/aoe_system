@@ -12,7 +12,7 @@
 		    <div class="panel-heading ">
 				<legend> البحث عن العملاء </legend>
 				<div class="form-group">
-					<label for=""> البحث بـ الاسم وكود العميل. </label>
+					<label for=""> يتم البحث بـ الاسم ،الكود، الإدارة، النوع، المحافظة، المنطقة، رقم التليفون.</label>
 					<input type="text" class="form-control" id="customer_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 				<button type="button" id="customers-search-button" class="btn btn-primary"> بحث </button>
