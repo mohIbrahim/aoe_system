@@ -77,8 +77,10 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice = $this->invoice->getById($id);
-        $statements = $this->invoice->preparationInvoiceItemsForShowView($invoice);
-        return view('invoices.show', compact('invoice', 'statements'));
+        $results = $this->invoice->preparationInvoiceItemsForShowView($invoice);
+        $statements = $results[0];
+        $partsTotalPrice = $results[1];
+        return view('invoices.show', compact('invoice', 'statements', 'partsTotalPrice'));
     }
 
     /**

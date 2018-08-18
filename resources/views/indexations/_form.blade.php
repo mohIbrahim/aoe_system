@@ -211,7 +211,7 @@ $(function(){
 
 
                                 $('.delete-part-button').on('click', function(){
-                                    $(this).parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
+                                    $(this).parent().parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
                                 });
                             });
 
@@ -222,7 +222,7 @@ $(function(){
             }
         });
         $('.delete-part-button').on('click', function(){
-            $(this).parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
+            $(this).parent().parent().parent().fadeOut('500', 'linear', function(){$(this).remove()});
         });
 
 

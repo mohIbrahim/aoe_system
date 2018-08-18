@@ -85,11 +85,12 @@ class EloquentInvoice implements InvoiceInterface
     {
         $pritingMachinesSerial  = $request->printing_machines_serial;
         $partsIds               = ($request->parts_ids)?($request->parts_ids):([]);
-        $partsPricesWithoutTax      = $request->parts_prices_without_tax;
+        $partsPricesWithoutTax  = $request->parts_prices_without_tax;
         $partsPrices            = $request->parts_prices;
         $partsSerial            = $request->parts_serial_numbers;
         $partcount              = $request->parts_count;
         $discountRate           = $request->discount_rate;
+        $partDescription        = $request->parts_descriptions;
         $pivotArray = [];
         for ($i=0; $i < count($partsIds); $i++) {
             $pivotArray[$partsIds[$i]] =    [
@@ -99,6 +100,7 @@ class EloquentInvoice implements InvoiceInterface
                                                 'part_serial_number'=>$partsSerial[$i],
                                                 'number_of_parts'=>$partcount[$i],
                                                 'discount_rate'=>$discountRate[$i],
+                                                'part_description'=>$partDescription[$i],
                                             ];
                                     
         }
@@ -109,6 +111,7 @@ class EloquentInvoice implements InvoiceInterface
     {
         $results = [];
         $type = $invoice->type; 
+        $partsTotalPrice = 0;
         if ($type == 'تعاقد') {
             $contract = $invoice->contract;
             $results[] =    [   'rowNumber'=>1,
@@ -123,36 +126,41 @@ class EloquentInvoice implements InvoiceInterface
             $parts = $invoice->indexation->parts->toArray();
             $indexationId = $invoice->indexation->id;
             foreach ($parts as $key=>$part) {
+                $partTotalPricePerRow = ($part['pivot']['number_of_parts']*$part['pivot']['price'])-((($part['pivot']['number_of_parts']*$part['pivot']['price'])*$part['pivot']['discount_rate'])/100);
+                $partsTotalPrice += $partTotalPricePerRow;
                 $results[] =    [   'rowNumber'=>$key+1,
                                     'itemId'=>$part['id'],
                                     'itemName'=>$part['name'],
-                                    'descriptions'=>$part['descriptions'],
+                                    'descriptions'=>$part['pivot']['part_description'],
                                     'itemCount'=>$part['pivot']['number_of_parts'],
                                     'itemPrice'=>$part['pivot']['price'],
-                                    'totalItemsPricePerRow'=>($part['pivot']['number_of_parts']*$part['pivot']['price'])-((($part['pivot']['number_of_parts']*$part['pivot']['price'])*$part['pivot']['discount_rate'])/100),
+                                    'totalItemsPricePerRow'=>$partTotalPricePerRow,
                                     'discount'=>$part['pivot']['discount_rate'],
                                     'indexationId'=>$indexationId,
                                     'partSerialNumber'=>$part['pivot']['serial_number'],
-                                    
+                                    'partsTotalPrice'=> $partsTotalPrice,
                                 ];
             }
         } else if ($type == 'بيع قطع') {
             $parts = $invoice->sellingParts->toArray();
             foreach ($parts as $key=>$part) {
+                $partTotalPricePerRow = ($part['pivot']['number_of_parts']*$part['pivot']['price'])-((($part['pivot']['number_of_parts']*$part['pivot']['price'])*$part['pivot']['discount_rate'])/100);
+                $partsTotalPrice += $partTotalPricePerRow;
                 $results[] =    [   'rowNumber'=>$key+1,
                                     'itemId'=>$part['id'],
                                     'itemName'=>$part['name'],
-                                    'descriptions'=>$part['descriptions'],
+                                    'descriptions'=>$part['pivot']['part_description'],
                                     'itemCount'=>$part['pivot']['number_of_parts'],
                                     'itemPrice'=>$part['pivot']['price'],
-                                    'totalItemsPricePerRow'=>($part['pivot']['number_of_parts']*$part['pivot']['price'])-((($part['pivot']['number_of_parts']*$part['pivot']['price'])*$part['pivot']['discount_rate'])/100),
+                                    'totalItemsPricePerRow'=>$partTotalPricePerRow,
                                     'discount'=>$part['pivot']['discount_rate'],
                                     'printingMachinesSerial'=>$part['pivot']['printing_machines_serial'],
                                     'partSerialNumber'=>$part['pivot']['part_serial_number'],
+                                    'partsTotalPrice'=> $partsTotalPrice,
                                 ];
             }
         }
-        return $results;
+        return [$results, $partsTotalPrice];
     }
 
     /**

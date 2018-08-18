@@ -68,7 +68,7 @@
                                                         <th> سعر الوحدة بالضريبة</th>
                                                         <th> الجملة بالضريبة </th>
                                                         @if($invoice->type == 'بيع قطع')
-                                                            <th> الارقم السلسة للآلات </th>
+                                                            <th> الارقم المسلسلة للآلة </th>
                                                         @endif
                                                     </tr>
                                                 </thead>
@@ -97,7 +97,7 @@
                                                                 @endif
                                                             </td>
                                                             @if($invoice->type == 'بيع قطع' || $invoice->type == 'مقايسة')
-                                                                <td style="white-space:pre-line">
+                                                                <td style="white-space:normal">
                                                                     {{$statement['descriptions']}}
                                                                 </td>
                                                             @endif
@@ -125,6 +125,14 @@
                                                             @endif
                                                         </tr>
                                                     @endforeach
+                                                            @if($invoice->type == 'بيع قطع' || $invoice->type == 'مقايسة')
+                                                                <th colspan="8">
+                                                                    <span class="pull-left"style="color:3d3d3d;border-top:1px solid #3d3d3d;padding:5px">
+                                                                        الإجمالــي: {{$partsTotalPrice}} جنية بالضريبة
+                                                                    </span>
+                                                                </th>
+                                                            @endif
+
                                                     <tr>
                                                     </tr>
                                                 </tbody>
