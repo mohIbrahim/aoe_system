@@ -55,13 +55,30 @@ class EloquentFollowUpCard implements FollowUpCardInterface
 
     public function search($keyword)
     {
-        $results = $this->followUpCard->with('printingMachine.customer', 'contract')->where('code', 'like', '%'.$keyword.'%')
-                        ->OrWhereHas('contract', function($query) use($keyword)
-                                                    {
-                                                        $query->where('code', 'like', '%'.$keyword.'%');
-                                                    }
-                        )
-                        ->get();
+        $results = $this->followUpCard->with('printingMachine.customer', 'printingMachine.assignedEmployees.user','contract')
+                                        ->where('code', 'like', '%'.$keyword.'%')
+                                        ->orWhere('old_code', 'like', '%'.$keyword.'%')
+                                        ->orWhereBetween('created_at', [$keyword.' 00:00:00', $keyword.' 23:59:59'])
+                                        ->orWhereHas('contract', function($query) use($keyword)
+                                            {
+                                                $query->where('code', 'like', '%'.$keyword.'%');
+                                            })
+                                        ->orWhereHas('printingMachine', function($query)use($keyword)
+                                            {
+                                                $query->where('serial_number', 'like', "%$keyword%")
+                                                        ->orWhereHas('customer', function($query)use($keyword)
+                                                                                    {
+                                                                                        $query->where('name', 'like', "%$keyword%");
+                                                                                    })
+                                                        ->orWhereHas('assignedEmployees', function($query)use($keyword)
+                                                                                            {
+                                                                                                $query->whereHas('user', function($query)use($keyword)
+                                                                                                                            {
+                                                                                                                                $query->where('name', 'like', "%$keyword%");
+                                                                                                                            });
+                                                                                            });
+                                            })
+                                        ->get();
         return $results;
     }
 

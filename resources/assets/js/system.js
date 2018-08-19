@@ -460,10 +460,18 @@ $(document).ready(function(){
 						standardTable.row.add([
 							(index+1),
 							"<a href='/follow_up_cards/"+follow_up_card.id+"'>"+follow_up_card.code+"</a>",
+							follow_up_card.old_code,
 							(follow_up_card.printing_machine !== null)?((follow_up_card.printing_machine.customer !== null)?(follow_up_card.printing_machine.customer.name):('')):(''),
 							(follow_up_card.contract)?("<a href='/contracts/"+follow_up_card.contract.id+"'>"+follow_up_card.contract.code+"</a>"):(''),
 							(follow_up_card.printing_machine !== null)?(follow_up_card.printing_machine.serial_number):(''),
-							(formatDate(follow_up_card.updated_at) || ''),
+							(follow_up_card.printing_machine)
+								?((follow_up_card.printing_machine.assigned_employees[0] )
+									?((follow_up_card.printing_machine.assigned_employees[0].user)
+										?(follow_up_card.printing_machine.assigned_employees[0].user.name)
+										:(''))
+									:(''))
+								:(''),
+							(formatDate(follow_up_card.created_at) || ''),
 						]);
 					});
 					standardTable.draw();
@@ -1212,9 +1220,9 @@ function formatDate(date) {
     ];
   
     var day = date.getDate();
-    var monthIndex = date.getMonth();
+    var monthIndex = date.getMonth()+1;
     var year = date.getFullYear();
-  
+	
     return day + '-' + monthIndex + '-' + year;
   }
 //End format date function

@@ -73,7 +73,7 @@
 									</td>
 
 									<td>
-										{{$followUpCard->created_at->format('d-m-Y')}}
+										{{$followUpCard->created_at->format('Y-m-d')}}
 									</td>
 								</tr>
 								@endforeach
