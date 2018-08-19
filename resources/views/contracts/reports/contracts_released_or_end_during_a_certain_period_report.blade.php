@@ -37,37 +37,39 @@
             </div>
             <div class="panel-body">
                     <div id="contract-released-or-end-during-a-certain-period-loading-message" class="text-center"></div>
-                    <table class="table table-hover standard-datatable">
-                        <thead>
-			  			    <tr>
-								<th>#</th>
-                                <th> كود العقد </th>
-			  				    <th> نوع العقد </th>
-			  				    <th> تاريخ بداية العقد </th>
-			  				    <th> تاريخ نهاية العقد </th>
-			  				    <th> حالة التعاقد </th>
-			  				    <th> نظام السداد </th>
-			  				    <th> اسم العميل </th>
-			  				    <th> سعر التعاقد بدون الضريبة </th>
-			  			    </tr>
-			  		    </thead>
-                        <tbody id="contract-released-or-end-during-a-certain-period-table-body">
-                        </tbody>
-                        <tfoot>
-			  			    <tr>
-								<th>#</th>
-                                <th> كود العقد </th>
-			  				    <th> نوع العقد </th>
-			  				    <th> تاريخ بداية العقد </th>
-			  				    <th> تاريخ نهاية العقد </th>
-			  				    <th> حالة التعاقد </th>
-			  				    <th> نظام السداد </th>
-			  				    <th> اسم العميل </th>
-			  				    <th> سعر التعاقد بدون الضريبة </th>
-			  			    </tr>
-			  		    </tfoot>
-                     </table>
-                
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover standard-datatable">
+                            <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th> كود العقد </th>
+                                      <th> نوع العقد </th>
+                                      <th> تاريخ بداية العقد </th>
+                                      <th> تاريخ نهاية العقد </th>
+                                      <th> حالة التعاقد </th>
+                                      <th> نظام السداد </th>
+                                      <th> اسم العميل </th>
+                                      <th> سعر التعاقد بدون الضريبة </th>
+                                  </tr>
+                              </thead>
+                            <tbody id="contract-released-or-end-during-a-certain-period-table-body">
+                            </tbody>
+                            <tfoot>
+                                  <tr>
+                                    <th>#</th>
+                                    <th> كود العقد </th>
+                                      <th> نوع العقد </th>
+                                      <th> تاريخ بداية العقد </th>
+                                      <th> تاريخ نهاية العقد </th>
+                                      <th> حالة التعاقد </th>
+                                      <th> نظام السداد </th>
+                                      <th> اسم العميل </th>
+                                      <th> سعر التعاقد بدون الضريبة </th>
+                                  </tr>
+                              </tfoot>
+                         </table>                        
+                    </div>
             </div>
           </div>
       </div>
