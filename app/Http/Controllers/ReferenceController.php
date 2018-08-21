@@ -8,6 +8,7 @@ use App\Employee;
 use App\PrintingMachine;
 use App\ProjectImages;
 use \App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
+use App\Reference;
 
 class ReferenceController extends Controller
 {
@@ -37,6 +38,7 @@ class ReferenceController extends Controller
     public function store(ReferenceRequest $request)
     {
         $reference = $this->reference->create($request->all());
+        $reference = $this->isReferenceClosed($reference);
 
         //Reference softcopies files
         $projectImage = new ProjectImages();
@@ -68,6 +70,7 @@ class ReferenceController extends Controller
     public function update(ReferenceRequest $request, $id)
     {
         $reference = $this->reference->update($id, $request->all());
+        $reference = $this->isReferenceClosed($reference);
 
         //Reference softcopies files
         $projectImage = new ProjectImages();
@@ -136,5 +139,14 @@ class ReferenceController extends Controller
     {
         $references = $this->reference->referencesDuringLastTwoWorkingDaysReport()->paginate(15);
         return view('references.reports.references_report_during_last_two_working_days', compact('references'));
+    }
+
+    public function isReferenceClosed(Reference $reference)
+    {
+        if($reference->status === 'مفتوحة') {
+            $reference->closing_date = null;
+            $reference->save();
+        }
+        return $reference;
     }
 }

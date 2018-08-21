@@ -51,6 +51,10 @@
 										<th> حالة الإشارة </th>
 										<td>{{$reference->status}}</td>
 									</tr>
+									<tr>
+										<th> تاريخ غلق الإشارة </th>
+										<td>{{$reference->closing_date}}</td>
+									</tr>
 								    <tr>
 									    <th> تاريخ الإستلام </th>
 									    <td>{{$reference->received_date}}</td>
