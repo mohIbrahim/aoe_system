@@ -6,7 +6,7 @@
 			<div class="panel-heading ">
 				<legend> البحث عن بطاقة متابعة </legend>
 				<div class="form-group">
-					<label for=""> البحث ب كود البطاقة وكود العقد. </label>
+					<label for=""> البحث ب كود البطاقة، رقم البطاقة الورقي، اسم العميل، كود العقد، الرقم المسلسل لآلة الطباعة، اسم الموظف المعين على الآلة، تاريخ الإنشاء. </label>
 					<input type="text" class="form-control" id="follow_up_cards_search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 				<button type="button" id="follow-up-card-search-button" class="btn btn-primary"> بحث </button>

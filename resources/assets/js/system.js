@@ -549,7 +549,21 @@ $(document).ready(function(){
 												(index+1),
 												"<a href='/indexations/"+indexation.id+"'>"+indexation.code+"</a>",
 												
-												((indexation.printing_machine)?((indexation.printing_machine.customer)?((indexation.printing_machine.customer)?("<a href='/customers/"+indexation.printing_machine.customer.id+"'>"+indexation.printing_machine.customer.name+"</a>"):('')):('')):((indexation.visit)?((indexation.visit.printing_machine)?((indexation.visit.printing_machine.customer)?(("<a href='/customers/"+indexation.visit.printing_machine.customer.id+"'>"+indexation.visit.printing_machine.customer.name+"</a>")):('')):('')):(''))),
+												((indexation.printing_machine)
+													?((indexation.printing_machine.customer)
+														?((indexation.printing_machine.customer)
+															?("<a href='/customers/"+indexation.printing_machine.customer.id+"'>"+indexation.printing_machine.customer.name+"</a>")
+															:(''))
+														:(''))
+													:((indexation.visit)?((indexation.visit.printing_machine)?((indexation.visit.printing_machine.customer)?(("<a href='/customers/"+indexation.visit.printing_machine.customer.id+"'>"+indexation.visit.printing_machine.customer.name+"</a>")):('')):('')):(''))),
+
+												(indexation.printing_machine)
+													?("<a href='/printing_machines/"+indexation.printing_machine.id+"' targe='_blank'>"+indexation.printing_machine.serial_number+"</a>")
+													:((indexation.visit)
+														?((indexation.visit.printing_machine)
+															?("<a href='/printing_machines/"+indexation.visit.printing_machine.id+"' targe='_blank'>"+indexation.visit.printing_machine.serial_number+"</a>")
+															:(''))
+														:('')),
 
 												indexation.the_date,
 												indexation.customer_approval,

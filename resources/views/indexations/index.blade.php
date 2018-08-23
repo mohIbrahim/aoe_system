@@ -34,6 +34,7 @@
 								<th>#</th>
                                 <th> كود المقايسة </th>
                                 <th> اسم العميل </th>
+                                <th> الرقم المسلسل للآلة </th>
                                 <th>  التاريخ  </th>
                                 <th> موافقة العميل </th>
                                 <th> موافقة مدير الأقسام الفنية </th>
@@ -71,6 +72,18 @@
 											@endif
 										</td>
                                         <td>
+											@if(isset($indexation->printingMachine))
+												<a href="{{ action('PrintingMachineController@show', ['id'=>$indexation->printingMachine->id]) }}" target="_blank">
+													{{$indexation->printingMachine->id}}
+												</a>
+											@elseif(isset($indexation->visit) &&
+													isset($indexation->visit->printingMachine))
+												<a href="{{ action('PrintingMachineController@show', ['id'=>$indexation->visit->printingMachine->id]) }}" target="_blank">
+													{{$indexation->visit->printingMachine->serial_number}}
+												</a>
+											@endif
+                                        </td>
+                                        <td>
                                             {{$indexation->the_date}}
                                         </td>
                                         <td>
@@ -102,8 +115,9 @@
 						<tfoot>
 			  			    <tr>
 								<th>#</th>
-                                <th> اسم العميل </th>
                                 <th> كود المقايسة </th>
+                                <th> اسم العميل </th>
+                                <th> الرقم المسلسل للآلة </th>
                                 <th>  التاريخ  </th>
                                 <th> موافقة العميل </th>
                                 <th> موافقة مدير الأقسام الفنية </th>
@@ -111,7 +125,7 @@
                                 <th> النوع </th>
                                 <th> رقم الزيارة </th>
                                 <th> قراءة العداد </th>
-								<th> إجمالي السعر </th>
+                                <th> إجمالي السعر بالضريبة</th>
 			  			    </tr>
 			  		    </tfoot>
 			  	     </table>

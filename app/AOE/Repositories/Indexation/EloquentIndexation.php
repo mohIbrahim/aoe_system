@@ -55,11 +55,26 @@ class EloquentIndexation implements IndexationInterface
 
     public function search($keyword)
     {
-        $results = $this->indexation->with('visit.printingMachine.customer', 'printingMachine.customer')->where('code', 'like', '%'.$keyword.'%')
+        $results = $this->indexation->with('visit.printingMachine.customer', 'printingMachine.customer')
+                                    ->where('code', 'like', '%'.$keyword.'%')
                                     ->orWhere('the_date', 'like', '%'.$keyword.'%')
                                     ->orWhere('customer_approval', 'like', '%'.$keyword.'%')
                                     ->orWhere('technical_manager_approval', 'like', '%'.$keyword.'%')
                                     ->orWhere('warehouse_approval', 'like', '%'.$keyword.'%')
+                                    ->orWhere('type', 'like', '%'.$keyword.'%')
+                                    ->orWhereHas('printingMachine', function($query) use($keyword){
+                                        $query->where('serial_number', 'like', "%$keyword%")
+                                            ->orWhereHas('customer', function($query) use($keyword){
+                                            $query->where('name', 'like', '%'.$keyword.'%');
+                                        });
+                                    })
+                                    ->orWhereHas('visit', function($query) use($keyword){
+                                        $query->where('id', $keyword)
+                                            ->orWhereHas('printingMachine', function($query) use($keyword){
+                                                $query->where('serial_number', 'like', "%$keyword%");
+                                            });
+                                    })
+                                    
                                     ->get();
         
         foreach($results as $indexation) {

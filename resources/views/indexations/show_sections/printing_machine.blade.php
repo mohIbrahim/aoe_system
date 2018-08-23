@@ -44,16 +44,16 @@
                 @elseif ($indexation->type == 'زيارة')
                     <tr>
                         <td>
+                            <a href="{{action('PrintingMachineController@show', ['id'=>$indexation->visit->printingMachine->id])}}" target="_blank">
+                                {{$indexation->visit->printingMachine->serial_number}}
+                            </a>
+                        </td>
+                        <td>
                             {{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?$indexation->visit->printingMachine->model_prefix:''):'')}} -
                             {{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?$indexation->visit->printingMachine->model_suffix:''):'')}}
                         </td>
                         <td>
                             {{(isset($indexation->visit)?(isset($indexation->visit->printingMachine)?$indexation->visit->printingMachine->code:''):'')}}
-                        </td>
-                        <td>
-                            <a href="{{action('PrintingMachineController@show', ['id'=>$indexation->visit->printingMachine->id])}}" target="_blank">
-                                {{$indexation->visit->printingMachine->serial_number}}
-                            </a>
                         </td>
                         <td>
                             @if(isset($indexation) &&
