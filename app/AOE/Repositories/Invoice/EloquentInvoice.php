@@ -57,11 +57,21 @@ class EloquentInvoice implements InvoiceInterface
     {
         $results = $this->invoice->with('customer', 'employeeResponisableForThisInvoice.user')->where('number', 'like', '%'.$keyword.'%')
                         ->orWhere('type', 'like', '%'.$keyword.'%')
+                        ->orWhere('issuer', $keyword)
+                        ->orWhere('order_number', 'like', '%'.$keyword.'%')
+                        ->orWhere('delivery_permission_number', 'like', '%'.$keyword.'%')
                         ->orWhere('finance_check_out', 'like', '%'.$keyword.'%')
-                        ->orWhere('emp_id_reponsible_for_invoice', 'like', '%'.$keyword.'%')
+                        ->orWhere('finance_check_out', 'like', '%'.$keyword.'%')
+                        ->orWhere('total', 'like', '%'.$keyword.'%')
                         ->orWhere('release_date', 'like', '%'.$keyword.'%')
+                        ->orWhere('collect_date', 'like', '%'.$keyword.'%')
                         ->orWhereHas('customer', function($query) use($keyword){
                             $query->where('name', 'like', '%'.$keyword.'%');
+                        })
+                        ->orWhereHas('employeeResponisableForThisInvoice', function($query) use($keyword){
+                            $query->whereHas('user', function($query) use($keyword){
+                                $query->where('name', 'like', "%$keyword%");
+                            });
                         })
                         ->get();
         return $results;
