@@ -65,6 +65,7 @@
                                                             <th> الرقم المسلسل للقطعة </th>
                                                         @endif
                                                         <th> نسبة الخصم على القطعة الوحدة </th>
+                                                        <th> سعر الوحدة بدون الضريبة</th>
                                                         <th> سعر الوحدة بالضريبة</th>
                                                         <th> الجملة بالضريبة </th>
                                                         @if($invoice->type == 'بيع قطع')
@@ -113,6 +114,9 @@
                                                                 {{$statement['discount']}} %
                                                             </td>
                                                             <td>
+                                                                {{$statement['itemPriceWithoutTax']}} جنية
+                                                            </td>
+                                                            <td>
                                                                 {{$statement['itemPrice']}} جنية
                                                             </td>
                                                             <td>
@@ -126,7 +130,7 @@
                                                         </tr>
                                                     @endforeach
                                                             @if($invoice->type == 'بيع قطع' || $invoice->type == 'مقايسة')
-                                                                <th colspan="8">
+                                                                <th colspan="9">
                                                                     <span class="pull-left"style="color:3d3d3d;border-top:1px solid #3d3d3d;padding:5px">
                                                                         الإجمالــي: {{$partsTotalPrice}} جنية بالضريبة
                                                                     </span>

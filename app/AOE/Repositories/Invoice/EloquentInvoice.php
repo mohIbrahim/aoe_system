@@ -128,8 +128,9 @@ class EloquentInvoice implements InvoiceInterface
                                 'itemId'=>$contract->id,
                                 'itemName'=>'عقد '.$contract->type.' رقم: '.$contract->code,
                                 'itemCount'=>1,
-                                'itemPrice'=>$contract->price,
-                                'totalItemsPricePerRow'=>$contract->price,
+                                'itemPriceWithoutTax'=>$contract->price,
+                                'itemPrice'=>$contract->total_price,
+                                'totalItemsPricePerRow'=>$contract->total_price,
                                 'discount'=>0,
                             ];
         } else if ($type == 'مقايسة') {
@@ -144,6 +145,7 @@ class EloquentInvoice implements InvoiceInterface
                                     'descriptions'=>$part['pivot']['part_description'],
                                     'itemCount'=>$part['pivot']['number_of_parts'],
                                     'itemPrice'=>$part['pivot']['price'],
+                                    'itemPriceWithoutTax'=>$part['pivot']['price_without_tax'],
                                     'totalItemsPricePerRow'=>$partTotalPricePerRow,
                                     'discount'=>$part['pivot']['discount_rate'],
                                     'indexationId'=>$indexationId,
@@ -162,6 +164,7 @@ class EloquentInvoice implements InvoiceInterface
                                     'descriptions'=>$part['pivot']['part_description'],
                                     'itemCount'=>$part['pivot']['number_of_parts'],
                                     'itemPrice'=>$part['pivot']['price'],
+                                    'itemPriceWithoutTax'=>$part['pivot']['price_without_tax'],
                                     'totalItemsPricePerRow'=>$partTotalPricePerRow,
                                     'discount'=>$part['pivot']['discount_rate'],
                                     'printingMachinesSerial'=>$part['pivot']['printing_machines_serial'],
