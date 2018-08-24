@@ -64,7 +64,16 @@ class EloquentPartSerialNumber implements PartSerialNumberInterface
 
     public function search($keyword)
     {
-        $results = $this->partSerialNumber->with('part')->where('serial_number', 'like', '%'.$keyword.'%')
+        $results = $this->partSerialNumber->with('part')
+                                            ->where('serial_number', 'like', '%'.$keyword.'%')
+                                            ->orWhere('code', 'like', '%'.$keyword.'%')
+                                            ->orWhere('availability', 'like', '%'.$keyword.'%')
+                                            ->orWhere('status', 'like', '%'.$keyword.'%')
+                                            ->orWhere('date_of_entry', 'like', '%'.$keyword.'%')
+                                            ->orWhere('date_of_departure', 'like', '%'.$keyword.'%')
+                                            ->orWhereHas('part', function($query) use($keyword){
+                                                $query->where('name', 'like', "%$keyword");
+                                            })
                                             ->get();
         return $results;
 
