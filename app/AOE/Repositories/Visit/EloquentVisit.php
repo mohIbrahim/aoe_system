@@ -67,7 +67,8 @@ class EloquentVisit implements VisitInterface
 
     public function search($keyword)
     {
-        $results = $this->visit->with('printingMachine', 'theEmployeeWhoMadeTheVisit.user')->where('visit_date', 'like', '%'.$keyword.'%')
+        $results = $this->visit->with('printingMachine', 'theEmployeeWhoMadeTheVisit.user')
+                        ->whereBetween('visit_date', [$keyword.' 00:00:00', $keyword.' 23:59:59'])
                         ->orWhere('id', 'like', '%'.$keyword.'%')
                         ->orWhere('type', 'like', '%'.$keyword.'%')
                         ->orWhereHas('printingMachine', function($query)use($keyword){
