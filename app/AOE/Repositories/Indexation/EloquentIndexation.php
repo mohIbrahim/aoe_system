@@ -57,7 +57,7 @@ class EloquentIndexation implements IndexationInterface
     {
         $results = $this->indexation->with('visit.printingMachine.customer', 'printingMachine.customer')
                                     ->where('code', 'like', '%'.$keyword.'%')
-                                    ->orWhere('the_date', 'like', '%'.$keyword.'%')
+                                    ->orWhereBetween('the_date', [$keyword.' 00:00:00', $keyword.' 23:59:59'])
                                     ->orWhere('customer_approval', 'like', '%'.$keyword.'%')
                                     ->orWhere('technical_manager_approval', 'like', '%'.$keyword.'%')
                                     ->orWhere('warehouse_approval', 'like', '%'.$keyword.'%')
