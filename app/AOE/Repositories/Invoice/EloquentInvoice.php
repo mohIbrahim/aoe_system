@@ -63,7 +63,7 @@ class EloquentInvoice implements InvoiceInterface
                         ->orWhere('finance_check_out', 'like', '%'.$keyword.'%')
                         ->orWhere('finance_check_out', 'like', '%'.$keyword.'%')
                         ->orWhere('total', 'like', '%'.$keyword.'%')
-                        ->orWhere('release_date', 'like', '%'.$keyword.'%')
+                        ->whereBetween('release_date', [$keyword.' 00:00:00', $keyword.' 23:59:59'])
                         ->orWhere('collect_date', 'like', '%'.$keyword.'%')
                         ->orWhereHas('customer', function($query) use($keyword){
                             $query->where('name', 'like', '%'.$keyword.'%');
