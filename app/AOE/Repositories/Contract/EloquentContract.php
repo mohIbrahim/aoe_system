@@ -66,8 +66,8 @@ class EloquentContract implements ContractInterface
     {
         $results = $this->contract->with('printingMachines.customer')->where('code', 'like', '%'.$keyword.'%')
                         ->orWhere('type', 'like', '%'.$keyword.'%')
-                        ->orWhere('start', $keyword)
-                        ->orWhere('end', $keyword)
+                        ->orWhereBetween('start', [$keyword.' 00:00:00', $keyword.' 23:59:59'])
+                        ->orWhereBetween('end', [$keyword.' 00:00:00', $keyword.' 23:59:59'])
                         ->orWhere('status', 'like', '%'.$keyword.'%')
                         ->orWhere('payment_system', 'like', '%'.$keyword.'%')
                         ->orWhere('price', 'like', '%'.$keyword.'%')
