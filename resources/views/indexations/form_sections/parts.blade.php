@@ -69,23 +69,23 @@
                                         </td>
                                         <td>
                                             <div class='input-group'>
-                                                <input type='number' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value="{{old('parts_count')[$i]}}">
+                                                <input type='number' step='0.01' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value="{{old('parts_count')[$i]}}">
                                                 <input type='hidden' class='form-control' name='parts_ids[]' value="{{old('parts_ids')[$i]}}">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <input type='number' class='form-control' placeholder='ادخل سعر القطعة بدون الضريبة' name='parts_prices_without_tax[]' value="{{old('parts_prices_without_tax')[$i]}}">
+                                                <input type='number' step='0.01' class='form-control' placeholder='ادخل سعر القطعة بدون الضريبة' name='parts_prices_without_tax[]' value="{{old('parts_prices_without_tax')[$i]}}">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <input type='number' class='form-control' placeholder='ادخل سعر القطعة بالضريبة' name='parts_prices[]' value="{{old('parts_prices')[$i]}}">
+                                                <input type='number' step='0.01' class='form-control' placeholder='ادخل سعر القطعة بالضريبة' name='parts_prices[]' value="{{old('parts_prices')[$i]}}">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <input type='number' class='form-control' name='discount_rate[]' value="{{old('discount_rate')[$i]}}" placeholder='إدخل نسبة الخصم إن وجدت'>
+                                                <input type='number' step='0.01' class='form-control' name='discount_rate[]' value="{{old('discount_rate')[$i]}}" placeholder='إدخل نسبة الخصم إن وجدت'>
                                             </div>
                                         </td>
                                         <td>
@@ -115,23 +115,23 @@
                                         </td>
                                         <td>
                                             <div class='input-group'>
-                                                <input type='number' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value="{{$part->pivot->number_of_parts or 1}}">
+                                                <input type='number' step='0.01' class='form-control' placeholder=' ادخل عدد القطع ' name='parts_count[]' value="{{$part->pivot->number_of_parts or 1}}">
                                                 <input type='hidden' class='form-control' name='parts_ids[]' value="{{$part->id or ''}}">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <input type='number' class='form-control' placeholder='ادخل سعر القطعة بدون الضريبة' name='parts_prices_without_tax[]' value="{{$part->pivot->price_without_tax or ''}}">
+                                                <input type='number' step='0.01' class='form-control' placeholder='ادخل سعر القطعة بدون الضريبة' name='parts_prices_without_tax[]' value="{{$part->pivot->price_without_tax or ''}}">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <input type='number' class='form-control' placeholder='ادخل سعر القطعة بالضريبة' name='parts_prices[]' value="{{$part->pivot->price or ''}}">
+                                                <input type='number' step='0.01' class='form-control' placeholder='ادخل سعر القطعة بالضريبة' name='parts_prices[]' value="{{$part->pivot->price or ''}}">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <input type='number' class='form-control' name='discount_rate[]' value="{{$part->pivot->discount_rate or ''}}" placeholder='إدخل نسبة الخصم إن وجدت'>
+                                                <input type='number' step='0.01' class='form-control' name='discount_rate[]' value="{{$part->pivot->discount_rate or ''}}" placeholder='إدخل نسبة الخصم إن وجدت'>
                                             </div>
                                         </td>
                                         <td>

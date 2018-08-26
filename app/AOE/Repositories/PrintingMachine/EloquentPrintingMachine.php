@@ -61,6 +61,7 @@ class EloquentPrintingMachine implements PrintingMachineInterface
                             ->where('serial_number', 'like', "%$keyword%")
                             ->OrWhere('folder_number', 'like', "%$keyword%")
                             ->orWhere('code', 'like', "%$keyword%")
+                            ->orWhere('status', 'like', "%$keyword%")
                             ->orWhere('model_prefix', 'like', "%$keyword%")
                             ->orWhere('model_suffix', 'like', "%$keyword%")
                             ->orWhereHas('customer', function($query) use($keyword){

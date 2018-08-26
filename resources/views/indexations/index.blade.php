@@ -74,7 +74,7 @@
                                         <td>
 											@if(isset($indexation->printingMachine))
 												<a href="{{ action('PrintingMachineController@show', ['id'=>$indexation->printingMachine->id]) }}" target="_blank">
-													{{$indexation->printingMachine->id}}
+													{{$indexation->printingMachine->serial_number}}
 												</a>
 											@elseif(isset($indexation->visit) &&
 													isset($indexation->visit->printingMachine))
