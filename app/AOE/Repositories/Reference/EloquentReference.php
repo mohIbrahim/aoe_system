@@ -55,7 +55,7 @@ class EloquentReference implements ReferenceInterface
     {
         $results = $this->reference->with('assignedEmployee.user', 'employeeWhoReceiveTheRereference.user', 'printingMachine', 'printingMachine.customer')->where('code', 'like', '%'.$keyword.'%')
                                     ->orWhere('type', 'like', '%'.$keyword.'%')
-                                    ->orWhere('received_date', 'like', '%'.$keyword.'%')
+                                    ->orWhere('received_date', $keyword)
                                     ->orWhere('reviewed_by_the_chief_engineer', $keyword)
                                     ->orWhereHas('employeeWhoReceiveTheRereference', function($query) use($keyword){
                                         $query->whereHas('user', function($query) use($keyword){
