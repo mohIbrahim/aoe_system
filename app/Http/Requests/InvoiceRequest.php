@@ -25,9 +25,7 @@ class InvoiceRequest extends FormRequest
     {
 
         $result = [
-            // If invoice fom more than customer
-            //'number'=>'required|max:16777215|numeric|unique:invoices,number,'.$this->invoice,
-            'number'=>'required|max:16777215|numeric',
+            'number'=>'required|max:16777215|numeric|unique:invoices,number,'.$this->invoice,
             'customer_id'=>'required',
             'type'=>'required',
             'issuer'=>'required',
@@ -37,13 +35,20 @@ class InvoiceRequest extends FormRequest
             'indexation_id'=>'nullable|unique:invoices,indexation_id,'.$this->invoice,
 			'total'=>'required|numeric',
         ];
+        $customerId = $this->input('customer_id');
 
         if ($this->type === 'تعاقد') {
             $result['contract_id']  = 'required';
-            $cusomerOfContract = null;
-            if (\App\Contract::findOrFail($this->input('contract_id')))
-                $cusomerOfContract = (\App\Contract::findOrFail($this->input('contract_id')))->printingMachines->first()->customer->id;
-            if($this->input('customer_id') != $cusomerOfContract)
+
+            $contract = (\App\Contract::findOrFail($this->input('contract_id')));
+            if (!empty($contract)) {
+                $customersIdsForAnContract = [];
+                $contractPrintingMachines = $contract->printingMachines;
+                foreach ($contractPrintingMachines as $key => $contractPrintingMachine) {
+                    $customersIdsForAnContract[] = ($contractPrintingMachine->customer)?($contractPrintingMachine->customer->id):(null);
+                }
+            }
+            if(!in_array($customerId, $customersIdsForAnContract))
                 $result['restrictNotSameFormCustomerAndContractCustomer'] = 'required';
         }
         
@@ -56,7 +61,7 @@ class InvoiceRequest extends FormRequest
             if ((\App\Indexation::findOrFail($this->input('indexation_id')))->type == 'زيارة')
                 $customerOfindexation = (\App\Indexation::findOrFail($this->input('indexation_id')))->visit->printingMachine->customer->id;
             
-            if($this->input('customer_id') != $customerOfindexation)
+            if($customerId != $customerOfindexation)
                 $result['restrictNotSameFormCustomerAndIndexationCustomer'] = 'required';
         }
 
