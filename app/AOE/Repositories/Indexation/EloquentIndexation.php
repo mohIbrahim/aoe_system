@@ -74,11 +74,16 @@ class EloquentIndexation implements IndexationInterface
                                                 $query->where('serial_number', 'like', "%$keyword%");
                                             });
                                     })
-                                    
+                                    ->orWhereHas('employeeWhoPerformedTheIndexation', function($query) use($keyword){
+                                        $query->whereHas('user', function($query) use($keyword){
+                                            $query->where('name', 'like', "%$keyword%");
+                                        });
+                                    })
                                     ->get();
         
         foreach($results as $indexation) {
             $indexation->totalPrice = ($indexation->statementOfRequiredParts()[1]);
+            $indexation->employee_who_performed_indexation = $indexation->employeeNameWhoPerformedTheIndexation();
         }
 
         return $results;

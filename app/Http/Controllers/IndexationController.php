@@ -9,6 +9,8 @@ use App\Visit;
 use App\ProjectImages;
 use App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
 use App\PrintingMachine;
+use App\Employee;
+use App\AOE\Repositories\Employee\EloquentEmployee;
 
 
 class IndexationController extends Controller
@@ -33,7 +35,8 @@ class IndexationController extends Controller
     {
         $referencesIds = Reference::all()->pluck('code', 'id');
         $visitsIds = Visit::all()->pluck('id', 'id');
-        return view('indexations.create', compact('referencesIds', 'visitsIds'));
+        $employeesNamesIds = (new EloquentEmployee(new Employee()))->getEmployeesOfMaintenanceEnginerRoleNamesIds();
+        return view('indexations.create', compact('referencesIds', 'visitsIds', 'employeesNamesIds'));
     }
 
     public function store(IndexationRequest $request)
@@ -85,7 +88,8 @@ class IndexationController extends Controller
         $referencesIds = Reference::all()->pluck('code', 'id');
         $visitsIds = Visit::all()->pluck('id', 'id');
         $parts = $indexation->parts;
-        return view('indexations.edit', compact('indexation', 'referencesIds', 'visitsIds', 'parts'));
+        $employeesNamesIds = (new EloquentEmployee(new Employee()))->getEmployeesOfMaintenanceEnginerRoleNamesIds();
+        return view('indexations.edit', compact('indexation', 'referencesIds', 'visitsIds', 'parts', 'employeesNamesIds'));
     }
 
 

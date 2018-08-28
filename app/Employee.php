@@ -97,4 +97,9 @@ class Employee extends Model
     {
         return $this->hasMany('App\Invoice', 'emp_id_reponsible_for_invoice', 'id');
     }
+
+    public function indexations()
+    {
+        return $this->hasMany(Indexation::class, 'performed_employee_id', 'id');
+    }
 }

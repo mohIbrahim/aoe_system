@@ -27,6 +27,7 @@ class IndexationRequest extends FormRequest
         $results =  [
                         'the_date'=>'required|date',
                         'type'=>'required',
+                        'performed_employee_id'=>'required',
                         'upload_files_pdf.*'=>'mimes:pdf',
                         'upload_files_img.*'=>'mimes:jpeg,bmp,png',
 
@@ -51,6 +52,7 @@ class IndexationRequest extends FormRequest
             'the_date.date'=>' برجاء إدخال التاريخ بشكل صحيح. ',
             'visit_id.required'=>' برجاء اختيار رقم الزيارة. ',
             'type.required'=>' برجاء إختيار نوع المقايسة ',
+            'performed_employee_id.required'=>' برجاء إختيار اسم المهندس الذي قام بالمقايسة ',
             'visit_id.unique'=>'  رقم الزيارة تم اختياره من قبل برجاء اختيار رقم آخر. ',
             'printing_machine_id.required'=>'  برجاء إختيار الآلة. ',
             'upload_files_pdf.*.mimes'=> ' برجاء اختيار ملف المقايسة بأمتداد pdf. ',

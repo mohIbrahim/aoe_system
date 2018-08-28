@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="the_date"> التاريخ  <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="datepicker" name="the_date"  placeholder=" اختر التاريخ. " value="{{$indexation->the_date or old('the_date')}}">
+    <input type="text" class="form-control" id="datepicker" name="the_date" autocomplete="off" placeholder=" اختر التاريخ. " value="{{$indexation->the_date or old('the_date')}}">
 </div>
 
 <div class="form-group">
@@ -33,6 +33,28 @@
         <option value="موافق" {{($indexationWarehouseApprovel == 'موافق')? 'selected' : ((old('warehouse_approval')=='موافق')?'selected':'')}}> موافق </option>
         <option value="غير موافق" {{($indexationWarehouseApprovel == 'غير موافق')? 'selected' : ((old('warehouse_approval')=='غير موافق')?'selected':'')}}> غير موافق </option>
         <option value="ليس بعد" {{($indexationWarehouseApprovel == 'ليس بعد')? 'selected' : ((old('warehouse_approval')=='ليس بعد')?'selected':'')}}> ليس بعد </option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="performed_employee_id"> اسم المهندس الذي قام بالمقايسة <span style="color:red">*</span></label>
+    <select class="form-control selectpicker" name="performed_employee_id" data-live-search="true" id="collector-employee-name">
+        <?php $selectedPerformedEmployee = isset($indexation->performed_employee_id)? $indexation->performed_employee_id:'' ;$isNotSelectedYet = 1;?>
+        <option value=" "> اختر اسم المهندس الذي قام بالمقايسة.  </option>
+        @foreach ($employeesNamesIds as $performedEmployeeId => $performedEmployeeName)
+
+            @if ( (old('performed_employee_id')) == $performedEmployeeId)
+                <option value="{{$performedEmployeeId}}" selected="selected"> {{$performedEmployeeName}} </option>
+                {{$isNotSelectedYet = 0}}
+            @else
+                @if($selectedPerformedEmployee == $performedEmployeeId && $isNotSelectedYet)
+                    <option value="{{$performedEmployeeId}}" selected="selected"> {{$performedEmployeeName}} </option>
+                @else
+                    <option value="{{$performedEmployeeId}}"> {{$performedEmployeeName}} </option>
+                @endif
+            @endif
+
+        @endforeach
     </select>
 </div>
 

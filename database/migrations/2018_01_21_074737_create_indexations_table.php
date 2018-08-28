@@ -29,6 +29,8 @@ class CreateIndexationsTable extends Migration
 
             $table->integer('printing_machine_id')->unsigned()->nullable();
             $table->foreign('printing_machine_id')->references('id')->on('printing_machines')->onDelete('cascade');
+            
+            //2018_08_28_093742_add_performed_employee_id_to_indexations_table
         });
     }
 

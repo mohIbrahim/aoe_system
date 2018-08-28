@@ -36,6 +36,7 @@
                                 <th> اسم العميل </th>
                                 <th> الرقم المسلسل للآلة </th>
                                 <th>  التاريخ  </th>
+                                <th>  اسم المهندس الذي قام بالمقايسة  </th>
                                 <th> موافقة العميل </th>
                                 <th> موافقة مدير الأقسام الفنية </th>
                                 <th> موافقة المخازن </th>
@@ -86,6 +87,9 @@
                                         <td>
                                             {{$indexation->the_date}}
                                         </td>
+										<td>
+											{{$indexation->employeeNameWhoPerformedTheIndexation()}}
+										</td>
                                         <td>
                                             {{$indexation->customer_approval}}
                                         </td>

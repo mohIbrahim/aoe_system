@@ -566,6 +566,7 @@ $(document).ready(function(){
 														:('')),
 
 												indexation.the_date,
+												indexation.employee_who_performed_indexation,
 												indexation.customer_approval,
 												indexation.technical_manager_approval,
 												indexation.warehouse_approval,

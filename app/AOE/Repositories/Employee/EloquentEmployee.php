@@ -4,6 +4,7 @@ namespace App\AOE\Repositories\Employee;
 
 use App\Employee;
 use App\User;
+use App\Role;
 
 class EloquentEmployee implements EmployeeInterface
 {
@@ -102,6 +103,20 @@ class EloquentEmployee implements EmployeeInterface
     public function getEmployeeDepartmentName(Employee $employee)
     {
         return ( $employee)?(( $employee->department)?( $employee->department->name):('')):('');
+    }
+
+    public function getEmployeesOfMaintenanceEnginerRoleNamesIds()
+    {
+        $maintenanceEngineersUsers = Role::where('name', 'Maintenance Engineer')->first()->users->load('employee');
+        
+        $arrayOfEmployeesNamesIds = [];
+        foreach ($maintenanceEngineersUsers as $user) {
+            if (!empty($user->employee)) {
+                $arrayOfEmployeesNamesIds[$user->employee->id] = $user->name;
+            }
+        }
+        $maintenanceEngineersEmployeesNamesIds = collect($arrayOfEmployeesNamesIds);
+        return $maintenanceEngineersEmployeesNamesIds;
     }
     
 

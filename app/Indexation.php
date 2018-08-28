@@ -16,7 +16,8 @@ class Indexation extends Model
                                 'warehouse_approval',
                                 'comments',
                                 'visit_id',
-                                'printing_machine_id'
+                                'printing_machine_id',
+                                'performed_employee_id',
                             ];
 
     protected $dates = ['the_date'];
@@ -87,6 +88,23 @@ class Indexation extends Model
     public function printingMachine()
     {
         return $this->belongsTo('App\PrintingMachine', 'printing_machine_id', 'id');
+    }
+
+    public function employeeWhoPerformedTheIndexation()
+    {
+        return $this->belongsTo(Employee::class, 'performed_employee_id', 'id');
+    }
+
+    /**
+     * Getting the Employee name that take the indexation
+     */
+    public function employeeNameWhoPerformedTheIndexation()
+    {
+        try{
+            return $this->employeeWhoPerformedTheIndexation->user->name;
+        }catch(\Exception $e){
+            return 'لم يتم تحديد المهندس بعد';
+        }
     }
 
     

@@ -84,6 +84,10 @@
 								<th> نوع المقايسة </th>
 								<td>{{$indexation->type}}</td>
 							</tr>
+							<tr>
+								<th> اسم المهندس الذي قام المقايسة </th>
+								<td>{{$indexation->employeeNameWhoPerformedTheIndexation()}}</td>
+							</tr>
 							
 							<tr>
 								<th> رقم الزيـارة </th>
@@ -93,6 +97,7 @@
 									</a>
 								</td>
 							</tr>
+
 							<tr>
 								<th> رقم الفاتورة </th>
 								<td>
