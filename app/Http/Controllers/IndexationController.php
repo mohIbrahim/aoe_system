@@ -11,6 +11,7 @@ use App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
 use App\PrintingMachine;
 use App\Employee;
 use App\AOE\Repositories\Employee\EloquentEmployee;
+use App\Indexation;
 
 
 class IndexationController extends Controller
@@ -47,25 +48,7 @@ class IndexationController extends Controller
         $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_pdf', 'App\Indexation', $indexation->id, 'pdf', 'no_cover');
         $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Indexation', $indexation->id, 'img', 'no_cover');
 
-        $partsIds                   = ($request->parts_ids)?($request->parts_ids):([]);
-        $partsPricesWithoutTax      = $request->parts_prices_without_tax;
-        $partsPrices                = $request->parts_prices;
-        $partsSerial                = $request->parts_serial_numbers;
-        $partcount                  = $request->parts_count;
-        $discountRate               = $request->discount_rate;
-        $descriptions               = $request->parts_descriptions;
-        for ($i=0; $i < count($partsIds); $i++) {
-            $indexation->parts()->attach([
-                                            $partsIds[$i]=> [
-                                                                'price_without_tax'=>$partsPricesWithoutTax[$i],
-                                                                'price'=>$partsPrices[$i],
-                                                                'serial_number'=>$partsSerial[$i],
-                                                                'number_of_parts'=>$partcount[$i],
-                                                                'discount_rate'=>$discountRate[$i],
-                                                                'part_description'=>$descriptions[$i],
-                                                            ]
-                                        ]);
-        }
+        $this->indexationPartAttachment($request, $indexation);
 
         flash()->success(' تم إنشاء المقايسة بنجاح. ')->important();
         return redirect()->action('IndexationController@show', ['id'=>$indexation->id]);
@@ -77,8 +60,10 @@ class IndexationController extends Controller
         $indexation = $this->indexation->getById($id);
         $statement = $indexation->statementOfRequiredParts();
         $statementOfRequiredParts = $statement[0];
-        $totalPrice = $statement[1];
-        return view('indexations.show', compact('indexation', 'statementOfRequiredParts', 'totalPrice'));
+        $totalPriceWithTax = $statement[1];
+        $totalPriceWithoutTax = $statement[2];
+        $totalTax = $statement[3];
+        return view('indexations.show', compact('indexation', 'statementOfRequiredParts', 'totalPriceWithTax', 'totalPriceWithoutTax', 'totalTax'));
     }
 
 
@@ -102,25 +87,7 @@ class IndexationController extends Controller
         $isUploaded = ($projectImage)->receiveAndCreat($request, 'upload_files_img', 'App\Indexation', $indexation->id, 'img', 'no_cover');
 
         $indexation->parts()->detach();
-        $partsIds                   = ($request->parts_ids)?($request->parts_ids):([]);
-        $partsPricesWithoutTax      = $request->parts_prices_without_tax;
-        $partsPrices                = $request->parts_prices;
-        $partsSerial                = $request->parts_serial_numbers;
-        $partcount                  = $request->parts_count;
-        $discountRate               = $request->discount_rate;
-        $descriptions               = $request->parts_descriptions;
-        for ($i=0; $i < count($partsIds); $i++) {
-            $indexation->parts()->attach([
-                                            $partsIds[$i]=> [
-                                                                'price_without_tax'=>$partsPricesWithoutTax[$i],
-                                                                'price'=>$partsPrices[$i],
-                                                                'serial_number'=>$partsSerial[$i],
-                                                                'number_of_parts'=>$partcount[$i],
-                                                                'discount_rate'=>$discountRate[$i],
-                                                                'part_description'=>$descriptions[$i],
-                                                            ]
-                                        ]);
-        }
+        $this->indexationPartAttachment($request, $indexation);
 
         flash()->success(' تم تعديل المقايسة بنجاح. ')->important();
         return redirect()->action('IndexationController@show', ['id'=>$id]);
@@ -185,5 +152,28 @@ class IndexationController extends Controller
     {
         $abc = new EloquentPrintingMachine(new PrintingMachine());
         return $abc->searchLimitedCodeCustomer($keyword);
+    }
+
+    public function indexationPartAttachment(IndexationRequest $request, Indexation $indexation): void
+    {
+        $partsIds                   = ($request->parts_ids)?($request->parts_ids):([]);
+        $partsPricesWithoutTax      = $request->parts_prices_without_tax;
+        $partsPrices                = $request->parts_prices;
+        $partsSerial                = $request->parts_serial_numbers;
+        $partcount                  = $request->parts_count;
+        $discountRate               = $request->discount_rate;
+        $descriptions               = $request->parts_descriptions;
+        for ($i=0; $i < count($partsIds); $i++) {
+            $indexation->parts()->attach([
+                                            $partsIds[$i]=> [
+                                                                'price_without_tax'=>$partsPricesWithoutTax[$i],
+                                                                'price'=>$partsPrices[$i],
+                                                                'serial_number'=>$partsSerial[$i],
+                                                                'number_of_parts'=>$partcount[$i],
+                                                                'discount_rate'=>$discountRate[$i],
+                                                                'part_description'=>$descriptions[$i],
+                                                            ]
+                                        ]);
+        }
     }
 }

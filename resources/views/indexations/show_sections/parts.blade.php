@@ -10,9 +10,11 @@
                     <th> الرقم المسلسل </th>
                     <th> العدد </th>
                     <th> سعر القطعة بدون الضريبة </th>
-                    <th> سعر القطعة بالضريبة </th>
                     <th> تسبة الخصم على القطعة الوحدة </th>
-                    <th> إجمالي الصنف الواحد </th>
+                    <th> قيمة الخصم على القطعة الوحدة </th>
+                    <th> نسبة الضريبة </th>
+                    <th> سعر القطعة بالضريبة </th>
+                    <th> إجمالي الصنف الواحد بالضريبة </th>
                 </tr>
             </thead>
             <tbody>
@@ -25,20 +27,29 @@
                         </td>
                         <td style="white-space:pre-line">{{$row['descriptions']}}</td>
                         <td>{{$row['serialNumber']}}</td>
-                        <td>{{$row['numberOfParts']}}</td>
-                        <td>{{$row['partPriceWithoutTax']}}</td>
-                        <td>{{$row['partPrice']}}</td>
-                        <td>{{$row['discount']}}%</td>
-                        <td>{{$row['rowPrice']}}</td>
+                        <td>{{$row['numberOfParts']}} ق</td>
+                        <td>{{$row['partPriceWithoutTax']}} جنية</td>
+                        <td>{{$row['discountRate']}}%</td>
+                        <td>{{$row['discountOnPart']}} جنية</td>
+                        <td>{{$row['taxPercentage']}}%</td>
+                        <td>{{$row['partPriceWithTax']}} جنية</td>
+                        <td>{{$row['rowPriceWithTax']}} جنية</td>
                     </tr>
                 @endforeach
                 <tr>
-                    
-                    <th colspan="8">
-                        <span class="pull-left"style="color:3d3d3d;border-top:1px solid #3d3d3d;padding:5px">
-                            الإجمالــي: {{$totalPrice}} جنية بالضريبة
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td>
+                        <span class=""style="color:3d3d3d;border-top:1px solid #3d3d3d;padding:5px; font-weight: bold; display:block">
+                            الإجمالــي: {{$totalPriceWithTax}} جنية بالضريبة
                         </span>
-                    </th>
+                        <span class=""style="color:3d3d3d;padding:5px; font-weight: bold; display:block">
+                            الإجمالــي: {{$totalPriceWithoutTax}} جنية بدون الضريبة
+                        </span>
+                        <span class=""style="color:3d3d3d;padding:5px; font-weight: bold; display:block">
+                            قيمة الضريبة: {{$totalTax}} جنية 
+                        </span>
+                        
+                    </td>
                 </tr>
             </tbody>
         </table>

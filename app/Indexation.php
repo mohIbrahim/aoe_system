@@ -114,22 +114,51 @@ class Indexation extends Model
         $parts = $this->parts;
         $statement  = [];
         $row        = [];
-        $totalPrice = 0;
+        $totalPriceWithTax = 0;
+        $totalPriceWithoutTax = 0;
+        $totalTax = 0;
+        $totalDiscountOnParts = 0;
         foreach ($parts as $part) {
-            $id                         = $part->id;
-            $name                       = $part->name;
-            $descriptions               = $part->pivot->part_description;
-            $serialNumber               = $part->pivot->serial_number;
-            $partPriceWithoutTax        = $part->pivot->price_without_tax;
-            $partPrice                  = $part->pivot->price;
-            $numberOfParts              = $part->pivot->number_of_parts;
-            $discount                   = $part->pivot->discount_rate;
-            $rowPrice = (($partPrice - (($partPrice*$discount)/100))*$numberOfParts);
-            $row = ['id'=>$id, 'name'=>$name, 'descriptions'=>$descriptions, 'serialNumber'=>$serialNumber, 'numberOfParts'=>$numberOfParts, 'partPrice'=>$partPrice, 'partPriceWithoutTax'=>$partPriceWithoutTax, 'discount'=>$discount, 'rowPrice'=>$rowPrice];
-            $statement[] = $row;
-            $totalPrice += $rowPrice;
+            $id                                 = $part->id;
+            $name                               = $part->name;
+            $descriptions                       = $part->pivot->part_description;
+            $serialNumber                       = $part->pivot->serial_number;
+            $partPriceWithoutTax                = $part->pivot->price_without_tax;
+            $partPriceWithTax                   = $part->pivot->price;
+            $numberOfParts                      = $part->pivot->number_of_parts;
+
+            $discountRate                       = $part->pivot->discount_rate;
+            $discountOnPart                     = (($partPriceWithoutTax * $discountRate) / 100);
+            $partPriceWithoutTaxWithDiscount    = $partPriceWithoutTax - (($partPriceWithoutTax * $discountRate) / 100);
+
+            $tax                                = $partPriceWithTax - $partPriceWithoutTax;
+            $taxPercentage                      = round(((($partPriceWithTax - $partPriceWithoutTax)  * 100 ) / ($partPriceWithoutTax || 1)), 2);
+
+            $rowPriceWithTax                    = (($partPriceWithoutTaxWithDiscount) + $tax) * $numberOfParts;
+            $rowPriceWithoutTax                 = $partPriceWithoutTaxWithDiscount * $numberOfParts;
+
+            $row =  [
+                        'id'                    =>$id, 
+                        'name'                  =>$name, 
+                        'descriptions'          =>$descriptions, 
+                        'serialNumber'          =>$serialNumber, 
+                        'numberOfParts'         =>$numberOfParts, 
+                        'partPriceWithTax'      =>$partPriceWithTax, 
+                        'partPriceWithoutTax'   =>$partPriceWithoutTax, 
+                        'discountRate'          =>$discountRate,
+                        'taxPercentage'         =>$taxPercentage, 
+                        'discountOnPart'        =>$discountOnPart, 
+                        'rowPriceWithTax'       =>$rowPriceWithTax,
+                        'rowPriceWithoutTax'    =>$rowPriceWithoutTax,
+                    ];
+
+            $statement[]            = $row;
+            $totalPriceWithTax      += $rowPriceWithTax;
+            $totalPriceWithoutTax   += $rowPriceWithoutTax;
+            $totalTax               += $tax;
+            $totalDiscountOnParts   += $discountOnPart;
         }
-        return [$statement, $totalPrice];
+        return [$statement, $totalPriceWithTax, $totalPriceWithoutTax, $totalTax, $totalDiscountOnParts];
     }
 
 }
