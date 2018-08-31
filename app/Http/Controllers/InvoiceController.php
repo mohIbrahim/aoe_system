@@ -77,10 +77,25 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice = $this->invoice->getById($id);
-        $results = $this->invoice->preparationInvoiceItemsForShowView($invoice);
-        $statements = $results[0];
-        $partsTotalPrice = $results[1];
-        return view('invoices.show', compact('invoice', 'statements', 'partsTotalPrice'));
+        if ( $invoice->type == 'مقايسة' ) {
+            $statement = $this->invoice->preparationInvoiceItemsForShowView($invoice);
+            $statementOfRequiredParts = $statement[0];
+            $totalPriceWithTax = $statement[1];
+            $totalPriceWithoutTax = $statement[2];
+            $totalTax = $statement[3];
+            return view('invoices.show', compact('invoice', 'statementOfRequiredParts', 'totalPriceWithTax', 'totalPriceWithoutTax', 'totalTax'));
+        } elseif ( $invoice->type == 'بيع قطع' ) {
+            $statement = $this->invoice->preparationInvoiceItemsForShowView($invoice);
+            $statementOfRequiredParts = $statement[0];
+            $totalPriceWithTax = $statement[1];
+            $totalPriceWithoutTax = $statement[2];
+            $totalTax = $statement[3];
+            return view('invoices.show', compact('invoice', 'statementOfRequiredParts', 'totalPriceWithTax', 'totalPriceWithoutTax', 'totalTax'));
+        } elseif ( $invoice->type == 'تعاقد' ) {
+            $results = $this->invoice->preparationInvoiceItemsForShowView($invoice);
+            $statements = $results[0];
+            return view('invoices.show', compact('invoice', 'statements'));
+        }
     }
 
     /**

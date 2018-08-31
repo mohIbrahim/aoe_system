@@ -109,9 +109,9 @@ class Indexation extends Model
 
     
     //this for show view
-    public function statementOfRequiredParts()
+    public function statementOfRequiredParts(Indexation $indexation)
     {
-        $parts = $this->parts;
+        $parts = $indexation->parts;
         $statement  = [];
         $row        = [];
         $totalPriceWithTax = 0;
@@ -132,8 +132,8 @@ class Indexation extends Model
             $partPriceWithoutTaxWithDiscount    = $partPriceWithoutTax - (($partPriceWithoutTax * $discountRate) / 100);
 
             $tax                                = $partPriceWithTax - $partPriceWithoutTax;
-            $taxPercentage                      = round(((($partPriceWithTax - $partPriceWithoutTax)  * 100 ) / ($partPriceWithoutTax || 1)), 2);
-
+            $taxPercentage                      = round(((($partPriceWithTax - $partPriceWithoutTax)  * 100 ) / (($partPriceWithoutTax > 0)?($partPriceWithoutTax):(1))), 2);
+            
             $rowPriceWithTax                    = (($partPriceWithoutTaxWithDiscount) + $tax) * $numberOfParts;
             $rowPriceWithoutTax                 = $partPriceWithoutTaxWithDiscount * $numberOfParts;
 

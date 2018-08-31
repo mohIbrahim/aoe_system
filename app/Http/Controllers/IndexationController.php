@@ -58,7 +58,7 @@ class IndexationController extends Controller
     public function show($id)
     {
         $indexation = $this->indexation->getById($id);
-        $statement = $indexation->statementOfRequiredParts();
+        $statement = $indexation->statementOfRequiredParts($indexation);
         $statementOfRequiredParts = $statement[0];
         $totalPriceWithTax = $statement[1];
         $totalPriceWithoutTax = $statement[2];

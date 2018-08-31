@@ -112,4 +112,65 @@ class Invoice extends Model
     {
         return $this->belongsTo('App\User', 'updater_id', 'id');
     }
+
+     //this for show view
+     // Invoice type parts
+     public function statementOfRequiredParts(Invoice $invoice)
+     {
+         $parts = $invoice->sellingParts;
+         $statement  = [];
+         $row        = [];
+         
+         $totalPriceWithTax = 0;
+         $totalPriceWithoutTax = 0;
+         $totalTax = 0;
+         $totalDiscountOnParts = 0;
+
+         $printingMachinesSerial ='';
+
+         foreach ($parts as $part) {
+             $id                                 = $part->id;
+             $name                               = $part->name;
+             $descriptions                       = $part->pivot->part_description;
+             $serialNumber                       = $part->pivot->part_serial_number;
+             $partPriceWithoutTax                = $part->pivot->price_without_tax;
+             $partPriceWithTax                   = $part->pivot->price;
+             $numberOfParts                      = $part->pivot->number_of_parts;
+             
+             $discountRate                       = $part->pivot->discount_rate;
+             $discountOnPart                     = (($partPriceWithoutTax * $discountRate) / 100);
+             $partPriceWithoutTaxWithDiscount    = $partPriceWithoutTax - (($partPriceWithoutTax * $discountRate) / 100);
+             
+             $tax                                = $partPriceWithTax - $partPriceWithoutTax;
+             $taxPercentage                      = round(((($partPriceWithTax - $partPriceWithoutTax)  * 100 ) / ($partPriceWithoutTax || 1)), 2);
+             
+             $rowPriceWithTax                    = (($partPriceWithoutTaxWithDiscount) + $tax) * $numberOfParts;
+             $rowPriceWithoutTax                 = $partPriceWithoutTaxWithDiscount * $numberOfParts;
+
+             $printingMachinesSerial             = $part->pivot->printing_machines_serial;
+ 
+             $row =  [
+                         'id'                       =>$id, 
+                         'name'                     =>$name, 
+                         'descriptions'             =>$descriptions, 
+                         'serialNumber'             =>$serialNumber, 
+                         'numberOfParts'            =>$numberOfParts, 
+                         'partPriceWithTax'         =>$partPriceWithTax, 
+                         'partPriceWithoutTax'      =>$partPriceWithoutTax, 
+                         'discountRate'             =>$discountRate,
+                         'taxPercentage'            =>$taxPercentage, 
+                         'discountOnPart'           =>$discountOnPart, 
+                         'rowPriceWithTax'          =>$rowPriceWithTax,
+                         'rowPriceWithoutTax'       =>$rowPriceWithoutTax,
+                         'printingMachinesSerial'   =>$printingMachinesSerial,
+                     ];
+ 
+             $statement[]            = $row;
+             $totalPriceWithTax      += $rowPriceWithTax;
+             $totalPriceWithoutTax   += $rowPriceWithoutTax;
+             $totalTax               += $tax;
+             $totalDiscountOnParts   += $discountOnPart;
+         }
+         return [$statement, $totalPriceWithTax, $totalPriceWithoutTax, $totalTax, $totalDiscountOnParts];
+     }
 }

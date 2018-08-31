@@ -119,9 +119,7 @@ class EloquentInvoice implements InvoiceInterface
 
     public function preparationInvoiceItemsForShowView(Invoice $invoice)
     {
-        $results = [];
-        $type = $invoice->type; 
-        $partsTotalPrice = 0;
+        $type = $invoice->type;
         if ($type == 'تعاقد') {
             $contract = $invoice->contract;
             $results[] =    [   'rowNumber'=>1,
@@ -131,49 +129,13 @@ class EloquentInvoice implements InvoiceInterface
                                 'itemPriceWithoutTax'=>$contract->price,
                                 'itemPrice'=>$contract->total_price,
                                 'totalItemsPricePerRow'=>$contract->total_price,
-                                'discount'=>0,
                             ];
+            return [$results];
         } else if ($type == 'مقايسة') {
-            $parts = $invoice->indexation->parts->toArray();
-            $indexationId = $invoice->indexation->id;
-            foreach ($parts as $key=>$part) {
-                $partTotalPricePerRow = ($part['pivot']['number_of_parts']*$part['pivot']['price'])-((($part['pivot']['number_of_parts']*$part['pivot']['price'])*$part['pivot']['discount_rate'])/100);
-                $partsTotalPrice += $partTotalPricePerRow;
-                $results[] =    [   'rowNumber'=>$key+1,
-                                    'itemId'=>$part['id'],
-                                    'itemName'=>$part['name'],
-                                    'descriptions'=>$part['pivot']['part_description'],
-                                    'itemCount'=>$part['pivot']['number_of_parts'],
-                                    'itemPrice'=>$part['pivot']['price'],
-                                    'itemPriceWithoutTax'=>$part['pivot']['price_without_tax'],
-                                    'totalItemsPricePerRow'=>$partTotalPricePerRow,
-                                    'discount'=>$part['pivot']['discount_rate'],
-                                    'indexationId'=>$indexationId,
-                                    'partSerialNumber'=>$part['pivot']['serial_number'],
-                                    'partsTotalPrice'=> $partsTotalPrice,
-                                ];
-            }
+            return $invoice->indexation->statementOfRequiredParts($invoice->indexation);
         } else if ($type == 'بيع قطع') {
-            $parts = $invoice->sellingParts->toArray();
-            foreach ($parts as $key=>$part) {
-                $partTotalPricePerRow = ($part['pivot']['number_of_parts']*$part['pivot']['price'])-((($part['pivot']['number_of_parts']*$part['pivot']['price'])*$part['pivot']['discount_rate'])/100);
-                $partsTotalPrice += $partTotalPricePerRow;
-                $results[] =    [   'rowNumber'=>$key+1,
-                                    'itemId'=>$part['id'],
-                                    'itemName'=>$part['name'],
-                                    'descriptions'=>$part['pivot']['part_description'],
-                                    'itemCount'=>$part['pivot']['number_of_parts'],
-                                    'itemPrice'=>$part['pivot']['price'],
-                                    'itemPriceWithoutTax'=>$part['pivot']['price_without_tax'],
-                                    'totalItemsPricePerRow'=>$partTotalPricePerRow,
-                                    'discount'=>$part['pivot']['discount_rate'],
-                                    'printingMachinesSerial'=>$part['pivot']['printing_machines_serial'],
-                                    'partSerialNumber'=>$part['pivot']['part_serial_number'],
-                                    'partsTotalPrice'=> $partsTotalPrice,
-                                ];
-            }
+            return $invoice->statementOfRequiredParts($invoice);
         }
-        return [$results, $partsTotalPrice];
     }
 
     /**

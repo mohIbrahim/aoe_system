@@ -109,7 +109,7 @@
                                             {{($indexation->visit)?(($indexation->visit->readingOfPrintingMachine)?($indexation->visit->readingOfPrintingMachine->value):('')):('')}}
                                         </td>
 										<td>
-											{{$indexation->statementOfRequiredParts()[1].' جنية '}}
+											{{$indexation->statementOfRequiredParts($indexation)[1].' جنية '}}
 										</td>
 									</tr>
 								@endforeach
