@@ -32118,6 +32118,45 @@ $(document).ready(function () {
 // End Ajax for Customers index view
 
 /**
+ * /////////////////////////////
+ * ///// PRINTING MACHINES /////
+ * /////////////////////////////
+ */
+
+// Start Ajax for printing machines index view
+$(document).ready(function () {
+	$('#printing-machine-search-button').on('click', function () {
+		var keyword = $('#printing_machyines_search').val();
+		var newResult = "";
+		$.ajax({
+			type: "GET",
+			url: "/printing_machines_search/" + keyword,
+			dataType: "json",
+			success: function success(results) {
+				$("#my-table-body").fadeOut();
+				standardTable.clear();
+				$.each(results, function (index, machine) {
+
+					//preparing assigned employee
+					assignedEmployeesRow = '';
+					if (machine.assigned_employees) {
+						$.each(machine.assigned_employees, function (key, value) {
+							if (value.user) {
+								assignedEmployeesRow += '<div>' + value.user.name + '</div> &nbsp &nbsp';
+							}
+						});
+					}
+					standardTable.row.add([index + 1, "<a href='/printing_machines/" + machine.id + "'>" + machine.folder_number + "</a>", machine.serial_number, machine.code, machine.model_prefix + "-" + machine.model_suffix, machine.status, machine.customer.name, machine.customer.administration !== null ? machine.customer.administration : '', assignedEmployeesRow]);
+				});
+				standardTable.draw();
+				$("#my-table-body").fadeIn();
+			}
+		});
+	});
+});
+// End Ajax for printing machines index view
+
+/**
  * /////////////////////
  * ///// EMPLOYEES /////
  * /////////////////////
@@ -32660,39 +32699,6 @@ $(document).ready(function () {
 	});
 });
 // End Ajax for Parts index view
-
-// Start Ajax for printing machines index view
-$(document).ready(function () {
-	$('#printing-machine-search-button').on('click', function () {
-		var keyword = $('#printing_machyines_search').val();
-		var newResult = "";
-		$.ajax({
-			type: "GET",
-			url: "/printing_machines_search/" + keyword,
-			dataType: "json",
-			success: function success(results) {
-				$("#my-table-body").fadeOut();
-				standardTable.clear();
-				$.each(results, function (index, machine) {
-
-					//preparing assigned employee
-					assignedEmployeesRow = '';
-					if (machine.assigned_employees) {
-						$.each(machine.assigned_employees, function (key, value) {
-							if (value.user) {
-								assignedEmployeesRow += '<div>' + value.user.name + '</div> &nbsp &nbsp';
-							}
-						});
-					}
-					standardTable.row.add([index + 1, "<a href='/printing_machines/" + machine.id + "'>" + machine.folder_number + "</a>", machine.serial_number, machine.code, machine.model_prefix + "-" + machine.model_suffix, machine.status, machine.customer.name, machine.customer.administration !== null ? machine.customer.administration : '', assignedEmployeesRow]);
-				});
-				standardTable.draw();
-				$("#my-table-body").fadeIn();
-			}
-		});
-	});
-});
-// End Ajax for printing machines index view
 
 /**
  * ///////////////////////

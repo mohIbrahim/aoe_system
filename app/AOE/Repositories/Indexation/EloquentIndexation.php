@@ -92,8 +92,9 @@ class EloquentIndexation implements IndexationInterface
     public function searchFormPart($keyword)
     {
         $results = Part::where('name', 'like', '%'.$keyword.'%')
-                                ->limit(100)
-                                ->get();
+                        ->orWhere('part_number', 'like', '%'.$keyword.'%')
+                        ->limit(100)
+                        ->get();
         return $results;
     }
 
