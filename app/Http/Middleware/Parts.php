@@ -20,11 +20,7 @@ class Parts
         $user = $request->user();
         $permissions = [];
         if(isset($user)){
-            if( $user->roles() !== null && $user->roles()->first() !== null && $user->roles()->first()->permissions() !== null ){
-                $permissions = $user->roles()->first()->permissions()->pluck('name')->toArray();
-            }
-            else
-                return $response;
+            $permissions = $user->getUserPermissions();
         }
 
         if($request->route()->getName() == 'parts.index'      && in_array('view_parts', $permissions)){

@@ -259,6 +259,11 @@ class PermissionSeeder extends Seeder
             'name'      =>'delete_parts',
             'created_at'=>Carbon::now(),
             ]);
+        DB::table('permissions')->insert([
+            'title'      =>'parts',
+            'name'      =>'view_part_number',
+            'created_at'=>Carbon::now(),
+            ]);
     }
 
     private function partSerialNumbers()

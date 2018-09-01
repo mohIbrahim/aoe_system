@@ -51,14 +51,16 @@ class EloquentPart implements PartInterface
 
     public function search($keyword)
     {
-        $results = $this->part->where('code', 'like', '%'.$keyword.'%')
+        $results['parts'] = $this->part->where('code', 'like', '%'.$keyword.'%')
                                 ->orWhere('name', 'like', '%'.$keyword.'%')
                                 ->orWhere('code', 'like', '%'.$keyword.'%')
+                                ->orWhere('part_number', 'like', '%'.$keyword.'%')
                                 ->orWhere('type', 'like', '%'.$keyword.'%')
                                 ->orWhere('compatible_printing_machines', 'like', '%'.$keyword.'%')
                                 ->orWhere('qty', 'like', $keyword)
                                 ->orWhere('no_serial_qty', 'like', $keyword)
                                 ->get();
+        $results['view_part_number'] = in_array('view_part_number', auth()->user()->getUserPermissions());
         return $results;
     }
 }

@@ -32649,8 +32649,8 @@ $(document).ready(function () {
 				success: function success(results) {
 					$("#my-table-body").fadeOut();
 					standardTable.clear();
-					$.each(results, function (index, part) {
-						standardTable.row.add([index + 1, "<a href='/parts/" + part.id + "'>" + part.name + "</a>", part.code, part.type, part.is_serialized ? part.qty : part.no_serial_qty, part.compatible_printing_machines]);
+					$.each(results['parts'], function (index, part) {
+						standardTable.row.add([index + 1, "<a href='/parts/" + part.id + "'>" + part.name + "</a>", part.code, results['view_part_number'] ? part.part_number : 'محجوب', part.type, part.is_serialized ? part.qty : part.no_serial_qty, part.compatible_printing_machines]);
 					});
 					standardTable.draw();
 					$("#my-table-body").fadeIn();

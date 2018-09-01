@@ -25,6 +25,7 @@
 							<th>#</th>
 							<th> الاسم </th>
 							<th> الكود </th>
+							<th> رقم القطعة </th>
 							<th> النوع </th>
 							<th> الكمية </th>
 							<th> متوافقة مع </th>
@@ -43,6 +44,13 @@
 										</a>
 									</td>
 									<td>{{$part->code}}</td>
+									<td>
+										@if(in_array('view_part_number', $permissions))
+											{{$part->part_number}}
+										@else
+											محجوب
+										@endif
+									</td>
 									<td>{{$part->type}}</td>
 									<td>{{($part->is_serialized == '0')?($part->no_serial_qty):($part->serialNumbersCount())}}</td>
 									<td>{{$part->compatible_printing_machines}}</td>
@@ -55,6 +63,7 @@
 							<th>#</th>
 							<th> الاسم </th>
 							<th> الكود </th>
+							<th> رقم القطعة </th>
 							<th> النوع </th>
 							<th> الكمية </th>
 							<th> متوافقة مع </th>

@@ -56,4 +56,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Invoice', 'updater_id', 'id');
     }
+
+    public function getUserPermissions()
+    {
+        $permissions = [];
+        $roles = $this->roles();
+        if ( !empty($roles) && !empty($roles->first()) && $roles->first()->permissions->isNotEmpty() ) {
+            $permissions = $roles->first()->permissions()->pluck('name')->toArray();
+        }
+        return $permissions;
+    }
 }
