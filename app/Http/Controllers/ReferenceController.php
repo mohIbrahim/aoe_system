@@ -141,6 +141,12 @@ class ReferenceController extends Controller
         return view('references.reports.references_report_during_last_two_working_days', compact('references'));
     }
 
+    public function referencesStillOpenAfterFortyEightHoursReport()
+    {
+        $references =  $this->reference->referencesStillOpenAfterFortyEightHoursReport();
+        return view('references.reports.references_still_open_after_forty_eight_hours_report', compact('references'));
+    }
+
     public function isReferenceClosed(Reference $reference)
     {
         if($reference->status === 'مفتوحة') {

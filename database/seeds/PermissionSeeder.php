@@ -557,6 +557,11 @@ class PermissionSeeder extends Seeder
             'name'      =>'view_references_during_last_two_working_days_report',
             'created_at'=>Carbon::now(),
             ]);
+        DB::table('permissions')->insert([
+            'title'      =>'references',
+            'name'      =>'view_references_still_open_after_forty_eight_hours_report',
+            'created_at'=>Carbon::now(),
+            ]);
     }
     private function indexations()
     {

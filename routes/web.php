@@ -111,6 +111,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('create_reference_with_printing_machine_id/{pm_id}', 'ReferenceController@createWithPrintingMachineId')->name('create_reference_with_printing_machine_id');
     Route::get('reference_close/{reference_id}', 'ReferenceController@closeTheReference')->name('reference_close');
     Route::get('references_during_last_two_working_days_report','ReferenceController@referencesDuringLastTwoWorkingDaysReport')->name('references_during_last_two_working_days_report');
+    Route::get('references_still_open_after_forty_eight_hours_report','ReferenceController@referencesStillOpenAfterFortyEightHoursReport')->name('references_still_open_after_forty_eight_hours_report');
     
 //Indexations
     Route::resource('indexations', 'IndexationController');

@@ -22,6 +22,10 @@
 				@if(in_array('view_references_during_last_two_working_days_report', $permissions))
 					<li><a href="{{ action('ReferenceController@referencesDuringLastTwoWorkingDaysReport') }}"> تقرير عن الإشارات التي تم استلامها خلال آخر يومين عمل </a></li>
 				@endif
+				@if(in_array('view_references_still_open_after_forty_eight_hours_report', $permissions))
+					---
+					<li><a href="{{ action('ReferenceController@referencesStillOpenAfterFortyEightHoursReport') }}"> تقرير عن الإشارات التي ما زالت مفتوحة بعد مرور 48 ساعة </a></li>
+				@endif
 			@endif
 			
 		</ul>

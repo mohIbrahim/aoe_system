@@ -4,6 +4,7 @@ namespace App\AOE\Repositories\Reference;
 
 use App\Reference;
 use App\Http\Requests\ReferenceRequest;
+use Carbon\Carbon;
 
 class EloquentReference implements ReferenceInterface
 {
@@ -85,7 +86,6 @@ class EloquentReference implements ReferenceInterface
         $todayOfWeek = now()->subDays(0)->format('D');
         $today = now()->toDateString();
         $from = '';
-        
         if ($todayOfWeek == 'Sun') {
             $from = now()->subDays(4)->toDateString();
         } else if ($todayOfWeek == 'Mon') {
@@ -95,6 +95,24 @@ class EloquentReference implements ReferenceInterface
         }
         $results = $this->reference->whereBetween('received_date', [$from, $today]);
         return $results;
+    }
+
+    public function referencesStillOpenAfterFortyEightHoursReport()
+    {
+        $openedReferences = Reference::where('status', 'مفتوحة')
+                                        ->latest('received_date')
+                                        ->get();
+
+        $selectedReference = [];
+        foreach($openedReferences as $key=>$openedReference) {
+            if (!empty($openedReference->received_date)) {
+                $recivedDate = Carbon::parse($openedReference->received_date);
+                if($recivedDate->diffInDays(now()) >= 2){
+                    $selectedReference[] = $openedReference;
+                }
+            }
+        }
+        return $selectedReference;
     }
 
     public function referenceMalfunctionsMaker(Reference $reference,ReferenceRequest $request,string $requestType)

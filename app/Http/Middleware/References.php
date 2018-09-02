@@ -85,7 +85,9 @@ class References
         }
 
         else if (in_array('view_references_reports', $permissions)) {
-            if($request->route()->getName() == 'references_during_last_two_working_days_report'    && (in_array('view_references_during_last_two_working_days_report', $permissions) )){
+            if ($request->route()->getName() == 'references_during_last_two_working_days_report'    && (in_array('view_references_during_last_two_working_days_report', $permissions) )){
+                $response = $next($request);
+            } elseif ($request->route()->getName() == 'references_still_open_after_forty_eight_hours_report'    && (in_array('view_references_still_open_after_forty_eight_hours_report', $permissions) )){
                 $response = $next($request);
             } else {
                 abort(403);
