@@ -75,9 +75,9 @@ class Contract extends Model
             return $this->asDateTime($date)->format('Y-m-d');
     }    
 
-    public function followUpCard()
+    public function followUpCards()
     {
-        return $this->hasOne('App\FollowUpCard', 'contract_id');
+        return $this->hasMany('App\FollowUpCard', 'contract_id');
     }
 
     public function printingMachines()

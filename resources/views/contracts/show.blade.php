@@ -93,11 +93,16 @@
 								    </tr>
 
 									<tr>
-									    <th> بطاقة المتابعة </th>
+									    <th> بطاقات المتابعة </th>
 									    <td>
-											<a href="{{action('FollowUpCardController@show', ['id'=>(($contract->followUpCard)?($contract->followUpCard->id):(''))])}}">
-												{{$contract->followUpCard->code or ''}}
-											</a>
+											@php $followUpCards = $contract->followUpCards; @endphp
+											@if( $followUpCards->isNotEmpty() )
+												@foreach ($followUpCards as $key => $followUpCard)
+													<a href="{{action('FollowUpCardController@show', ['id'=>$followUpCard->id])}}">
+														{{$followUpCard->code or ''}}
+													</a> &nbsp 
+												@endforeach
+											@endif
 										</td>
 								    </tr>
 

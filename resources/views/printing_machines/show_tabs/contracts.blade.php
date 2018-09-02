@@ -8,7 +8,6 @@
 				<th> # </th>
 				<th> كود العقد </th>
 				<th> نوع العقد </th>
-				<th> بطاقة المتابعة </th>
 				<th> بداية التعاقد </th>
 				<th> نهاية التعاقد </th>
 				<th> حالة التعاقد </th>
@@ -25,11 +24,6 @@
 						</a>
 					</td>
 					<td>{{$contract->type}}</td>
-					<td>
-						<a href="{{action('FollowUpCardController@show', ['id'=>(($contract->followUpCard)?($contract->followUpCard->id):(''))])}}">
-							{{($contract->followUpCard)?($contract->followUpCard->code):('')}}
-						</a>
-					</td>
 					<td>{{$contract->start}}</td>
 					<td>{{$contract->end}}</td>
 					<td>{{$contract->status}}</td>					

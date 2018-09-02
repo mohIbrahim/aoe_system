@@ -91,17 +91,20 @@ class EloquentFollowUpCard implements FollowUpCardInterface
     public function visitsNotDoneOnTimeReport($period1, $period2)
     {
         $resultsArray = [];
-        $selectedContract = \App\Contract::with('followUpCard')
+        $validContract = \App\Contract::with('followUpCards')
                                         ->where('start', '<=', $period2)
                                         ->where('end', '>=', $period1)
                                         ->get();
-        $intentedFollowUpCards = [];
-        foreach ($selectedContract as $contract) {
-            $followUpCard = $contract->followUpCard;
-            if (isset($followUpCard)) {
-                $visits = $followUpCard->visits()->whereBetween('visit_date', [$period1, $period2])->get();
-                if ($visits->isEmpty()) {
-                    $intentedFollowUpCards[] = $followUpCard;
+                                        $intentedFollowUpCards = [];
+                                        
+        foreach ($validContract as $contract) {
+            $followUpCards = $contract->followUpCards;
+            if ($followUpCards->isNotEmpty()) {
+                foreach ($followUpCards as $key => $followUpCard) {
+                    $visits = $followUpCard->visits()->whereBetween('visit_date', [$period1, $period2])->get();
+                    if ($visits->isEmpty()) {
+                        $intentedFollowUpCards[] = $followUpCard;
+                    }
                 }
             }
         }
