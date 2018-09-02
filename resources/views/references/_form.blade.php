@@ -24,9 +24,9 @@
     <select class="form-control" name="type">
         <?php $referenceType = isset($reference->type)? $reference->type:'' ;?>
         <option value="">  اختر نوع الإشارة.  </option>
-        <option value="تركيب" {{($referenceType == 'تركيب')? 'selected' : ((old('type')=='تركيب')?'selected':'')}}> تركيب </option>
-        <option value="ضمان" {{($referenceType == 'ضمان')? 'selected' : ((old('type')=='ضمان')?'selected':'')}}> ضمان </option>
-        <option value="صيانة" {{($referenceType == 'صيانة')? 'selected' : ((old('type')=='صيانة')?'selected':'')}}> صيانة </option>
+        <option value="تركيب قطع - مستلزمات" {{($referenceType == 'تركيب قطع - مستلزمات')? 'selected' : ((old('type')=='تركيب قطع - مستلزمات')?'selected':'')}}> تركيب قطع - مستلزمات </option>
+        <option value="تركيب آلة" {{($referenceType == 'تركيب آلة')? 'selected' : ((old('type')=='تركيب آلة')?'selected':'')}}> تركيب آلة </option>
+        <option value="عطل" {{($referenceType == 'عطل')? 'selected' : ((old('type')=='عطل')?'selected':'')}}> عطل </option>
         <option value="زيارة" {{($referenceType == 'زيارة')? 'selected' : ((old('type')=='زيارة')?'selected':'')}}> زيارة </option>
         <option value="تقرير" {{($referenceType == 'تقرير')? 'selected' : ((old('type')=='تقرير')?'selected':'')}}> تقرير </option>
     </select>
