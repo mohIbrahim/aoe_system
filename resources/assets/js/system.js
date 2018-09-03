@@ -908,7 +908,7 @@ $(document).ready(function(){
 												(invoice.delivery_permission_number||''),
 												(invoice.finance_check_out||''),
 												(invoice.total||''),
-												((invoice.employee_responisable_for_this_invoice)?((invoice.employee_responisable_for_this_invoice.user)?(invoice.employee_responisable_for_this_invoice.user.name):('')):('')),
+												((invoice.employees_responisable_for_this_invoice)?((invoice.employees_responisable_for_this_invoice.user)?(invoice.employees_responisable_for_this_invoice.user.name):('')):('')),
 												(invoice.release_date||''),
 												(invoice.collect_date||''),
 											]);

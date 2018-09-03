@@ -84,8 +84,10 @@
                                     </tr>
                                     
                                     <tr>
-                                        <th> اسم الموظف المسؤول عن الفاتورة </th>
-                                        <td>{{($invoice->employeeResponisableForThisInvoice)?((($invoice->employeeResponisableForThisInvoice->user)?($invoice->employeeResponisableForThisInvoice->user->name):(''))):('')}}</td>
+                                        <th> اسماء الموظفين المسؤولين عن الفاتورة </th>
+                                        <td>
+                                            {{$invoice->employeesNamesThatAreResponsibleOnThisInvoice}}
+                                        </td>
                                     </tr>
 
                                     <tr>

@@ -55,7 +55,7 @@ class EloquentInvoice implements InvoiceInterface
 
     public function search($keyword)
     {
-        $results = $this->invoice->with('customer', 'employeeResponisableForThisInvoice.user')->where('number', 'like', '%'.$keyword.'%')
+        $results = $this->invoice->with('customer', 'employeesResponisableForThisInvoice.user')->where('number', 'like', '%'.$keyword.'%')
                         ->orWhere('type', 'like', '%'.$keyword.'%')
                         ->orWhere('issuer', $keyword)
                         ->orWhere('order_number', 'like', '%'.$keyword.'%')
@@ -68,7 +68,7 @@ class EloquentInvoice implements InvoiceInterface
                         ->orWhereHas('customer', function($query) use($keyword){
                             $query->where('name', 'like', '%'.$keyword.'%');
                         })
-                        ->orWhereHas('employeeResponisableForThisInvoice', function($query) use($keyword){
+                        ->orWhereHas('employeesResponisableForThisInvoice', function($query) use($keyword){
                             $query->whereHas('user', function($query) use($keyword){
                                 $query->where('name', 'like', "%$keyword%");
                             });

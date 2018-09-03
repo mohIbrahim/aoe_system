@@ -65,6 +65,8 @@ class InvoiceController extends Controller
             $this->invoice->attachSellingParts($request, $invoice);
         }
 
+        $invoice->employeesResponisableForThisInvoice()->sync($request->input('emps_ids_reponsible_for_invoice'));
+        
         flash()->success(' تم إنشاء الفاتورة بنجاح. ')->important();
         return redirect()->action('InvoiceController@show', ['id'=>$invoice->id]);
     }
@@ -106,6 +108,7 @@ class InvoiceController extends Controller
     public function edit($id)
     {
         $invoice = $this->invoice->getById($id);
+        // dd($invoice->selectedResponsibleEmpsIdsForInvoice);
         $indexationsCodes = Indexation::all()->pluck('code', 'id');
         $contractsIdsCodes = Contract::all()->pluck('code', 'id');
         $employeesNames = Employee::all()->pluck('user.name', 'user.name');
@@ -137,6 +140,8 @@ class InvoiceController extends Controller
         }else {
             $invoice->sellingParts()->detach();
         }
+
+        $invoice->employeesResponisableForThisInvoice()->sync($request->input('emps_ids_reponsible_for_invoice'));
 
         flash()->success(' تم تعديل الفاتورة بنجاح. ')->important();
         return redirect()->action('InvoiceController@show', ['id'=>$id]);

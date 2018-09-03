@@ -190,17 +190,16 @@
 </div>
 
 <div class="form-group">
-    <label for="emp_id_reponsible_for_invoice"> اسم الموظف المسؤول عن الفاتورة </label>
-    <select class="form-control selectpicker" name="emp_id_reponsible_for_invoice" data-live-search="true" id="collector-employee-name">
-        <?php $selectedResponsibleEmpIdForInvoice = isset($invoice->emp_id_reponsible_for_invoice)? $invoice->emp_id_reponsible_for_invoice:'' ;$isNotSelectedYet = 1;?>
+    <label for="emps_ids_reponsible_for_invoice"> اسم الموظف المسؤول عن الفاتورة </label>
+    <select class="form-control selectpicker" name="emps_ids_reponsible_for_invoice[]" data-live-search="true" id="collector-employee-name" multiple>
+       
         <option value=" "> اختر اسم الموظف المسؤول عن الفاتورة.  </option>
         @foreach ($employeesNamesIds as $employeeId => $responsibleEmpForInvoiceName)
 
-            @if ( (old('emp_id_reponsible_for_invoice')) == $employeeId)
-                <option value="{{$employeeId}}" selected="selected"> {{$responsibleEmpForInvoiceName}} </option>
-                {{$isNotSelectedYet = 0}}
+            @if ( (old('emps_ids_reponsible_for_invoice')) != [])
+                <option value="{{$employeeId}}" {{in_array($employeeId, old('emps_ids_reponsible_for_invoice'))?('selected'):('') }}> {{$responsibleEmpForInvoiceName}} </option>
             @else
-                @if($selectedResponsibleEmpIdForInvoice == $employeeId && $isNotSelectedYet)
+                @if( !empty($invoice->selectedResponsibleEmpsIdsForInvoice) && in_array($employeeId, $invoice->selectedResponsibleEmpsIdsForInvoice))
                     <option value="{{$employeeId}}" selected="selected"> {{$responsibleEmpForInvoiceName}} </option>
                 @else
                     <option value="{{$employeeId}}"> {{$responsibleEmpForInvoiceName}} </option>

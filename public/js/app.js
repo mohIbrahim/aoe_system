@@ -32591,7 +32591,7 @@ $(document).ready(function () {
 					$("#my-table-body").fadeOut();
 					standardTable.clear();
 					$.each(results, function (index, invoice) {
-						standardTable.row.add([index + 1, "<a href='/invoices/" + invoice.id + "'>" + (invoice.number ? invoice.number : 'لم يتم تعين الرقم حتى الآن') + "</a>", invoice.customer ? invoice.customer.name : '', invoice.type, invoice.issuer || '', invoice.order_number || '', invoice.delivery_permission_number || '', invoice.finance_check_out || '', invoice.total || '', invoice.employee_responisable_for_this_invoice ? invoice.employee_responisable_for_this_invoice.user ? invoice.employee_responisable_for_this_invoice.user.name : '' : '', invoice.release_date || '', invoice.collect_date || '']);
+						standardTable.row.add([index + 1, "<a href='/invoices/" + invoice.id + "'>" + (invoice.number ? invoice.number : 'لم يتم تعين الرقم حتى الآن') + "</a>", invoice.customer ? invoice.customer.name : '', invoice.type, invoice.issuer || '', invoice.order_number || '', invoice.delivery_permission_number || '', invoice.finance_check_out || '', invoice.total || '', invoice.employees_responisable_for_this_invoice ? invoice.employees_responisable_for_this_invoice.user ? invoice.employees_responisable_for_this_invoice.user.name : '' : '', invoice.release_date || '', invoice.collect_date || '']);
 					});
 					standardTable.draw();
 					$("#my-table-body").fadeIn();

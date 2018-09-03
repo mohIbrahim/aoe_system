@@ -32,7 +32,7 @@
 			  				    <th> إذن تسليم رقم العقد </th>
 			  				    <th> إطلاع قسم الحسابات </th>
 			  				    <th> إجمالي القيمة </th>
-			  				    <th> اسم المهندس المسؤول عن الفاتورة </th>
+			  				    <th> اسماء الموظفين المسؤولين عن الفاتورة </th>
 			  				    <th> تاريخ الإصدار </th>
 			  				    <th> تاريخ التحصيل </th>
 			  			    </tr>
@@ -56,7 +56,9 @@
 										<td>{{$invoice->delivery_permission_number}}</td>
 										<td>{{$invoice->finance_check_out}}</td>
 										<td>{{(isset($invoice->total))?($invoice->total.' جنية'):('0جنية')}} </td>
-										<td>{{($invoice->employeeResponisableForThisInvoice)?((($invoice->employeeResponisableForThisInvoice->user)?($invoice->employeeResponisableForThisInvoice->user->name):(''))):('')}}</td>
+										<td>
+											 {{$invoice->employeesNamesThatAreResponsibleOnThisInvoice}}
+										</td>
 										<td>{{$invoice->release_date}}</td>
 										<td>{{$invoice->collect_date}}</td>
 									</tr>

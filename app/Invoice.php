@@ -22,7 +22,6 @@ class Invoice extends Model
                                      'comments',
                                       'collect_date',
                                        'collector_employee_name',
-                                        'emp_id_reponsible_for_invoice',
                                          'indexation_id',
                                           'contract_id',
                                            'customer_id',
@@ -71,6 +70,22 @@ class Invoice extends Model
         $this->attributes['finance_check_out'] = $data;
     }
 
+    public function getSelectedResponsibleEmpsIdsForInvoiceAttribute()
+    {
+        return ($this->employeesResponisableForThisInvoice->isNotEmpty())?($this->employeesResponisableForThisInvoice->pluck('id')->toArray()):([]);
+    }
+    
+    public function getEmployeesNamesThatAreResponsibleOnThisInvoiceAttribute()
+    {
+        $employees = ($this->employeesResponisableForThisInvoice->isNotEmpty())?($this->employeesResponisableForThisInvoice):([]);
+        $employeesNames = '';
+        foreach($employees as $employee) {
+            $employeesNames .= $employee->employeeName . ' &nbsp; &nbsp;';
+        }
+        return $employeesNames;
+
+    }
+
     public function indexation()
     {
         return $this->belongsTo('App\Indexation', 'indexation_id');
@@ -98,9 +113,9 @@ class Invoice extends Model
                     ->withTimestamps();
     }
 
-    public function employeeResponisableForThisInvoice()
+    public function employeesResponisableForThisInvoice()
     {
-        return $this->belongsTo('App\Employee', 'emp_id_reponsible_for_invoice', 'id');
+        return $this->belongsToMany('App\Employee', 'employee_invoice_responsibilities', 'invoice_id', 'employee_id');
     }
 
     public function userWhoHasCreatedTheInvoice()
