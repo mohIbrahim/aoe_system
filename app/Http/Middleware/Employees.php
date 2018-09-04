@@ -67,7 +67,19 @@ class Employees
 		if($request->route()->getName() == 'employees_search'    && in_array('view_employees', $permissions)){
 
             $response = $next($request);
-        }else{
+        } else 
+        
+        if( in_array('view_employees_reports', $permissions)){
+            
+            if($request->route()->getName() == 'responsible_employees_for_invoices_not_paid_report'    && in_array('view_responsible_employees_for_invoices_not_paid_report', $permissions)){
+                $response = $next($request);
+            } else {
+                abort(403);
+            }
+        
+        }
+        
+        else{
             abort(403);
         }
 
