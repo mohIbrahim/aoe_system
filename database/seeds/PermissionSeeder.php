@@ -406,11 +406,6 @@ class PermissionSeeder extends Seeder
             ]);
         DB::table('permissions')->insert([
             'title'      =>'invoices',
-            'name'      =>'view_responsible_employees_for_invoices_not_paid_report',
-            'created_at'=>Carbon::now(),
-            ]);
-        DB::table('permissions')->insert([
-            'title'      =>'invoices',
             'name'      =>'view_invoices_released_in_specific_period_report',
             'created_at'=>Carbon::now(),
             ]);
@@ -627,6 +622,16 @@ class PermissionSeeder extends Seeder
         DB::table('permissions')->insert([
             'title'      =>'employees',
             'name'      =>'delete_employees',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'employees',
+            'name'      =>'view_employees_reports',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'employees',
+            'name'      =>'view_responsible_employees_for_invoices_not_paid_report',
             'created_at'=>Carbon::now(),
             ]);
     }

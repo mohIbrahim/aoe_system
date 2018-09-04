@@ -94,4 +94,10 @@ class EmployeeController extends Controller
         $abc = new EloquentPrintingMachine(new PrintingMachine());
         return $abc->searchLimitedCodeCustomer($keyword);
     }
+
+    public function getResponsibleEmployeesForInvoicesNotPaidReport()
+    {
+        $employeesInvoices = $this->employee->getResponsibleEmployeesForInvoicesNotPaidReport();
+        return view('employees.reports.responsible_employees_for_invoices_not_paid_report', compact('employeesInvoices'));
+    }
 }

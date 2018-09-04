@@ -84,9 +84,7 @@ class Invoices
         }else
 
         if( in_array('view_invoices_reports', $permissions)){
-            if($request->route()->getName() == 'responsible_employees_for_invoices_not_paid_report'    && in_array('view_responsible_employees_for_invoices_not_paid_report', $permissions)){
-                $response = $next($request);
-            }else if ($request->route()->getName() == 'get_invoices_released_in_specific_period_report'    && in_array('view_invoices_released_in_specific_period_report', $permissions)){
+            if ($request->route()->getName() == 'get_invoices_released_in_specific_period_report'    && in_array('view_invoices_released_in_specific_period_report', $permissions)){
                 $response = $next($request);
             } else if ($request->route()->getName() == 'invoices_released_in_specific_period_report_search'    && in_array('view_invoices_released_in_specific_period_report', $permissions)){
                 $response = $next($request);

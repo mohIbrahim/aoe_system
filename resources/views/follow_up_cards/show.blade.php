@@ -56,7 +56,7 @@
 										</tr>
 										<tr>
 											<th> تاريخ التعديل </th>
-											<td style="direction:ltr; text-align:center">{{$followUpCard->created_at}}</td>
+											<td style="direction:ltr; text-align:center">{{$followUpCard->updated_at}}</td>
 										</tr>
 									</tbody>
 								</table>

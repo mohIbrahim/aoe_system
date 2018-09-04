@@ -74,6 +74,10 @@ class EloquentInvoice implements InvoiceInterface
                             });
                         })
                         ->get();
+
+        foreach($results as  $key=>$result) {
+            $result->employeesNamesThatAreResponsibleOnThisInvoice = $result->employeesNamesThatAreResponsibleOnThisInvoice;
+        }
         return $results;
     }
 
@@ -138,18 +142,12 @@ class EloquentInvoice implements InvoiceInterface
         }
     }
 
-    /**
-     * Report for employees that have invoices and they didn't collect it yet.
-     */
-    public function getResponsibleEmployeesForInvoicesNotPaidReport()
-    {
-        $results = $this->invoice->with('customer', 'employeeResponisableForThisInvoice.user')->whereNull('collect_date')->whereNotNull('emp_id_reponsible_for_invoice')->get()->groupBy('emp_id_reponsible_for_invoice');
-        return $results;
-    }
-
     public function invoicesReleasedInSpecificPeriodReportSearch($from, $to)
     {
-        $results = $this->invoice->with('customer', 'employeeResponisableForThisInvoice.user')->whereNotNull('number')->whereBetween('release_date', [$from, $to])->get();
+        $results = $this->invoice->with('customer', 'employeesResponisableForThisInvoice.user')->whereNotNull('number')->whereBetween('release_date', [$from, $to])->get();
+        foreach($results as  $key=>$result) {
+            $result->employeesNamesThatAreResponsibleOnThisInvoice = $result->employeesNamesThatAreResponsibleOnThisInvoice;
+        }
         return $results;
     }
 }

@@ -118,6 +118,34 @@ class EloquentEmployee implements EmployeeInterface
         $maintenanceEngineersEmployeesNamesIds = collect($arrayOfEmployeesNamesIds);
         return $maintenanceEngineersEmployeesNamesIds;
     }
+
+    /**
+     * Report for employees that have invoices and they didn't collect it yet.
+     */
+    public function getResponsibleEmployeesForInvoicesNotPaidReport()
+    {
+        $results = [];
+        $temporaryInvoicesArray = [];
+        $employees = $this->employee->all();
+         
+        foreach ($employees as $employee) {
+
+            if ($employee->invoicesAtHisOwnRisk->isNotEmpty()) {
+                
+                $employeeInvoices = $employee->invoicesAtHisOwnRisk;
+                foreach ($employeeInvoices as $employeeInvoice) {
+
+                    if (empty($employeeInvoice->collect_date)) {
+                        array_push($temporaryInvoicesArray, $employeeInvoice);
+                    }
+
+                }
+                $results[$employee->employeeName] = $temporaryInvoicesArray;
+                $temporaryInvoicesArray = [];
+            }
+        }
+        return $results;
+    }
     
 
 }

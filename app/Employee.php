@@ -100,7 +100,7 @@ class Employee extends Model
      */
     public function invoicesAtHisOwnRisk()
     {
-        return $this->hasMany('App\Invoice', 'emp_id_reponsible_for_invoice', 'id');
+        return $this->belongsToMany('App\Invoice', 'employee_invoice_responsibilities', 'employee_id', 'invoice_id');
     }
 
     public function indexations()

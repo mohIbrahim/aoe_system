@@ -6,13 +6,13 @@
 				<h3 class="text-center">تقرير عن المواظفين المسؤولين عن الفواتير التي لم يتم تحصيلها</h3>
 			</div>
 			<div class="panel-body">
-				@foreach($invoices as $invoiceGroupedKey=>$invoiceGrouped)
-				@php
-					$i = 0;
-				@endphp
+				@foreach($employeesInvoices as $employeeName=>$employeeInvoices)
+					@php
+						$i = 0;
+					@endphp
 					<div class="panel panel-default">
 					<div class="panel-body">
-						<h4 class="">{{$invoiceGrouped[$i]->employeeResponisableForThisInvoice->user->name}}</h4>
+						<h4 class="">{{$employeeName}}</h4>
 					</div>
 						<div class="table-responsive">
 							<table class="table table-hover standard-datatable" style="font-size:.75em">
@@ -33,7 +33,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									@foreach($invoiceGrouped as $invoiceKey=>$invoice)
+									@foreach($employeeInvoices as $invoiceKey=>$invoice)
 										<tr>
 											<td>
 												{{($invoiceKey+1)}}
@@ -67,7 +67,7 @@
 												{{$invoice->total.' جنية'}}
 											</td>
 											<td>
-												{{($invoice->employeeResponisableForThisInvoice)?((($invoice->employeeResponisableForThisInvoice->user)?($invoice->employeeResponisableForThisInvoice->user->name):(''))):('')}}
+												{{($invoice->employeesNamesThatAreResponsibleOnThisInvoice)}}
 											</td>
 											<td>
 												{{$invoice->release_date}}

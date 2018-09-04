@@ -15,6 +15,13 @@
 				@if(in_array('create_employees', $permissions))
 					<li><a href="{{ action('EmployeeController@create') }}"> إنشاء موظف جديد </a></li>
 				@endif
+				@if(in_array('view_employees_reports', $permissions))
+				<li role="separator" class="divider"></li>
+				<li class="dropdown-header"> <i class="glyphicon glyphicon-info-sign"></i>  تقرير </li>
+				@if(in_array('view_responsible_employees_for_invoices_not_paid_report', $permissions))
+					<li><a href="{{ action('EmployeeController@getResponsibleEmployeesForInvoicesNotPaidReport') }}">تقرير عن المواظفين المسؤولين عن الفواتير التي لم يتم تحصيلها</a></li>
+				@endif
+			@endif
 			@endif
 		</ul>
 	</li>

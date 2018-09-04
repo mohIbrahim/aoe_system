@@ -223,12 +223,6 @@ class InvoiceController extends Controller
         return view('invoices.create', compact('invoice', 'indexationsCodes', 'contractsIdsCodes', 'employeesNames', 'employeesNamesIds'));
     }
 
-    public function getResponsibleEmployeesForInvoicesNotPaidReport()
-    {
-        $invoices = $this->invoice->getResponsibleEmployeesForInvoicesNotPaidReport();
-        return view('invoices.reports.responsible_employees_for_invoices_not_paid_report', compact('invoices'));
-    }
-
     public function getInvoicesReleasedInSpecificPeriodReport()
     {
         return view('invoices.reports.invoices_released_in_specific_period_report');

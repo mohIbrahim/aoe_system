@@ -19,11 +19,11 @@
 
 							<div class="form-group">
 								<label for="visit-input-search"> من </label>
-								<input type="text" name="from" class="form-control" id="datepicker" placeholder=" برجاء إختيار تاريخ بداية المدة. ">
+								<input type="text" name="from" class="form-control" id="datepicker" placeholder=" برجاء إختيار تاريخ بداية المدة. " autocomplete="off">
 							</div>
 							<div class="form-group">
 								<label for="visit-input-search"> إلى </label>
-								<input type="text" name="to" class="form-control" id="datepicker2" placeholder=" برجاء إختيار تاريخ نهاية المدة. ">
+								<input type="text" name="to" class="form-control" id="datepicker2" placeholder=" برجاء إختيار تاريخ نهاية المدة. "  autocomplete="off">
 							</div>	
 							<button type="button" id="invices-released-in-specific-period-report-search-btn" class="btn btn-primary"> بحث </button>
 						</div>
@@ -33,42 +33,45 @@
 		    </div>
 		    <div class="panel-body">
 					<div id="invices-released-in-specific-period-report-loading-message" class="text-center"></div>
-			  	    <table class="table table-hover standard-datatable">
-			  		    <thead>
-			  			    <tr>
-								<th>#</th>
-                                <th> رقم الفاتورة </th>
-                                <th> اسم العميل </th>
-                                <th> نوع الفاتورة </th>
-                                <th> جهة الإصدار </th>
-			  				    <th> أمر توريد رقم</th>
-			  				    <th> إذن تسليم رقم العقد </th>
-			  				    <th> إطلاع قسم الحسابات </th>
-			  				    <th> إجمالي القيمة </th>
-			  				    <th> اسم المهندس المسؤول عن الفاتورة </th>
-			  				    <th> تاريخ الإصدار </th>
-			  				    <th> تاريخ التحصيل </th>
-			  			    </tr>
-			  		    </thead>
-			  		    <tbody id="invices-released-in-specific-period-report-table-body">
-			  		    </tbody>
-						<tfoot>
-			  			    <tr>
-								<th>#</th>
-                                <th> رقم الفاتورة </th>
-                                <th> اسم العميل </th>
-                                <th> نوع الفاتورة </th>
-                                <th> جهة الإصدار </th>
-			  				    <th> أمر توريد رقم</th>
-			  				    <th> إذن تسليم رقم العقد </th>
-			  				    <th> إطلاع قسم الحسابات </th>
-			  				    <th> إجمالي القيمة </th>
-			  				    <th> اسم المهندس المسؤول عن الفاتورة </th>
-			  				    <th> تاريخ الإصدار </th>
-			  				    <th> تاريخ التحصيل </th>
-			  			    </tr>
-			  		    </tfoot>
-			  	     </table>
+					<div class="table-responsive">
+						<table class="table table-hover standard-datatable">
+							<thead>
+								<tr>
+								  <th>#</th>
+								  <th> رقم الفاتورة </th>
+								  <th> اسم العميل </th>
+								  <th> نوع الفاتورة </th>
+								  <th> جهة الإصدار </th>
+									<th> أمر توريد رقم</th>
+									<th> إذن تسليم رقم العقد </th>
+									<th> إطلاع قسم الحسابات </th>
+									<th> إجمالي القيمة </th>
+									<th> اسم المهندس المسؤول عن الفاتورة </th>
+									<th> تاريخ الإصدار </th>
+									<th> تاريخ التحصيل </th>
+								</tr>
+							</thead>
+							<tbody id="invices-released-in-specific-period-report-table-body">
+							</tbody>
+						  	<tfoot>
+								<tr>
+								  <th>#</th>
+								  <th> رقم الفاتورة </th>
+								  <th> اسم العميل </th>
+								  <th> نوع الفاتورة </th>
+								  <th> جهة الإصدار </th>
+									<th> أمر توريد رقم</th>
+									<th> إذن تسليم رقم العقد </th>
+									<th> إطلاع قسم الحسابات </th>
+									<th> إجمالي القيمة </th>
+									<th> اسم المهندس المسؤول عن الفاتورة </th>
+									<th> تاريخ الإصدار </th>
+									<th> تاريخ التحصيل </th>
+								</tr>
+							</tfoot>
+						 </table>
+						
+					</div>
 				
 		    </div>
 		  </div>
