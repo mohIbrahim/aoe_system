@@ -157,7 +157,7 @@ class Invoice extends Model
              $partPriceWithoutTaxWithDiscount    = $partPriceWithoutTax - (($partPriceWithoutTax * $discountRate) / 100);
              
              $tax                                = $partPriceWithTax - $partPriceWithoutTax;
-             $taxPercentage                      = round(((($partPriceWithTax - $partPriceWithoutTax)  * 100 ) / ($partPriceWithoutTax || 1)), 2);
+             $taxPercentage                      = round(((($partPriceWithTax - $partPriceWithoutTax)  * 100 ) / (($partPriceWithoutTax > 0)?($partPriceWithoutTax):(1))), 2);
              
              $rowPriceWithTax                    = (($partPriceWithoutTaxWithDiscount) + $tax) * $numberOfParts;
              $rowPriceWithoutTax                 = $partPriceWithoutTaxWithDiscount * $numberOfParts;
