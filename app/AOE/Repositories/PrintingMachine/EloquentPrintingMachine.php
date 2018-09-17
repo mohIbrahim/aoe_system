@@ -134,4 +134,10 @@ class EloquentPrintingMachine implements PrintingMachineInterface
         })->download('xls');
     }
 
+    public function getPrintingMachinesWithoutFollowUpCardsReport()
+    {
+        $printingMachinesWhithoutFollowUpCards = $this->printingMachine->whereDoesntHave('followUpcards')->get();
+        return $printingMachinesWhithoutFollowUpCards;
+    }
+
 }

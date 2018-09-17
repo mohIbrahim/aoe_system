@@ -75,7 +75,16 @@ class PrintingMachines
 		if($request->route()->getName() == 'create_printing_machine_with_customer'    && in_array('create_printing_machines', $permissions)){
 
             $response = $next($request);
-        }else{
+        } else 
+
+        if(in_array('view_printing_machines_reports', $permissions)) {
+            if($request->route()->getName() == 'printing_machines_without_follow_up_cards_report' && in_array('view_printing_machines_without_follow_up_cards_report', $permissions) ) {
+                $response = $next($request);
+            }else{
+                abort(403);
+            }
+        }
+        else{
             abort(403);
         }
 

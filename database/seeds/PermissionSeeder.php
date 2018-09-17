@@ -167,6 +167,16 @@ class PermissionSeeder extends Seeder
             'name'      =>'delete_printing_machines',
             'created_at'=>Carbon::now(),
             ]);
+        DB::table('permissions')->insert([
+            'title'      =>'printing_machines',
+            'name'      =>'view_printing_machines_reports',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'printing_machines',
+            'name'      =>'view_printing_machines_without_follow_up_cards_report',
+            'created_at'=>Carbon::now(),
+            ]);
     }
 
     private function customers()

@@ -27,6 +27,7 @@
 								<th> الرقم المسلسل لآلة الطباعة </th>
 								<th> اسم الموظف المعين على الآلة </th>
 								<th> تاريخ الإنشاء </th>
+								<th> تاريخ التعديل </th>
 							</tr>
 						</thead>
 						<tbody id="my-table-body">
@@ -75,6 +76,9 @@
 									<td>
 										{{$followUpCard->created_at->format('Y-m-d')}}
 									</td>
+									<td>
+										{{$followUpCard->updated_at->format('Y-m-d')}}
+									</td>
 								</tr>
 								@endforeach
 
@@ -90,6 +94,7 @@
 								<th> الرقم المسلسل لآلة الطباعة </th>
 								<th> اسم الموظف المعين على الآلة </th>
 								<th> تاريخ الإنشاء </th>
+								<th> تاريخ التعديل </th>
 							</tr>
 						</tfoot>
 					</table>

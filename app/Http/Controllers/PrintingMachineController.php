@@ -142,4 +142,10 @@ class PrintingMachineController extends Controller
         $this->printingMachine->getAllPrintingMachinesAsExcel();
     }
 
+    public function getPrintingMachinesWithoutFollowUpCardsReport()
+    {
+        $printingMachinesWithoutFollowUpCards = $this->printingMachine->getPrintingMachinesWithoutFollowUpCardsReport();
+        return view('printing_machines.reports.printing_machines_without_follow_up_cards', compact('printingMachinesWithoutFollowUpCards'));
+    }
+
 }

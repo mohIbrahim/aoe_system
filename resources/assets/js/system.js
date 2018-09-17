@@ -367,6 +367,8 @@ $(document).ready(function(){
 						machine.customer.name,
 						((machine.customer.administration !== null)?(machine.customer.administration):('')),
 						assignedEmployeesRow,
+						machine.created_at,
+						machine.updated_at,
 					]);
 				});
 				standardTable.draw();
@@ -521,6 +523,7 @@ $(document).ready(function(){
 									:(''))
 								:(''),
 							(formatDate(follow_up_card.created_at) || ''),
+							(formatDate(follow_up_card.updated_at) || ''),
 						]);
 					});
 					standardTable.draw();

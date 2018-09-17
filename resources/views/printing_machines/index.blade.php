@@ -39,6 +39,8 @@
 								<th> اسم العميل </th>
 								<th> الإدارة </th>
 								<th> الموظفين المسؤولين عن الآلة </th>
+								<th>تاريخ الأنشاء</th>
+								<th>تاريخ التعديل</th>
 							</tr>
 						</thead>
 						<tbody id="my-table-body">
@@ -64,6 +66,8 @@
 												@endforeach
 											@endif
 										</td>
+										<td>{{$printingMachine->created_at}}</td>
+										<td>{{$printingMachine->updated_at}}</td>
 									</tr>
 								@endforeach
 							</div>
@@ -79,6 +83,8 @@
 								<th> اسم العميل </th>
 								<th> الإدارة </th>
 								<th> الموظفين المسؤولين عن الآلة </th>
+								<th>تاريخ الأنشاء</th>
+								<th>تاريخ التعديل</th>
 							</tr>
 						</tfoot>
 					</table>
