@@ -1168,6 +1168,7 @@ $(document).ready(function(){
 							"<a href='{{url('visits')}}/"+visit.id+"'>"+visit.id+"</a>",
 							visit.visit_date,
 							visit.type,
+							((visit.printing_machine)?visit.printing_machine.folder_number:''),
 							"<a href='{{url('printing_machines')}}/"+((visit.printing_machine)?visit.printing_machine.id:'')+"'>"+((visit.printing_machine)?visit.printing_machine.code:'')+"</a>",
 							((visit.printing_machine !== null)?(visit.printing_machine.serial_number):('')),
 							visit.readings_of_printing_machine,

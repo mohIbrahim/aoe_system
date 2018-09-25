@@ -45,6 +45,7 @@
                                 <th> رقم الزيارة </th>
                                 <th> تاريخ الزيارة </th>
                                 <th> نوع الزيارة </th>
+                                <th> رقم ملف الآلة </th>
                                 <th> كود آلة التصوير </th>
                                 <th> سيريل آلة التصوير </th>
 			  				    <th> قراءة العداد </th>
@@ -67,6 +68,7 @@
                                             {{$visit->visit_date}}
                                         </td>
 										<td>{{$visit->type}}</td>
+										<td>{{isset($visit->printingMachine)?$visit->printingMachine->folder_number:''}}</td>
                                         <td>
                                             <a href="{{action('PrintingMachineController@show', ['id'=>(isset($visit->printingMachine)?$visit->printingMachine->id:'')])}}">
                                                 {{isset($visit->printingMachine)?$visit->printingMachine->code:''}}
@@ -86,6 +88,7 @@
                                 <th> رقم الزيارة </th>
                                 <th> تاريخ الزيارة </th>
                                 <th> نوع الزيارة </th>
+                                <th> رقم ملف الآلة </th>
                                 <th> كود آلة التصوير </th>
                                 <th> سيريل آلة التصوير </th>
 			  				    <th> قراءة العداد </th>
