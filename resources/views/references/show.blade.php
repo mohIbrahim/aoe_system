@@ -114,6 +114,18 @@
                                         </td>
 								    </tr>
 								    <tr>
+									    <th> الزيارات </th>
+									    <td>
+											@foreach($reference->visits as $visit)
+												@if(isset($visit->theEmployeeWhoMadeTheVisit))
+													<a href="{{ action('VisitController@show', ['id'=>$visit->id]) }}" target="_blank">
+														{{$visit->visit_date}}<br>
+													</a>
+												@endif
+											@endforeach
+										</td>
+								    </tr>
+								    <tr>
 									    <th> قراءة العداد </th>
 									    <td>{{$reference->readings_of_printing_machine}}</td>
 								    </tr>                                    
@@ -180,7 +192,9 @@
 	</div>
 @endsection
 
-@include('partial.deleteConfirm',['name'=>$reference->code,
-								  'id'=> $reference->id,
-								  'message'=>' هل أنت متأكد؟ هل تريد حذف ',
-								  'route'=>'ReferenceController@destroy'])
+@section('js_footer')
+	@include('partial.deleteConfirm',['name'=>$reference->code,
+									'id'=> $reference->id,
+									'message'=>' هل أنت متأكد؟ هل تريد حذف ',
+									'route'=>'ReferenceController@destroy'])
+@endsection
