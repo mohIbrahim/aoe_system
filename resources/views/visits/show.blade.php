@@ -140,7 +140,7 @@
 
                             <tr>
                                 <th> تاريخ التعديل </th>
-                                <td style="direction:ltr; text-align:center">{{$visit->created_at}}</td>
+                                <td style="direction:ltr; text-align:center">{{$visit->updated_at}}</td>
                             </tr>
 
                             </tbody>
