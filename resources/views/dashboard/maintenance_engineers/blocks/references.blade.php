@@ -10,6 +10,8 @@
                 <th>المنطقة</th>
                 <th>تاريخ الإشارة</th>
                 <th>كود الآلة</th>
+                <th>رقم الملف الآلة</th>
+                <th>الرقم المسلسل للآلة</th>
                 <th>إضافة زيارة</th>
             </tr>
         </thead>
@@ -34,6 +36,12 @@
                         <a href="{{ action('PrintingMachineController@show', ['id'=>(($reference->printingMachine)?(($reference->printingMachine->id)?($reference->printingMachine->id):('')):(''))]) }}">
                             {{ ($reference->printingMachine)?(($reference->printingMachine->code)?($reference->printingMachine->code):('')):('') }}
                         </a>
+                    </td>
+                    <td>
+                        {{ ($reference->printingMachine)?(($reference->printingMachine->folder_number)?($reference->printingMachine->folder_number):('')):('') }}
+                    </td>
+                    <td>
+                        {{ ($reference->printingMachine)?(($reference->printingMachine->serial_number)?($reference->printingMachine->serial_number):('')):('') }}
                     </td>
                     <td>
                         <a href="{{ action('VisitController@createWithPrintingMachineIdAndReferenceId', ['pm_id'=>(($reference->printingMachine)?(($reference->printingMachine->id)?($reference->printingMachine->id):('')):('')), 'refernce_id'=>$reference->id]) }}" target="_blank">
