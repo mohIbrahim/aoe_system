@@ -223,7 +223,7 @@
 
                                             <tr>
                                                 <th> تاريخ التعديل </th>
-                                                <td style="direction:ltr; text-align:center">{{$customer->created_at}}</td>
+                                                <td style="direction:ltr; text-align:center">{{$customer->updated_at}}</td>
                                             </tr>
 
                                         </tbody>

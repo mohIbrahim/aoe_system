@@ -128,7 +128,7 @@
 
 								    <tr>
 									    <th> تاريخ التعديل </th>
-									    <td style="direction:ltr; text-align:center">{{$part->created_at}}</td>
+									    <td style="direction:ltr; text-align:center">{{$part->updated_at}}</td>
 								    </tr>
 
 							    </tbody>

@@ -95,7 +95,7 @@
 
 								    <tr>
 									    <th> تاريخ التعديل </th>
-									    <td style="direction:ltr; text-align:center">{{$employee->created_at}}</td>
+									    <td style="direction:ltr; text-align:center">{{$employee->updated_at}}</td>
 								    </tr>
 							    </tbody>
 						     </table>

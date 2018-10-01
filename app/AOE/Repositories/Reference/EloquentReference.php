@@ -54,7 +54,7 @@ class EloquentReference implements ReferenceInterface
 
     public function search($keyword)
     {
-        $results = $this->reference->with('assignedEmployee.user', 'employeeWhoReceiveTheRereference.user', 'printingMachine', 'printingMachine.customer')->where('code', 'like', '%'.$keyword.'%')
+        $results = $this->reference->with('assignedEmployee.user', 'employeeWhoReceiveTheRereference.user', 'printingMachine', 'printingMachine.customer', 'visits')->where('code', 'like', '%'.$keyword.'%')
                                     ->orWhere('type', 'like', '%'.$keyword.'%')
                                     ->orWhereBetween('received_date', [$keyword.' 00:00:00', $keyword.' 23:59:59'])
                                     ->orWhere('reviewed_by_the_chief_engineer', $keyword)
@@ -76,6 +76,9 @@ class EloquentReference implements ReferenceInterface
                                         $queryFour->whereHas('customer', function($queryFive) use($keyword){
                                             $queryFive->where('name', 'like', '%'.$keyword.'%');
                                         });
+                                    })
+                                    ->orWhereHas('visits', function($queryFiveth) use($keyword){
+                                        $queryFiveth->where('id', $keyword);
                                     })
                                     ->get();
         return $results;

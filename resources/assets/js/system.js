@@ -1084,6 +1084,7 @@ $(document).ready(function(){
 												"<a href='/printing_machines/"+((reference.printing_machine)?reference.printing_machine.id:'')+"'>"+((reference.printing_machine)?reference.printing_machine.code:'')+"</a>",
 												((reference.printing_machine)?((reference.printing_machine.serial_number)?(reference.printing_machine.serial_number):('')):('')),
 												((reference.printing_machine)?((reference.printing_machine.customer)?((reference.printing_machine.customer.name)?(reference.printing_machine.customer.name):('')):('')):('')),
+												(((reference.visits).length > 0)?('<a href="/visits/'+((reference.visits)[(reference.visits).length -1 ]).id+'">'+((reference.visits)[(reference.visits).length -1 ]).id+'</a>'):('')),
 												((reference.reviewed_by_the_chief_engineer)?(reference.reviewed_by_the_chief_engineer):('')),
 											]);
 					});

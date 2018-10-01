@@ -33,6 +33,7 @@
 								<th> كود الآلة التصوير </th>
 								<th> الرقم المسلسل لآلة التصوير </th>
 								<th> اسم العميل </th>
+								<th> رقم آخر زيارة </th>
 								<th> مراجعة كبير المهندسين </th>
 							</tr>
 			  		    </thead>
@@ -75,6 +76,13 @@
 											{{(($reference->printingMachine)?(($reference->printingMachine->customer)?($reference->printingMachine->customer->name):('')):(''))}}
 										</td>
 										<td>
+											@if(null !== $reference->visits->last())
+												<a href="{{ action('VisitController@show', ['id'=> $reference->visits->last()->id]) }}" target="_blank">
+													{{$reference->visits->last()->id}}
+												</a>
+											@endif
+										</td>
+										<td>
 											{{$reference->reviewed_by_the_chief_engineer}}
 										</td>
 									</tr>
@@ -93,6 +101,7 @@
 								<th> كود الآلة التصوير </th>
 								<th> الرقم المسلسل لآلة التصوير </th>
 								<th> اسم العميل </th>
+								<th> رقم آخر زيارة </th>
 								<th> مراجعة كبير المهندسين </th>
 							</tr>
 			  		    </tfoot>

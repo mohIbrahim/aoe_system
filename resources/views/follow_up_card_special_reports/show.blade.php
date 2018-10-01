@@ -90,7 +90,7 @@
 
 								    <tr>
 									    <th> تاريخ التعديل </th>
-									    <td style="direction:ltr; text-align:center">{{$followUpCardSpecialReport->created_at}}</td>
+									    <td style="direction:ltr; text-align:center">{{$followUpCardSpecialReport->updated_at}}</td>
 								    </tr>
 
 							    </tbody>

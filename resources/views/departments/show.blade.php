@@ -73,7 +73,7 @@
 											</tr>
 											<tr>
 												<th> تاريخ التعديل </th>
-												<td style="direction:ltr; text-align:center">{{$department->created_at}}</td>
+												<td style="direction:ltr; text-align:center">{{$department->updated_at}}</td>
 											</tr>
 										</tbody>
 									</table>

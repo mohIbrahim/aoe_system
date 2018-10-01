@@ -118,7 +118,7 @@
 
 								    <tr>
 									    <th> تاريخ التعديل </th>
-									    <td style="direction:ltr; text-align:center">{{$contract->created_at}}</td>
+									    <td style="direction:ltr; text-align:center">{{$contract->updated_at}}</td>
 								    </tr>
 
 									<tr>

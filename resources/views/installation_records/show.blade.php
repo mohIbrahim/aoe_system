@@ -190,7 +190,7 @@
 
 								    <tr>
 									    <th> تاريخ التعديل </th>
-									    <td style="direction:ltr; text-align:center">{{$installationRecord->created_at}}</td>
+									    <td style="direction:ltr; text-align:center">{{$installationRecord->updated_at}}</td>
 								    </tr>
 
 							    </tbody>

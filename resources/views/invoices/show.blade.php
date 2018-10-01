@@ -136,7 +136,7 @@
 
                                     <tr>
                                         <th> تاريخ التعديل </th>
-                                        <td style="direction:ltr; text-align:right">{{$invoice->created_at}}</td>
+                                        <td style="direction:ltr; text-align:right">{{$invoice->updated_at}}</td>
                                     </tr>
 
                                 </tbody>

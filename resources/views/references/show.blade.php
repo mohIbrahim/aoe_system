@@ -114,14 +114,12 @@
                                         </td>
 								    </tr>
 								    <tr>
-									    <th> الزيارات </th>
+									    <th> ارقم الزيارات </th>
 									    <td>
 											@foreach($reference->visits as $visit)
-												@if(isset($visit->theEmployeeWhoMadeTheVisit))
-													<a href="{{ action('VisitController@show', ['id'=>$visit->id]) }}" target="_blank">
-														{{$visit->visit_date}}<br>
-													</a>
-												@endif
+												<a href="{{ action('VisitController@show', ['id'=>$visit->id]) }}" target="_blank">
+													{{ $visit->id }}
+												</a> &nbsp; &nbsp;
 											@endforeach
 										</td>
 								    </tr>
@@ -156,7 +154,7 @@
 								    </tr>
 								    <tr>
 									    <th> تاريخ التعديل </th>
-									    <td style="direction:ltr; text-align:center">{{$reference->created_at}}</td>
+									    <td style="direction:ltr; text-align:center">{{$reference->updated_at}}</td>
 								    </tr>
 									<tr>
 										<th> ملفات الإشارة pdf.</th>

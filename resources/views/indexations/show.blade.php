@@ -121,7 +121,7 @@
 							</tr>
 							<tr>
 								<th> تاريخ التعديل </th>
-								<td style="direction:ltr; text-align:center">{{$indexation->created_at}}</td>
+								<td style="direction:ltr; text-align:center">{{$indexation->updated_at}}</td>
 							</tr>
 							<tr>
 								<th> ملفات المقايسة pdf.</th>
