@@ -32,6 +32,7 @@
                                 <th> تاريخ الإستلام </th>
 								<th> كود الآلة التصوير </th>
 								<th> الرقم المسلسل لآلة التصوير </th>
+								<th> رقم ملف الآلة </th>
 								<th> اسم العميل </th>
 								<th> رقم آخر زيارة </th>
 								<th> مراجعة كبير المهندسين </th>
@@ -73,6 +74,9 @@
 											{{(($reference->printingMachine)?(($reference->printingMachine->serial_number)?($reference->printingMachine->serial_number):('')):(''))}}
 										</td>
 										<td>
+											{{(($reference->printingMachine)?(($reference->printingMachine->folder_number)?($reference->printingMachine->folder_number):('')):(''))}}
+										</td>
+										<td>
 											{{(($reference->printingMachine)?(($reference->printingMachine->customer)?($reference->printingMachine->customer->name):('')):(''))}}
 										</td>
 										<td>
@@ -100,6 +104,7 @@
                                 <th> تاريخ الإستلام </th>
 								<th> كود الآلة التصوير </th>
 								<th> الرقم المسلسل لآلة التصوير </th>
+								<th> رقم ملف الآلة </th>
 								<th> اسم العميل </th>
 								<th> رقم آخر زيارة </th>
 								<th> مراجعة كبير المهندسين </th>

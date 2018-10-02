@@ -63,14 +63,33 @@
 									    <th> اسم المهندس المعيين لهذة الاشارة </th>
 									    <td>{{isset($reference->assignedEmployee)?(isset($reference->assignedEmployee->user)?$reference->assignedEmployee->user->name:''):''}}</td>
 								    </tr>
-                                    <tr>
-									    <th> كود الآلة </th>
-									    <td>
-                                            <a href="{{action('PrintingMachineController@show', ['id'=>(isset($reference->printingMachine)?$reference->printingMachine->id:'')])}}">
-                                                {{$reference->printingMachine->code or ''}}
-                                            </a>
-                                        </td>
-								    </tr>
+									<tr>
+										<th> كود الآلة </th>
+										<td>
+											@if(isset($reference->printingMachine))
+												<a href="{{action('PrintingMachineController@show', ['id'=>$reference->printingMachine->id])}}">
+													{{$reference->printingMachine->code}}
+												</a>
+											@endif
+										</td>
+									</tr>
+									<tr>
+										<th> رقم ملف لآلة </th>
+										<td>
+											@if(isset($reference->printingMachine))
+												{{$reference->printingMachine->folder_number}}
+											@endif
+										</td>
+									</tr>
+									<tr>
+										<th> الرقم المسلسل للآلة </th>
+										<td>
+											@if(isset($reference->printingMachine))
+												{{$reference->printingMachine->serial_number}}
+											@endif
+										</td>
+									</tr>
+										
                                     <tr>
 									    <th> اسم العميل </th>
 									    <td>

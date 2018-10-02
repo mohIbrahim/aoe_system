@@ -70,7 +70,8 @@ class EloquentReference implements ReferenceInterface
                                     })
                                     ->orWhereHas('printingMachine', function($queryThree) use($keyword){
                                         $queryThree->where('code', 'like', '%'.$keyword.'%')
-                                                    ->orWhere('serial_number', 'like', '%'.$keyword.'%');
+                                                    ->orWhere('serial_number', 'like', '%'.$keyword.'%')
+                                                    ->orWhere('folder_number', 'like', '%'.$keyword.'%');
                                     })
                                     ->orWhereHas('printingMachine', function($queryFour) use($keyword){
                                         $queryFour->whereHas('customer', function($queryFive) use($keyword){
