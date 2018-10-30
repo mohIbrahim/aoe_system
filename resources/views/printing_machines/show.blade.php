@@ -101,8 +101,8 @@
         	</div>
     	</div>
 	</div>
+    @include('partial.deleteConfirm',['name'=>$printingMachine->code,
+    'id'=> $printingMachine->id,
+    'message'=>' هل أنت متأكد؟ هل تريد حذف ',
+    'route'=>'PrintingMachineController@destroy'])
 @endsection
-@include('partial.deleteConfirm',['name'=>$printingMachine->code,
-'id'=> $printingMachine->id,
-'message'=>' هل أنت متأكد؟ هل تريد حذف ',
-'route'=>'PrintingMachineController@destroy'])

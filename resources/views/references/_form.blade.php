@@ -51,7 +51,7 @@
 <div class="form-group">
     <label for="employee_id"> اسم المهندس المعيين لهذة الاشارة </label>
     <select class="form-control selectpicker" name="employee_id" data-live-search="true">
-        <?php $selectedEmployee = isset($reference->employee_id)? $reference->employee_id: '' ?>
+        <?php $selectedEmployee = isset($reference->employee_id)? ($reference->employee_id):((!empty($selectedEmployeeIdByLink))?($selectedEmployeeIdByLink):('')) ?>
         <option value=""> اختر اسم المهندس المعيين على هذة الاشارة. </option>
         @foreach($employeesNames as $employeeId=>$employeeName)
             <option value="{{$employeeId}}" {{($selectedEmployee == $employeeId)? ('selected'):((old('employee_id')==$employeeId)?'selected':'')}} >{{$employeeName}}</option>

@@ -122,8 +122,10 @@ class ReferenceController extends Controller
 
 	public function createWithPrintingMachineId($printingMachineId)
     {
-		$employeesNames = Employee::all()->pluck('user.name', 'id');
-        return view('references.create', compact('employeesNames', 'printingMachineId'));
+        $employeesNames = Employee::all()->pluck('user.name', 'id');
+        $assignedEmployeesIds = (new PrintingMachine())->getAssignedEmployeesIds($printingMachineId);
+        $selectedEmployeeIdByLink = !empty($assignedEmployeesIds)?($assignedEmployeesIds[0]):('');
+        return view('references.create', compact('employeesNames', 'printingMachineId', 'selectedEmployeeIdByLink'));
     }
     
     public function closeTheReference($referenceId)

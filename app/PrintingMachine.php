@@ -84,4 +84,11 @@ class PrintingMachine extends Model
     {
         return $this->followUpCards()->where('contract_id', $contractId)->get()->first();
     }
+
+    public function getAssignedEmployeesIds($id): array
+    {
+        $printingMachine = $this->findOrFail($id);
+        $assignedEmployees = $printingMachine->assignedEmployees;
+        return ($assignedEmployees->isNotEmpty())?($assignedEmployees->pluck('id')->toArray()):([]);
+    }
 }
