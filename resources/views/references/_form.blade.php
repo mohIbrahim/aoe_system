@@ -1,6 +1,6 @@
 <div class="form-group">
-    <label for="code"> كود الإشارة <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود الإشارة. " value="{{$reference->code or old('code')}}">
+    <label for="code"> كود الإشارة </label>
+    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود الإشارة. " value="{{$reference->code or old('code')}}" readonly>
 </div>
 
 <div class="form-group">
@@ -45,7 +45,7 @@
 
 <div class="form-group">
     <label for="received_date"> تاريخ الإستلام  <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="datepicker" name="received_date"  placeholder=" اختر تاريخ الإستلام. " value="{{$reference->received_date or old('received_date')}}">
+    <input type="text" class="form-control" id="datepicker" name="received_date"  placeholder=" اختر تاريخ الإستلام. " value="{{$reference->received_date or old('received_date')}}" autocomplete="off">
 </div>
 
 <div class="form-group">

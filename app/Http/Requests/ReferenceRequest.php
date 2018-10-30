@@ -24,7 +24,8 @@ class ReferenceRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'=>'required|unique:references,code,'.$this->reference,
+            //'code'=>'required|unique:references,code,'.$this->reference,
+            'code'=>'unique:references,code,'.$this->reference,
             'employee_id_who_receive_the_reference'=>'required',
             'type'=>'required',
             'status'=>'required',
@@ -38,7 +39,7 @@ class ReferenceRequest extends FormRequest
     public function messages()
     {
         return [
-            'code.required'=>' برجاء إدخال كود الإشارة. ',
+            // 'code.required'=>' برجاء إدخال كود الإشارة. ',
             'employee_id_who_receive_the_reference.required'=>' برجاء اختيار اسم مستلم الإشارة. ',
             'code.unique'=>' كود الإشارة تم إدخاله من قبل برجاء إدخال كود آخر. ',
             'type.required'=>' برجاء إدخال نوع الإشارة. ',

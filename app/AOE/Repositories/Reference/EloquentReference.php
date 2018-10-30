@@ -37,6 +37,7 @@ class EloquentReference implements ReferenceInterface
     public function create(array $attributes)
     {
         $reference = $this->reference->create($attributes);
+        $reference->update(['code'=>$this->autoGenrateCodeAttribute($reference->id)]);
         return $reference;
     }
     public function update($id, array $attributes)
@@ -145,6 +146,11 @@ class EloquentReference implements ReferenceInterface
                 }
             }
         }
+    }
+    
+    public function autoGenrateCodeAttribute(string $id)
+    {
+        return str_pad($id, 8, "0", STR_PAD_LEFT);
     }
 
 }
