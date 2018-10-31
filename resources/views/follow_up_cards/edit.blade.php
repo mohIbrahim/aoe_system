@@ -4,7 +4,7 @@
 @endsection
 @section('content')
           <div class="col-lg-12">
-            <div class="col-lg-8 col-lg-offset-2">
+            <div class="col-lg-10 col-lg-offset-1">
                 <div class="panel panel-info main_arabic_font">
                     <div class="panel-heading text-center">
                         <h2 class="panel-title">  تعديل البطاقة:  {{$followUpCard->number}} </h2>

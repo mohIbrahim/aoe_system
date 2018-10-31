@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="code"> كود الإشارة </label>
-    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود الإشارة. " value="{{$reference->code or old('code')}}" readonly>
+    <input type="text" class="form-control" id="code" name="code"  placeholder=" يتم تعين الرقم من النظام بعد إنشاء الإشارة. " value="{{$reference->code or old('code')}}" readonly>
 </div>
 
 <div class="form-group">
@@ -68,19 +68,21 @@
             <label for="reference-printing-machine-search-field">  البحث عن الآلة التصوير:  </label>
             <input type="text" class="form-control" id="reference-printing-machine-search-field" name="printing_machine_search_field" placeholder=" إدخل الكلمة المراد البحث عنها. " value="{{isset($reference->printingMachine)? isset($reference->printingMachine->code)?$reference->printingMachine->code:'':'' }}">
             <button type="button" class="btn btn-default" id="reference-printing-machine-search-btn"> ابحث </button>
-            <spna id="reference-printing-machine-search-p">  </spna>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th> كود الآلة </th>
-                        <th> اسم العميل </th>
-                        <th> اسم الموظف المسؤول عن الآلة </th>
-                        <th> اختيار </th> 
-                    </tr>
-                </thead>
-                <tbody  id="reference-results-table-body">
-                </tbody>
-            </table>
+            <span id="reference-printing-machine-search-p">  </span>
+            <div class="table-responsive table-responsive-update">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> كود الآلة </th>
+                            <th> اسم العميل </th>
+                            <th> اسم الموظف المسؤول عن الآلة </th>
+                            <th> اختيار </th> 
+                        </tr>
+                    </thead>
+                    <tbody  id="reference-results-table-body">
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="form-group">
             <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير:  </label>

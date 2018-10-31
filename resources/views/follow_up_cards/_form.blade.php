@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="code"> كود البطاقة </label>
-    <input type="text" class="form-control" id="code" name="code"  placeholder=" إدخل كود البطاقة. " value="{{$followUpCard->code or 'يتم تعين الرقم من النظام بعد إنشاء البطاقة.'}}" readonly>
+    <input type="text" class="form-control" id="code" name="code"  placeholder=" يتم تعين الرقم من النظام بعد إنشاء البطاقة. " value="{{$followUpCard->code or ''}}" readonly>
 </div>
 <div class="form-group">
     <label for="old-code"> رقم البطاقة الورقي </label>
@@ -27,18 +27,20 @@
             <label for="follow-up-card-printing-machine-search-field">  البحث عن الآلة التصوير:  </label>
             <input type="text" class="form-control" id="follow-up-card-printing-machine-search-field" name="printing_machine_search_field" placeholder=" إدخل الكلمة المراد البحث عنها. " value="{{isset($followUpCard->printingMachine)? isset($followUpCard->printingMachine->customer)?$followUpCard->printingMachine->customer->name:'':'' }}">
             <button type="button" class="btn btn-default" id="follow-up-card-printing-machine-search-btn"> ابحث </button>
-            <spna id="follow-up-card-printing-machine-search-p">  </spna>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th> كود الآلة </th>
-                        <th> اسم العميل </th>
-                        <th> اختيار </th>
-                    </tr>
-                </thead>
-                <tbody  id="follow-up-card-results-table-body">
-                </tbody>
-            </table>
+            <span id="follow-up-card-printing-machine-search-p">  </span>
+            <div class="table-responsive table-responsive-update">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> كود الآلة </th>
+                            <th> اسم العميل </th>
+                            <th> اختيار </th>
+                        </tr>
+                    </thead>
+                    <tbody  id="follow-up-card-results-table-body">
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="form-group">
             <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير:  </label>

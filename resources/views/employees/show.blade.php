@@ -77,8 +77,11 @@
                                         </th>
                                         <td>
                                             @foreach ($employee->assignedPrintingMachines as $key => $machine)
+												@if($key % 5   == 0)
+													<br>
+												@endif
                                                 <a href="{{action('PrintingMachineController@show', ['id'=>$machine->id])}}">
-                                                    <span class="label label-default">{{$machine->code}}</span>
+                                                    <span class="badge">{{$machine->code}}</span>
                                                 </a>
                                             @endforeach
                                         </td>
@@ -104,9 +107,9 @@
 			</div>
 		</div>
 	</div>
-@endsection
-
 @include('partial.deleteConfirm',['name'=>$employee->user->name,
 								  'id'=> $employee->id,
 								  'message'=>' هل أنت متأكد؟ هل تريد حذف ',
 								  'route'=>'EmployeeController@destroy'])
+@endsection
+

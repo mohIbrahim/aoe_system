@@ -24,19 +24,20 @@
         <div class="panel panel-default">
             <div class="panel-body">
                <div class="form-group">
-                   <table class="table table-condensed table-hover" id="invoices-_form-cutomer-search-table-results">
-                       <thead>
-                           <tr>
-                               <th>#</th>
-                               <th>اسم العميل</th>
-                               <th>رقم العميل</th>
-                               <th>أختار</th>
-                           </tr>
-                       </thead>
-                       <tbody>
-                       </tbody>
-                   </table>
-                   
+               <div class="table-responsive table-responsive-update">
+                    <table class="table table-condensed table-hover" id="invoices-_form-cutomer-search-table-results">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>اسم العميل</th>
+                                <th>رقم العميل</th>
+                                <th>أختار</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
                </div>
             </div>
         </div>
@@ -111,19 +112,21 @@
                     </div>
     
                     <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <div id="invoice-form-message-span" style="color:#a5a5a5"></div>
-                                <tr>
-                                    <th> اسم القطعة </th>
-                                    <th> وصف القطعة </th>
-                                    <th> اضافة </th>
-                                </tr>
-                            </thead>
-                            <tbody id="invoice-form-results-table-body">
-    
-                            </tbody>
-                        </table>
+                        <div class="table-responsive table-responsive-update">
+                            <table class="table table-hover">
+                                <thead>
+                                    <div id="invoice-form-message-span" style="color:#a5a5a5"></div>
+                                    <tr>
+                                        <th> اسم القطعة </th>
+                                        <th> وصف القطعة </th>
+                                        <th> اضافة </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="invoice-form-results-table-body">
+        
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
     
                 </div>

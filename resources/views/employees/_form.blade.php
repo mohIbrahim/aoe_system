@@ -79,17 +79,19 @@
                 <h3 class="panel-title"> نتائج البحث </h3>
             </div>
             <div class="panel-body">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th> اسم العميل </th>
-                            <th> كود الآلة </th>
-                            <th> الاختيار </th>
-                        </tr>
-                    </thead>
-                    <tbody id="printing-machine-search-results-table-body">
-                    </tbody>
-                </table>
+                <div class="table-responsive table-responsive-update">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th> اسم العميل </th>
+                                <th> كود الآلة </th>
+                                <th> الاختيار </th>
+                            </tr>
+                        </thead>
+                        <tbody id="printing-machine-search-results-table-body">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="panel panel-default">

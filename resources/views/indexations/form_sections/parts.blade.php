@@ -11,7 +11,7 @@
                     <button type="button" class="btn btn-primary" id="search-button"> بحث </button>
                 </div>
 
-                <div class="table-responsive">
+                <div class="table-responsive table-responsive-update">
                     <table class="table table-hover">
                         <thead>
                             <tr>

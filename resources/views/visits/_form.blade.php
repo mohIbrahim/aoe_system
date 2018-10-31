@@ -51,18 +51,20 @@
             <label for="printing-machine-search-field">  البحث عن الآلة التصوير:  </label>
             <input type="text" class="form-control" id="printing-machine-search-field" name="printing_machine_search_field" placeholder=" إدخل الكلمة المراد البحث عنها. " value="{{isset($visit->printingMachine)? isset($visit->printingMachine->customer)?$visit->printingMachine->customer->name:'':'' }}">
             <button type="button" class="btn btn-default" id="printing-machine-search-btn"> ابحث </button>
-            <spna id="printing-machine-search-p">  </spna>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th> كود الآلة </th>
-                        <th> اسم العميل </th>
-                        <th> اختيار </th>
-                    </tr>
-                </thead>
-                <tbody  id="results-table-body">
-                </tbody>
-            </table>
+            <span id="printing-machine-search-p">  </span>
+            <div class="table-responsive table-responsive-update">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th> كود الآلة </th>
+                            <th> اسم العميل </th>
+                            <th> اختيار </th>
+                        </tr>
+                    </thead>
+                    <tbody  id="results-table-body">
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="form-group">
             <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير:  </label>
