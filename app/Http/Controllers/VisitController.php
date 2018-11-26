@@ -163,13 +163,13 @@ class VisitController extends Controller
         return view('visits.create', compact('followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes', 'visit'));
     }
 
-    public function createWithPrintingMachineIdAndReferenceId($printingMachineId, $referenceId)
+    public function createWithPrintingMachineIdAndReferenceId($printingMachineId, $referenceId, $employeeId)
     {
         $followUpCardsIdsCodes = FollowUpCard::all()->pluck('code', 'id');
-        $employeesIdsNames = Employee::all()->pluck('user.name', 'id');
+        $employeesIdsNames = Employee::where('job_title', 'مهندس صيانة')->get()->pluck('user.name', 'id');
         $referencesIdsCodes = Reference::all()->pluck('code', 'id');
         $type = 'إشارة';
-        $visit = (object)['printing_machine_id'=>$printingMachineId, 'reference_id'=>$referenceId, 'type'=>$type];
+        $visit = (object)['printing_machine_id'=>$printingMachineId, 'reference_id'=>$referenceId, 'type'=>$type, 'the_employee_who_made_the_visit_id'=>$employeeId];
         return view('visits.create', compact('followUpCardsIdsCodes', 'employeesIdsNames', 'referencesIdsCodes', 'visit'));
     }
 

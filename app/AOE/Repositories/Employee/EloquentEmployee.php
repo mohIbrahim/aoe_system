@@ -146,6 +146,13 @@ class EloquentEmployee implements EmployeeInterface
         }
         return $results;
     }
+
+    public function getAuthenticatedEmployee():Employee
+    {
+        $authenticatedUser =  auth()->user();
+        $authenticatedEmployee = (!empty($authenticatedUser))?($authenticatedUser->employee):(new Employee());
+        return $authenticatedEmployee;
+    }
     
 
 }

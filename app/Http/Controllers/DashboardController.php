@@ -61,8 +61,10 @@ class DashboardController extends Controller
 
     public function maintenanceEngineers()
     {
-        $assignedReferencesForMaintenanceEngineer = $this->eloquentEmployee->composeDateForMaintenanceEngineerDashboard($this->authenticatedEmployee);
-        return view('dashboard.maintenance_engineers.main', $assignedReferencesForMaintenanceEngineer);
+        $engineerData = $this->eloquentEmployee
+                             ->composeDateForMaintenanceEngineerDashboard($this->authenticatedEmployee);
+        $engineerData['authenticatedEmployeeId'] = $this->authenticatedEmployee->id;
+        return view('dashboard.maintenance_engineers.main', $engineerData);
     }
 
     public function userWhithManyRoles()

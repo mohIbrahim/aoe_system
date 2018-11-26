@@ -24,7 +24,11 @@
                         </a>
                     </td>
                     <td>{{ $reference->type }}</td>
-                    <td>{{ $reference->status }}</td>
+                    <td>
+                        <p class="{{($reference->status == 'مفتوحة')?('text-danger'):('text-success')}}">
+                            {{ $reference->status }}
+                            </p>
+                        </td>
                     <td>
                         <a href="{{action('CustomerController@show', ['id'=>(($reference->printingMachine)?(($reference->printingMachine->customer)?($reference->printingMachine->customer->id):('')):(''))])}}">
                             {{ ($reference->printingMachine)?(($reference->printingMachine->customer)?($reference->printingMachine->customer->name):('')):('') }}
@@ -44,7 +48,7 @@
                         {{ ($reference->printingMachine)?(($reference->printingMachine->serial_number)?($reference->printingMachine->serial_number):('')):('') }}
                     </td>
                     <td>
-                        <a href="{{ action('VisitController@createWithPrintingMachineIdAndReferenceId', ['pm_id'=>(($reference->printingMachine)?(($reference->printingMachine->id)?($reference->printingMachine->id):('')):('')), 'refernce_id'=>$reference->id]) }}" target="_blank">
+                        <a href="{{ action('VisitController@createWithPrintingMachineIdAndReferenceId', ['pm_id'=>(($reference->printingMachine)?(($reference->printingMachine->id)?($reference->printingMachine->id):('')):('')), 'refernce_id'=>$reference->id, 'authenticatedEmployeeId'=>$authenticatedEmployeeId]) }}" target="_blank">
                         <span class="glyphicon glyphicon-plus"></span>
                             إضافة زيارة
                         </a>

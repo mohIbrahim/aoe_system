@@ -82,7 +82,7 @@ class Visits
 		if($request->route()->getName() == 'create_visit_with_printing_machine_id_and_follow_up_card_id'    && in_array('create_visits', $permissions) ){
             $response = $next($request);
         } else
-		if($request->route()->getName() == 'create_visit_with_printing_machine_id_and_reference_id'    && in_array('create_visits', $permissions) ){
+		if($request->route()->getName() == 'create_visit_with_printing_machine_id_and_reference_id_and_employee_id'    && in_array('create_visits', $permissions) ){
             $response = $next($request);
         }
         elseif(in_array('view_visits_reports', $permissions)) {
