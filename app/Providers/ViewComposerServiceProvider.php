@@ -50,6 +50,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                     'follow_up_cards.show',
                     'follow_up_card_special_reports.show',
                     'references.show',
+                    'references.edit',//for partial update to maintenancy engineers
                     'indexations.show',
                     'employees.show',
                 ];

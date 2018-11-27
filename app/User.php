@@ -57,7 +57,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Invoice', 'updater_id', 'id');
     }
 
-    public function getUserPermissions()
+    /**
+     * Get authenticated user permissoins names
+     *
+     * @return array
+     */
+    public function getUserPermissions():array
     {
         $permissions = [];
         $roles = $this->roles();

@@ -549,6 +549,11 @@ class PermissionSeeder extends Seeder
             ]);
         DB::table('permissions')->insert([
             'title'      =>'references',
+            'name'      =>'update_references_partial',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'references',
             'name'      =>'delete_references',
             'created_at'=>Carbon::now(),
             ]);

@@ -1,98 +1,135 @@
-<div class="form-group">
-    <label for="code"> كود الإشارة </label>
-    <input type="text" class="form-control" id="code" name="code"  placeholder=" يتم تعين الرقم من النظام بعد إنشاء الإشارة. " value="{{$reference->code or old('code')}}" readonly>
-</div>
+@if(!in_array('update_references_partial', $permissions))
 
-<div class="form-group">
-    <label for="employee_id_who_receive_the_reference"> اسم مستلم الإشارة <span style="color:red">*</span></label>
-    <select class="form-control selectpicker" name="employee_id_who_receive_the_reference" data-live-search="true">
-        <?php $selectedEmployee = isset($reference->employee_id_who_receive_the_reference)? $reference->employee_id_who_receive_the_reference: '' ?>
-        <option value=""> اختر اسم مستلم الإشارة. </option>
-        @foreach($employeesNames as $employeeId=>$employeeName)
-            <option value="{{$employeeId}}" {{($selectedEmployee == $employeeId)? ('selected'):((old('employee_id_who_receive_the_reference')==$employeeId)?'selected':'')}} >{{$employeeName}}</option>
-        @endforeach
-    </select>
-</div>
-
-<div class="form-group">
-    <label for="notebook_number"> كود الدفــتر </label>
-    <input type="text" class="form-control" id="notebook_number" name="notebook_number"  placeholder=" إدخل كود دفتر  الإشارة. " value="{{$reference->notebook_number or old('notebook_number')}}">
-</div>
-
-<div class="form-group">
-    <label for="type"> نوع الإشارة <span style="color:red">*</span></label>
-    <select class="form-control" name="type">
-        <?php $referenceType = isset($reference->type)? $reference->type:'' ;?>
-        <option value="">  اختر نوع الإشارة.  </option>
-        <option value="تركيب قطع - مستلزمات" {{($referenceType == 'تركيب قطع - مستلزمات')? 'selected' : ((old('type')=='تركيب قطع - مستلزمات')?'selected':'')}}> تركيب قطع - مستلزمات </option>
-        <option value="تركيب آلة" {{($referenceType == 'تركيب آلة')? 'selected' : ((old('type')=='تركيب آلة')?'selected':'')}}> تركيب آلة </option>
-        <option value="عطل" {{($referenceType == 'عطل')? 'selected' : ((old('type')=='عطل')?'selected':'')}}> عطل </option>
-        <option value="زيارة" {{($referenceType == 'زيارة')? 'selected' : ((old('type')=='زيارة')?'selected':'')}}> زيارة </option>
-        <option value="تقرير" {{($referenceType == 'تقرير')? 'selected' : ((old('type')=='تقرير')?'selected':'')}}> تقرير </option>
-    </select>
-</div>
-
-<div class="form-group">
-    <label for="status"> حالة الإشارة <span style="color:red">*</span></label>
-    <select class="form-control" name="status">
-        <?php $referenceStatus = isset($reference->status)? $reference->status:'' ;?>
-        <option value="">  اختر حالة الإشارة.  </option>
-        <option value="مفتوحة" {{($referenceStatus == 'مفتوحة')? 'selected' : ((old('status')=='مفتوحة')?'selected':'')}}> مفتوحة </option>
-        <option value="مغلقة" {{($referenceStatus == 'مغلقة')? 'selected' : ((old('status')=='مغلقة')?'selected':'')}}> مغلقة </option>
-        <option value="معلقة لسبب ما" {{($referenceStatus == 'معلقة لسبب ما')? 'selected' : ((old('status')=='معلقة لسبب ما')?'selected':'')}}> معلقة لسبب ما </option>
-    </select>
-</div>
-
-<div class="form-group">
-    <label for="received_date"> تاريخ الإستلام  <span style="color:red">*</span></label>
-    <input type="text" class="form-control" id="datepicker" name="received_date"  placeholder=" اختر تاريخ الإستلام. " value="{{$reference->received_date or old('received_date')}}" autocomplete="off">
-</div>
-
-<div class="form-group">
-    <label for="employee_id"> اسم المهندس المعيين لهذة الاشارة </label>
-    <select class="form-control selectpicker" name="employee_id" data-live-search="true">
-        <?php $selectedEmployee = isset($reference->employee_id)? ($reference->employee_id):((!empty($selectedEmployeeIdByLink))?($selectedEmployeeIdByLink):('')) ?>
-        <option value=""> اختر اسم المهندس المعيين على هذة الاشارة. </option>
-        @foreach($employeesNames as $employeeId=>$employeeName)
-            <option value="{{$employeeId}}" {{($selectedEmployee == $employeeId)? ('selected'):((old('employee_id')==$employeeId)?'selected':'')}} >{{$employeeName}}</option>
-        @endforeach
-    </select>
-</div>
-
-<div class="panel panel-default">
-        <div class="panel-heading">
-            اختيار الآلة التصوير الخاصة بهذة الإشارة<span style="color:red">*</span>
+    @if(isset($reference))
+        <div class="clearfix pull-left text-center">
+            <a role="button" href="{{action('ReferenceController@closeTheReference', ['refrence_id'=>$reference->id])}}" class="btn btn-success btn-md">غلــق الإشارة</a>
+            <p >تاريخ الغلق: {{$reference->closing_date or 'لم يتم الغلق بعد'}}</p>
         </div>
-    <div class="panel-body">
-        <div class="form-group form-inline">
-            <label for="reference-printing-machine-search-field">  البحث عن الآلة التصوير:  </label>
-            <input type="text" class="form-control" id="reference-printing-machine-search-field" name="printing_machine_search_field" placeholder=" إدخل الكلمة المراد البحث عنها. " value="{{isset($reference->printingMachine)? isset($reference->printingMachine->code)?$reference->printingMachine->code:'':'' }}">
-            <button type="button" class="btn btn-default" id="reference-printing-machine-search-btn"> ابحث </button>
-            <span id="reference-printing-machine-search-p">  </span>
-            <div class="table-responsive table-responsive-update">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th> كود الآلة </th>
-                            <th> اسم العميل </th>
-                            <th> اسم الموظف المسؤول عن الآلة </th>
-                            <th> اختيار </th> 
-                        </tr>
-                    </thead>
-                    <tbody  id="reference-results-table-body">
-                    </tbody>
-                </table>
+        <div class="clearfix">
+        </div>
+    @endif
+    <div class="form-group">
+        <label for="code"> كود الإشارة </label>
+        <input type="text" class="form-control" id="code" name="code"  placeholder=" يتم تعين الرقم من النظام بعد إنشاء الإشارة. " value="{{$reference->code or old('code')}}" readonly>
+    </div>
+
+    <div class="form-group">
+        <label for="employee_id_who_receive_the_reference"> اسم مستلم الإشارة <span style="color:red">*</span></label>
+        <select class="form-control selectpicker" name="employee_id_who_receive_the_reference" data-live-search="true">
+            <?php $selectedEmployee = isset($reference->employee_id_who_receive_the_reference)? $reference->employee_id_who_receive_the_reference: '' ?>
+            <option value=""> اختر اسم مستلم الإشارة. </option>
+            @foreach($employeesNames as $employeeId=>$employeeName)
+                <option value="{{$employeeId}}" {{($selectedEmployee == $employeeId)? ('selected'):((old('employee_id_who_receive_the_reference')==$employeeId)?'selected':'')}} >{{$employeeName}}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="notebook_number"> كود الدفــتر </label>
+        <input type="text" class="form-control" id="notebook_number" name="notebook_number"  placeholder=" إدخل كود دفتر  الإشارة. " value="{{$reference->notebook_number or old('notebook_number')}}">
+    </div>
+
+    <div class="form-group">
+        <label for="type"> نوع الإشارة <span style="color:red">*</span></label>
+        <select class="form-control" name="type">
+            <?php $referenceType = isset($reference->type)? $reference->type:'' ;?>
+            <option value="">  اختر نوع الإشارة.  </option>
+            <option value="تركيب قطع - مستلزمات" {{($referenceType == 'تركيب قطع - مستلزمات')? 'selected' : ((old('type')=='تركيب قطع - مستلزمات')?'selected':'')}}> تركيب قطع - مستلزمات </option>
+            <option value="تركيب آلة" {{($referenceType == 'تركيب آلة')? 'selected' : ((old('type')=='تركيب آلة')?'selected':'')}}> تركيب آلة </option>
+            <option value="عطل" {{($referenceType == 'عطل')? 'selected' : ((old('type')=='عطل')?'selected':'')}}> عطل </option>
+            <option value="زيارة" {{($referenceType == 'زيارة')? 'selected' : ((old('type')=='زيارة')?'selected':'')}}> زيارة </option>
+            <option value="تقرير" {{($referenceType == 'تقرير')? 'selected' : ((old('type')=='تقرير')?'selected':'')}}> تقرير </option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="status"> حالة الإشارة <span style="color:red">*</span></label>
+        <select class="form-control" name="status">
+            <?php $referenceStatus = isset($reference->status)? $reference->status:'' ;?>
+            <option value="">  اختر حالة الإشارة.  </option>
+            <option value="مفتوحة" {{($referenceStatus == 'مفتوحة')? 'selected' : ((old('status')=='مفتوحة')?'selected':'')}}> مفتوحة </option>
+            <option value="مغلقة" {{($referenceStatus == 'مغلقة')? 'selected' : ((old('status')=='مغلقة')?'selected':'')}}> مغلقة </option>
+            <option value="معلقة لسبب ما" {{($referenceStatus == 'معلقة لسبب ما')? 'selected' : ((old('status')=='معلقة لسبب ما')?'selected':'')}}> معلقة لسبب ما </option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="received_date"> تاريخ الإستلام  <span style="color:red">*</span></label>
+        <input type="text" class="form-control" id="datepicker" name="received_date"  placeholder=" اختر تاريخ الإستلام. " value="{{$reference->received_date or old('received_date')}}" autocomplete="off">
+    </div>
+
+    <div class="form-group">
+        <label for="employee_id"> اسم المهندس المعيين لهذة الاشارة </label>
+        <select class="form-control selectpicker" name="employee_id" data-live-search="true">
+            <?php $selectedEmployee = isset($reference->employee_id)? ($reference->employee_id):((!empty($selectedEmployeeIdByLink))?($selectedEmployeeIdByLink):('')) ?>
+            <option value=""> اختر اسم المهندس المعيين على هذة الاشارة. </option>
+            @foreach($employeesNames as $employeeId=>$employeeName)
+                <option value="{{$employeeId}}" {{($selectedEmployee == $employeeId)? ('selected'):((old('employee_id')==$employeeId)?'selected':'')}} >{{$employeeName}}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="panel panel-default">
+            <div class="panel-heading">
+                اختيار الآلة التصوير الخاصة بهذة الإشارة<span style="color:red">*</span>
+            </div>
+        <div class="panel-body">
+            <div class="form-group form-inline">
+                <label for="reference-printing-machine-search-field">  البحث عن الآلة التصوير:  </label>
+                <input type="text" class="form-control" id="reference-printing-machine-search-field" name="printing_machine_search_field" placeholder=" إدخل الكلمة المراد البحث عنها. " value="{{isset($reference->printingMachine)? isset($reference->printingMachine->code)?$reference->printingMachine->code:'':'' }}">
+                <button type="button" class="btn btn-default" id="reference-printing-machine-search-btn"> ابحث </button>
+                <span id="reference-printing-machine-search-p">  </span>
+                <div class="table-responsive table-responsive-update">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th> كود الآلة </th>
+                                <th> اسم العميل </th>
+                                <th> اسم الموظف المسؤول عن الآلة </th>
+                                <th> اختيار </th> 
+                            </tr>
+                        </thead>
+                        <tbody  id="reference-results-table-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير:  </label>
+                <p>
+                    يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة.
+                </p>
+                <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id"  value="{{(isset($reference->printing_machine_id))?($reference->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}" readonly>
             </div>
         </div>
-        <div class="form-group">
-            <label for="printing-machine-id"> كود الربط الخاص بالآلة التصوير:  </label>
-            <p>
-                يتم تعين قيمة هذا الكود بعد البحث والضغط على زر اختيار الآلة.
-            </p>
-            <input type="text" class="form-control" id="printing-machine-id" name="printing_machine_id"  value="{{(isset($reference->printing_machine_id))?($reference->printing_machine_id):((old('printing_machine_id'))?(old('printing_machine_id')):((isset($printingMachineId))?($printingMachineId):('')))}}" readonly>
-        </div>
     </div>
-</div>
+
+    <div class="form-group">
+        <label for="informer_name"> اسم مُبلغ الإشارة </label>
+        <input type="text" class="form-control" id="informer_name" name="informer_name"  placeholder=" إدخل اسم مُبلغ الإشارة. " value="{{$reference->informer_name or old('informer_name')}}">
+    </div>
+
+    <div class="form-group">
+        <label for="informer_phone"> رقم تليفون المُبلغ عن الإشارة </label>
+        <input type="text" class="form-control" id="informer_phone" name="informer_phone"  placeholder=" إدخل رقم تليفون المُبلغ عن الإشارة. " value="{{$reference->informer_phone or old('informer_phone')}}">
+    </div>
+
+
+    <div class="form-group">
+        <label for="reviewed_by_the_chief_engineer"> هل تم المراجعة من كبير المهندسين؟ </label><br>
+        <input type="radio" name="reviewed_by_the_chief_engineer" value="نعم" {{(  (old('reviewed_by_the_chief_engineer')=='نعم')?('checked'):((isset($reference) && (old('reviewed_by_the_chief_engineer') == ''))?(($reference->reviewed_by_the_chief_engineer == 'نعم')?('checked'):('')):(''))  )}}>
+        <h4 style="display:inline"> نعم </h4><br>
+        <input type="radio" name="reviewed_by_the_chief_engineer" value="لا" {{(  (old('reviewed_by_the_chief_engineer') == 'لا')?('checked'):((isset($reference) && (old('reviewed_by_the_chief_engineer') == ''))?(($reference->reviewed_by_the_chief_engineer == 'لا')?('checked'):('')):(''))  )}}>
+        <h4 style="display:inline"> لا </h4><br>
+    </div>
+
+    <h3 class="text-center">
+        -------------------------
+        هذا الجزء مهندسي الصيانة يستطيعوا أن يقوم بتعديل بياناته فقط
+        -------------------------
+    </h3>
+
+@endif
 
 <div class="panel panel-default">
 	<div class="panel-heading text-center">
@@ -166,25 +203,6 @@
 </div>
 
 <div class="form-group">
-    <label for="informer_name"> اسم مُبلغ الإشارة </label>
-    <input type="text" class="form-control" id="informer_name" name="informer_name"  placeholder=" إدخل اسم مُبلغ الإشارة. " value="{{$reference->informer_name or old('informer_name')}}">
-</div>
-
-<div class="form-group">
-    <label for="informer_phone"> رقم تليفون المُبلغ عن الإشارة </label>
-    <input type="text" class="form-control" id="informer_phone" name="informer_phone"  placeholder=" إدخل رقم تليفون المُبلغ عن الإشارة. " value="{{$reference->informer_phone or old('informer_phone')}}">
-</div>
-
-
-<div class="form-group">
-        <label for="reviewed_by_the_chief_engineer"> هل تم المراجعة من كبير المهندسين؟ </label><br>
-        <input type="radio" name="reviewed_by_the_chief_engineer" value="نعم" {{(  (old('reviewed_by_the_chief_engineer')=='نعم')?('checked'):((isset($reference) && (old('reviewed_by_the_chief_engineer') == ''))?(($reference->reviewed_by_the_chief_engineer == 'نعم')?('checked'):('')):(''))  )}}>
-        <h4 style="display:inline"> نعم </h4><br>
-        <input type="radio" name="reviewed_by_the_chief_engineer" value="لا" {{(  (old('reviewed_by_the_chief_engineer') == 'لا')?('checked'):((isset($reference) && (old('reviewed_by_the_chief_engineer') == ''))?(($reference->reviewed_by_the_chief_engineer == 'لا')?('checked'):('')):(''))  )}}>
-        <h4 style="display:inline"> لا </h4><br>
-    </div>
-
-<div class="form-group">
     <label for="comments"> الملاحظات </label>
     <textarea name="comments" class="form-control" placeholder=" إدخل ملاحظاتك. ">{{$reference->comments or old('comments')}}</textarea>
 </div>
@@ -228,15 +246,6 @@
         @endforeach
     @endif
 </div>
-
-@if(isset($reference))
-    <div class="clearfix pull-left text-center">
-        <a role="button" href="{{action('ReferenceController@closeTheReference', ['refrence_id'=>$reference->id])}}" class="btn btn-success btn-md">غلــق الإشارة</a>
-        <p >تاريخ الغلق: {{$reference->closing_date or 'لم يتم الغلق بعد'}}</p>
-    </div>
-    <div class="clearfix">
-    </div>
-@endif
 
 <button type="submit" class="btn btn-primary btn-lg center-block">
     حفظ

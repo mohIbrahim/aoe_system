@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ReferenceRequest extends FormRequest
 {
@@ -23,6 +24,12 @@ class ReferenceRequest extends FormRequest
      */
     public function rules()
     {
+
+        $routeName = request()->route()->getName();
+        $permissions = Auth::user()->getUserPermissions();
+        if ($routeName === 'references.update' && in_array('update_references_partial', $permissions)) {
+            return ['readings_of_printing_machine'=>'numeric|nullable'];
+        }
         return [
             //'code'=>'required|unique:references,code,'.$this->reference,
             'code'=>'unique:references,code,'.$this->reference,
@@ -31,6 +38,7 @@ class ReferenceRequest extends FormRequest
             'status'=>'required',
             'received_date'=>'required|date',
             'printing_machine_id'=>'required',
+            'readings_of_printing_machine'=>'numeric|nullable',
             'upload_files_pdf.*'=>'mimes:pdf',
             'upload_files_img.*'=>'mimes:jpeg,bmp,png',
         ];
@@ -49,6 +57,7 @@ class ReferenceRequest extends FormRequest
             'printing_machine_id.required'=>' برجاء اختيار الآلة التصوير. ',
             'upload_files_pdf.*.mimes'=> ' برجاء اختيار ملف الإشارة بأمتداد pdf. ',
             'upload_files_img.*.mimes'=> ' برجاء اختيار ملف الإشارة بأمتداد JPG, JPEG. ',
+            'readings_of_printing_machine.numeric'=> 'برجاء إدخال قراءة العداد أرقام فقط.'
         ];
     }
 }
