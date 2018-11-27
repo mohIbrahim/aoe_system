@@ -2,6 +2,8 @@
 namespace App\AOE\Repositories\PrintingMachine;
 
 use App\PrintingMachine;
+use Illuminate\Support\Facades\Auth;
+use App\Employee;
 
 class EloquentPrintingMachine implements PrintingMachineInterface
 {
@@ -139,6 +141,18 @@ class EloquentPrintingMachine implements PrintingMachineInterface
     {
         $printingMachinesWhithoutFollowUpCards = $this->printingMachine->whereDoesntHave('followUpcards')->get();
         return $printingMachinesWhithoutFollowUpCards;
+    }
+
+    /**
+     * Get the employee from authenticated user.
+     *
+     * @return Employee
+     */
+    public function getAuthenticatedEmployee():Employee
+    {
+        $authUser = Auth::user();
+        $authEmployee = (isset($authUser->employee))?($authUser->employee):(new Employee());
+        return $authEmployee;
     }
 
 }

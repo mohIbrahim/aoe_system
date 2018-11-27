@@ -65,8 +65,9 @@ class PrintingMachineController extends Controller
      */
     public function show($id)
     {
-    	$printingMachine = $this->printingMachine->getById($id);
-		return view('printing_machines.show', compact("printingMachine"));
+        $printingMachine = $this->printingMachine->getById($id);
+        $authenticatedEmployeeId = $this->printingMachine->getAuthenticatedEmployee()->id;
+		return view('printing_machines.show', compact('printingMachine', 'authenticatedEmployeeId'));
     }
 
     /**
