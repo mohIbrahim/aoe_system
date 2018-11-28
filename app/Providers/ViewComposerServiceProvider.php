@@ -47,6 +47,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                     'invoices.show',
                     'invoices._form',
                     'visits.show',
+                    'visits.index',
                     'follow_up_cards.show',
                     'follow_up_card_special_reports.show',
                     'references.show',

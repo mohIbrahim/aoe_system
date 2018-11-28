@@ -188,4 +188,12 @@ class VisitController extends Controller
     {
         return $this->visit->getVisitsInSpecificPeriodReport($from, $to);
     }
+
+    /**
+     * Getting all visits as ecxel sheet.
+     */
+    public function getAllVisitsAsExcel()
+    {
+        return $this->visit->getAllVisitsAsExcel();
+    }
 }

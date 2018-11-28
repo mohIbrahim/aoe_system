@@ -27,10 +27,12 @@
 					<input type="text" class="form-control" id="visit-input-search" placeholder=" إدخل الكلمة المراد البحث عنها. ">
 				</div>
 
-
-
 				<button type="button" id="visits-index-search-button" class="btn btn-primary"> بحث </button>
 				<a href=""  class="btn btn-success"> العودة </a>
+
+				@if(in_array('view_visits_excel', $permissions))
+					<a href="{{ action('VisitController@getAllVisitsAsExcel') }}"  class="btn btn-info pull-left"> الكل Excel </a>
+				@endif
 
 
 				<h3 class="text-center"> عرض الزيارات </h3>

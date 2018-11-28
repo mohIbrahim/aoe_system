@@ -430,6 +430,11 @@ class PermissionSeeder extends Seeder
             ]);
         DB::table('permissions')->insert([
             'title'      =>'visits',
+            'name'      =>'view_visits_excel',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'visits',
             'name'      =>'view_visit',
             'created_at'=>Carbon::now(),
             ]);

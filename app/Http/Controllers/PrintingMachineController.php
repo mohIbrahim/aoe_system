@@ -141,7 +141,7 @@ class PrintingMachineController extends Controller
 
     public function getAllPrintingMachinesAsExcel()
     {
-        $this->printingMachine->getAllPrintingMachinesAsExcel();
+        return $this->printingMachine->getAllPrintingMachinesAsExcel();
     }
 
     public function getPrintingMachinesWithoutFollowUpCardsReport()

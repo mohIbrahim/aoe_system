@@ -10,20 +10,15 @@ class Employee extends Model
     protected $table = 'employees';
     protected $fillable = ['code', 'job_title', 'date_of_hiring', 'salary', 'comments', 'user_id', 'managed_department_id', 'department_id'];
     protected $dates = ['date_of_hiring'];
+    protected $appends = ['employee_name'];
 
+    ///////////////////
+    //// Accessors ////
+    ///////////////////
 
     public function getCodeAttribute($code)
     {
         return (isset($code)?$code:'');
-    }
-
-    public function setDateOfHiringAttribute($date)
-    {
-        if (!empty($date)) {
-            $this->attributes['date_of_hiring'] = $this->asDateTime($date);
-        } else {
-            $this->attributes['date_of_hiring'] = null;
-        }
     }
 
     public function getDateOfHiringAttribute($date)
@@ -37,6 +32,33 @@ class Employee extends Model
     {
         return (!empty($this->user))?($this->user->name):('');
     }
+
+    /**
+     * Getting the employee name
+     *
+     * @return string
+     */
+    public function getEmployeeName():string
+    {
+        return (isset($this->user))?($this->user->name):('');
+    }
+
+    ///////////////////
+    //// Mustators ////
+    ///////////////////
+
+    public function setDateOfHiringAttribute($date)
+    {
+        if (!empty($date)) {
+            $this->attributes['date_of_hiring'] = $this->asDateTime($date);
+        } else {
+            $this->attributes['date_of_hiring'] = null;
+        }
+    }
+
+    ///////////////////////
+    //// Relationships ////
+    ///////////////////////
 
     public function user()
     {
@@ -108,4 +130,10 @@ class Employee extends Model
     {
         return $this->hasMany(Indexation::class, 'performed_employee_id', 'id');
     }
+
+
+    ///////////////////////
+    //// Miscellaneous ////
+    ///////////////////////
+    
 }

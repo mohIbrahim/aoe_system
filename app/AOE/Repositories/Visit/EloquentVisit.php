@@ -4,6 +4,7 @@ namespace App\AOE\Repositories\Visit;
 
 use App\Visit;
 use App\ReadingOfPrintingMachine;
+use Maatwebsite\Excel\Excel;
 
 class EloquentVisit implements VisitInterface
 {
@@ -88,5 +89,36 @@ class EloquentVisit implements VisitInterface
     public function getVisitsInSpecificPeriodReport($from, $to)
     {
         return $this->visit->with('printingMachine', 'theEmployeeWhoMadeTheVisit.user')->whereBetween('visit_date', [$from, $to])->get();
+    }
+
+    /**
+     * Getting all visits as excel sheet
+     */
+    public function getAllVisitsAsExcel()
+    {
+        $visits = $this->visit->with('printingMachine','theEmployeeWhoMadeTheVisit')->get();
+        foreach($visits as $visit) {
+
+            $manipulate[] = [
+                            'رقم الزيارة' =>$visit->id,
+                            'تاريخ الزيارة' =>$visit->visit_date,
+                            'نوع الزيارة' =>$visit->type,
+                            'رقم ملف الآلة' =>$visit->printingMachine->folder_number,
+                            'كود آلة التصوير' => $visit->printingMachine->code,
+                            'سيريل آلة التصوير' => $visit->printingMachine->serial_number,
+                            'قراءة العداد' => $visit->readings_of_printing_machine,
+                            'اسم المهندس الذي قام بالزيارة' => $visit->theEmployeeWhoMadeTheVisit->employee_name,
+                        ];
+        }
+       
+        Excel::create('كل الزيارات - '.now(), function($excel) use($manipulate) {
+
+            $excel->sheet('كل الزيارات', function($sheet) use($manipulate) {
+        
+                $sheet->fromArray($manipulate);
+        
+            });
+        
+        })->download('xls');
     }
 }

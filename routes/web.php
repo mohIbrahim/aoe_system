@@ -88,6 +88,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('remove_the_visit_file/{project_image_id}', 'VisitController@removeVisitFile')->name('remove_the_visit_file');
     Route::get('index_visits_in_specific_period_report', 'VisitController@indexVisitsInSpecificPeriodReport')->name('index_visits_in_specific_period_report');
     Route::get('get_visits_in_specific_period_report/{from}/{to}', 'VisitController@getVisitsInSpecificPeriodReport')->name('get_visits_in_specific_period_report');
+    Route::get('visits_as_excel', 'VisitController@getAllVisitsAsExcel')->name('visits_as_excel');
     
 //Follow Up Cards
     Route::resource('follow_up_cards', 'FollowUpCardController');
