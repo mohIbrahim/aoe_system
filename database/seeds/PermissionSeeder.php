@@ -544,6 +544,11 @@ class PermissionSeeder extends Seeder
             ]);
         DB::table('permissions')->insert([
             'title'      =>'references',
+            'name'      =>'view_references_excel',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'references',
             'name'      =>'create_references',
             'created_at'=>Carbon::now(),
             ]);

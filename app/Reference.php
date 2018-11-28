@@ -10,7 +10,36 @@ class Reference extends Model
     protected $fillable = ['code', 'notebook_number', 'type', 'status', 'received_date', 'closing_date', 'readings_of_printing_machine', 'informer_name', 'informer_phone', 'reviewed_by_the_chief_engineer', 'comments', 'employee_id', 'employee_id_who_receive_the_reference', 'printing_machine_id'];
     
     protected $dates = ['received_date', 'closing_date'];
+    protected $appends = ['assigned_employee_name', 'receiver_employee_name'];
 
+    
+    //////////////////
+    //// Accesors ////
+    //////////////////
+    public function getReceivedDateAttribute($date)
+    {
+        if (!empty($date))
+            return $this->asDateTime($date)->format('Y-m-d');
+    }
+    /**
+     * Getting the name of the employee who assigned to reference.
+     * it's the maintenance engineer.
+     *
+     * @return string
+     */
+    public function getAssignedEmployeeNameAttribute():string
+    {
+        return (isset($this->assignedEmployee))?($this->assignedEmployee->employee_name):('');
+    }
+    
+    public function getReceiverEmployeeNameAttribute()
+    {
+        return (isset($this->employeeWhoReceiveTheRereference))?($this->employeeWhoReceiveTheRereference->employee_name):('');
+    }
+
+    //////////////////
+    //// Mutators ////
+    //////////////////
     public function setReceivedDateAttribute($date)
     {
         if (!empty($date)) {
@@ -20,12 +49,9 @@ class Reference extends Model
         }
     }
 
-    public function getReceivedDateAttribute($date)
-    {
-        if (!empty($date))
-            return $this->asDateTime($date)->format('Y-m-d');
-    }
-
+    ///////////////////////
+    //// Relationships ////
+    ///////////////////////
     public function assignedEmployee()
     {
         return $this->belongsTo('App\Employee', 'employee_id');
@@ -55,4 +81,8 @@ class Reference extends Model
     {
         return $this->hasMany('App\ReferenceMalfunction', 'reference_id', 'id');
     }
+    ///////////////////////
+    //// Miscellaneous ////
+    ///////////////////////
+    
 }

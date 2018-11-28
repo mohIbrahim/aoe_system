@@ -20,8 +20,9 @@ Route::resource('roles', 'RoleController');
 Route::resource('permissions', 'PermissionController');
 Route::resource('users', 'UserController');
 Route::resource('role_user', 'RoleUserController');
-
-//Dashboard
+///////////////////
+//// Dashboard ////
+///////////////////
     Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard');
     
 //Printing Machines
@@ -113,7 +114,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('reference_close/{reference_id}', 'ReferenceController@closeTheReference')->name('reference_close');
     Route::get('references_during_last_two_working_days_report','ReferenceController@referencesDuringLastTwoWorkingDaysReport')->name('references_during_last_two_working_days_report');
     Route::get('references_still_open_after_forty_eight_hours_report','ReferenceController@referencesStillOpenAfterFortyEightHoursReport')->name('references_still_open_after_forty_eight_hours_report');
-    
+    Route::get('references_as_excel', 'ReferenceController@getAllReferencesAsExcel')->name('references_as_excel');
 //Indexations
     Route::resource('indexations', 'IndexationController');
     Route::get('indexations_search/{keyword}', 'IndexationController@search')->name('indexations_search');

@@ -153,4 +153,39 @@ class EloquentReference implements ReferenceInterface
         return str_pad($id, 8, "0", STR_PAD_LEFT);
     }
 
+    public function getAllReferencesAsExcel()
+    {
+        $references = $this->reference->with('printingMachine')->get();
+        dd($references->toArray());
+        foreach($references as $reference) {
+
+            $manipulate[] = [
+                            'كود الإشارة' =>$reference->code,
+                            'اسم مستلم الإشارة' =>$reference->id,
+                            'نوع الإشارة' =>$reference->id,
+                            'حالة الإشارة' =>$reference->id,
+                            'اسم المهندس المعيين لهذة الاشار' =>$reference->id,
+                            'تاريخ الإستلام' =>$reference->id,
+                            'كود الآلة التصوير' =>$reference->id,
+                            'الرقم المسلسل لآلة التصوير' =>$reference->id,
+                            'رقم ملف الآلة' =>$reference->id,
+                            'اسم العميل' =>$reference->id,
+                            'رقم آخر زيارة' =>$reference->id,
+                            'مراجعة كبير المهندسين' =>$reference->id,
+                        ];
+        }
+
+        // 'code', 'notebook_number', 'type', 'status', 'received_date', 'closing_date', 'readings_of_printing_machine', 'informer_name', 'informer_phone', 'reviewed_by_the_chief_engineer', 'comments', 'employee_id', 'employee_id_who_receive_the_reference', 'printing_machine_id']
+       
+        Excel::create('كل الزيارات - '.now(), function($excel) use($manipulate) {
+
+            $excel->sheet('كل الزيارات', function($sheet) use($manipulate) {
+        
+                $sheet->fromArray($manipulate);
+        
+            });
+        
+        })->download('xls');
+    }
+
 }

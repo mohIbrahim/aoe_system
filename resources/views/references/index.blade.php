@@ -16,6 +16,9 @@
 				</div>
 				<button type="button" id="references-search-button" class="btn btn-primary"> بحث </button>
 				<a href=""  class="btn btn-success"> العودة </a>
+				@if(in_array('view_references_excel', $permissions))
+					<a href="{{ action('ReferenceController@getAllReferencesAsExcel') }}"  class="btn btn-info pull-left"> الكل Excel </a>
+				@endif
 				<h3 class="text-center">  عرض الإشارات </h3>
 		    </div>
 		    <div class="panel-body">

@@ -157,4 +157,9 @@ class ReferenceController extends Controller
         }
         return $reference;
     }
+
+    public function getAllReferencesAsExcel()
+    {
+        return $this->reference->getAllReferencesAsExcel();
+    }
 }
