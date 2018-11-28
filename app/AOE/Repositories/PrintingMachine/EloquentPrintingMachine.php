@@ -4,6 +4,7 @@ namespace App\AOE\Repositories\PrintingMachine;
 use App\PrintingMachine;
 use Illuminate\Support\Facades\Auth;
 use App\Employee;
+use App\Contract;
 
 class EloquentPrintingMachine implements PrintingMachineInterface
 {
@@ -153,6 +154,20 @@ class EloquentPrintingMachine implements PrintingMachineInterface
         $authUser = Auth::user();
         $authEmployee = (isset($authUser->employee))?($authUser->employee):(new Employee());
         return $authEmployee;
+    }
+
+    /**
+     * Getting last contract assigned to specific printing machine
+     *
+     * @param PrintingMachine $printingMachine
+     * @return Contract
+     */
+    public function getLastContract(PrintingMachine $printingMachine): Contract
+    {
+        $lastContract = $printingMachine->contracts()
+                                        ->latest()
+                                        ->first();
+        return (isset($lastContract))?($lastContract):(new Contract());
     }
 
 }

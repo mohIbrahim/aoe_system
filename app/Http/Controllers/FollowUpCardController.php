@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\AOE\Repositories\FollowUpCard\FollowUpCardInterface;
-use App\Http\Requests\FollowUpCardRequest;
 use App\ProjectImages;
-use App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
 use App\PrintingMachine;
+use Illuminate\Http\Request;
+use App\Http\Requests\FollowUpCardRequest;
+use App\AOE\Repositories\FollowUpCard\FollowUpCardInterface;
+use App\AOE\Repositories\PrintingMachine\EloquentPrintingMachine;
+use Illuminate\View\View;
 
 
 class FollowUpCardController extends Controller
@@ -116,10 +118,19 @@ class FollowUpCardController extends Controller
         return $this->followUpCard->visitsNotDoneOnTimeReport($period1, $period2);
     }
 
-    public function createFromPrintingMachineShowView($printingMachineId)
+    /**
+     * Returning view of creating a follow up card with selected printing 
+     * machine id and last contract id assigned by this printing machine given.
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function createFromPrintingMachineShowView(Request $request):View
     {
+        $printingMachineId = $request->printing_machine_id;
+        $lastContractId = $request->last_contract_id;
         $contracts = $this->followUpCard->contracts();
-        $followUpCard = (object)['printing_machine_id'=>$printingMachineId];
+        $followUpCard = (object)['printing_machine_id'=>$printingMachineId, 'contract_id'=>$lastContractId];
         return view('follow_up_cards.create', compact('followUpCard','contracts'));
     }
 }

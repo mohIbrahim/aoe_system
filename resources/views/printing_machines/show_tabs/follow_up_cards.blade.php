@@ -1,6 +1,6 @@
-<h3 class="text-center"> العقود </h3>
+<h3 class="text-center"> بطاقات المتابعة </h3>
 @if(in_array('create_follow_up_cards', $permissions))
-    <a href="{{action('FollowUpCardController@createFromPrintingMachineShowView', ['priting_machine_id'=>$printingMachine->id] )}}" target="_blank"><span class="glyphicon glyphicon-plus"></span> إضافة بطاقة متابعة </a>
+    <a href="{{action('FollowUpCardController@createFromPrintingMachineShowView', ['printing_machine_id'=>$printingMachine->id, 'last_contract_id'=>$lastContractId] )}}" target="_blank"><span class="glyphicon glyphicon-plus"></span> إضافة بطاقة متابعة </a>
 @endif
 <hr />
 <div class="table-responsive">
