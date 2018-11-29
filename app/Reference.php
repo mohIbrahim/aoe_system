@@ -10,7 +10,7 @@ class Reference extends Model
     protected $fillable = ['code', 'notebook_number', 'type', 'status', 'received_date', 'closing_date', 'readings_of_printing_machine', 'informer_name', 'informer_phone', 'reviewed_by_the_chief_engineer', 'comments', 'employee_id', 'employee_id_who_receive_the_reference', 'printing_machine_id'];
     
     protected $dates = ['received_date', 'closing_date'];
-    protected $appends = ['assigned_employee_name', 'receiver_employee_name'];
+    protected $appends = ['assigned_employee_name', 'receiver_employee_name', 'printing_machine_code', 'printing_machine_serial_number', 'printing_machine_folder_number', 'customer_name', 'last_visit_id'];
 
     
     //////////////////
@@ -37,6 +37,44 @@ class Reference extends Model
         return (isset($this->employeeWhoReceiveTheRereference))?($this->employeeWhoReceiveTheRereference->employee_name):('');
     }
 
+    public function getPrintingMachineCodeAttribute():string
+    {
+        return (isset($this->printingMachine))?($this->printingMachine->code):('');
+    }
+
+    public function getPrintingMachineSerialNumberAttribute():string
+    {
+        return (isset($this->printingMachine))?($this->printingMachine->serial_number):('');
+    }
+
+    public function getPrintingMachineFolderNumberAttribute()
+    {
+        return (isset($this->printingMachine))?($this->printingMachine->folder_number):('');
+    }
+
+    public function getCustomerNameAttribute()
+    {
+        $customerName = '';
+        $printingMachine = $this->printingMachine;
+        if (isset($printingMachine)) {
+            $customer = $printingMachine->customer;
+            if (isset($customer)) {
+                $customerName = $customer->name;
+            }
+        }
+        return $customerName;
+    }
+
+    public function getLastVisitIdAttribute()
+    {
+        $lastVisitId = '';
+        $visits = $this->visits;
+        if ($visits->isNotEmpty()) {
+            $lastVisitId = $visits->last()->id;
+        }
+        return $lastVisitId;
+    }
+
     //////////////////
     //// Mutators ////
     //////////////////
@@ -54,7 +92,7 @@ class Reference extends Model
     ///////////////////////
     public function assignedEmployee()
     {
-        return $this->belongsTo('App\Employee', 'employee_id');
+        return $this->belongsTo('App\Employee', 'employee_id', 'id');
     }
 
     public function visits()

@@ -158,6 +158,11 @@ class ReferenceController extends Controller
         return $reference;
     }
 
+    /**
+     * Getting all reference as excel sheet.
+     *
+     * @return void
+     */
     public function getAllReferencesAsExcel()
     {
         return $this->reference->getAllReferencesAsExcel();
