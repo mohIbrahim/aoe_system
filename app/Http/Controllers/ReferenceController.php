@@ -167,4 +167,20 @@ class ReferenceController extends Controller
     {
         return $this->reference->getAllReferencesAsExcel();
     }
+
+    /**
+     * Getting on a report "view" that display the received references during a 
+     * period of time as we specifying it.
+     *
+     * @return void
+     */
+    public function indexReferencesInSpecificPeriodReport()
+    {
+        return view('references.reports.references_in_specific_period');
+    }
+
+    public function getReferencesInSpecificPeriodReport($from, $to)  
+    {
+        return $this->visit->getReferencesInSpecificPeriodReport($from, $to);
+    }
 }

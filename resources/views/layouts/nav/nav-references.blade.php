@@ -26,6 +26,10 @@
 					---
 					<li><a href="{{ action('ReferenceController@referencesStillOpenAfterFortyEightHoursReport') }}"> تقرير عن الإشارات التي ما زالت مفتوحة بعد مرور 48 ساعة </a></li>
 				@endif
+				@if(in_array('view_references_in_specific_period_report', $permissions))
+					---
+					<li><a href="{{ action('ReferenceController@indexReferencesInSpecificPeriodReport') }}"> تقرير عن الإشارات التي تمت في فترة محددة </a></li>
+				@endif
 			@endif
 			
 		</ul>

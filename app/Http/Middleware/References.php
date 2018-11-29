@@ -79,20 +79,26 @@ class References
 		if($request->route()->getName() == 'references_pm_search'    && (in_array('create_references', $permissions) || in_array('update_references', $permissions))){
             $response = $next($request);
         } else
-        
+
         if($request->route()->getName() == 'reference_close'    && (in_array('update_references', $permissions) )){
             $response = $next($request);
         } else
         if (($request->route()->getName() == 'references_as_excel') && in_array('view_references_excel', $permissions)) {
             $response = $next($request);
-        } else if (in_array('view_references_reports', $permissions)) {
+        } elseif (in_array('view_references_reports', $permissions)) {
+
             if ($request->route()->getName() == 'references_during_last_two_working_days_report'    && (in_array('view_references_during_last_two_working_days_report', $permissions) )){
                 $response = $next($request);
-            } elseif ($request->route()->getName() == 'references_still_open_after_forty_eight_hours_report'    && (in_array('view_references_still_open_after_forty_eight_hours_report', $permissions) )){
+            } elseif ( $request->route()->getName() == 'references_still_open_after_forty_eight_hours_report'    && (in_array('view_references_still_open_after_forty_eight_hours_report', $permissions) )){
+                $response = $next($request);
+            } elseif($request->route()->getName() == 'index_references_in_specific_period_report' && (in_array('view_references_in_specific_period_report', $permissions) )) {
+                $response = $next($request);
+            } elseif ($request->route()->getName() == 'get_references_in_specific_period_report' && (in_array('view_references_in_specific_period_report', $permissions) )) {
                 $response = $next($request);
             } else {
                 abort(403);
             }
+
         } else{
             abort(403);
         }

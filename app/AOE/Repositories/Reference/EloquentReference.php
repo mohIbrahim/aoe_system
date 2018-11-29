@@ -187,4 +187,9 @@ class EloquentReference implements ReferenceInterface
         })->download('xls');
     }
 
+    public function getReferencesInSpecificPeriodReport($from, $to)
+    {
+        return $this->reference->with('printingMachine', 'theEmployeeWhoMadeTheVisit.user')->whereBetween('received_date', [$from, $to])->get();
+    }
+
 }

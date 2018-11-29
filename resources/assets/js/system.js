@@ -1146,6 +1146,51 @@ $(document).ready(function(){
 });
 //End References add malunctions and works were done on it _form view
 
+// Start references done on specific period of time report view
+$(function(){
+	$("#references-in-specific-period-report-search-btn").on("click", function(){
+		var start = $("#datepicker").val();
+		start = start.replace(/\//g,"-");
+		var end = $("#datepicker2").val();
+		end = end.replace(/\//g,"-");
+		if (start != "" && end != "" ) {
+			$("#references-in-specific-period-report-error-validator").css("display", "none");
+			$.ajax({
+				type: "GET",
+				url: "/get_references_in_specific_period_report/"+start+"/"+end,
+				dataType: "json",
+				beforeSend: function(){
+					$("#references-in-specific-period-report-loading-message").append("<h4 style='color: #1877a3'>جاري البحث... </h4>");
+				},
+				success: function(results){
+					$("#references-in-specific-period-report-table-body").fadeOut();
+					standardTable.clear();
+					$.each(results, function(key, visit){
+						standardTable.row.add([
+												key+1,
+												"<a href='/references/"+visit.id+"' target='_blank'>"+visit.id+"</a>",
+												visit.visit_date,
+												visit.type,
+												((visit.printing_machine !== null)?( "<a href='/printing_machines/"+visit.printing_machine.id+"' target='_blank'>"+visit.printing_machine.code+"</a>"):('')),
+												visit.readings_of_printing_machine,
+												((visit.the_employee_who_made_the_visit.user !== null )?( visit.the_employee_who_made_the_visit.user.name):('')),
+											]);
+					});
+					$("#references-in-specific-period-report-loading-message").empty();
+					standardTable.draw();
+					$("#references-in-specific-period-report-table-body").fadeIn();
+				},
+				error: function(){
+					$("#references-in-specific-period-report-loading-message").append("<h4>خطاء في الإتصال الرجاء إعادة تحميل الصفحة</h4>");
+				},
+			});
+		}else {
+			$("#references-in-specific-period-report-error-validator").css("display", "block");
+		}
+	});
+});
+// Start references done on specific period of time report view
+
 /**
  * //////////////////
  * ///// VISITS /////
@@ -1229,7 +1274,7 @@ $(function(){
 		}
 	});
 });
-// Start visits done on specific period of time report view
+// End visits done on specific period of time report view
 
 /**
  * /////////////////////////

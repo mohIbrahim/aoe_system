@@ -116,6 +116,8 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('references_during_last_two_working_days_report','ReferenceController@referencesDuringLastTwoWorkingDaysReport')->name('references_during_last_two_working_days_report');
     Route::get('references_still_open_after_forty_eight_hours_report','ReferenceController@referencesStillOpenAfterFortyEightHoursReport')->name('references_still_open_after_forty_eight_hours_report');
     Route::get('references_as_excel', 'ReferenceController@getAllReferencesAsExcel')->name('references_as_excel');
+    Route::get('index_references_in_specific_period_report', 'ReferenceController@indexReferencesInSpecificPeriodReport')->name('index_references_in_specific_period_report');
+    Route::get('get_references_in_specific_period_report/{from}/{to}', 'ReferenceController@getReferencesInSpecificPeriodReport')->name('get_references_in_specific_period_report');
 //Indexations
     Route::resource('indexations', 'IndexationController');
     Route::get('indexations_search/{keyword}', 'IndexationController@search')->name('indexations_search');
