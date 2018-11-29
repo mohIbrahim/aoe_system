@@ -78,6 +78,7 @@ Route::resource('role_user', 'RoleUserController');
     Route::get('get_invoices_released_in_specific_period_report', 'InvoiceController@getInvoicesReleasedInSpecificPeriodReport')->name('get_invoices_released_in_specific_period_report');
     Route::get('invoices_released_in_specific_period_report_search/{from}/{to}', 'InvoiceController@invoicesReleasedInSpecificPeriodReportSearch')->name('invoices_released_in_specific_period_report_search');
     Route::get('invoices_form_customer_search/{keyword}', 'InvoiceController@invoiceFormCustomerSearch')->name('invoices_form_customer_search');
+    Route::get('invoices_as_excel', 'InvoiceController@getAllInvoicesAsExcel')->name('invoices_as_excel');
 
 //Visits
     Route::resource('visits', 'VisitController');

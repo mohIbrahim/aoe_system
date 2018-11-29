@@ -391,6 +391,11 @@ class PermissionSeeder extends Seeder
             ]);
         DB::table('permissions')->insert([
             'title'      =>'invoices',
+            'name'      =>'view_invoices_excel',
+            'created_at'=>Carbon::now(),
+            ]);
+        DB::table('permissions')->insert([
+            'title'      =>'invoices',
             'name'      =>'view_invoice',
             'created_at'=>Carbon::now(),
             ]);

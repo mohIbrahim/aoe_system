@@ -81,6 +81,9 @@ class Invoices
         if($request->route()->getName() == 'create_invoice_with_customer_and_indexation'    && in_array('create_invoices', $permissions)){
 
             $response = $next($request);
+        } else
+        if (($request->route()->getName() == 'invoices_as_excel') && (in_array('view_invoices_excel', $permissions))) {
+            $response = $next($request);
         }else
 
         if( in_array('view_invoices_reports', $permissions)){

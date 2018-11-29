@@ -9,36 +9,16 @@ class Invoice extends Model
 {
     protected $table = 'invoices';
 
-    protected $fillable = [
-                            'number',
-                             'type',
-                              'issuer',
-                               'order_number',
-                                'delivery_permission_number',
-                                 'finance_check_out',
-                                  'release_date',
-                                   'descriptions',
-                                    'total',
-                                     'comments',
-                                      'collect_date',
-                                       'collector_employee_name',
-                                         'indexation_id',
-                                          'contract_id',
-                                           'customer_id',
-                                            'creator_id',
-                                             'updater_id',
-                        ];
+    protected $fillable = ['number', 'type', 'issuer', 'order_number', 'delivery_permission_number', 'finance_check_out', 'release_date', 'descriptions', 'total', 'comments', 'collect_date', 'collector_employee_name', 'indexation_id', 'contract_id', 'customer_id', 'creator_id', 'updater_id'];
 
     protected $dates = ['release_date', 'collect_date'];
 
-    public function setReleaseDateAttribute($date)
-    {
-        if (!empty($date)){
-            $this->attributes['release_date'] = Carbon::parse($date);
-        } else {
-            $this->attributes['release_date'] = null;
-        }
-    }
+    protected $appends = ['customer_name', 'employees_names_whos_responsible_of_this_invoice'];
+
+    ///////////////////
+    //// Accessors ////
+    ///////////////////
+    
 
     public function getReleaseDateAttribute($date)
     {
@@ -46,28 +26,11 @@ class Invoice extends Model
             return $this->asDateTime($date)->format('Y-m-d');
     }
 
-    public function setCollectDateAttribute($date)
-    {
-        if (!empty($date)) {
-            $this->attributes['collect_date']  = Carbon::parse($date);
-        } else {
-            $this->attributes['collect_date'] = null;
-        }
-    }
-
     public function getCollectDateAttribute($date)
     {
         if (!empty($date)) {
             return $this->asDateTime($date)->format('Y-m-d');
         }
-    }
-
-    public function setFinanceCheckOutAttribute($data)
-    {
-        if(!isset($data))
-        $this->attributes['finance_check_out'] = 'لم يتم الاطلاع';
-        else
-        $this->attributes['finance_check_out'] = $data;
     }
 
     public function getSelectedResponsibleEmpsIdsForInvoiceAttribute()
@@ -83,8 +46,64 @@ class Invoice extends Model
             $employeesNames .= $employee->employeeName . ' &nbsp; &nbsp;';
         }
         return $employeesNames;
-
     }
+
+    public function getCustomerNameAttribute():string
+    {
+        $customerName = '';
+        $customer = $this->customer;
+        if (isset($customer)) {
+            $customerName = $customer->name;
+        }
+        return $customerName;
+    }
+
+    public function getEmployeesNamesWhosResponsibleOfThisInvoiceAttribute():string
+    {
+        $employeesNames = '';
+        $responsibleEmployees = $this->employeesResponisableForThisInvoice;
+        $count = $responsibleEmployees->count();
+        if ($count > 0) {
+            foreach ($responsibleEmployees as $key => $employee) {
+                $employeesNames .= $employee->employee_name.(($count == $key+1)?(''):(', '));
+            }
+        }
+        return $employeesNames;
+    }
+
+    //////////////////
+    //// Mutators ////
+    //////////////////
+
+    public function setReleaseDateAttribute($date)
+    {
+        if (!empty($date)){
+            $this->attributes['release_date'] = Carbon::parse($date);
+        } else {
+            $this->attributes['release_date'] = null;
+        }
+    }
+
+    public function setCollectDateAttribute($date)
+    {
+        if (!empty($date)) {
+            $this->attributes['collect_date']  = Carbon::parse($date);
+        } else {
+            $this->attributes['collect_date'] = null;
+        }
+    }
+
+    public function setFinanceCheckOutAttribute($data)
+    {
+        if(!isset($data))
+        $this->attributes['finance_check_out'] = 'لم يتم الاطلاع';
+        else
+        $this->attributes['finance_check_out'] = $data;
+    }
+
+    ///////////////////////
+    //// Relationships ////
+    ///////////////////////
 
     public function indexation()
     {
@@ -127,6 +146,10 @@ class Invoice extends Model
     {
         return $this->belongsTo('App\User', 'updater_id', 'id');
     }
+
+    ///////////////////////
+    //// Miscellaneous ////
+    ///////////////////////
 
      //this for show view
      // Invoice type parts

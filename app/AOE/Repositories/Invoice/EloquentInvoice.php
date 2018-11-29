@@ -2,10 +2,11 @@
 
 namespace App\AOE\Repositories\Invoice;
 
-use App\Invoice;
 use App\Part;
-use App\Http\Requests\InvoiceRequest;
+use App\Invoice;
 use App\Customer;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\InvoiceRequest;
 
 class EloquentInvoice implements InvoiceInterface
 {
@@ -149,5 +150,36 @@ class EloquentInvoice implements InvoiceInterface
             $result->employeesNamesThatAreResponsibleOnThisInvoice = $result->employeesNamesThatAreResponsibleOnThisInvoice;
         }
         return $results;
+    }
+
+    public function getAllInvoicesAsExcel()
+    {
+        $invoices = $this->invoice->get();
+        
+        foreach($invoices as $invoice) {
+
+            $manipulate[] = [
+                            'رقم الفاتورة' =>$invoice->number,
+                            'اسم العميل' =>$invoice->customer_name,
+                            'نوع الفاتورة' =>$invoice->type,
+                            'جهة الإصدار' =>$invoice->issuer,
+                            'أمر توريد رقم' =>$invoice->order_number,
+                            'إذن تسليم رقم العقد' =>$invoice->delivery_permission_number,
+                            'إطلاع قسم الحسابات' =>$invoice->finance_check_out,
+                            'إجمالي القيمة' =>$invoice->total,
+                            'اسماء الموظفين المسؤولين عن الفاتورة' =>$invoice->employees_names_whos_responsible_of_this_invoice,
+                            'تاريخ الإصدار' =>$invoice->release_date,
+                            'تاريخ التحصيل' =>$invoice->collect_date,
+                        ];
+        }
+        Excel::create('كل الفواتير - '.now(), function($excel) use($manipulate) {
+
+            $excel->sheet('كل الفواتير', function($sheet) use($manipulate) {
+        
+                $sheet->fromArray($manipulate);
+        
+            });
+        
+        })->download('xls');
     }
 }

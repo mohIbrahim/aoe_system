@@ -16,6 +16,9 @@
 				</div>
 				<button type="button" id="invoices-search-button" class="btn btn-primary"> بحث </button>
 				<a href=""  class="btn btn-success"> العودة </a>
+				@if(in_array('view_invoices_excel', $permissions))
+					<a href="{{ action('InvoiceController@getAllInvoicesAsExcel') }}"  class="btn btn-info pull-left"> الكل Excel </a>
+				@endif
 				<h3 class="text-center"> عرض الفواتير </h3>
 		    </div>
 		    <div class="panel-body">

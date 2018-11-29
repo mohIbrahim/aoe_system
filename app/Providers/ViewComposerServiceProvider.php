@@ -34,27 +34,42 @@ class ViewComposerServiceProvider extends ServiceProvider
                     'users.show',
                     'permissions.show',
                     'role_user._form',
+
     				'printing_machines.show',
-    				'printing_machines.index',
+                    'printing_machines.index',
+                    
                     'customers.show',
                     'customers.index',
+
                     'departments.show',
+
                     'parts.show',
                     'parts.index',
+
                     'part_serial_numbers.show',
+
                     'installation_records.show',
+
                     'contracts.show',
+
                     'invoices.show',
                     'invoices._form',
+                    'invoices.index',
+
                     'visits.show',
                     'visits.index',
+
                     'follow_up_cards.show',
+
                     'follow_up_card_special_reports.show',
+
                     'references.show',
                     'references.index',
                     'references.edit',//for partial update to maintenancy engineers
                     'references.create',//for partial create to maintenancy engineers
+
                     'indexations.show',
+                    
                     'employees.show',
                 ];
 

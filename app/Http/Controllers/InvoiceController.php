@@ -233,4 +233,13 @@ class InvoiceController extends Controller
         $results = $this->invoice->invoicesReleasedInSpecificPeriodReportSearch($from, $to);
         return $results;
     }
+    /**
+     * Getting  all invoices as excel sheet.
+     *
+     * @return void
+     */
+    public function getAllInvoicesAsExcel()
+    {
+        return $this->invoice->getAllInvoicesAsExcel();
+    }
 }
